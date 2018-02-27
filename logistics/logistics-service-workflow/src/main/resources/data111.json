@@ -1,0 +1,74 @@
+[
+  {
+    "spel": "T(System).out.println('hello exit S1')",
+    "name": "exitS1",
+    "@id": "10",
+    "_class": "org.springframework.statemachine.data.jpa.JpaRepositoryAction"
+  },
+  {
+    "spel": "T(System).out.println('hello entry S2')",
+    "name": "entryS2",
+    "@id": "11",
+    "_class": "org.springframework.statemachine.data.jpa.JpaRepositoryAction"
+  },
+  {
+    "spel": "T(System).out.println('hello state S3')",
+    "name": "stateS3",
+    "@id": "12",
+    "_class": "org.springframework.statemachine.data.jpa.JpaRepositoryAction"
+  },
+  {
+    "spel": "T(System).out.println('hello')",
+    "name": "End",
+    "@id": "13",
+    "_class": "org.springframework.statemachine.data.jpa.JpaRepositoryAction"
+  },
+  {
+    "machineId": "billOutbound",
+    "initial": true,
+    "exitActions": [
+      "10"
+    ],
+    "@id": "1",
+    "_class": "org.springframework.statemachine.data.jpa.JpaRepositoryState",
+    "state": "S1"
+  },
+  {
+    "machineId": "billOutbound",
+    "initial": false,
+    "entryActions": [
+      "11"
+    ],
+    "@id": "2",
+    "_class": "org.springframework.statemachine.data.jpa.JpaRepositoryState",
+    "state": "S2"
+  },
+  {
+    "machineId": "billOutbound",
+    "initial": false,
+    "stateActions": [
+      "12"
+    ],
+    "@id": "3",
+    "_class": "org.springframework.statemachine.data.jpa.JpaRepositoryState",
+    "state": "S3"
+  },
+  {
+    "machineId": "billOutbound",
+    "kind": "EXTERNAL",
+    "_class": "org.springframework.statemachine.data.jpa.JpaRepositoryTransition",
+    "source": "1",
+    "event": "E1",
+    "target": "2"
+  },
+  {
+    "machineId": "billOutbound",
+    "_class": "org.springframework.statemachine.data.jpa.JpaRepositoryTransition",
+    "source": "2",
+    "event": "E2",
+    "actions": [
+      "13"
+    ],
+    "target": "3"
+  }
+]

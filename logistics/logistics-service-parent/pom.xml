@@ -1,0 +1,24 @@
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://maven.apache.org/POM/4.0.0"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>org.thinkingframework</groupId>
+        <artifactId>thinking-dependencies</artifactId>
+        <version>1.0.0</version>
+    </parent>
+
+    <groupId>org.jointown.logistics</groupId>
+    <artifactId>logistics-service-parent</artifactId>
+    <packaging>pom</packaging>
+
+    <modules>
+        <module>../logistics-service-common</module>
+        <module>../logistics-service-resource</module>
+        <module>../logistics-service-stock</module>
+        <module>../logistics-service-transport</module>
+        <module>../logistics-service-upgrade</module>
+        <module>../logistics-service-workflow</module>
+    </modules>
+
+</project>

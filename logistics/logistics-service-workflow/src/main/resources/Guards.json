@@ -1,0 +1,6 @@
+[
+  {
+    "name": "isTransitionAvailable",
+    "spel": "extendedState.variables.get('businessId').equals('ccccc')"
+  }
+]

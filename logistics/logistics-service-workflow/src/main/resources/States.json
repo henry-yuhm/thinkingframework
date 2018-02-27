@@ -1,0 +1,32 @@
+[
+  {
+    "@id": "1",
+    "_class": "org.springframework.statemachine.data.jpa.JpaRepositoryState",
+    "machineId": "billOutbound",
+    "initial": true,
+    "state": "S1",
+    "exitActions": [
+      "1"
+    ]
+  },
+  {
+    "@id": "2",
+    "_class": "org.springframework.statemachine.data.jpa.JpaRepositoryState",
+    "machineId": "billOutbound",
+    "initial": false,
+    "state": "S2",
+    "entryActions": [
+      "2"
+    ]
+  },
+  {
+    "@id": "3",
+    "_class": "org.springframework.statemachine.data.jpa.JpaRepositoryState",
+    "machineId": "billOutbound",
+    "initial": false,
+    "state": "S3",
+    "stateActions": [
+      "3"
+    ]
+  }
+]

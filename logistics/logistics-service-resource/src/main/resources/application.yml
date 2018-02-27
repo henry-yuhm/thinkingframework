@@ -1,0 +1,79 @@
+spring:
+  application:
+    name: logistics-service-resource
+  aop:
+    proxy-target-class: true
+  cloud:
+    client:
+      ip:
+        address: localhost
+    inetutils:
+      use-only-site-local-interfaces: true
+#  data:
+#    rest:
+#      base-path: upgrade
+  datasource:
+    # JDBC 配置
+    type: com.alibaba.druid.pool.DruidDataSource
+    url: jdbc:oracle:thin:@10.61.9.20:1521:LMIS
+    username: lmis
+    password: lmiscqnet
+    druid:
+#      oracle: true
+      # 连接池配置
+      name: druidPool
+      default-auto-commit: false
+      default-transaction-isolation: 2
+      share-prepared-statements: true
+      initial-size: 2
+      max-active: 30
+      min-idle: 2
+      max-wait: 2000
+      pool-prepared-statements: true
+#      max-open-prepared-statements: 512
+      max-pool-prepared-statement-per-connection-size: 512
+      validation-query: select 1 from dual
+      validation-query-timeout: 1
+      test-on-borrow: false
+      test-on-return: false
+      test-while-idle: true
+      time-between-eviction-runs-millis: 60000
+      min-evictable-idle-time-millis: 1800000
+      max-evictable-idle-time-millis: 7200000
+      remove-abandoned-timeout: 1800
+      filters: stat,log4j,wall
+      # 监控配置
+      web-stat-filter:
+        exclusions: /public/*,*.js,*.css,/druid*,*.jsp,*.swf
+      stat-view-servlet:
+        login-username: druid
+        login-password: druid
+      aop-patterns: org.jointown.logistics.service.*
+      use-oracle-implicit-cache: true
+      access-to-underlying-connection-allowed: true
+      connection-properties: druid.stat.mergeSql=true;druid.stat.slowSqlMillis=5000
+  jpa:
+    database: oracle
+    show-sql: true
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.Oracle12cDialect
+    hibernate:
+      naming:
+        implicit-strategy: org.springframework.boot.orm.jpa.hibernate.SpringImplicitNamingStrategy
+security:
+  basic:
+    enabled: false
+  user:
+    name: henry
+    password: ocp9i_Explorer
+server:
+  port: 8821
+eureka:
+  instance:
+    hostname: localhost
+    instance-id: ${spring.application.name}::${eureka.instance.hostname}::${server.port}
+    prefer-ip-address: true
+  client:
+    service-url:
+      defaultZone: http://peer1:8761/eureka,http://peer2:8762/eureka

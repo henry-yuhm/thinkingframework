@@ -1,0 +1,54 @@
+spring:
+  application:
+    name: thinking-cloud-starter-api-gateway
+  cloud:
+    client:
+      ip:
+        address: localhost
+    inetutils:
+      use-only-site-local-interfaces: true
+security:
+  basic:
+    enabled: false
+  user:
+    name: henry
+    password: ocp9i_Explorer
+logging:
+  level:
+    com.netflix: DEBUG
+server:
+  port: 8770
+eureka:
+  instance:
+    hostname: localhost
+    instance-id: ${spring.application.name}::${eureka.instance.hostname}::${server.port}
+    prefer-ip-address: true
+    status-page-url: http://${spring.cloud.client.ipAddress}:${server.port}/swagger-ui.html
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka,http://localhost:8762/eureka
+ribbon:
+  eager-load:
+    enabled: true
+zuul:
+  add-host-header: true
+  host:
+    connect-timeout-millis: 1800000
+    socket-timeout-millis: 1800000
+  sensitive-headers: Content-Type:application/json
+---
+spring:
+  profiles: peer1
+server:
+  port: 8771
+eureka:
+  instance:
+    hostname: peer1
+---
+spring:
+  profiles: peer2
+server:
+  port: 8772
+eureka:
+  instance:
+    hostname: peer2

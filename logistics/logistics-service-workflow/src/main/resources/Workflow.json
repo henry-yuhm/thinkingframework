@@ -1,0 +1,80 @@
+{
+  "id": "billOutbound",
+  "name": "出库单据",
+  "kind": "Outbound",
+  "nodes": [
+    {
+      "id": "billOutbound.START",
+      "label": "START",
+      "style": {
+        "left": "142px",
+        "top": "78px",
+        "width": "100px",
+        "height": "70px"
+      },
+      "isSelected": false,
+      "state": {
+        "machineId": "billOutbound",
+        "state": "START",
+        "region": "R0",
+        "initial": true,
+        "kind": "INITIAL",
+        "submachineId": null,
+        "initialAction": null,
+        "parentState": null,
+        "stateActions": [],
+        "entryActions": [],
+        "exitActions": [],
+        "deferredEvents": [
+          "PAY",
+          "LOCK"
+        ]
+      }
+    },
+    {
+      "id": "billOutbound.END",
+      "label": "END",
+      "style": {
+        "left": "142px",
+        "top": "78px",
+        "width": "100px",
+        "height": "70px"
+      },
+      "isSelected": false,
+      "state": {
+        "machineId": "billOutbound",
+        "state": "END",
+        "region": "R0",
+        "initial": false,
+        "kind": "END",
+        "submachineId": null,
+        "initialAction": null,
+        "parentState": null,
+        "stateActions": [],
+        "entryActions": [],
+        "exitActions": [],
+        "deferredEvents": []
+      }
+    }
+  ],
+  "lines": [
+    {
+      "source": "billOutbound.START",
+      "target": "billOutbound.END",
+      "label": null,
+      "transition": {
+        "machineId": "billOutbound",
+        "event": "E",
+        "kind": "EXTERNAL",
+        "actions": [
+          {
+            "name": "updateOperationStates"
+          }
+        ],
+        "guard": {
+          "name": "isTransitionAvailable"
+        }
+      }
+    }
+  ]
+}

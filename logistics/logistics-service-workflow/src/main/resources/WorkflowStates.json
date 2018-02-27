@@ -1,0 +1,66 @@
+[
+  {
+    "machineId": "billOutbound",
+    "state": "START",
+    "region": "R0",
+    "initial": 1,
+    "kind": 0,
+    "submachineId": null,
+    "initialAction": null,
+    "parentState": null,
+    "stateActions": null,
+    "entryActions": null,
+    "exitActions": null,
+    "deferredEvents": null
+  },
+  {
+    "machineId": "billOutbound",
+    "state": "ORDER_CREATED",
+    "region": "R0",
+    "initial": 0,
+    "kind": null,
+    "submachineId": null,
+    "initialAction": null,
+    "parentState": null,
+    "stateActions": [
+      {
+        "name": "updateOperationStates"
+      }
+    ],
+    "entryActions": null,
+    "exitActions": null,
+    "deferredEvents": null
+  },
+  {
+    "machineId": "billOutbound",
+    "state": "OPERATION_COMPLETED",
+    "region": "R0",
+    "initial": 0,
+    "kind": null,
+    "submachineId": null,
+    "initialAction": null,
+    "parentState": null,
+    "stateActions": [
+      {
+        "name": "updateOperationStates"
+      }
+    ],
+    "entryActions": null,
+    "exitActions": null,
+    "deferredEvents": null
+  },
+  {
+    "machineId": "billOutbound",
+    "state": "END",
+    "region": "R0",
+    "initial": 0,
+    "kind": 1,
+    "submachineId": null,
+    "initialAction": null,
+    "parentState": null,
+    "stateActions": null,
+    "entryActions": null,
+    "exitActions": null,
+    "deferredEvents": null
+  }
+]

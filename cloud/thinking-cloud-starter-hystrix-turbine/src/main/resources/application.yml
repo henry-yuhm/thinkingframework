@@ -1,0 +1,28 @@
+spring:
+  application:
+    name: thinking-cloud-starter-hystrix-turbine
+  cloud:
+    client:
+      ip:
+        address: localhost
+    inetutils:
+      use-only-site-local-interfaces: true
+security:
+  basic:
+    enabled: false
+  user:
+    name: henry
+    password: ocp9i_Explorer
+server:
+  port: 8782
+eureka:
+  instance:
+    hostname: localhost
+    instance-id: ${spring.application.name}::${eureka.instance.hostname}::${server.port}
+    prefer-ip-address: true
+  client:
+    service-url:
+      defaultZone: http://peer1:8761/eureka,http://peer2:8762/eureka
+turbine:
+  app-config: logistics-service-common,logistics-service-stock
+  cluster-name-expression: "'default'"

@@ -1,0 +1,44 @@
+[
+  {
+    "id": "START",
+    "label": "START",
+    "style": {
+      "left": "142px",
+      "top": "78px",
+      "width": "100px",
+      "height": "70px"
+    },
+    "isSelected": false,
+    "state": {
+      "machineId": "billOutbound",
+      "state": "START",
+      "region": "R0",
+      "initial": true,
+      "kind": 0,
+      "submachineId": "billOutbound111",
+      "initialAction": {
+        "name": "updateOperationStates"
+      },
+      "parentState": null,
+      "stateActions": [
+        {
+          "name": "updateOperationStates"
+        }
+      ],
+      "entryActions": [
+        {
+          "name": "updateOperationStates"
+        }
+      ],
+      "exitActions": [
+        {
+          "name": "updateOperationStates"
+        }
+      ],
+      "deferredEvents": [
+        "PAY",
+        "LOCK"
+      ]
+    }
+  }
+]
