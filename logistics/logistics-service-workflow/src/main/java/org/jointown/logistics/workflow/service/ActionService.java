@@ -5,7 +5,6 @@ import org.jointown.logistics.workflow.repository.ActionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.client.ServiceInstance;
 import org.springframework.cloud.client.discovery.DiscoveryClient;
-import org.springframework.context.ApplicationContext;
 import org.springframework.statemachine.data.jpa.JpaRepositoryAction;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -16,9 +15,6 @@ import java.util.Map;
 
 @Service
 public class ActionService {
-    @Autowired
-    private ApplicationContext applicationContext;
-
     @Autowired
     private MachineConfigurer machineConfigurer;
 

@@ -6,8 +6,6 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
 import org.springframework.data.redis.connection.jedis.JedisConnectionFactory;
-import org.springframework.expression.spel.SpelCompilerMode;
-import org.springframework.expression.spel.SpelParserConfiguration;
 import org.springframework.expression.spel.standard.SpelExpressionParser;
 import org.springframework.messaging.Message;
 import org.springframework.statemachine.StateMachine;
@@ -84,7 +82,7 @@ public class MachineConfigurer extends StateMachineConfigurerAdapter<String, Str
     }
 
     private void registerGuard(Collection<JpaRepositoryGuard> guards) {
-        guards.forEach(guard -> this.repositoryStateMachineModelFactory.registerGuard(guard.getName(), new SpelExpressionGuard<>(new SpelExpressionParser(new SpelParserConfiguration(SpelCompilerMode.MIXED, null)).parseExpression(guard.getSpel()))));
+        guards.forEach(guard -> this.repositoryStateMachineModelFactory.registerGuard(guard.getName(), new SpelExpressionGuard<>(new SpelExpressionParser().parseExpression(guard.getSpel()))));
     }
 
     @Bean
