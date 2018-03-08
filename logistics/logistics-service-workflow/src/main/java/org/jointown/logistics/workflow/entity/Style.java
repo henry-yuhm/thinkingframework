@@ -12,11 +12,11 @@ public class Style {
     @JSONField(ordinal = 2, name = "top")
     private String topPiexl;
 
-    @JSONField(ordinal = 3, name = "width")
-    private String widthPiexl;
+//    @JSONField(ordinal = 3, name = "width")
+//    private String widthPiexl;
 
-    @JSONField(ordinal = 4, name = "height")
-    private String heightPiexl;
+//    @JSONField(ordinal = 4, name = "height")
+//    private String heightPiexl;
 
     public Style() {
     }
@@ -37,19 +37,19 @@ public class Style {
         this.topPiexl = topPiexl;
     }
 
-    public String getWidthPiexl() {
-        return widthPiexl;
-    }
+//    public String getWidthPiexl() {
+//        return widthPiexl;
+//    }
 
-    public void setWidthPiexl(String widthPiexl) {
-        this.widthPiexl = widthPiexl;
-    }
+//    public void setWidthPiexl(String widthPiexl) {
+//        this.widthPiexl = widthPiexl;
+//    }
 
-    public String getHeightPiexl() {
-        return heightPiexl;
-    }
+//    public String getHeightPiexl() {
+//        return heightPiexl;
+//    }
 
-    public void setHeightPiexl(String heightPiexl) {
-        this.heightPiexl = heightPiexl;
-    }
+//    public void setHeightPiexl(String heightPiexl) {
+//        this.heightPiexl = heightPiexl;
+//    }
 }

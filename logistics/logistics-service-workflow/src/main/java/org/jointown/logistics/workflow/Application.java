@@ -6,7 +6,7 @@ import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
 import org.springframework.cloud.netflix.feign.EnableFeignClients;
 import org.springframework.cloud.netflix.hystrix.EnableHystrix;
-import org.thinkingframework.boot.web.AppWebMvcConfigurerAdapter;
+import org.thinkingframework.boot.mvc.AppWebMvcConfigurerAdapter;
 
 @SpringBootApplication
 @EnableEurekaClient

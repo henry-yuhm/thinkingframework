@@ -8,7 +8,7 @@ import java.util.Date;
 @Entity
 @Table(name = "fd_lot")
 @Embeddable
-public class LotEntity {
+public class Lot {
     @Id
     @Column(name = "lot_id")
     @JSONField(name = "lot_id",
@@ -67,7 +67,7 @@ public class LotEntity {
             alternateNames = {"sterilization_lot_no", "STERILIZATION_LOTNO", "MIEJ_LOT"})
     private String sterilizationLotNo;
 
-    public LotEntity() {
+    public Lot() {
     }
 
     public String getLotId() {

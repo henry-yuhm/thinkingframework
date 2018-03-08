@@ -16,12 +16,12 @@ public class Node implements Serializable {
     @JSONField(ordinal = 1)
     private String label;
 
-    @Embedded
     @JSONField(ordinal = 2)
-    private Style style;
+    private String shape;
 
+    @Embedded
     @JSONField(ordinal = 3)
-    private boolean isSelected;
+    private Style style;
 
     @OneToOne(fetch = FetchType.EAGER)
     @JSONField(ordinal = 4)
@@ -46,20 +46,20 @@ public class Node implements Serializable {
         this.label = label;
     }
 
+    public String getShape() {
+        return shape;
+    }
+
+    public void setShape(String shape) {
+        this.shape = shape;
+    }
+
     public Style getStyle() {
         return style;
     }
 
     public void setStyle(Style style) {
         this.style = style;
-    }
-
-    public boolean isSelected() {
-        return isSelected;
-    }
-
-    public void setSelected(boolean selected) {
-        isSelected = selected;
     }
 
     public JpaRepositoryState getState() {

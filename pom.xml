@@ -16,6 +16,7 @@
         <maven.compiler.target>1.8</maven.compiler.target>
         <spring.boot.dependencies.version>1.5.10.RELEASE</spring.boot.dependencies.version>
         <spring.cloud.dependencies.version>Edgware.SR2</spring.cloud.dependencies.version>
+        <spring.platform.version>Brussels-SR7</spring.platform.version>
         <spring.statemachine.version>1.2.8.RELEASE</spring.statemachine.version>
         <druid.version>1.1.8_20180212</druid.version>
         <querydsl.version>4.1.4</querydsl.version>
@@ -55,7 +56,7 @@
             <dependency>
                 <groupId>io.spring.platform</groupId>
                 <artifactId>platform-bom</artifactId>
-                <version>Brussels-SR7</version>
+                <version>${spring.platform.version}</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>

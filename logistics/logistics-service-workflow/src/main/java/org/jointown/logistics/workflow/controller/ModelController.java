@@ -14,6 +14,11 @@ public class ModelController {
     @Autowired
     private ModelService modelService;
 
+    @GetMapping("/findOne")
+    public Workflow findOne(String id) {
+        return this.modelService.findOne(id);
+    }
+
     @GetMapping("/findAll")
     public List<Workflow> findAll() {
         return this.modelService.findAll();

@@ -13,8 +13,6 @@ import java.util.LinkedHashMap;
 
 @Service
 public class MachineService {
-    private String id;
-
     @Autowired
     private StateMachinePersister<String, String, String> stateMachinePersister;
 
@@ -22,51 +20,42 @@ public class MachineService {
     private StateMachineService<String, String> stateMachineService;
 
     public void start(String machineId, String instanceId, String parameters) throws Exception {
-        this.id = String.join(".", machineId, instanceId);
+        StateMachine<String, String> stateMachine = this.stateMachineService.acquireStateMachine(machineId, false);
 
-        StateMachine<String, String> stateMachine = this.stateMachineService.acquireStateMachine(machineId);
-
-        this.stateMachinePersister.restore(stateMachine, this.id);
+        this.stateMachinePersister.restore(stateMachine, instanceId);
 
         if (stateMachine.getId() == null) {
-            ((AbstractStateMachine) stateMachine).setId(this.id);
+            ((AbstractStateMachine) stateMachine).setId(instanceId);
+
             stateMachine.getExtendedState().getVariables().clear();
             stateMachine.getExtendedState().getVariables().putAll(parameters == null ? new LinkedHashMap<>() : JSONObject.parseObject(parameters).getInnerMap());
+
+            stateMachine.start();
+
+            this.stateMachinePersister.persist(stateMachine, instanceId);
         } else {
-            if (stateMachine.isComplete()) {
-                stateMachine.stop();
-            } else {
-                throw new StateMachineException("状态机已经启动并正在运行");
-            }
+            throw new StateMachineException("状态机已经启动并正在运行");
         }
-
-        stateMachine.start();
-
-        this.stateMachinePersister.persist(stateMachine, this.id);
     }
 
     public void stop(String machineId, String instanceId) throws Exception {
-        this.id = String.join(".", machineId, instanceId);
-
         StateMachine<String, String> stateMachine = this.stateMachineService.acquireStateMachine(machineId);
 
-        this.stateMachinePersister.restore(stateMachine, this.id);
+        this.stateMachinePersister.restore(stateMachine, instanceId);
 
         if (stateMachine.getId() == null) {
-            ((AbstractStateMachine) stateMachine).setId(this.id);
+            ((AbstractStateMachine) stateMachine).setId(instanceId);
         }
 
         stateMachine.stop();
 
-        this.stateMachinePersister.persist(stateMachine, this.id);
+        this.stateMachinePersister.persist(stateMachine, instanceId);
     }
 
     public void sendEvent(String machineId, String instanceId, String event) throws Exception {
-        this.id = String.join(".", machineId, instanceId);
-
         StateMachine<String, String> stateMachine = this.stateMachineService.acquireStateMachine(machineId, false);
 
-        this.stateMachinePersister.restore(stateMachine, this.id);
+        this.stateMachinePersister.restore(stateMachine, instanceId);
 
         if (stateMachine.getId() == null) {
             throw new StateMachineException("状态机不存在");
@@ -74,6 +63,6 @@ public class MachineService {
 
         stateMachine.sendEvent(event);
 
-        this.stateMachinePersister.persist(stateMachine, this.id);
+        this.stateMachinePersister.persist(stateMachine, instanceId);
     }
 }

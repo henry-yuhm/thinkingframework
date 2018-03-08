@@ -30,6 +30,10 @@ public class ActionService {
     @Autowired
     private RestTemplate restTemplate;
 
+    public List<JpaRepositoryAction> findAll() {
+        return (List<JpaRepositoryAction>) this.actionRepository.findAll();
+    }
+
     @Transactional(rollbackFor = Exception.class)
     public boolean save(List<JpaRepositoryAction> actions) {
         try {

@@ -65,7 +65,8 @@ public class MachineConfigurer extends StateMachineConfigurerAdapter<String, Str
     @Autowired
     private MachineRepository machineRepository;
 
-    private RepositoryStateMachineModelFactory repositoryStateMachineModelFactory;
+//    @Autowired
+//    private StateMachineModelFactory<String, String> stateMachineModelFactory;
 
     @Override
     public void configure(StateMachineModelConfigurer<String, String> model) throws Exception {
@@ -78,11 +79,11 @@ public class MachineConfigurer extends StateMachineConfigurerAdapter<String, Str
     }
 
     public void registerAction(Collection<JpaRepositoryAction> actions) {
-        actions.forEach(action -> this.repositoryStateMachineModelFactory.registerAction(action.getName(), Actions.errorCallingAction(context -> context.getExtendedState().getVariables().putAll(this.restTemplate().postForObject(action.getSpel(), context.getExtendedState().getVariables(), Map.class)), context -> System.out.println("操作执行错误:" + context.getException().getMessage()))));
+        actions.forEach(action -> ((RepositoryStateMachineModelFactory) this.stateMachineModelFactory()).registerAction(action.getName(), Actions.errorCallingAction(context -> context.getExtendedState().getVariables().putAll(this.restTemplate().postForObject(action.getSpel(), context.getExtendedState().getVariables(), Map.class)), context -> System.out.println("操作执行错误:" + context.getException().getMessage()))));
     }
 
     private void registerGuard(Collection<JpaRepositoryGuard> guards) {
-        guards.forEach(guard -> this.repositoryStateMachineModelFactory.registerGuard(guard.getName(), new SpelExpressionGuard<>(new SpelExpressionParser().parseExpression(guard.getSpel()))));
+        guards.forEach(guard -> ((RepositoryStateMachineModelFactory) this.stateMachineModelFactory()).registerGuard(guard.getName(), new SpelExpressionGuard<>(new SpelExpressionParser().parseExpression(guard.getSpel()))));
     }
 
     @Bean
@@ -119,13 +120,7 @@ public class MachineConfigurer extends StateMachineConfigurerAdapter<String, Str
 
     @Bean
     public StateMachineModelFactory<String, String> stateMachineModelFactory() {
-        this.repositoryStateMachineModelFactory = new RepositoryStateMachineModelFactory(this.stateRepository, this.transitionRepository);
-
-        this.registerAction(this.actions().values());
-
-        this.registerGuard(this.guards().values());
-
-        return this.repositoryStateMachineModelFactory;
+        return new RepositoryStateMachineModelFactory(this.stateRepository, this.transitionRepository);
     }
 
     @Bean
@@ -161,7 +156,7 @@ public class MachineConfigurer extends StateMachineConfigurerAdapter<String, Str
 
             @Override
             public Exception stateMachineError(StateMachine<String, String> stateMachine, Exception e) {
-                return new Exception("状态机" + stateMachine.getId() + "错误:" + e.getMessage());
+                return new Exception("状态机【" + stateMachine.getId() + "】运行错误:" + e.getMessage());
             }
         };
     }
@@ -170,22 +165,31 @@ public class MachineConfigurer extends StateMachineConfigurerAdapter<String, Str
     public StateMachineListener<String, String> stateMachineListener() {
         return new StateMachineListenerAdapter<String, String>() {
             @Override
-            public void stateMachineStarted(StateMachine<String, String> stateMachine) {
-                System.out.println("当前的状态机是【" + stateMachine.getId() + "." + stateMachine.getExtendedState().getVariables().get("instanceId") + "】");
+            public void stateChanged(State<String, String> from, State<String, String> to) {
+                if (from != null || to != null) {
+                    System.out.println("状态从【" + from.getId() + "】改变到【" + to.getId() + "】");
+                }
             }
 
             @Override
-            public void stateChanged(State<String, String> from, State<String, String> to) {
-                System.out.println("状态从【" + from.getId() + "】改变到【" + to.getId() + "】");
+            public void stateMachineStarted(StateMachine<String, String> stateMachine) {
+                System.out.println("当前的状态机是【" + stateMachine.getId() + "】");
             }
+
+//            @Override
+//            public void stateMachineStopped(StateMachine<String, String> stateMachine) {
+//                if (stateMachine.isComplete()) {
+//                    MachineConfigurer.this.stateMachineService().releaseStateMachine(stateMachine.getId());
+//                }
+//            }
         };
     }
 
     @Bean
     public ActionListener<String, String> actionListener() {
         return (stateMachine, action, duration) -> {
-            System.out.println("状态机【" + stateMachine.getId() + "." + stateMachine.getExtendedState().getVariables().get("instanceId") + "】执行操作耗时" + duration);
-            stateMachine.getExtendedState().getVariables().keySet().forEach(key -> System.out.println(stateMachine.getExtendedState().getVariables().get(key)));
+            System.out.println("状态机【" + stateMachine.getId() + "】执行操作耗时" + duration);
+//            stateMachine.getExtendedState().getVariables().keySet().forEach(key -> System.out.println(stateMachine.getExtendedState().getVariables().get(key)));
         };
     }
 
@@ -202,10 +206,13 @@ public class MachineConfigurer extends StateMachineConfigurerAdapter<String, Str
 
     @Bean
     public StateMachineService<String, String> stateMachineService() {
+        this.registerAction(this.actions().values());
+        this.registerGuard(this.guards().values());
+
         StateMachineService<String, String> stateMachineService = new DefaultStateMachineService<>(this.stateMachineFactory(), this.stateMachineRuntimePersister());
 
         this.workflowRepository.findAll().forEach(workflow -> {
-            StateMachine<String, String> stateMachine = stateMachineService.acquireStateMachine(workflow.getId());
+            StateMachine<String, String> stateMachine = stateMachineService.acquireStateMachine(workflow.getId(), false);
             stateMachine.addStateListener(this.stateMachineListener());
             stateMachine.getStates().forEach(state -> state.addActionListener(this.actionListener()));
             stateMachine.getTransitions().forEach(transition -> transition.addActionListener(this.actionListener()));

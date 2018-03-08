@@ -1,4 +1,4 @@
-package org.thinkingframework.boot.web;
+package org.thinkingframework.boot.mvc;
 
 import com.alibaba.fastjson.serializer.SerializerFeature;
 import com.alibaba.fastjson.support.config.FastJsonConfig;
@@ -13,10 +13,8 @@ import java.util.List;
 public class AppWebMvcConfigurerAdapter extends WebMvcConfigurerAdapter {
     @Override
     public void configureMessageConverters(List<HttpMessageConverter<?>> converters) {
-        super.configureMessageConverters(converters);
-
         FastJsonConfig fastJsonConfig = new FastJsonConfig();
-        fastJsonConfig.setSerializerFeatures(SerializerFeature.PrettyFormat);
+        fastJsonConfig.setSerializerFeatures(SerializerFeature.DisableCircularReferenceDetect, SerializerFeature.PrettyFormat, SerializerFeature.WriteMapNullValue, SerializerFeature.WriteNullBooleanAsFalse);
 
         List<MediaType> mediaTypes = new ArrayList<>();
         mediaTypes.add(MediaType.APPLICATION_JSON_UTF8);

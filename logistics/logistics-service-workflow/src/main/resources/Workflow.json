@@ -6,13 +6,11 @@
     {
       "id": "billOutbound.START",
       "label": "START",
+      "shape": "circle",
       "style": {
         "left": "142px",
-        "top": "78px",
-        "width": "100px",
-        "height": "70px"
+        "top": "78px"
       },
-      "isSelected": false,
       "state": {
         "machineId": "billOutbound",
         "state": "START",
@@ -34,13 +32,11 @@
     {
       "id": "billOutbound.END",
       "label": "END",
+      "shape": "circle",
       "style": {
-        "left": "142px",
-        "top": "78px",
-        "width": "100px",
-        "height": "70px"
+        "left": "1142px",
+        "top": "78px"
       },
-      "isSelected": false,
       "state": {
         "machineId": "billOutbound",
         "state": "END",
@@ -71,9 +67,7 @@
             "name": "updateOperationStates"
           }
         ],
-        "guard": {
-          "name": "isTransitionAvailable"
-        }
+        "guard": null
       }
     }
   ]

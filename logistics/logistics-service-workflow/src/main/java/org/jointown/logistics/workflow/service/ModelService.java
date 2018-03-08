@@ -54,6 +54,10 @@ public class ModelService {
         return actionSet;
     }
 
+    public Workflow findOne(String id) {
+        return this.workflowRepository.findOne(id);
+    }
+
     public List<Workflow> findAll() {
         return this.workflowRepository.findAll();
     }
@@ -76,7 +80,9 @@ public class ModelService {
                     existingState.setInitial(node.getState().isInitial());
                     existingState.setKind(node.getState().getKind());
                     existingState.setSubmachineId(node.getState().getSubmachineId());
-                    if (node.getState().getInitialAction() != null) {
+                    if (node.getState().getInitialAction() == null) {
+                        existingState.setInitialAction(null);
+                    } else {
                         existingState.setInitialAction(this.actions.get(node.getState().getInitialAction().getName()));
                     }
                     existingState.setParentState(node.getState().getParentState());
@@ -87,7 +93,9 @@ public class ModelService {
 
                     node.setState(existingState);
                 } else {
-                    if (node.getState().getInitialAction() != null) {
+                    if (node.getState().getInitialAction() == null) {
+                        node.getState().setInitialAction(null);
+                    } else {
                         node.getState().setInitialAction(this.actions.get(node.getState().getInitialAction().getName()));
                     }
                     node.getState().setStateActions(this.getActions(node.getState().getStateActions()));
@@ -119,14 +127,18 @@ public class ModelService {
                     existingTransition.setEvent(line.getTransition().getEvent());
                     existingTransition.setKind(line.getTransition().getKind());
                     existingTransition.setActions(this.getActions(line.getTransition().getActions()));
-                    if (line.getTransition().getGuard() != null) {
+                    if (line.getTransition().getGuard() == null) {
+                        existingTransition.setGuard(null);
+                    } else {
                         existingTransition.setGuard(this.guards.get(line.getTransition().getGuard().getName()));
                     }
 
                     line.setTransition(existingTransition);
                 } else {
                     line.getTransition().setActions(this.getActions(line.getTransition().getActions()));
-                    if (line.getTransition().getGuard() != null) {
+                    if (line.getTransition().getGuard() == null) {
+                        line.getTransition().setGuard(null);
+                    } else {
                         line.getTransition().setGuard(this.guards.get(line.getTransition().getGuard().getName()));
                     }
                 }

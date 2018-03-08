@@ -1,7 +1,7 @@
 package org.jointown.logistics.common.controller;
 
 import com.querydsl.core.types.Predicate;
-import org.jointown.logistics.common.entity.LotEntity;
+import org.jointown.logistics.common.entity.Lot;
 import org.jointown.logistics.common.service.LotService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.querydsl.binding.QuerydslPredicate;
@@ -16,12 +16,12 @@ public class LotController {
     private LotService lotService;
 
     @GetMapping("/findOne")
-    public LotEntity findOne(@QuerydslPredicate(root = LotEntity.class) Predicate predicate) {
+    public Lot findOne(@QuerydslPredicate(root = Lot.class) Predicate predicate) {
         return this.lotService.findOne(predicate);
     }
 
     @GetMapping("/findAll")
-    public List<LotEntity> findAll(@QuerydslPredicate(root = LotEntity.class) Predicate predicate) {
+    public List<Lot> findAll(@QuerydslPredicate(root = Lot.class) Predicate predicate) {
         return this.lotService.findAll(predicate);
     }
 

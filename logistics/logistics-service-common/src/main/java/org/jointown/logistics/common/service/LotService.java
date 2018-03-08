@@ -2,7 +2,7 @@ package org.jointown.logistics.common.service;
 
 import com.alibaba.fastjson.JSONObject;
 import com.querydsl.core.types.Predicate;
-import org.jointown.logistics.common.entity.LotEntity;
+import org.jointown.logistics.common.entity.Lot;
 import org.jointown.logistics.common.repository.LotRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -21,17 +21,17 @@ public class LotService {
     @Autowired
     private LotRepository lotRepository;
 
-    public LotEntity findOne(Predicate predicate) {
+    public Lot findOne(Predicate predicate) {
         return this.lotRepository.findOne(predicate);
     }
 
-    public List<LotEntity> findAll(Predicate predicate) {
-        return (List<LotEntity>) this.lotRepository.findAll(predicate);
+    public List<Lot> findAll(Predicate predicate) {
+        return (List<Lot>) this.lotRepository.findAll(predicate);
     }
 
     @Transactional(rollbackFor = Exception.class)
     public String save(String data) {
-        List<LotEntity> lotEntities = JSONObject.parseArray(data, LotEntity.class);
+        List<Lot> lotEntities = JSONObject.parseArray(data, Lot.class);
 
         String errors = this.dataValidityService.getErrorsForData("fd_lot", JSONObject.toJSONString(lotEntities));
 

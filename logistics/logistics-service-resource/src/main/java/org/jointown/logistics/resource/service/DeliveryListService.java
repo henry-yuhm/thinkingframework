@@ -26,6 +26,11 @@ public class DeliveryListService {
         return (List<DeliveryListEntity>) this.deliveryListRepository.findAll(predicate);
     }
 
+    @Transactional(rollbackFor = Exception.class)
+    public void save(String data) {
+        this.deliveryListRepository.saveAndFlush(JSONObject.parseObject(data, DeliveryListEntity.class));
+    }
+
 //    public List<DeliveryListEntity> getDeliveryLists(String corporationNo, String billHeaderId) {
 //        QDeliveryListEntity qDeliveryListEntity = QDeliveryListEntity.deliveryListEntity;
 //
@@ -39,11 +44,6 @@ public class DeliveryListService {
 //
 //        return deliveryListEntities;
 //    }
-
-    @Transactional(rollbackFor = Exception.class)
-    public void save(String data) {
-        this.deliveryListRepository.saveAndFlush(JSONObject.parseObject(data, DeliveryListEntity.class));
-    }
 
     public String getFileName(Predicate predicate) {
         return this.findOne(predicate).getFileName();

@@ -89,7 +89,7 @@ public class StockEntity implements Serializable {
 //    @OneToOne
 //    @JoinColumn(name = "lot_id",
 //            referencedColumnName = "lot_id")
-//    private LotEntity lotEntity;
+//    private Lot lotEntity;
 
     public StockEntity() {
     }
@@ -182,11 +182,11 @@ public class StockEntity implements Serializable {
         this.palletNo = palletNo;
     }
 
-//    public LotEntity getLotEntity() {
+//    public Lot getLotEntity() {
 //        return lotEntity;
 //    }
 //
-//    public void setLotEntity(LotEntity lotEntity) {
+//    public void setLotEntity(Lot lotEntity) {
 //        this.lotEntity = lotEntity;
 //    }
 
@@ -204,6 +204,47 @@ public class StockEntity implements Serializable {
         private String stockStatus;
 
         public StockEntityPk() {
+        }
+
+        public String getLocationId() {
+            return locationId;
+        }
+
+        public void setLocationId(String locationId) {
+            this.locationId = locationId;
+        }
+
+        @Override
+        public int hashCode() {
+            return (this.ownerNo + this.warehouseNo + this.goodsId + this.lotId + this.stockStatus).hashCode();
+        }
+
+        @Override
+        public boolean equals(Object object) {
+            if (this == object) {
+                return true;
+            }
+
+            if (object == null) {
+                return false;
+            }
+
+            if (this.getClass() != object.getClass()) {
+                return false;
+            }
+
+            StockEntityPk stockEntityPk = (StockEntityPk) object;
+
+            return this.ownerNo.equals(stockEntityPk.getOwnerNo()) &&
+                    this.warehouseNo.equals(stockEntityPk.getWarehouseNo()) &&
+                    this.goodsId.equals(stockEntityPk.getGoodsId()) &&
+                    this.lotId.equals(stockEntityPk.getLotId()) &&
+                    this.stockStatus.equals(stockEntityPk.getStockStatus());
+        }
+
+        @Override
+        public String toString() {
+            return this.ownerNo + "_" + this.warehouseNo + "_" + this.goodsId + "_" + this.lotId + "_" + this.stockStatus;
         }
 
         public String getOwnerNo() {
@@ -238,53 +279,12 @@ public class StockEntity implements Serializable {
             this.lotId = lotId;
         }
 
-        public String getLocationId() {
-            return locationId;
-        }
-
-        public void setLocationId(String locationId) {
-            this.locationId = locationId;
-        }
-
         public String getStockStatus() {
             return stockStatus;
         }
 
         public void setStockStatus(String stockStatus) {
             this.stockStatus = stockStatus;
-        }
-
-        @Override
-        public int hashCode() {
-            return (this.ownerNo + this.warehouseNo + this.goodsId + this.lotId + this.stockStatus).hashCode();
-        }
-
-        @Override
-        public boolean equals(Object object) {
-            if (this == object) {
-                return true;
-            }
-
-            if (object == null) {
-                return false;
-            }
-
-            if (this.getClass() != object.getClass()) {
-                return false;
-            }
-
-            StockEntityPk stockEntityPk = (StockEntityPk) object;
-
-            return this.ownerNo.equals(stockEntityPk.getOwnerNo()) &&
-                    this.warehouseNo.equals(stockEntityPk.getWarehouseNo()) &&
-                    this.goodsId.equals(stockEntityPk.getGoodsId()) &&
-                    this.lotId.equals(stockEntityPk.getLotId()) &&
-                    this.stockStatus.equals(stockEntityPk.getStockStatus());
-        }
-
-        @Override
-        public String toString() {
-            return this.ownerNo + "_" + this.warehouseNo + "_" + this.goodsId + "_" + this.lotId + "_" + this.stockStatus;
         }
     }
 }

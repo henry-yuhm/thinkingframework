@@ -5,8 +5,8 @@ import java.io.Serializable;
 
 @Entity
 @Table(name = "sys_data_validity_config")
-@IdClass(value = DataValidityConfigEntity.DataValidityConfigEntityPk.class)
-public class DataValidityConfigEntity {
+@IdClass(value = DataValidityConfig.DataValidityConfigEntityPk.class)
+public class DataValidityConfig {
     @Id
     @Column(name = "table_schema")
     private String tableSchema;
@@ -31,7 +31,7 @@ public class DataValidityConfigEntity {
     @Column(name = "date_format")
     private String dateFormat;
 
-    public DataValidityConfigEntity() {
+    public DataValidityConfig() {
     }
 
     public String getTableSchema() {

@@ -56,16 +56,16 @@ public class FallbackProviderService implements FallbackProvider {
     }
 
     @Override
+    public ClientHttpResponse fallbackResponse() {
+        return this.clientHttpResponse(HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+
+    @Override
     public ClientHttpResponse fallbackResponse(Throwable cause) {
         if (cause instanceof HystrixTimeoutException) {
             return this.clientHttpResponse(HttpStatus.GATEWAY_TIMEOUT);
         } else {
             return this.fallbackResponse();
         }
-    }
-
-    @Override
-    public ClientHttpResponse fallbackResponse() {
-        return this.clientHttpResponse(HttpStatus.INTERNAL_SERVER_ERROR);
     }
 }
