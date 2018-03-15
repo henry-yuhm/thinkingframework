@@ -4,7 +4,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.querydsl.core.types.Predicate;
 import org.jointown.logistics.stock.client.DataValidityClient;
 import org.jointown.logistics.stock.client.StreamComputingClient;
-import org.jointown.logistics.stock.entity.InvoicingEntity;
+import org.jointown.logistics.stock.entity.Invoice;
 import org.jointown.logistics.stock.repository.InvoicingRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -23,26 +23,26 @@ public class InvoicingService {
     @Autowired
     private InvoicingRepository invoicingRepository;
 
-    public InvoicingEntity findOne(Predicate predicate) {
+    public Invoice findOne(Predicate predicate) {
         return this.invoicingRepository.findOne(predicate);
     }
 
-    public List<InvoicingEntity> findAll(Predicate predicate) {
-        return (List<InvoicingEntity>) this.invoicingRepository.findAll(predicate);
+    public List<Invoice> findAll(Predicate predicate) {
+        return (List<Invoice>) this.invoicingRepository.findAll(predicate);
     }
 
     @Transactional(rollbackFor = Exception.class)
     public String save(String data) {
-        List<InvoicingEntity> invoicingEntities = JSONObject.parseArray(data, InvoicingEntity.class);
+        List<Invoice> invoices = JSONObject.parseArray(data, Invoice.class);
 
-        String errors = this.dataValidityClient.getErrorsForData("fd_stock", JSONObject.toJSONString(invoicingEntities));
+        String errors = this.dataValidityClient.getErrorsForData("fd_stock", JSONObject.toJSONString(invoices));
 
         if (!errors.isEmpty()) {
             return this.streamComputingClient.getStreamComputingResult(false, errors, "");
         }
 
         try {
-            this.invoicingRepository.save(invoicingEntities);
+            this.invoicingRepository.save(invoices);
 
             return this.streamComputingClient.getStreamComputingResult(true, "", "");
         } catch (Exception ex) {

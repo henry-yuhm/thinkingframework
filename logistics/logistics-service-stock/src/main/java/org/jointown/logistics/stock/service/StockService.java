@@ -4,7 +4,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.querydsl.core.types.Predicate;
 import org.jointown.logistics.stock.client.DataValidityClient;
 import org.jointown.logistics.stock.client.StreamComputingClient;
-import org.jointown.logistics.stock.entity.StockEntity;
+import org.jointown.logistics.stock.entity.Stock;
 import org.jointown.logistics.stock.repository.StockRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -26,41 +26,37 @@ public class StockService {
     @Autowired
     private StockRepository stockRepository;
 
-    public StockEntity findOne(Predicate predicate) {
+    public Stock findOne(Predicate predicate) {
         return this.stockRepository.findOne(predicate);
     }
 
-    public List<StockEntity> findAll(Predicate predicate) {
-        return (List<StockEntity>) this.stockRepository.findAll(predicate);
+    public List<Stock> findAll(Predicate predicate) {
+        return (List<Stock>) this.stockRepository.findAll(predicate);
     }
 
-//    public List<StockEntity> findAllBy(String ownerNo) {
+//    public List<Stock> findAllBy(String ownerNo) {
 //        return this.stockRepository.findAllBy(ownerNo);
 //    }
 
-    public String getStock(String goodsId,
-                           String lotNo) {
-        StringBuffer stringBuffer = new StringBuffer();
+    public String getStock(String goodsId, String lotNo) {
 
-        stringBuffer.append("[");
-        stringBuffer.append(String.join(",", this.stockRepository.getStock(goodsId, lotNo)));
-        stringBuffer.append("]");
-
-        return stringBuffer.toString();
+        return "[" +
+                String.join(",", this.stockRepository.getStock(goodsId, lotNo)) +
+                "]";
     }
 
     @Transactional(rollbackFor = Exception.class)
     public String save(String data) {
-        List<StockEntity> stockEntities = JSONObject.parseArray(data, StockEntity.class);
+        List<Stock> stocks = JSONObject.parseArray(data, Stock.class);
 
-        String errors = this.dataValidityClient.getErrorsForData("fd_stock", JSONObject.toJSONString(stockEntities));
+        String errors = this.dataValidityClient.getErrorsForData("fd_stock", JSONObject.toJSONString(stocks));
 
         if (!errors.isEmpty()) {
             return this.streamComputingClient.getStreamComputingResult(false, errors, "");
         }
 
         try {
-            this.stockRepository.save(stockEntities);
+            this.stockRepository.save(stocks);
 
             return this.streamComputingClient.getStreamComputingResult(true, "", "");
         } catch (Exception ex) {

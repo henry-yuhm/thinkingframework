@@ -1,7 +1,7 @@
 package org.jointown.logistics.stock.controller;
 
 import com.querydsl.core.types.Predicate;
-import org.jointown.logistics.stock.entity.StockEntity;
+import org.jointown.logistics.stock.entity.Stock;
 import org.jointown.logistics.stock.service.StockService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.querydsl.binding.QuerydslPredicate;
@@ -20,17 +20,17 @@ public class StockController {
     private StockService stockService;
 
     @GetMapping("/findOne")
-    public StockEntity findOne(@QuerydslPredicate(root = StockEntity.class) Predicate predicate) {
+    public Stock findOne(@QuerydslPredicate(root = Stock.class) Predicate predicate) {
         return this.stockService.findOne(predicate);
     }
 
     @GetMapping("/findAll")
-    public List<StockEntity> findAll(@QuerydslPredicate(root = StockEntity.class) Predicate predicate) {
+    public List<Stock> findAll(@QuerydslPredicate(root = Stock.class) Predicate predicate) {
         return this.stockService.findAll(predicate);
     }
 
 //    @GetMapping("/findAllBy")
-//    public List<StockEntity> findAllBy(@RequestParam("ownerNo") String ownerNo) {
+//    public List<Stock> findAllBy(@RequestParam("ownerNo") String ownerNo) {
 //        return this.stockService.findAllBy(ownerNo);
 //    }
 

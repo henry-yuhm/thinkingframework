@@ -13,7 +13,7 @@ import java.math.BigDecimal;
  */
 @Entity
 @Table(name = "Bill_TransportA_Dtl")
-public class BillTransportDetailEntity {
+public class TransportBillDetail {
     @JSONField(name = "BillDetailId")
     @Id
     @Column(name = "Bill_Dtl_Id")

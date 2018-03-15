@@ -16,15 +16,19 @@ public class Node implements Serializable {
     @JSONField(ordinal = 1)
     private String label;
 
+    @Transient
     @JSONField(ordinal = 2)
+    private boolean current;
+
+    @JSONField(ordinal = 3)
     private String shape;
 
     @Embedded
-    @JSONField(ordinal = 3)
+    @JSONField(ordinal = 4)
     private Style style;
 
     @OneToOne(fetch = FetchType.EAGER)
-    @JSONField(ordinal = 4)
+    @JSONField(ordinal = 5)
     private JpaRepositoryState state;
 
     public Node() {
@@ -44,6 +48,14 @@ public class Node implements Serializable {
 
     public void setLabel(String label) {
         this.label = label;
+    }
+
+    public boolean isCurrent() {
+        return current;
+    }
+
+    public void setCurrent(boolean current) {
+        this.current = current;
     }
 
     public String getShape() {

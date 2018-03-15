@@ -18,4 +18,32 @@ public class Customer implements Serializable {
     private String sourceCode;
 
     private Customer superCustomer;
+
+    private String mnemonicCode;
+
+    private String name;
+
+    private String shortName;
+
+    private String address;
+
+    private String phone;
+
+    private String warehouseAddress;
+
+    private String sign;
+
+    private String identifier;
+
+    private String location;
+
+    private String lotRequest;
+
+    private String category;
+
+    private String grade;
+
+    private String district;
+
+    private String businessman;
 }

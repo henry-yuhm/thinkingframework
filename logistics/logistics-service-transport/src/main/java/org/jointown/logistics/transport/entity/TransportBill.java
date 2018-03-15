@@ -10,7 +10,7 @@ import java.math.BigDecimal;
  */
 @Entity
 @Table(name = "Bill_Transport")
-public class BillTransportEntity {
+public class TransportBill {
     @JSONField(name = "BillHeaderId")
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

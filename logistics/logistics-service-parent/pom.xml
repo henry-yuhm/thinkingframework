@@ -5,7 +5,7 @@
     <parent>
         <groupId>org.thinkingframework</groupId>
         <artifactId>thinking-dependencies</artifactId>
-        <version>1.0.0</version>
+        <version>2.0.0</version>
     </parent>
 
     <groupId>org.jointown.logistics</groupId>
@@ -13,7 +13,9 @@
     <packaging>pom</packaging>
 
     <modules>
+        <module>../logistics-service-audit</module>
         <module>../logistics-service-common</module>
+        <module>../logistics-service-init</module>
         <module>../logistics-service-resource</module>
         <module>../logistics-service-stock</module>
         <module>../logistics-service-transport</module>

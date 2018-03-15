@@ -1,14 +1,16 @@
 package org.jointown.logistics.workflow.configurer;
 
+import com.alibaba.fastjson.JSONObject;
+import org.jointown.logistics.workflow.entity.Monitor;
 import org.jointown.logistics.workflow.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.data.redis.connection.RedisConnectionFactory;
-import org.springframework.data.redis.connection.jedis.JedisConnectionFactory;
 import org.springframework.expression.spel.standard.SpelExpressionParser;
 import org.springframework.messaging.Message;
+import org.springframework.statemachine.StateContext;
 import org.springframework.statemachine.StateMachine;
+import org.springframework.statemachine.action.Action;
 import org.springframework.statemachine.action.ActionListener;
 import org.springframework.statemachine.action.Actions;
 import org.springframework.statemachine.config.EnableStateMachineFactory;
@@ -25,6 +27,8 @@ import org.springframework.statemachine.data.jpa.JpaRepositoryGuard;
 import org.springframework.statemachine.guard.SpelExpressionGuard;
 import org.springframework.statemachine.listener.StateMachineListener;
 import org.springframework.statemachine.listener.StateMachineListenerAdapter;
+import org.springframework.statemachine.monitor.CompositeStateMachineMonitor;
+import org.springframework.statemachine.monitor.StateMachineMonitor;
 import org.springframework.statemachine.persist.DefaultStateMachinePersister;
 import org.springframework.statemachine.persist.StateMachinePersister;
 import org.springframework.statemachine.persist.StateMachineRuntimePersister;
@@ -37,16 +41,12 @@ import org.springframework.statemachine.transition.Transition;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
 @Configuration
 @EnableStateMachineFactory
 public class MachineConfigurer extends StateMachineConfigurerAdapter<String, String> {
-    @Autowired
-    private RedisConfigurer redisConfigurer;
-
     @Autowired
     private WorkflowRepository workflowRepository;
 
@@ -65,8 +65,11 @@ public class MachineConfigurer extends StateMachineConfigurerAdapter<String, Str
     @Autowired
     private MachineRepository machineRepository;
 
-//    @Autowired
-//    private StateMachineModelFactory<String, String> stateMachineModelFactory;
+    @Autowired
+    private MonitorRepository monitorRepository;
+
+    @Autowired
+    private RestTemplate restTemplate;
 
     @Override
     public void configure(StateMachineModelConfigurer<String, String> model) throws Exception {
@@ -75,29 +78,16 @@ public class MachineConfigurer extends StateMachineConfigurerAdapter<String, Str
 
     @Override
     public void configure(StateMachineConfigurationConfigurer<String, String> config) throws Exception {
+        config.withMonitoring().monitor(this.stateMachineMonitor());
         config.withPersistence().runtimePersister(this.stateMachineRuntimePersister());
     }
 
-    public void registerAction(Collection<JpaRepositoryAction> actions) {
-        actions.forEach(action -> ((RepositoryStateMachineModelFactory) this.stateMachineModelFactory()).registerAction(action.getName(), Actions.errorCallingAction(context -> context.getExtendedState().getVariables().putAll(this.restTemplate().postForObject(action.getSpel(), context.getExtendedState().getVariables(), Map.class)), context -> System.out.println("操作执行错误:" + context.getException().getMessage()))));
+    private Action<String, String> restAction(String spel) {
+        return stateContext -> stateContext.getExtendedState().getVariables().putAll(MachineConfigurer.this.restTemplate.postForObject(spel, stateContext.getExtendedState().getVariables(), Map.class));
     }
 
-    private void registerGuard(Collection<JpaRepositoryGuard> guards) {
-        guards.forEach(guard -> ((RepositoryStateMachineModelFactory) this.stateMachineModelFactory()).registerGuard(guard.getName(), new SpelExpressionGuard<>(new SpelExpressionParser().parseExpression(guard.getSpel()))));
-    }
-
-    @Bean
-    public RestTemplate restTemplate() {
-        return new RestTemplate();
-    }
-
-    @Bean
-    public RedisConnectionFactory redisConnectionFactory() {
-        JedisConnectionFactory jedisConnectionFactory = new JedisConnectionFactory();
-        jedisConnectionFactory.setHostName(this.redisConfigurer.getHost());
-        jedisConnectionFactory.setPort(this.redisConfigurer.getPort());
-        jedisConnectionFactory.setDatabase(this.redisConfigurer.getDatabase());
-        return jedisConnectionFactory;
+    private Action<String, String> errorAction() {
+        return stateContext -> System.out.println("操作执行错误:" + stateContext.getException().getMessage());
     }
 
     @Bean
@@ -119,8 +109,29 @@ public class MachineConfigurer extends StateMachineConfigurerAdapter<String, Str
     }
 
     @Bean
+    public StateMachineComponentResolver<String, String> stateMachineComponentResolver() {
+        DefaultStateMachineComponentResolver<String, String> resolver = new DefaultStateMachineComponentResolver<>();
+
+        this.actions().values().forEach(action -> {
+            if (!action.getName().isEmpty()) {
+                resolver.registerAction(action.getName(), Actions.errorCallingAction(this.restAction(action.getSpel()), this.errorAction()));
+            }
+        });
+
+        this.guards().values().forEach(guard -> {
+            if (!guard.getName().isEmpty()) {
+                resolver.registerGuard(guard.getName(), new SpelExpressionGuard<>(new SpelExpressionParser().parseExpression(guard.getSpel())));
+            }
+        });
+
+        return resolver;
+    }
+
+    @Bean
     public StateMachineModelFactory<String, String> stateMachineModelFactory() {
-        return new RepositoryStateMachineModelFactory(this.stateRepository, this.transitionRepository);
+        RepositoryStateMachineModelFactory factory = new RepositoryStateMachineModelFactory(this.stateRepository, this.transitionRepository);
+        factory.setStateMachineComponentResolver(this.stateMachineComponentResolver());
+        return factory;
     }
 
     @Bean
@@ -162,11 +173,16 @@ public class MachineConfigurer extends StateMachineConfigurerAdapter<String, Str
     }
 
     @Bean
+    public StateMachineMonitor<String, String> stateMachineMonitor() {
+        return new CompositeStateMachineMonitor<>();
+    }
+
+    @Bean
     public StateMachineListener<String, String> stateMachineListener() {
         return new StateMachineListenerAdapter<String, String>() {
             @Override
             public void stateChanged(State<String, String> from, State<String, String> to) {
-                if (from != null || to != null) {
+                if (from != null) {
                     System.out.println("状态从【" + from.getId() + "】改变到【" + to.getId() + "】");
                 }
             }
@@ -176,21 +192,23 @@ public class MachineConfigurer extends StateMachineConfigurerAdapter<String, Str
                 System.out.println("当前的状态机是【" + stateMachine.getId() + "】");
             }
 
-//            @Override
-//            public void stateMachineStopped(StateMachine<String, String> stateMachine) {
-//                if (stateMachine.isComplete()) {
-//                    MachineConfigurer.this.stateMachineService().releaseStateMachine(stateMachine.getId());
-//                }
-//            }
+            @Override
+            public void stateContext(StateContext<String, String> stateContext) {
+                if (stateContext.getStage() == StateContext.Stage.TRANSITION) {
+                    Monitor monitor = new Monitor();
+
+                    monitor.setMachineId(stateContext.getStateMachine().getId());
+                    monitor.setStateContext(JSONObject.toJSONString(stateContext, true));
+
+                    MachineConfigurer.this.monitorRepository.save(monitor);
+                }
+            }
         };
     }
 
     @Bean
     public ActionListener<String, String> actionListener() {
-        return (stateMachine, action, duration) -> {
-            System.out.println("状态机【" + stateMachine.getId() + "】执行操作耗时" + duration);
-//            stateMachine.getExtendedState().getVariables().keySet().forEach(key -> System.out.println(stateMachine.getExtendedState().getVariables().get(key)));
-        };
+        return (stateMachine, action, duration) -> System.out.println("状态机【" + stateMachine.getId() + "】执行操作耗时" + duration);
     }
 
     @Bean
@@ -200,16 +218,14 @@ public class MachineConfigurer extends StateMachineConfigurerAdapter<String, Str
 
     @Bean
     public StateMachinePersister<String, String, String> stateMachinePersister() {
-//        return new RedisStateMachinePersister<>(new RepositoryStateMachinePersist<>(new RedisStateMachineContextRepository<>(this.redisConnectionFactory())));
         return new DefaultStateMachinePersister<>(this.stateMachineRuntimePersister());
     }
 
     @Bean
     public StateMachineService<String, String> stateMachineService() {
-        this.registerAction(this.actions().values());
-        this.registerGuard(this.guards().values());
-
         StateMachineService<String, String> stateMachineService = new DefaultStateMachineService<>(this.stateMachineFactory(), this.stateMachineRuntimePersister());
+
+        ((AbstractStateMachineModelFactory) this.stateMachineModelFactory()).setBeanFactory(null);
 
         this.workflowRepository.findAll().forEach(workflow -> {
             StateMachine<String, String> stateMachine = stateMachineService.acquireStateMachine(workflow.getId(), false);
@@ -221,27 +237,4 @@ public class MachineConfigurer extends StateMachineConfigurerAdapter<String, Str
 
         return stateMachineService;
     }
-
-//    @Bean
-//    public StateMachineJackson2RepositoryPopulatorFactoryBean stateMachineJackson2RepositoryPopulatorFactoryBean() {
-//        StateMachineJackson2RepositoryPopulatorFactoryBean factoryBean = new StateMachineJackson2RepositoryPopulatorFactoryBean();
-//        factoryBean.setResources(new Resource[]{new ClassPathResource("data.json")});
-//        return factoryBean;
-//    }
-
-//    @Bean
-//    public CommonsPool2TargetSource commonsPool2TargetSource(){
-//        CommonsPool2TargetSource commonsPool2TargetSource = new CommonsPool2TargetSource();
-//        commonsPool2TargetSource.setMaxSize(3);
-//        commonsPool2TargetSource.setTargetBeanName("stateMachineFactory");
-//        return commonsPool2TargetSource;
-//    }
-//
-//    @Bean
-//    @Scope(value = "request",proxyMode = ScopedProxyMode.INTERFACES)
-//    public ProxyFactoryBean proxyFactoryBean(){
-//        ProxyFactoryBean proxyFactoryBean = new ProxyFactoryBean();
-//        proxyFactoryBean.setTargetSource(this.commonsPool2TargetSource());
-//        return proxyFactoryBean;
-//    }
 }

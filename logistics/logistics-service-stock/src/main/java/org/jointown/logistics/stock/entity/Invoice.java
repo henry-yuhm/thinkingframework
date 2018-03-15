@@ -9,7 +9,7 @@ import javax.persistence.*;
  */
 @Entity
 @Table(name = "rec_invoicing")
-public class InvoicingEntity {
+public class Invoice {
     @Id
     @GeneratedValue
     @Column(name = "id")
@@ -61,7 +61,7 @@ public class InvoicingEntity {
             name = "InTransitQuantity")
     private double inTransitQuantity;
 
-    public InvoicingEntity() {
+    public Invoice() {
     }
 
     public long getId() {

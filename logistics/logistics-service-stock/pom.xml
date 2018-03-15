@@ -6,8 +6,7 @@
     <parent>
         <groupId>org.jointown.logistics</groupId>
         <artifactId>logistics-service-parent</artifactId>
-        <version>1.0.0</version>
-        <!--<relativePath>../logistics-service-parent</relativePath>-->
+        <version>2.0.0</version>
     </parent>
 
     <artifactId>logistics-service-stock</artifactId>

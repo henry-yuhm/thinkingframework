@@ -1,7 +1,6 @@
 package org.jointown.logistics.stock.repository;
 
-import org.jointown.logistics.stock.entity.StockEntity;
-import org.jointown.logistics.stock.entity.StockEntityPk;
+import org.jointown.logistics.stock.entity.Stock;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.data.jpa.repository.Query;
@@ -14,7 +13,7 @@ import java.util.List;
  * Created by Henry on 2017/3/30.
  */
 @Repository
-public interface StockRepository extends JpaRepository<StockEntity, StockEntityPk>, JpaSpecificationExecutor<StockEntity>, QueryDslPredicateExecutor<StockEntity> {
+public interface StockRepository extends JpaRepository<Stock, StockPk>, JpaSpecificationExecutor<Stock>, QueryDslPredicateExecutor<Stock> {
     @Query(value = "select concat(concat('{\"ownerNo\":\"',s.owner_no,'\",'),concat('\"goodsId\":\"',s.goods_id,'\",'),concat('\"productionDate\":\"',l.production_date,'\",'),concat('\"stockQuantity\":',ifnull(sum(s.stock_quantity-s.outbound_quantity-ifnull(i.stock_quantity,0)),0),'}')) f\n" +
             "from fd_stock as s\n" +
             "inner join fd_lot as l on s.lot_id = l.lot_id\n" +
@@ -25,6 +24,6 @@ public interface StockRepository extends JpaRepository<StockEntity, StockEntityP
     List<String> getStock(String goodsId,
                           String lotNo);
 
-//    @Query(value = "select s from StockEntity s where s.lotEntity.lotNo = :ownerNo")
-//    List<StockEntity> findAllBy(@Param("ownerNo") String ownerNo);
+//    @Query(value = "select s from Stock s where s.lotEntity.lotNo = :ownerNo")
+//    List<Stock> findAllBy(@Param("ownerNo") String ownerNo);
 }

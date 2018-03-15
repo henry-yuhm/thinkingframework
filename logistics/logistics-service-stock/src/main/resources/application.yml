@@ -61,12 +61,6 @@ spring:
       naming:
         implicit-strategy: org.springframework.boot.orm.jpa.hibernate.SpringImplicitNamingStrategy
         physical-strategy: org.springframework.boot.orm.jpa.hibernate.SpringPhysicalNamingStrategy
-security:
-  basic:
-    enabled: false
-  user:
-    name: henry
-    password: ocp9i_Explorer
 server:
   port: 8831
 eureka:

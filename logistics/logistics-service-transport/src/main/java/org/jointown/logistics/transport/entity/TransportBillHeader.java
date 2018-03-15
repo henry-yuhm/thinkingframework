@@ -9,7 +9,7 @@ import javax.persistence.*;
  */
 @Entity
 @Table(name = "Bill_TransportA_Hdr")
-public class BillTransportHeaderEntity {
+public class TransportBillHeader {
     @JSONField(name = "BillHeaderId")
     @Id
     @GeneratedValue(strategy = GenerationType.TABLE)

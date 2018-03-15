@@ -10,8 +10,8 @@ import java.io.Serializable;
  */
 @Entity
 @Table(name = "FD_CFG_DELIVERY_LIST")
-@IdClass(DeliveryListEntity.DeliveryListEntityPk.class)
-public class DeliveryListEntity {
+@IdClass(DeliveryList.DeliveryListPk.class)
+public class DeliveryList {
     @Id
     @Column(name = "CORP_NO",
             nullable = false)
@@ -32,7 +32,7 @@ public class DeliveryListEntity {
             ordinal = 3)
     private String fileName;
 
-    public DeliveryListEntity() {
+    public DeliveryList() {
     }
 
     public String getCorporationNo() {
@@ -59,12 +59,12 @@ public class DeliveryListEntity {
         this.fileName = fileName;
     }
 
-    public static class DeliveryListEntityPk implements Serializable {
+    public static class DeliveryListPk implements Serializable {
         private String corporationNo;
 
         private String billHeaderId;
 
-        public DeliveryListEntityPk() {
+        public DeliveryListPk() {
         }
 
         public String getCorporationNo() {
@@ -102,13 +102,9 @@ public class DeliveryListEntity {
                 return false;
             }
 
-            DeliveryListEntityPk deliveryListEntityPk = (DeliveryListEntityPk) object;
+            DeliveryListPk deliveryListPk = (DeliveryListPk) object;
 
-            if (this.corporationNo == deliveryListEntityPk.corporationNo && this.billHeaderId == deliveryListEntityPk.billHeaderId) {
-                return true;
-            } else {
-                return false;
-            }
+            return this.corporationNo.equals(deliveryListPk.corporationNo) && this.billHeaderId.equals(deliveryListPk.billHeaderId);
         }
 
         @Override

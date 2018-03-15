@@ -6,8 +6,7 @@
     <parent>
         <groupId>org.thinkingframework.boot</groupId>
         <artifactId>thinking-boot-starter-parent</artifactId>
-        <version>1.0.0</version>
-        <relativePath>../thinking-boot-starter-parent</relativePath>
+        <version>2.0.0</version>
     </parent>
 
     <artifactId>thinking-boot-starter-web</artifactId>

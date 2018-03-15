@@ -55,7 +55,7 @@ public class ModelService {
     }
 
     public Workflow findOne(String id) {
-        return this.workflowRepository.findOne(id);
+        return this.workflowRepository.getOne(id);
     }
 
     public List<Workflow> findAll() {

@@ -1,7 +1,7 @@
 package org.jointown.logistics.stock.controller;
 
 import com.querydsl.core.types.Predicate;
-import org.jointown.logistics.stock.entity.InvoicingEntity;
+import org.jointown.logistics.stock.entity.Invoice;
 import org.jointown.logistics.stock.service.InvoicingService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.querydsl.binding.QuerydslPredicate;
@@ -16,12 +16,12 @@ public class InvoicingController {
     private InvoicingService invoicingService;
 
     @GetMapping("/findOne")
-    public InvoicingEntity findOne(@QuerydslPredicate(root = InvoicingEntity.class) Predicate predicate) {
+    public Invoice findOne(@QuerydslPredicate(root = Invoice.class) Predicate predicate) {
         return this.invoicingService.findOne(predicate);
     }
 
     @GetMapping("/findAll")
-    public List<InvoicingEntity> findAll(@QuerydslPredicate(root = InvoicingEntity.class) Predicate predicate) {
+    public List<Invoice> findAll(@QuerydslPredicate(root = Invoice.class) Predicate predicate) {
         return this.invoicingService.findAll(predicate);
     }
 

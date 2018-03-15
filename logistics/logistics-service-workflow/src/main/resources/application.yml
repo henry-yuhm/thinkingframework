@@ -9,9 +9,6 @@ spring:
         address: localhost
     inetutils:
       use-only-site-local-interfaces: true
-#  data:
-#    rest:
-#      base-path: workflow
   datasource:
     # JDBC 配置
     type: com.alibaba.druid.pool.DruidDataSource
@@ -19,10 +16,9 @@ spring:
     username: exwms
     password: exwms
 #    url: jdbc:mysql://10.3.87.202:3306/jlp
-#    username: jlp
-#    password: jlp
+#    username: wf
+#    password: wf
     druid:
-#      oracle: true
       # 连接池配置
       name: druidPool
       default-auto-commit: false
@@ -78,7 +74,7 @@ security:
     name: henry
     password: ocp9i_Explorer
 server:
-  port: 8806
+  port: 8851
 eureka:
   instance:
     hostname: localhost

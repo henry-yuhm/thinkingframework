@@ -6,8 +6,7 @@
     <parent>
         <groupId>org.thinkingframework.cloud</groupId>
         <artifactId>thinking-cloud-starter-parent</artifactId>
-        <version>1.0.0</version>
-        <relativePath>../thinking-cloud-starter-parent</relativePath>
+        <version>2.0.0</version>
     </parent>
 
     <artifactId>thinking-cloud-starter-hystrix-turbine</artifactId>

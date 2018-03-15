@@ -1,7 +1,7 @@
 package org.jointown.logistics.resource.controller;
 
 import com.querydsl.core.types.Predicate;
-import org.jointown.logistics.resource.entity.DeliveryListEntity;
+import org.jointown.logistics.resource.entity.DeliveryList;
 import org.jointown.logistics.resource.service.DeliveryListService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.querydsl.binding.QuerydslPredicate;
@@ -19,12 +19,12 @@ public class DeliveryListController {
     private DeliveryListService deliveryListService;
 
     @GetMapping("/findOne")
-    public DeliveryListEntity findOne(@QuerydslPredicate(root = DeliveryListEntity.class) Predicate predicate) {
+    public DeliveryList findOne(@QuerydslPredicate(root = DeliveryList.class) Predicate predicate) {
         return this.deliveryListService.findOne(predicate);
     }
 
     @GetMapping("/findAll")
-    public List<DeliveryListEntity> findAll(@QuerydslPredicate(root = DeliveryListEntity.class) Predicate predicate) {
+    public List<DeliveryList> findAll(@QuerydslPredicate(root = DeliveryList.class) Predicate predicate) {
         return this.deliveryListService.findAll(predicate);
     }
 
@@ -34,7 +34,7 @@ public class DeliveryListController {
     }
 
     @GetMapping("/getFileName")
-    public String getFileName(@QuerydslPredicate(root = DeliveryListEntity.class) Predicate predicate) {
+    public String getFileName(@QuerydslPredicate(root = DeliveryList.class) Predicate predicate) {
         return this.deliveryListService.getFileName(predicate);
     }
 }

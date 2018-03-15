@@ -2,7 +2,7 @@ package org.jointown.logistics.resource.service;
 
 import com.alibaba.fastjson.JSONObject;
 import com.querydsl.core.types.Predicate;
-import org.jointown.logistics.resource.entity.DeliveryListEntity;
+import org.jointown.logistics.resource.entity.DeliveryList;
 import org.jointown.logistics.resource.repository.DeliveryListRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -18,17 +18,17 @@ public class DeliveryListService {
     @Autowired
     private DeliveryListRepository deliveryListRepository;
 
-    public DeliveryListEntity findOne(Predicate predicate) {
+    public DeliveryList findOne(Predicate predicate) {
         return this.deliveryListRepository.findOne(predicate);
     }
 
-    public List<DeliveryListEntity> findAll(Predicate predicate) {
-        return (List<DeliveryListEntity>) this.deliveryListRepository.findAll(predicate);
+    public List<DeliveryList> findAll(Predicate predicate) {
+        return (List<DeliveryList>) this.deliveryListRepository.findAll(predicate);
     }
 
     @Transactional(rollbackFor = Exception.class)
     public void save(String data) {
-        this.deliveryListRepository.saveAndFlush(JSONObject.parseObject(data, DeliveryListEntity.class));
+        this.deliveryListRepository.saveAndFlush(JSONObject.parseObject(data, DeliveryList.class));
     }
 
 //    public List<DeliveryListEntity> getDeliveryLists(String corporationNo, String billHeaderId) {

@@ -11,8 +11,8 @@ import java.io.Serializable;
 @Entity
 @Table(name = "fd_stock")
 //@SecondaryTable(name = "fd_lot",pkJoinColumns = @PrimaryKeyJoinColumn(name = "lot_id",referencedColumnName = "lot_id",foreignKey = @ForeignKey))
-@IdClass(StockEntity.StockEntityPk.class)
-public class StockEntity implements Serializable {
+@IdClass(Stock.StockPk.class)
+public class Stock implements Serializable {
     @Id
     @Column(name = "owner_no")
     @JSONField(ordinal = 1,
@@ -91,7 +91,7 @@ public class StockEntity implements Serializable {
 //            referencedColumnName = "lot_id")
 //    private Lot lotEntity;
 
-    public StockEntity() {
+    public Stock() {
     }
 
     public String getOwnerNo() {
@@ -190,7 +190,7 @@ public class StockEntity implements Serializable {
 //        this.lotEntity = lotEntity;
 //    }
 
-    public static class StockEntityPk implements Serializable {
+    public static class StockPk implements Serializable {
         private String ownerNo;
 
         private String warehouseNo;
@@ -203,7 +203,7 @@ public class StockEntity implements Serializable {
 
         private String stockStatus;
 
-        public StockEntityPk() {
+        public StockPk() {
         }
 
         public String getLocationId() {
@@ -233,13 +233,13 @@ public class StockEntity implements Serializable {
                 return false;
             }
 
-            StockEntityPk stockEntityPk = (StockEntityPk) object;
+            StockPk stockPk = (StockPk) object;
 
-            return this.ownerNo.equals(stockEntityPk.getOwnerNo()) &&
-                    this.warehouseNo.equals(stockEntityPk.getWarehouseNo()) &&
-                    this.goodsId.equals(stockEntityPk.getGoodsId()) &&
-                    this.lotId.equals(stockEntityPk.getLotId()) &&
-                    this.stockStatus.equals(stockEntityPk.getStockStatus());
+            return this.ownerNo.equals(stockPk.getOwnerNo()) &&
+                    this.warehouseNo.equals(stockPk.getWarehouseNo()) &&
+                    this.goodsId.equals(stockPk.getGoodsId()) &&
+                    this.lotId.equals(stockPk.getLotId()) &&
+                    this.stockStatus.equals(stockPk.getStockStatus());
         }
 
         @Override

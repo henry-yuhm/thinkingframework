@@ -13,7 +13,7 @@ import java.math.BigDecimal;
  */
 @Entity
 @Table(name = "UPGRADE_CONFIG")
-public class UpgradeConfigEntity {
+public class UpgradeConfig {
     @Id
     @Column(name = "UPGRADE_OBJECT")
     @JSONField(name = "UpgradeObject")
@@ -64,7 +64,7 @@ public class UpgradeConfigEntity {
             name = "Errors")
     private String errors;
 
-    public UpgradeConfigEntity() {
+    public UpgradeConfig() {
     }
 
     public String getUpgradeObject() {
