@@ -1,9 +1,6 @@
 package org.jointown.logistics.audit.entity;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.OneToOne;
+import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
 
@@ -13,15 +10,19 @@ public class AuditData implements Serializable {
     @GeneratedValue
     private long id;
 
+    @Column(unique = true, nullable = false, updatable = false)
     private String username;
 
+    @Column(unique = true, nullable = false, updatable = false)
     private String applicationName;
 
+    @Column(unique = true, nullable = false, updatable = false)
     private String moduleName;
 
     @OneToOne
     private AuditType auditType;
 
+    @Column(unique = true, nullable = false, updatable = false)
     private Date auditTime;
 
     public AuditData() {
