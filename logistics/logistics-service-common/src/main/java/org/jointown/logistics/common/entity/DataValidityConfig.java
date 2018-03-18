@@ -5,7 +5,7 @@ import java.io.Serializable;
 
 @Entity
 @Table(name = "sys_data_validity_config")
-@IdClass(value = DataValidityConfig.DataValidityConfigEntityPk.class)
+@IdClass(value = DataValidityConfig.DataValidityConfigPk.class)
 public class DataValidityConfig {
     @Id
     @Column(name = "table_schema")
@@ -90,14 +90,14 @@ public class DataValidityConfig {
         this.dateFormat = dateFormat;
     }
 
-    public static class DataValidityConfigEntityPk implements Serializable {
+    public static class DataValidityConfigPk implements Serializable {
         private String tableSchema;
 
         private String tableName;
 
         private String columnName;
 
-        public DataValidityConfigEntityPk() {
+        public DataValidityConfigPk() {
         }
 
         public String getTableSchema() {
@@ -143,11 +143,11 @@ public class DataValidityConfig {
                 return false;
             }
 
-            DataValidityConfigEntityPk dataValidityConfigEntityPk = (DataValidityConfigEntityPk) object;
+            DataValidityConfigPk dataValidityConfigPk = (DataValidityConfigPk) object;
 
-            if (this.tableSchema.equals(dataValidityConfigEntityPk.tableSchema) &&
-                    this.tableName.equals(dataValidityConfigEntityPk.tableName) &&
-                    this.columnName.equals(dataValidityConfigEntityPk.columnName)) {
+            if (this.tableSchema.equals(dataValidityConfigPk.tableSchema) &&
+                    this.tableName.equals(dataValidityConfigPk.tableName) &&
+                    this.columnName.equals(dataValidityConfigPk.columnName)) {
                 return true;
             } else {
                 return false;

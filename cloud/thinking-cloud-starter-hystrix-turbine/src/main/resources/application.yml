@@ -23,6 +23,8 @@ eureka:
   client:
     service-url:
       defaultZone: http://peer1:8761/eureka,http://peer2:8762/eureka
+    healthcheck:
+      enabled: true
 turbine:
   app-config: logistics-service-common,logistics-service-stock
   cluster-name-expression: "'default'"

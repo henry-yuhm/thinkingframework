@@ -19,6 +19,8 @@ eureka:
   client:
     service-url:
       defaultZone: http://peer2:8762/eureka
+    healthcheck:
+      enabled: true
   environment: product-peer1
   datacenter: cloud-peer1
 ---
@@ -33,5 +35,7 @@ eureka:
   client:
     service-url:
       defaultZone: http://peer1:8761/eureka
+    healthcheck:
+      enabled: true
   environment: product-peer2
   datacenter: cloud-peer2

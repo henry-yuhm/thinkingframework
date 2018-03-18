@@ -1,13 +1,15 @@
 package org.jointown.logistics.common.entity;
 
-import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import java.io.Serializable;
+import javax.persistence.MappedSuperclass;
 
-@Entity
-public class OutboundBillDetail implements Serializable {
+@MappedSuperclass
+public abstract class BillDetail {
     @Id
     @GeneratedValue
     private long id;
+
+    public BillDetail() {
+    }
 }

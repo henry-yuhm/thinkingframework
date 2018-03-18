@@ -83,9 +83,17 @@ eureka:
   client:
     service-url:
       defaultZone: http://localhost:8761/eureka,http://localhost:8762/eureka
+    healthcheck:
+      enabled: true
 ribbon:
   eager-load:
     enabled: true
 #logging:
 #  level:
 #    org.jointown.logistics.workflow.*: DEBUG
+---
+spring:
+  profiles: dev
+eureka:
+  instance:
+    lease-renewal-interval-in-seconds: 5

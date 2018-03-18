@@ -71,8 +71,16 @@ eureka:
   client:
     service-url:
       defaultZone: http://peer1:8761/eureka,http://peer2:8762/eureka
+    healthcheck:
+      enabled: true
 logging:
   level:
     org.jointown.logistics.client.DataInterfaceClient: DEBUG
     org.jointown.logistics.client.DataValidityClient: DEBUG
     org.jointown.logistics.client.StreamComputingClient: DEBUG
+---
+spring:
+  profiles: dev
+eureka:
+  instance:
+    lease-renewal-interval-in-seconds: 5

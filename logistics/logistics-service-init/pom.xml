@@ -84,6 +84,10 @@
             <groupId>org.thinkingframework.boot</groupId>
             <artifactId>thinking-boot-starter-web</artifactId>
         </dependency>
+        <dependency>
+            <groupId>org.jointown.logistics</groupId>
+            <artifactId>logistics-service-common</artifactId>
+        </dependency>
     </dependencies>
 
     <build>

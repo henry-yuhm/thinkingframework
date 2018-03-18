@@ -10,19 +10,20 @@ public class AuditData implements Serializable {
     @GeneratedValue
     private long id;
 
-    @Column(unique = true, nullable = false, updatable = false)
+    @Column(nullable = false, updatable = false)
     private String username;
 
-    @Column(unique = true, nullable = false, updatable = false)
+    @Column(nullable = false, updatable = false)
     private String applicationName;
 
-    @Column(unique = true, nullable = false, updatable = false)
+    @Column(nullable = false, updatable = false)
     private String moduleName;
 
     @OneToOne
+    @JoinColumn(foreignKey = @ForeignKey(name = "fk_audit_data_audit_type"))
     private AuditType auditType;
 
-    @Column(unique = true, nullable = false, updatable = false)
+    @Column(nullable = false, updatable = false)
     private Date auditTime;
 
     public AuditData() {
