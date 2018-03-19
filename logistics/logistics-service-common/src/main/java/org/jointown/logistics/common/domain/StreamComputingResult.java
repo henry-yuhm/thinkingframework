@@ -1,4 +1,4 @@
-package org.jointown.logistics.common.entity;
+package org.jointown.logistics.common.domain;
 
 import com.alibaba.fastjson.annotation.JSONField;
 

@@ -1,8 +1,8 @@
 package org.jointown.logistics.common.configurer;
 
-import org.jointown.logistics.common.entity.DataInterfaceParameter;
-import org.jointown.logistics.common.entity.DataInterfaceResult;
-import org.jointown.logistics.common.entity.StreamComputingResult;
+import org.jointown.logistics.common.domain.DataInterfaceParameter;
+import org.jointown.logistics.common.domain.DataInterfaceResult;
+import org.jointown.logistics.common.domain.StreamComputingResult;
 import org.springframework.cloud.client.loadbalancer.LoadBalanced;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

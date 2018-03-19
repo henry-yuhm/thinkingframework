@@ -11,22 +11,22 @@ public abstract class BillHeader {
 
     private String no;
 
-    @OneToOne
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(foreignKey = @ForeignKey(name = "fk_warehouse"))
     private Warehouse warehouse;
 
-    @OneToOne
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(foreignKey = @ForeignKey(name = "fk_owner"))
     private Owner owner;
 
-    @OneToOne
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(foreignKey = @ForeignKey(name = "fk_customer"))
     private Customer customer;
 
     private Stage stage;
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.LAZY)
     private Set<? extends BillDetail> billDetails;
-
-    public BillHeader() {
-    }
 
     public String getNo() {
         return no;

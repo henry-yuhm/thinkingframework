@@ -1,8 +1,8 @@
 package org.jointown.logistics.common.service;
 
 import org.jointown.logistics.common.configurer.DataInterfaceConfigurer;
-import org.jointown.logistics.common.entity.DataInterfaceParameter;
-import org.jointown.logistics.common.entity.DataInterfaceResult;
+import org.jointown.logistics.common.domain.DataInterfaceParameter;
+import org.jointown.logistics.common.domain.DataInterfaceResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;

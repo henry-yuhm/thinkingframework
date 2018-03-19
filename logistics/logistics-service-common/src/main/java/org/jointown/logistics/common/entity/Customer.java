@@ -1,6 +1,7 @@
 package org.jointown.logistics.common.entity;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
 import java.io.Serializable;
@@ -10,10 +11,10 @@ public class Customer implements Serializable {
     @Id
     private long id;
 
-    @OneToOne
+    @OneToOne(fetch = FetchType.LAZY)
     private Owner owner;
 
-    private String code;
+    private String no;
 
     private String sourceCode;
 
