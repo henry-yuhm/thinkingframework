@@ -39,7 +39,7 @@ public class Goods {
 
     private Date approvalNoValidUntil;
 
-    private String splitGranularity;
+    private SplitGranularity splitGranularity;
 
     private int minInvoiceUnit;
 
@@ -78,16 +78,47 @@ public class Goods {
     private String storageRequest;
 
     public enum SplitGranularity {
+        SCATTER_AVAILABLE("1", 1),
+        UNSPLIT_MEDIUM_PACKAGE("2", 2),
+        UNSPLIT_FULLLOAD_PACKAGE("3", 3),
+        DECIMAL_AVAILABLE("4", 4);
 
+        private final String name;
+
+        private final int ordinal;
+
+        SplitGranularity(String name, int ordinal) {
+            this.name = name;
+            this.ordinal = ordinal;
+        }
     }
 
     public enum Classification {
-        A,
-        B,
-        C
+        A("A", 1),
+        B("B", 2),
+        C("C", 3);
+
+        private final String name;
+
+        private final int ordinal;
+
+        Classification(String name, int ordinal) {
+            this.name = name;
+            this.ordinal = ordinal;
+        }
     }
 
     public enum StorageSign {
+        ALL_PACKAGE("1", 1),
+        SCATTER_PACKAGE("2", 2);
 
+        private final String name;
+
+        private final int ordinal;
+
+        StorageSign(String name, int ordinal) {
+            this.name = name;
+            this.ordinal = ordinal;
+        }
     }
 }

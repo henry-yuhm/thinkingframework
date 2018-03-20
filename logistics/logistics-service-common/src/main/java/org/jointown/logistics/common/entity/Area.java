@@ -13,7 +13,7 @@ public class Area {
 
     private String no;
 
-    private String description;
+    private String name;
 
     private String storeCategory;
 
@@ -54,12 +54,12 @@ public class Area {
         this.no = no;
     }
 
-    public String getDescription() {
-        return description;
+    public String getName() {
+        return name;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getStoreCategory() {
