@@ -1,13 +1,13 @@
 package org.jointown.logistics.common.entity;
 
+import javax.persistence.AssociationOverride;
+import javax.persistence.AssociationOverrides;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import java.io.Serializable;
+import javax.persistence.ForeignKey;
 
 @Entity
-public class OutboundBillDetail implements Serializable {
-    @Id
-    @GeneratedValue
-    private long id;
+@AssociationOverrides({
+        @AssociationOverride(name = "parentBillDetail", foreignKey = @ForeignKey(name = "fk_obd_parent_bd"))
+})
+public class OutboundBillDetail extends BusinessBillDetail {
 }

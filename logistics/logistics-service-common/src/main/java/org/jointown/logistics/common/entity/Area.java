@@ -9,6 +9,7 @@ public class Area {
     private long id;
 
     @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(foreignKey = @ForeignKey(name = "fk_area_warehouse"))
     private Warehouse warehouse;
 
     private String no;

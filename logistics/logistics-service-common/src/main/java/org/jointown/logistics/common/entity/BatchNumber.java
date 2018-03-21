@@ -13,7 +13,7 @@ public class BatchNumber {
     private Owner owner;
 
     @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(foreignKey = @ForeignKey(name = "fk_goods"))
+    @JoinColumn(foreignKey = @ForeignKey(name = "fk_batchnumber_goods"))
     private Goods goods;
 
     private String no;

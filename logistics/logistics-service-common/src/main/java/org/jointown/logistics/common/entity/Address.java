@@ -9,15 +9,15 @@ public class Address {
     private long id;
 
     @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(foreignKey = @ForeignKey(name = "fk_customer"))
+    @JoinColumn(foreignKey = @ForeignKey(name = "fk_address_customer"))
     private Customer customer;
 
     @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(foreignKey = @ForeignKey(name = "fk_direction"))
+    @JoinColumn(foreignKey = @ForeignKey(name = "fk_address_direction"))
     private Direction direction;
 
     @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(foreignKey = @ForeignKey(name = "fk_route"))
+    @JoinColumn(foreignKey = @ForeignKey(name = "fk_address_route"))
     private Route route;
 
     private String address;
@@ -26,13 +26,21 @@ public class Address {
 
     private String code;
 
-    private boolean defaults;
+    private boolean defaultAddress;
 
     private String contactName;
 
     private String contactPhone;
 
     public Address() {
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
     }
 
     public Customer getCustomer() {
@@ -83,12 +91,12 @@ public class Address {
         this.code = code;
     }
 
-    public boolean isDefaults() {
-        return defaults;
+    public boolean isDefaultAddress() {
+        return defaultAddress;
     }
 
-    public void setDefaults(boolean defaults) {
-        this.defaults = defaults;
+    public void setDefaultAddress(boolean defaultAddress) {
+        this.defaultAddress = defaultAddress;
     }
 
     public String getContactName() {

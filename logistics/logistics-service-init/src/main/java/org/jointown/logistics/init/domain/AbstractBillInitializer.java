@@ -1,7 +1,7 @@
 package org.jointown.logistics.init.domain;
 
 import org.jointown.logistics.common.domain.BusinessAdapter;
-import org.jointown.logistics.common.entity.BillHeader;
+import org.jointown.logistics.common.entity.BusinessBillHeader;
 import org.jointown.logistics.common.entity.OutboundBillHeader;
 import org.jointown.logistics.common.repository.OutboundBillHeaderRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +17,7 @@ public abstract class AbstractBillInitializer extends BusinessAdapter implements
     }
 
     private void verify() throws Exception {
-        if (this.outboundBillHeader.getStage().compareTo(BillHeader.Stage.INIT_FINISHED) >= 0) {
+        if (this.outboundBillHeader.getStage().compareTo(BusinessBillHeader.Stage.INIT_COMPLETE) >= 0) {
             throw this.getException("单据已经初始化", this.outboundBillHeader, this.outboundBillHeader.getOwner());
         }
 

@@ -1,17 +1,14 @@
 package org.jointown.logistics.common.entity;
 
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.Id;
-import javax.persistence.OneToOne;
-import java.io.Serializable;
+import javax.persistence.*;
 
 @Entity
-public class Customer implements Serializable {
+public class Customer {
     @Id
     private long id;
 
     @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(foreignKey = @ForeignKey(name = "fk_customer_owner"))
     private Owner owner;
 
     private String no;

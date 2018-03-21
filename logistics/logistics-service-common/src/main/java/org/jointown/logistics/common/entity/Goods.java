@@ -11,6 +11,7 @@ public class Goods {
     private long id;
 
     @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(foreignKey = @ForeignKey(name = "fk_goods_owner"))
     private Owner owner;
 
     private String no;

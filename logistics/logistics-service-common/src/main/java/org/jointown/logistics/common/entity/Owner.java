@@ -2,10 +2,9 @@ package org.jointown.logistics.common.entity;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import java.io.Serializable;
 
 @Entity
-public class Owner implements Serializable {
+public class Owner {
     @Id
     private long id;
 
@@ -17,7 +16,7 @@ public class Owner implements Serializable {
 
     private String serviceHotline;
 
-    private boolean isThirdpartLogistics;
+    private boolean thirdpart;
 
     public Owner() {
     }
@@ -62,11 +61,11 @@ public class Owner implements Serializable {
         this.serviceHotline = serviceHotline;
     }
 
-    public boolean isThirdpartLogistics() {
-        return isThirdpartLogistics;
+    public boolean isThirdpart() {
+        return thirdpart;
     }
 
-    public void setThirdpartLogistics(boolean thirdpartLogistics) {
-        isThirdpartLogistics = thirdpartLogistics;
+    public void setThirdpart(boolean thirdpart) {
+        this.thirdpart = thirdpart;
     }
 }
