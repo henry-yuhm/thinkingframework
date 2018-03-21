@@ -30,11 +30,34 @@
       }
     },
     {
+      "id": "billOutbound.WORKING",
+      "label": "WORKING",
+      "shape": "hexagon",
+      "style": {
+        "left": "1142px",
+        "top": "78px"
+      },
+      "state": {
+        "machineId": "billOutbound",
+        "state": "WORKING",
+        "region": "R0",
+        "initial": false,
+        "kind": null,
+        "submachineId": null,
+        "initialAction": null,
+        "parentState": null,
+        "stateActions": [],
+        "entryActions": [],
+        "exitActions": [],
+        "deferredEvents": []
+      }
+    },
+    {
       "id": "billOutbound.END",
       "label": "END",
       "shape": "circle",
       "style": {
-        "left": "1142px",
+        "left": "2142px",
         "top": "78px"
       },
       "state": {
@@ -56,11 +79,27 @@
   "lines": [
     {
       "source": "billOutbound.START",
+      "target": "billOutbound.WORKING",
+      "label": null,
+      "transition": {
+        "machineId": "billOutbound",
+        "event": "E1",
+        "kind": "EXTERNAL",
+        "actions": [
+          {
+            "name": "updateOperationStates"
+          }
+        ],
+        "guard": null
+      }
+    },
+    {
+      "source": "billOutbound.WORKING",
       "target": "billOutbound.END",
       "label": null,
       "transition": {
         "machineId": "billOutbound",
-        "event": "E",
+        "event": "E2",
         "kind": "EXTERNAL",
         "actions": [
           {
