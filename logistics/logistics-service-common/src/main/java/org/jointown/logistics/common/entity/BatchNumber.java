@@ -10,6 +10,7 @@ public class BatchNumber {
     private long id;
 
     @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(foreignKey = @ForeignKey(name = "fk_batchnumber_owner"))
     private Owner owner;
 
     @OneToOne(fetch = FetchType.LAZY)
@@ -93,5 +94,22 @@ public class BatchNumber {
 
     public void setApprovalNo(String approvalNo) {
         this.approvalNo = approvalNo;
+    }
+
+    public enum BatchNumberRequest {
+        SINGLE("1", 1),//单一批号
+        NEW("2", 2),//新批号
+        SINGLE_NEW("3", 3),//单一新批号
+        NONE("4", 4),//无要求
+        CLEANUP("5", 5);//清理批号
+
+        private final String name;
+
+        private final int ordinal;
+
+        BatchNumberRequest(String name, int ordinal) {
+            this.name = name;
+            this.ordinal = ordinal;
+        }
     }
 }

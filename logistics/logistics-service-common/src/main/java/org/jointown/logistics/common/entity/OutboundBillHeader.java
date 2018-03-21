@@ -4,10 +4,21 @@ import javax.persistence.*;
 import java.util.Date;
 
 @Entity
-public class OutboundBillHeader extends BusinessBillHeader {
+@AssociationOverrides({
+        @AssociationOverride(name = "billDetails", joinTable = @JoinTable(foreignKey = @ForeignKey(name = "fk_obh_bd_obh"), inverseForeignKey = @ForeignKey(name = "fk_obh_bd_obd")))
+})
+public class OutboundBillHeader extends BillHeader {
+    private TakeMode takeMode;
+
+    private TakeMode takeModeConvertor;
+
+    private BillPriority billPriority;
+
+    private SaleType saleType;
+
     private String waveNo;
 
-    private String dispatchingType;
+    private String dispatchType;
 
     private String dispatcher;
 
@@ -15,18 +26,10 @@ public class OutboundBillHeader extends BusinessBillHeader {
 
     private Date releaseTime;
 
-    private TakeMode takeMode;
-
-    private TakeMode takeModeConvertor;
-
-    private Priority priority;
-
-    private SaleType saleType;
-
     private String deliveryType;
 
     @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(foreignKey = @ForeignKey(name = "fk_address"))
+    @JoinColumn(foreignKey = @ForeignKey(name = "fk_obh_address"))
     private Address address;
 
     private String businessman;
@@ -34,11 +37,11 @@ public class OutboundBillHeader extends BusinessBillHeader {
     private String buyer;
 
     @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(foreignKey = @ForeignKey(name = "fk_obh_source_staging_area"))
+    @JoinColumn(foreignKey = @ForeignKey(name = "fk_obh_source_sga"))
     private StagingArea sourceStagingArea;
 
     @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(foreignKey = @ForeignKey(name = "fk_obh_target_staging_area"))
+    @JoinColumn(foreignKey = @ForeignKey(name = "fk_obh_target_sga"))
     private StagingArea targetStagingArea;
 
     private boolean stockout;

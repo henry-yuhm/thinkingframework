@@ -3,5 +3,5 @@ package org.jointown.logistics.common.entity;
 import javax.persistence.Entity;
 
 @Entity
-public class UpshelfCommand extends OperationCommand {
+public class InboundCommand extends Command {
 }

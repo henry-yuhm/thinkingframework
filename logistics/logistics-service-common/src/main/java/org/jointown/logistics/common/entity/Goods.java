@@ -110,8 +110,8 @@ public class Goods {
     }
 
     public enum StorageSign {
-        ALL_PACKAGE("1", 1),
-        SCATTER_PACKAGE("2", 2);
+        ALL("1", 1),
+        REMAINDER_ONLY("2", 2);
 
         private final String name;
 

@@ -1,18 +1,22 @@
 package org.jointown.logistics.common.entity;
 
-import org.jointown.logistics.common.domain.Bill;
-
 import javax.persistence.*;
 
 @MappedSuperclass
-public abstract class BusinessBillDetail implements Bill {
+public abstract class BillDetail {
     @Id
     @TableGenerator(name = "detailId", allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.TABLE, generator = "detailId")
     private long id;
 
     @OneToOne(fetch = FetchType.LAZY)
-    private BusinessBillDetail parentBillDetail;
+    private Warehouse warehouse;
+
+    @OneToOne(fetch = FetchType.LAZY)
+    private BillDetail parentBillDetail;
+
+    @OneToOne(fetch = FetchType.LAZY)
+    private BillHeader billHeader;
 
     @OneToOne(fetch = FetchType.LAZY)
     private Goods goods;
@@ -20,6 +24,6 @@ public abstract class BusinessBillDetail implements Bill {
     @OneToOne(fetch = FetchType.LAZY)
     private BatchNumber batchNumber;
 
-    protected BusinessBillDetail() {
+    BillDetail() {
     }
 }

@@ -10,7 +10,7 @@ public class StagingArea {
     private long id;
 
     @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(foreignKey = @ForeignKey(name = "fk_warehouse"))
+    @JoinColumn(foreignKey = @ForeignKey(name = "fk_stagingarea_warehouse"))
     private Warehouse warehouse;
 
     private String no;
@@ -23,24 +23,24 @@ public class StagingArea {
 
     private boolean locking;
 
-    @ManyToMany(fetch = FetchType.LAZY)
+    @ManyToMany
     @JoinTable(
-            foreignKey = @ForeignKey(name = "fk_stagingarea_owners_s"),
-            inverseForeignKey = @ForeignKey(name = "fk_stagingarea_owners_o")
+            foreignKey = @ForeignKey(name = "fk_stagingarea_owners_sga"),
+            inverseForeignKey = @ForeignKey(name = "fk_stagingarea_owners_own")
     )
     private Set<Owner> owners;
 
-    private OperationCommand.BusinessType businessType;
+    private Command.BusinessType businessType;
 
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(foreignKey = @ForeignKey(name = "fk_stagingarea_direction"))
     private Direction direction;
 
-    private BusinessBillHeader.TakeMode takeMode;
+    private BillHeader.TakeMode takeMode;
 
     public enum Type {
         NORMAL("1", 1),//普通
-        APPEND_PICKING("2", 2),//追加拣货
+        ADDTIONAL_PICKING("2", 2),//追加拣货
         TRADITIONAL_CHINESE_MEDICINE("3", 3),//中药
         FAMILY_PLANNING_AND_APPLIANCE("4", 4),//计生器械
         VIRTUAL("5", 5),//虚拟
