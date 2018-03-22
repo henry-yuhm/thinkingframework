@@ -1,6 +1,7 @@
 package org.jointown.logistics.common.entity;
 
 import javax.persistence.*;
+import java.math.BigInteger;
 
 @Entity
 public class Area {
@@ -34,7 +35,8 @@ public class Area {
 
     private String innerRecheckSign;
 
-    private int fullloadToteBoxNumber;
+    @Column(nullable = false)
+    private BigInteger fullloadToteBoxNumber = BigInteger.ZERO;
 
     public Area() {
     }
@@ -135,11 +137,11 @@ public class Area {
         this.innerRecheckSign = innerRecheckSign;
     }
 
-    public int getFullloadToteBoxNumber() {
+    public BigInteger getFullloadToteBoxNumber() {
         return fullloadToteBoxNumber;
     }
 
-    public void setFullloadToteBoxNumber(int fullloadToteBoxNumber) {
+    public void setFullloadToteBoxNumber(BigInteger fullloadToteBoxNumber) {
         this.fullloadToteBoxNumber = fullloadToteBoxNumber;
     }
 

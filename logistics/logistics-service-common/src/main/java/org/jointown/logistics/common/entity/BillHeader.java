@@ -1,6 +1,7 @@
 package org.jointown.logistics.common.entity;
 
 import javax.persistence.*;
+import java.math.BigInteger;
 import java.util.Date;
 import java.util.Set;
 
@@ -31,7 +32,7 @@ public abstract class BillHeader {
 
     private boolean passback;
 
-    private int printTimes;
+    private BigInteger printTimes;
 
     private Date createTime;
 
@@ -63,7 +64,7 @@ public abstract class BillHeader {
 
     public enum BillPriority {
         GREEN_CHANNEL("10", 10),//绿色通道
-        ADDTIONAL_PICKING("15", 15),//追加拣货
+        APPENDANT_PICKING("15", 15),//追加拣货
         SCANGUN_PROMOTION("19", 19),//条码枪提升
         SELF_SERVICE("20", 20),//自提
         CURRENT_AREA_PROMOTION("21", 21),//本区提升

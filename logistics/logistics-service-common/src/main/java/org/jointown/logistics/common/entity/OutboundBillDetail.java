@@ -2,6 +2,7 @@ package org.jointown.logistics.common.entity;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
+import java.math.BigInteger;
 
 @Entity
 @AssociationOverrides({
@@ -19,8 +20,8 @@ public class OutboundBillDetail extends BillDetail {
     @Column(nullable = false, precision = 12, scale = 5)
     private BigDecimal plannedQuantity;
 
-    @Column(nullable = false, precision = 12)
-    private BigDecimal plannedPieces;
+    @Column(nullable = false)
+    private BigInteger plannedPieces = BigInteger.ZERO;
 
     @Column(nullable = false, precision = 12, scale = 5)
     private BigDecimal plannedRemainder;
@@ -28,8 +29,8 @@ public class OutboundBillDetail extends BillDetail {
     @Column(nullable = false, precision = 12, scale = 5)
     private BigDecimal actualQuantity;
 
-    @Column(nullable = false, precision = 12)
-    private BigDecimal actualPieces;
+    @Column(nullable = false)
+    private BigInteger actualPieces = BigInteger.ZERO;
 
     @Column(nullable = false, precision = 12, scale = 5)
     private BigDecimal actualRemainder;

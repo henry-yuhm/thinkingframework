@@ -1,6 +1,7 @@
 package org.jointown.logistics.common.entity;
 
 import javax.persistence.*;
+import java.util.Date;
 
 @MappedSuperclass
 public abstract class Command {
@@ -39,6 +40,36 @@ public abstract class Command {
     private OperationCategory operationCategory;
 
     private TaskStage taskStage;
+
+    private String taskBillNo;
+
+    private OperationMode operationMode;
+
+    @OneToOne(fetch = FetchType.LAZY)
+    private OperationBarcode operationBarcode;
+
+    @OneToOne(fetch = FetchType.LAZY)
+    private Pallet pallet;
+
+    private Date createTime;
+
+    private Date updateTime;
+
+    public enum AppendixSign {
+        ORIGINAL("1", 1),//原始指令
+        APPENDING("2", 2),//正在追加
+        APPEND("3", 3),//追加指令
+        DISAPPEND("4", 4);//不追加
+
+        private final String name;
+
+        private final int ordinal;
+
+        AppendixSign(String name, int ordinal) {
+            this.name = name;
+            this.ordinal = ordinal;
+        }
+    }
 
     public enum BusinessType {
         PURCHASE_INBOUND("1", 1),//购进入库
@@ -81,6 +112,24 @@ public abstract class Command {
         private final int ordinal;
 
         OperationCategory(String name, int ordinal) {
+            this.name = name;
+            this.ordinal = ordinal;
+        }
+    }
+
+    public enum OperationMode {
+        LABEL("1", 1),//标签作业
+        PAPER("2", 2),//纸单作业
+        PDA("3", 3),//PDA作业
+        DPS("4", 4),//DPS作业
+        TPC("5", 5),//平板作业
+        PILER("6", 6);//堆垛机作业
+
+        private final String name;
+
+        private final int ordinal;
+
+        OperationMode(String name, int ordinal) {
             this.name = name;
             this.ordinal = ordinal;
         }

@@ -2,6 +2,7 @@ package org.jointown.logistics.common.entity;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.util.Date;
 
 @Entity
@@ -28,11 +29,12 @@ public class Goods {
 
     private String producingArea;
 
-    private int fullloadPackageQuantity;
+    @Column(nullable = false)
+    private BigInteger fullloadPackageQuantity;
 
-    private int mediumPackageQuantity;
+    private BigInteger mediumPackageQuantity;
 
-    private int tinyPackageQuantity;
+    private BigInteger tinyPackageQuantity;
 
     private String packageUnit;
 
@@ -42,7 +44,7 @@ public class Goods {
 
     private SplitGranularity splitGranularity;
 
-    private int minInvoiceUnit;
+    private BigInteger minInvoiceUnit = BigInteger.ONE;
 
     private String category;
 
