@@ -10,9 +10,9 @@ public class Direction {
     @GeneratedValue
     private long id;
 
-    private String no;
+    private String no;//编号
 
-    private String name;
+    private String name;//名称
 
     public Direction() {
     }

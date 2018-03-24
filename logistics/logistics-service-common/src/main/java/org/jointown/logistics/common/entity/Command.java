@@ -7,48 +7,48 @@ import java.util.Date;
 public abstract class Command {
     @Id
     @GeneratedValue
-    private long id;
+    protected long id;
 
     @OneToOne(fetch = FetchType.LAZY)
-    private Warehouse warehouse;//仓库
+    protected Warehouse warehouse;//仓库
 
     @OneToOne(fetch = FetchType.LAZY)
-    private Owner owner;//业主
+    protected Owner owner;//业主
 
     @OneToOne(fetch = FetchType.LAZY)
-    private Customer customer;//客户
+    protected Customer customer;//客户
 
     @OneToOne(fetch = FetchType.LAZY)
-    private Command parentCommand;//父指令
+    protected Command parentCommand;//父指令
 
     @OneToOne(fetch = FetchType.LAZY)
-    private BillHeader billHeader;//单据抬头
+    protected BillHeader billHeader;//单据抬头
 
     @OneToOne(fetch = FetchType.LAZY)
-    private BillDetail billDetail;//单据明细
+    protected BillDetail billDetail;//单据明细
 
     @OneToOne(fetch = FetchType.LAZY)
-    private Goods goods;//商品
+    protected Goods goods;//商品
 
     @OneToOne(fetch = FetchType.LAZY)
-    private BatchNumber batchNumber;//批号
+    protected BatchNumber batchNumber;//批号
 
-    private PackageSign packageSign;//包装标识
+    protected PackageSign packageSign;//包装标识
 
-    private BusinessType businessType;//业务类型
+    protected BusinessType businessType;//业务类型
 
-    private OperationCategory operationCategory;//作业类别
+    protected OperationCategory operationCategory;//作业类别
 
-    private TaskStage taskStage;//任务阶段
+    protected TaskStage taskStage;//任务阶段
 
-    private OperationMode operationMode;//作业方式
+    protected OperationMode operationMode;//作业方式
 
     @OneToOne(fetch = FetchType.LAZY)
-    private OperationBarcode operationBarcode;//作业条码
+    protected OperationBarcode operationBarcode;//作业条码
 
-    private Date createTime;//创建时间
+    protected Date creationTime;//创建时间
 
-    private Date updateTime;//更新时间
+    protected Date modificationTime;//修改时间
 
     public enum AppendixSign {
         ORIGINAL("1", 1),//原始指令

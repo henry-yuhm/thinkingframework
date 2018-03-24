@@ -11,32 +11,32 @@ public class StagingArea {
 
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(foreignKey = @ForeignKey(name = "fk_stagingarea_warehouse"))
-    private Warehouse warehouse;
+    private Warehouse warehouse;//仓库
 
-    private String no;
+    private String no;//编号
 
-    private String name;
+    private String name;//名称
 
-    private Type type;
+    private Type type;//类型
 
-    private Category category;
+    private Category category;//类别
 
-    private boolean available;
+    private boolean available;//是否可用
 
     @ManyToMany
     @JoinTable(
             foreignKey = @ForeignKey(name = "fk_stagingarea_owners_sga"),
             inverseForeignKey = @ForeignKey(name = "fk_stagingarea_owners_own")
     )
-    private Set<Owner> owners;
+    private Set<Owner> owners;//业主
 
-    private Command.BusinessType businessType;
+    private Command.BusinessType businessType;//业务类型
 
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(foreignKey = @ForeignKey(name = "fk_stagingarea_direction"))
-    private Direction direction;
+    private Direction direction;//方向
 
-    private BillHeader.TakeMode takeMode;
+    private BillHeader.TakeMode takeMode;//提货方式
 
     public enum Type {
         NORMAL("1", 1),//普通

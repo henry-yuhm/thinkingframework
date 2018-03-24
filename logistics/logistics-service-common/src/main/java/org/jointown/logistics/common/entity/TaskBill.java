@@ -11,17 +11,17 @@ public class TaskBill {
 
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(foreignKey = @ForeignKey(name = "fk_taskbill_warehouse"))
-    private Warehouse warehouse;
+    private Warehouse warehouse;//仓库
 
-    private String picker;
+    private String picker;//拣货员
 
-    private Date pickingStartTime;
+    private Date pickingStartTime;//拣货开始时间
 
-    private Date pickingCompleteTime;
+    private Date pickingCompleteTime;//拣货完成时间
 
-    private String rechecker;
+    private String rechecker;//复核员
 
-    private Date recheckStartTime;
+    private Date recheckStartTime;//复核开始时间
 
-    private Date recheckCompleteTime;
+    private Date recheckCompleteTime;//复核完成时间
 }

@@ -8,16 +8,16 @@ public abstract class Barcode {
     @Id
     @TableGenerator(name = "barcodeId", allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.TABLE, generator = "barcodeId")
-    private long id;
+    protected long id;
 
     @OneToOne(fetch = FetchType.LAZY)
-    private Warehouse warehouse;//仓库
+    protected Warehouse warehouse;//仓库
 
-    private String no;//编号
+    protected String no;//编号
 
-    private Date createTime;//创建时间
+    protected Date creationTime;//创建时间
 
-    private Date updateTime;//更新时间
+    protected Date modificationTime;//修改时间
 
     public enum BarcodeType {
         INBOUND("1", 1),//入库

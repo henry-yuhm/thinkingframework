@@ -11,16 +11,16 @@ public class SorterSlide {
     private long id;
 
     @OneToOne(fetch = FetchType.LAZY)
-    private Warehouse warehouse;
+    private Warehouse warehouse;//仓库
 
-    private String no;
+    private String no;//编号
 
-    private Category category;
+    private Category category;//类别
 
-    private boolean available;
+    private boolean available;//是否可用
 
     @Column(nullable = false)
-    private BigInteger workload = BigInteger.ZERO;
+    private BigInteger workload = BigInteger.ZERO;//工作量
 
     public SorterSlide() {
     }

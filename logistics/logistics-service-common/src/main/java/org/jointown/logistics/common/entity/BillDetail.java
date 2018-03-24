@@ -7,23 +7,20 @@ public abstract class BillDetail {
     @Id
     @TableGenerator(name = "detailId", allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.TABLE, generator = "detailId")
-    private long id;
+    protected long id;
 
     @OneToOne(fetch = FetchType.LAZY)
-    private Warehouse warehouse;//仓库
+    protected Warehouse warehouse;//仓库
 
     @OneToOne(fetch = FetchType.LAZY)
-    private BillDetail parentBillDetail;//父单据明细
+    protected BillDetail parentBillDetail;//父单据明细
 
     @OneToOne(fetch = FetchType.LAZY)
-    private BillHeader billHeader;//单据抬头
+    protected BillHeader billHeader;//单据抬头
 
     @OneToOne(fetch = FetchType.LAZY)
-    private Goods goods;//商品
+    protected Goods goods;//商品
 
     @OneToOne(fetch = FetchType.LAZY)
-    private BatchNumber batchNumber;//批号
-
-    BillDetail() {
-    }
+    protected BatchNumber batchNumber;//批号
 }

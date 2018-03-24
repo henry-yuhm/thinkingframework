@@ -11,56 +11,56 @@ import java.math.BigInteger;
 public class OutboundBillDetail extends BillDetail {
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(foreignKey = @ForeignKey(name = "fk_obd_location"))
-    private Location location;
+    private Location location;//货位
 
-    private Stock.StockStatus stockStatus;
+    private Stock.StockStatus stockStatus;//库存状态
 
-    private BatchNumber.BatchNumberRequest batchNumberRequest;
+    private BatchNumber.BatchNumberRequest batchNumberRequest;//批号要求
 
     @Column(nullable = false, precision = 12, scale = 5)
-    private BigDecimal plannedQuantity;
+    private BigDecimal plannedQuantity;//计划数量
 
     @Column(nullable = false)
-    private BigInteger plannedPieces = BigInteger.ZERO;
+    private BigInteger plannedPieces = BigInteger.ZERO;//计划件数
 
     @Column(nullable = false, precision = 12, scale = 5)
-    private BigDecimal plannedRemainder;
+    private BigDecimal plannedRemainder;//计划余数
 
     @Column(nullable = false, precision = 12, scale = 5)
-    private BigDecimal actualQuantity;
+    private BigDecimal actualQuantity;//实际数量
 
     @Column(nullable = false)
-    private BigInteger actualPieces = BigInteger.ZERO;
+    private BigInteger actualPieces = BigInteger.ZERO;//实际件数
 
     @Column(nullable = false, precision = 12, scale = 5)
-    private BigDecimal actualRemainder;
+    private BigDecimal actualRemainder;//实际余数
 
     @Column(nullable = false, precision = 12, scale = 5)
-    private BigDecimal fullloadQuantity;
+    private BigDecimal wholeQuantity;//整件未处理数量
 
     @Column(nullable = false, precision = 12, scale = 5)
-    private BigDecimal remainderQuantity;
+    private BigDecimal remainderQuantity;//零货未处理数量
 
     @Column(nullable = false, precision = 12, scale = 5)
-    private BigDecimal stocklessnessQuantity;
+    private BigDecimal stocklessnessQuantity;//库存不足数量
 
-    private boolean original;
-
-    @Column(nullable = false, precision = 12, scale = 5)
-    private BigDecimal price;
+    private boolean original;//是否原始数据
 
     @Column(nullable = false, precision = 12, scale = 5)
-    private BigDecimal amount;
+    private BigDecimal price;//单价
 
     @Column(nullable = false, precision = 12, scale = 5)
-    private BigDecimal taxTicketAmount;
+    private BigDecimal amount;//金额
 
     @Column(nullable = false, precision = 12, scale = 5)
-    private BigDecimal settleupPrice;
+    private BigDecimal taxTicketAmount;//税票金额
 
     @Column(nullable = false, precision = 12, scale = 5)
-    private BigDecimal settleupAmount;
+    private BigDecimal settleupPrice;//结算单价
 
     @Column(nullable = false, precision = 12, scale = 5)
-    private BigDecimal flittingCostPrice;
+    private BigDecimal settleupAmount;//结算金额
+
+    @Column(nullable = false, precision = 12, scale = 5)
+    private BigDecimal flittingCostPrice;//调拨成本价
 }

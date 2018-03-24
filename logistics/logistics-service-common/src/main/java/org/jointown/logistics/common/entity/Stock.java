@@ -10,7 +10,7 @@ public class Stock {
     private long id;
 
     @OneToOne(fetch = FetchType.LAZY)
-    private Warehouse warehouse;
+    private Warehouse warehouse;//仓库
 
     public enum StockStatus {
         QUALIFICATION("1", 1),//合格

@@ -4,5 +4,5 @@ import javax.persistence.Entity;
 
 @Entity
 public class Totebox extends Container {
-    private String taskBillNo;
+    private TaskBill taskBill;//任务单
 }

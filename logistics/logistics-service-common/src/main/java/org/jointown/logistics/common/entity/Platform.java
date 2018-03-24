@@ -11,5 +11,5 @@ public class Platform {
 
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(foreignKey = @ForeignKey(name = "fk_pfm_wh"))
-    private Warehouse warehouse;
+    private Warehouse warehouse;//仓库
 }

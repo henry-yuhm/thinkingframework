@@ -8,13 +8,13 @@ public class Route {
     @GeneratedValue
     private long id;
 
-    private String no;
+    private String no;//编号
 
-    private String name;
+    private String name;//名称
 
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(foreignKey = @ForeignKey(name = "fk_route_direction"))
-    private Direction direction;
+    private Direction direction;//方向
 
     public Route() {
     }

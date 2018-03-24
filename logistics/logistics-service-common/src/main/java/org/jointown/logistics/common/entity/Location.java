@@ -11,5 +11,5 @@ public class Location {
 
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(foreignKey = @ForeignKey(name = "fk_location_warehouse"))
-    private Warehouse warehouse;
+    private Warehouse warehouse;//仓库
 }

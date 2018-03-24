@@ -4,7 +4,7 @@ import com.alibaba.druid.util.StringUtils;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import org.jointown.logistics.common.configurer.DataSourceConfigurer;
-import org.jointown.logistics.common.entity.DataValidityConfig;
+import org.jointown.logistics.common.entity.support.DataValidityConfig;
 import org.jointown.logistics.common.repository.DataValidityConfigRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

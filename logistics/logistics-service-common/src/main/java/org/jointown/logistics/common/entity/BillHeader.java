@@ -9,39 +9,39 @@ import java.util.Set;
 public abstract class BillHeader {
     @Id
     @GeneratedValue
-    private long id;
+    protected long id;
 
     @OneToOne(fetch = FetchType.LAZY)
-    private Warehouse warehouse;//仓库
+    protected Warehouse warehouse;//仓库
 
     @OneToOne(fetch = FetchType.LAZY)
-    private Owner owner;//业主
+    protected Owner owner;//业主
 
     @OneToOne(fetch = FetchType.LAZY)
-    private Customer customer;//客户
+    protected Customer customer;//客户
 
-    private String billNo;//单据编号
+    protected String billNo;//单据编号
 
-    private BillType billType;//单据类型
+    protected BillType billType;//单据类型
 
-    private BillCategory billCategory;//单据类别
+    protected BillCategory billCategory;//单据类别
 
-    private BillStage billStage;//单据阶段
+    protected BillStage billStage;//单据阶段
 
-    private String operator;//操作员
+    protected String operator;//操作员
 
-    private boolean passback;//是否回传
+    protected boolean passback;//是否回传
 
-    private BigInteger printTimes;//打印次数
+    protected BigInteger printTimes;//打印次数
 
-    private Date createTime;//创建时间
+    protected Date creationTime;//创建时间
 
-    private Date updateTime;//更新时间
+    protected Date modificationTime;//修改时间
 
-    private String remarks;//备注
+    protected String remarks;//备注
 
     @ManyToMany
-    private Set<? extends BillDetail> billDetails;//单据明细
+    protected Set<? extends BillDetail> billDetails;//单据明细
 
     public enum BillCategory {
         WESTERN_MEDICINE("1", 1),//西药

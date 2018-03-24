@@ -1,53 +1,47 @@
 package org.jointown.logistics.common.entity;
 
+import org.jointown.logistics.common.entity.support.Quantity;
+
 import javax.persistence.*;
-import java.math.BigDecimal;
-import java.math.BigInteger;
 import java.util.Set;
 
 @MappedSuperclass
 public abstract class OutboundCommand extends Command {
     @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(foreignKey = @ForeignKey(name = "fk_obc_location"))
-    private Location location;//货位
+    protected Location location;//货位
 
-    private Stock.StockStatus stockStatus;//库存状态
+    protected Stock.StockStatus stockStatus;//库存状态
 
-    private boolean active;//是否激活
+    protected boolean active;//是否激活
 
-    @Column(nullable = false, precision = 12, scale = 5)
-    private BigDecimal creativeQuantity;//创建数量
+    @AttributeOverrides(value = {
+            @AttributeOverride(name = "quantity", column = @Column(name = "creationQuantity", nullable = false, precision = 12, scale = 5)),
+            @AttributeOverride(name = "pieces", column = @Column(name = "creationPieces", nullable = false)),
+            @AttributeOverride(name = "remainder", column = @Column(name = "creationRemainder", nullable = false, precision = 12, scale = 5))
+    })
+    protected Quantity creationQuantity;//创建数量
 
-    @Column(nullable = false)
-    private BigInteger creativePieces = BigInteger.ZERO;//创建件数
+    @AttributeOverrides(value = {
+            @AttributeOverride(name = "quantity", column = @Column(name = "plannedQuantity", nullable = false, precision = 12, scale = 5)),
+            @AttributeOverride(name = "pieces", column = @Column(name = "plannedPieces", nullable = false)),
+            @AttributeOverride(name = "remainder", column = @Column(name = "plannedRemainder", nullable = false, precision = 12, scale = 5))
+    })
+    protected Quantity plannedQuantity;//计划数量
 
-    @Column(nullable = false, precision = 12, scale = 5)
-    private BigDecimal creativeRemainder;//创建余数
+    @AttributeOverrides(value = {
+            @AttributeOverride(name = "quantity", column = @Column(name = "actualQuantity", nullable = false, precision = 12, scale = 5)),
+            @AttributeOverride(name = "pieces", column = @Column(name = "actualPieces", nullable = false)),
+            @AttributeOverride(name = "remainder", column = @Column(name = "actualRemainder", nullable = false, precision = 12, scale = 5))
+    })
+    protected Quantity actualQuantity;//实际数量
 
-    @Column(nullable = false, precision = 12, scale = 5)
-    private BigDecimal plannedQuantity;//计划数量
+    @OneToOne(fetch = FetchType.LAZY)
+    protected TaskBill taskBill;//任务单
 
-    @Column(nullable = false)
-    private BigInteger plannedPieces = BigInteger.ZERO;//计划件数
+    protected AppendixSign appendixSign;//追加标识
 
-    @Column(nullable = false, precision = 12, scale = 5)
-    private BigDecimal plannedRemainder;//计划余数
-
-    @Column(nullable = false, precision = 12, scale = 5)
-    private BigDecimal actualQuantity;//实际数量
-
-    @Column(nullable = false)
-    private BigInteger actualPieces = BigInteger.ZERO;//实际件数
-
-    @Column(nullable = false, precision = 12, scale = 5)
-    private BigDecimal actualRemainder;//实际余数
-
-    private TaskBill taskBill;//任务单
-
-    private AppendixSign appendixSign;//追加标识
-
-    private String pickingOrder;//拣货顺序
+    protected String pickingOrder;//拣货顺序
 
     @ManyToMany
-    private Set<TransferCommand> transferCommands;//补货指令
+    protected Set<TransferCommand> transferCommands;//补货指令
 }

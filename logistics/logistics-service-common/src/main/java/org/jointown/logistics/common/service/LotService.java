@@ -2,7 +2,6 @@ package org.jointown.logistics.common.service;
 
 import com.alibaba.fastjson.JSONObject;
 import com.querydsl.core.types.Predicate;
-import org.jointown.logistics.common.entity.Lot;
 import org.jointown.logistics.common.repository.LotRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

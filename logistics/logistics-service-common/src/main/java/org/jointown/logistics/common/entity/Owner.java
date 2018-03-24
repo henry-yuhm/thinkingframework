@@ -8,15 +8,15 @@ public class Owner {
     @Id
     private long id;
 
-    private String name;
+    private String name;//名称
 
-    private String mnemonicCode;
+    private String mnemonicCode;//助记吗
 
-    private String stockUpperLimit;
+    private String stockUpperLimit;//库存上限
 
-    private String serviceHotline;
+    private String serviceHotline;//服务热线
 
-    private boolean thirdpart;
+    private boolean thirdpart;//是否第三方
 
     public Owner() {
     }

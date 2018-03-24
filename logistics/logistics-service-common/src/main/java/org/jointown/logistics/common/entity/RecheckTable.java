@@ -13,37 +13,37 @@ public class RecheckTable {
 
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(foreignKey = @ForeignKey(name = "fk_rct_wh"))
-    private Warehouse warehouse;
+    private Warehouse warehouse;//仓库
 
-    private String tableNo;
+    private String tableNo;//复核台编号
 
-    private TableType tableType;
+    private TableType tableType;//复核台类型
 
-    private TableCategory tableCategory;
+    private TableCategory tableCategory;//复核台类别
 
-    private boolean available;
+    private boolean available;//是否可用
 
-    private boolean locking;
+    private boolean locking;//是否锁定
 
-    private String bufferNo;
+    private String bufferNo;//暂存位编号
 
-    private BufferType bufferType;
+    private BufferType bufferType;//暂存位类型
 
-    private boolean automatic;
+    private boolean automatic;//是否自动化
 
-    private String slideNo;
-
-    @Column(nullable = false)
-    private BigInteger workload = BigInteger.ZERO;
+    private String slideNo;//滑道编号
 
     @Column(nullable = false)
-    private BigInteger goodsNumber = BigInteger.ZERO;
+    private BigInteger workload = BigInteger.ZERO;//工作量
 
-    private String taskBillNo;
+    @Column(nullable = false)
+    private BigInteger goodsNumber = BigInteger.ZERO;//品规数
 
-    private String splitBillNo;
+    private TaskBill taskBill;//任务单
 
-    private Date updateTime;
+    private String splitBillNo;//拆分单编号
+
+    private Date modificationTime;//修改时间
 
     public enum BufferType {
         ;

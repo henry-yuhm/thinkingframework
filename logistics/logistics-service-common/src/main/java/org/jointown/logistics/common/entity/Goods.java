@@ -13,72 +13,72 @@ public class Goods {
 
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(foreignKey = @ForeignKey(name = "fk_goods_owner"))
-    private Owner owner;
+    private Owner owner;//业主
 
-    private String no;
+    private String no;//编号
 
-    private String name;
+    private String name;//名称
 
-    private String universalName;
+    private String universalName;//通用名
 
-    private String mnemonicCode;
+    private String mnemonicCode;//助记码
 
-    private String specification;
+    private String specification;//规格
 
-    private String manufacturer;
+    private String manufacturer;//生产厂家
 
-    private String producingArea;
+    private String producingArea;//产地
 
     @Column(nullable = false)
-    private BigInteger fullloadPackageQuantity;
+    private BigInteger wholePackageQuantity;//大包装数量
 
-    private BigInteger mediumPackageQuantity;
+    private BigInteger mediumPackageQuantity;//中包装数量
 
-    private BigInteger tinyPackageQuantity;
+    private BigInteger tinyPackageQuantity;//小包装数量
 
-    private String packageUnit;
+    private String packageUnit;//包装单位
 
-    private String approvalNo;
+    private String approvalNo;//批准文号
 
-    private Date approvalNoValidUntil;
+    private Date approvalNoValidUntil;//批准文号效期
 
-    private SplitGranularity splitGranularity;
+    private SplitGranularity splitGranularity;//拆分粒度
 
-    private BigInteger minInvoiceUnit = BigInteger.ONE;
+    private BigInteger minInvoiceUnit = BigInteger.ONE;//最小开票单位
 
-    private String category;
+    private String category;//类别
 
-    private String fullloadPackageBarcode;
+    private String wholePackageBarcode;//大包装条码
 
-    private String mediumPackageBarcode;
+    private String mediumPackageBarcode;//中包装条码
 
-    private String tinyPackageBarcode;
+    private String tinyPackageBarcode;//小包装条码
 
-    private Classification fullloadClassification;
+    private Classification wholeClassification;//整件分类
 
-    private Classification ScatterClassification;
+    private Classification remainderClassification;//零货分类
 
-    private BigDecimal length;
+    private BigDecimal length;//长
 
-    private BigDecimal width;
+    private BigDecimal width;//宽
 
-    private BigDecimal height;
+    private BigDecimal height;//高
 
-    private BigDecimal fullloadPackageVolume;
+    private BigDecimal wholePackageVolume;//大包装体积
 
-    private BigDecimal mediumPackageVolume;
+    private BigDecimal mediumPackageVolume;//中包装体积
 
-    private BigDecimal tinyPackageVolume;
+    private BigDecimal tinyPackageVolume;//小包装体积
 
-    private BigDecimal goodsWeight;
+    private BigDecimal goodsWeight;//商品重量
 
-    private BigDecimal packageWeight;
+    private BigDecimal packageWeight;//包装重量
 
-    private StorageSign storageSign;
+    private StorageSign storageSign;//存储标识
 
-    private String storageCondition;
+    private String storageCondition;//存储条件
 
-    private String storageRequest;
+    private String storageRequest;//存储要求
 
     public enum SplitGranularity {
         SCATTER_AVAILABLE("1", 1),
