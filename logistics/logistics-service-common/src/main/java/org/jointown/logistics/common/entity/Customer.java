@@ -9,39 +9,39 @@ public class Customer {
 
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(foreignKey = @ForeignKey(name = "fk_customer_owner"))
-    private Owner owner;
+    private Owner owner;//业主
 
-    private String no;
+    private String no;//编号
 
-    private String sourceCode;
+    private String sourceCode;//源编码
 
-    private Customer superCustomer;
+    private Customer parentCustomer;//父客户
 
-    private String mnemonicCode;
+    private String mnemonicCode;//助记码
 
-    private String name;
+    private String name;//名称
 
-    private String shortName;
+    private String shortName;//简称
 
-    private String address;
+    private String address;//地址
 
-    private String phone;
+    private String phone;//电话
 
-    private String warehouseAddress;
+    private String warehouseAddress;//仓库地址
 
-    private String sign;
+    private String sign;//标识
 
-    private String identifier;
+    private String identifier;//识别
 
-    private String location;
+    private String location;//位置
 
-    private String lotRequest;
+    private BatchNumber.BatchNumberRequest batchNumberRequest;//批号要求
 
-    private String category;
+    private String category;//类别
 
-    private String grade;
+    private String grade;//等级
 
-    private String district;
+    private String district;//地区
 
-    private String businessman;
+    private String businessman;//业务员
 }

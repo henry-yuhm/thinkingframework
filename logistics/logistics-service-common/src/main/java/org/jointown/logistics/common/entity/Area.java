@@ -11,32 +11,32 @@ public class Area {
 
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(foreignKey = @ForeignKey(name = "fk_area_warehouse"))
-    private Warehouse warehouse;
+    private Warehouse warehouse;//仓库
 
-    private String no;
+    private String no;//编号
 
-    private String name;
+    private String name;//名称
 
-    private String storeCategory;
+    private String storeCategory;//库别
 
-    private String storeNo;
+    private String storeNo;//库房编号
 
-    private String packageSign;
+    private String packageSign;//包装标识
 
-    private String operationGroup;
+    private String operationGroup;//作业分组
 
-    private String pickingDeviceSign;
+    private String pickingDeviceSign;//拣货设备标识
 
-    private String upshelfMode;
+    private String upshelfMode;//上架方式
 
-    private boolean prepicking;
+    private boolean prepicking;//是否提前拣货
 
-    private boolean useSorter;
+    private boolean useSorter;//是否使用分拣机
 
-    private String innerRecheckSign;
+    private String recheckSign;//复核标识
 
     @Column(nullable = false)
-    private BigInteger fullloadToteBoxNumber = BigInteger.ZERO;
+    private BigInteger fullloadToteboxNumber = BigInteger.ZERO;//满载周转箱数
 
     public Area() {
     }
@@ -129,20 +129,20 @@ public class Area {
         this.useSorter = useSorter;
     }
 
-    public String getInnerRecheckSign() {
-        return innerRecheckSign;
+    public String getRecheckSign() {
+        return recheckSign;
     }
 
-    public void setInnerRecheckSign(String innerRecheckSign) {
-        this.innerRecheckSign = innerRecheckSign;
+    public void setRecheckSign(String recheckSign) {
+        this.recheckSign = recheckSign;
     }
 
-    public BigInteger getFullloadToteBoxNumber() {
-        return fullloadToteBoxNumber;
+    public BigInteger getFullloadToteboxNumber() {
+        return fullloadToteboxNumber;
     }
 
-    public void setFullloadToteBoxNumber(BigInteger fullloadToteBoxNumber) {
-        this.fullloadToteBoxNumber = fullloadToteBoxNumber;
+    public void setFullloadToteboxNumber(BigInteger fullloadToteboxNumber) {
+        this.fullloadToteboxNumber = fullloadToteboxNumber;
     }
 
     @Override

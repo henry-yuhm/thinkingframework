@@ -11,27 +11,27 @@ public class Address {
 
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(foreignKey = @ForeignKey(name = "fk_address_customer"))
-    private Customer customer;
+    private Customer customer;//客户
 
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(foreignKey = @ForeignKey(name = "fk_address_direction"))
-    private Direction direction;
+    private Direction direction;//方向
 
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(foreignKey = @ForeignKey(name = "fk_address_route"))
-    private Route route;
+    private Route route;//路线
 
-    private String address;
+    private String address;//地址
 
-    private BigInteger loadingOrder;
+    private BigInteger loadingOrder;//装车顺序
 
-    private String code;
+    private String code;//编码
 
-    private boolean defaultAddress;
+    private boolean defaultAddress;//是否默认地址
 
-    private String contactName;
+    private String contactName;//联系人
 
-    private String contactPhone;
+    private String contactPhone;//联系电话
 
     public Address() {
     }

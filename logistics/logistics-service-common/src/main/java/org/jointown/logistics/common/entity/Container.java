@@ -10,9 +10,9 @@ public class Container {
     private long id;
 
     @OneToOne(fetch = FetchType.LAZY)
-    private Warehouse warehouse;
+    private Warehouse warehouse;//仓库
 
-    private String no;
+    private String no;//编号
 
-    private boolean available;
+    private boolean available;//是否可用
 }

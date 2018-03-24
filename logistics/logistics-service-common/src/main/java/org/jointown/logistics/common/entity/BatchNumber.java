@@ -11,23 +11,23 @@ public class BatchNumber {
 
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(foreignKey = @ForeignKey(name = "fk_batchnumber_owner"))
-    private Owner owner;
+    private Owner owner;//业主
 
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(foreignKey = @ForeignKey(name = "fk_batchnumber_goods"))
-    private Goods goods;
+    private Goods goods;//商品
 
-    private String no;
+    private String no;//编码
 
-    private Date productionDate;
+    private Date productionDate;//生产日期
 
-    private Date validUntil;
+    private Date validUntil;//有效期至
 
-    private String printProductionDate;
+    private String printProductionDate;//打印生产日期
 
-    private String printValidUntil;
+    private String printValidUntil;//打印有效期至
 
-    private String approvalNo;
+    private String approvalNo;//批准文号
 
     public BatchNumber() {
     }

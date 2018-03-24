@@ -12,36 +12,36 @@ public abstract class BillHeader {
     private long id;
 
     @OneToOne(fetch = FetchType.LAZY)
-    private Warehouse warehouse;
+    private Warehouse warehouse;//仓库
 
     @OneToOne(fetch = FetchType.LAZY)
-    private Owner owner;
+    private Owner owner;//业主
 
     @OneToOne(fetch = FetchType.LAZY)
-    private Customer customer;
+    private Customer customer;//客户
 
-    private String billNo;
+    private String billNo;//单据编号
 
-    private BillType billType;
+    private BillType billType;//单据类型
 
-    private BillCategory billCategory;
+    private BillCategory billCategory;//单据类别
 
-    private BillStage billStage;
+    private BillStage billStage;//单据阶段
 
-    private String operator;
+    private String operator;//操作员
 
-    private boolean passback;
+    private boolean passback;//是否回传
 
-    private BigInteger printTimes;
+    private BigInteger printTimes;//打印次数
 
-    private Date createTime;
+    private Date createTime;//创建时间
 
-    private Date updateTime;
+    private Date updateTime;//更新时间
 
-    private String remarks;
+    private String remarks;//备注
 
     @ManyToMany
-    private Set<? extends BillDetail> billDetails;
+    private Set<? extends BillDetail> billDetails;//单据明细
 
     public enum BillCategory {
         WESTERN_MEDICINE("1", 1),//西药

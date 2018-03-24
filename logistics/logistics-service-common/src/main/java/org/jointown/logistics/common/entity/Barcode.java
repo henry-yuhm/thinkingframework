@@ -11,13 +11,13 @@ public abstract class Barcode {
     private long id;
 
     @OneToOne(fetch = FetchType.LAZY)
-    private Warehouse warehouse;
+    private Warehouse warehouse;//仓库
 
-    private String no;
+    private String no;//编号
 
-    private Date createTime;
+    private Date createTime;//创建时间
 
-    private Date updateTime;
+    private Date updateTime;//更新时间
 
     public enum BarcodeType {
         INBOUND("1", 1),//入库

@@ -66,9 +66,13 @@ public class OutboundBillHeader extends BillHeader {
 
     private boolean collectionComplete;
 
-    private Date innerRecheckCompleteTime;
+    private Date operationCompleteTime;
 
-    private Date outerRecheckCompleteTime;
+    private String rechecker;
+
+    private Date recheckStartTime;
+
+    private Date recheckCompleteTime;
 
     private String recheckBillPrintSign;
 

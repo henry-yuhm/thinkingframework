@@ -10,50 +10,45 @@ public abstract class Command {
     private long id;
 
     @OneToOne(fetch = FetchType.LAZY)
-    private Warehouse warehouse;
+    private Warehouse warehouse;//仓库
 
     @OneToOne(fetch = FetchType.LAZY)
-    private Owner owner;
+    private Owner owner;//业主
 
     @OneToOne(fetch = FetchType.LAZY)
-    private Customer customer;
+    private Customer customer;//客户
 
     @OneToOne(fetch = FetchType.LAZY)
-    private Command parentCommand;
+    private Command parentCommand;//父指令
 
     @OneToOne(fetch = FetchType.LAZY)
-    private BillHeader billHeader;
+    private BillHeader billHeader;//单据抬头
 
     @OneToOne(fetch = FetchType.LAZY)
-    private BillDetail billDetail;
+    private BillDetail billDetail;//单据明细
 
     @OneToOne(fetch = FetchType.LAZY)
-    private Goods goods;
+    private Goods goods;//商品
 
     @OneToOne(fetch = FetchType.LAZY)
-    private BatchNumber batchNumber;
+    private BatchNumber batchNumber;//批号
 
-    private PackageSign packageSign;
+    private PackageSign packageSign;//包装标识
 
-    private BusinessType businessType;
+    private BusinessType businessType;//业务类型
 
-    private OperationCategory operationCategory;
+    private OperationCategory operationCategory;//作业类别
 
-    private TaskStage taskStage;
+    private TaskStage taskStage;//任务阶段
 
-    private String taskBillNo;
-
-    private OperationMode operationMode;
+    private OperationMode operationMode;//作业方式
 
     @OneToOne(fetch = FetchType.LAZY)
-    private OperationBarcode operationBarcode;
+    private OperationBarcode operationBarcode;//作业条码
 
-    @OneToOne(fetch = FetchType.LAZY)
-    private Pallet pallet;
+    private Date createTime;//创建时间
 
-    private Date createTime;
-
-    private Date updateTime;
+    private Date updateTime;//更新时间
 
     public enum AppendixSign {
         ORIGINAL("1", 1),//原始指令
