@@ -1,28 +1,26 @@
 package org.jointown.logistics.common.entity.support;
 
-import org.jointown.logistics.common.entity.Stock;
-
 import javax.persistence.Embeddable;
 
 @Embeddable
 public class TransferStockStatus {
-    private Stock.StockStatus sourceStockStatus;
+    private StockStatus sourceStockStatus;
 
-    private Stock.StockStatus targetStockStatus;
+    private StockStatus targetStockStatus;
 
-    public Stock.StockStatus getSourceStockStatus() {
+    public StockStatus getSourceStockStatus() {
         return sourceStockStatus;
     }
 
-    public void setSourceStockStatus(Stock.StockStatus sourceStockStatus) {
+    public void setSourceStockStatus(StockStatus sourceStockStatus) {
         this.sourceStockStatus = sourceStockStatus;
     }
 
-    public Stock.StockStatus getTargetStockStatus() {
+    public StockStatus getTargetStockStatus() {
         return targetStockStatus;
     }
 
-    public void setTargetStockStatus(Stock.StockStatus targetStockStatus) {
+    public void setTargetStockStatus(StockStatus targetStockStatus) {
         this.targetStockStatus = targetStockStatus;
     }
 }

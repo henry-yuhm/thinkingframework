@@ -6,7 +6,8 @@ import java.util.Date;
 @Entity
 public class TaskBill {
     @Id
-    @GeneratedValue
+    @TableGenerator(name = "TaskBillId", table = "TaskBillId", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.TABLE, generator = "TaskBillId")
     private long id;
 
     @OneToOne(fetch = FetchType.LAZY)

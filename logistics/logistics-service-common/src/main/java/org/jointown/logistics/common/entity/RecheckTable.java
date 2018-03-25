@@ -1,5 +1,9 @@
 package org.jointown.logistics.common.entity;
 
+import org.jointown.logistics.common.entity.support.BufferType;
+import org.jointown.logistics.common.entity.support.TableCategory;
+import org.jointown.logistics.common.entity.support.TableType;
+
 import javax.persistence.*;
 import java.math.BigInteger;
 import java.util.Date;
@@ -7,8 +11,8 @@ import java.util.Date;
 @Entity
 public class RecheckTable {
     @Id
-    @TableGenerator(name = "recheckTableId", allocationSize = 1)
-    @GeneratedValue(strategy = GenerationType.TABLE, generator = "recheckTableId")
+    @TableGenerator(name = "RecheckTableId", table = "RecheckTableId", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.TABLE, generator = "RecheckTableId")
     private long id;
 
     @OneToOne(fetch = FetchType.LAZY)
@@ -44,43 +48,4 @@ public class RecheckTable {
     private String splitBillNo;//拆分单编号
 
     private Date modificationTime;//修改时间
-
-    public enum BufferType {
-        ;
-
-        private final String name;
-
-        private final int ordinal;
-
-        BufferType(String name, int ordinal) {
-            this.name = name;
-            this.ordinal = ordinal;
-        }
-    }
-
-    public enum TableCategory {
-        ;
-
-        private final String name;
-
-        private final int ordinal;
-
-        TableCategory(String name, int ordinal) {
-            this.name = name;
-            this.ordinal = ordinal;
-        }
-    }
-
-    public enum TableType {
-        ;
-
-        private final String name;
-
-        private final int ordinal;
-
-        TableType(String name, int ordinal) {
-            this.name = name;
-            this.ordinal = ordinal;
-        }
-    }
 }

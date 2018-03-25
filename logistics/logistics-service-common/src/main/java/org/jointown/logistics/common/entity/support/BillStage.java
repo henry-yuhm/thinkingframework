@@ -1,0 +1,23 @@
+package org.jointown.logistics.common.entity.support;
+
+public enum BillStage {
+    BILL_CREATE("00", 0),
+    INIT_COMPLETE("C1", 11),
+    WAVE_ARRANGED("D1", 21),
+    WAVE_RELEASED("D2", 22),
+    STAGINGAREA_ALLOCATION_COMPLETE("F1", 31),
+    STOCKLESSNESS_SUSPENDED("F2", 32),
+    STOCKLESSNESS_RELEASED("F3", 33),
+    BATCHNUMBER_ALLOCATION_COMPLETE("F4", 34),
+    TASK_BALING_COMPLETE("F5", 35),
+    SPLITING_COMPLETE("F6", 36),
+    OPERATION_AVAILABLE("J1", 41),
+    ON_OPERATION("J2", 42),
+    INNER_RECHECK_COMPLETE("N1", 51),
+    ON_OUTER_RECHECK("W1", 61),
+    OUTER_RECHECK_COMPLETE("W2", 62),
+    OPERATION_COMPLETE("ZZ", 99);
+
+    BillStage(String name, int ordinal) {
+    }
+}

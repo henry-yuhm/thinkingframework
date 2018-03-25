@@ -1,6 +1,8 @@
 package org.jointown.logistics.common.entity;
 
+import org.jointown.logistics.common.entity.support.AppendixSign;
 import org.jointown.logistics.common.entity.support.Quantity;
+import org.jointown.logistics.common.entity.support.StockStatus;
 
 import javax.persistence.*;
 import java.util.Set;
@@ -10,7 +12,7 @@ public abstract class OutboundCommand extends Command {
     @OneToOne(fetch = FetchType.LAZY)
     protected Location location;//货位
 
-    protected Stock.StockStatus stockStatus;//库存状态
+    protected StockStatus stockStatus;//库存状态
 
     protected boolean active;//是否激活
 

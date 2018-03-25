@@ -1,13 +1,15 @@
 package org.jointown.logistics.common.entity;
 
+import org.jointown.logistics.common.entity.support.SorterSlideCategory;
+
 import javax.persistence.*;
 import java.math.BigInteger;
 
 @Entity
 public class SorterSlide {
     @Id
-    @TableGenerator(name = "sorterSlideId", allocationSize = 1)
-    @GeneratedValue(strategy = GenerationType.TABLE, generator = "sorterSlideId")
+    @TableGenerator(name = "SorterSlideId", table = "SorterSlideId", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.TABLE, generator = "SorterSlideId")
     private long id;
 
     @OneToOne(fetch = FetchType.LAZY)
@@ -15,7 +17,7 @@ public class SorterSlide {
 
     private String no;//编号
 
-    private Category category;//类别
+    private SorterSlideCategory category;//类别
 
     private boolean available;//是否可用
 
@@ -41,11 +43,11 @@ public class SorterSlide {
         this.no = no;
     }
 
-    public Category getCategory() {
+    public SorterSlideCategory getCategory() {
         return category;
     }
 
-    public void setCategory(Category category) {
+    public void setCategory(SorterSlideCategory category) {
         this.category = category;
     }
 
@@ -65,16 +67,4 @@ public class SorterSlide {
         this.workload = workload;
     }
 
-    public enum Category {
-        ;
-
-        private final String name;
-
-        private final int ordinal;
-
-        Category(String name, int ordinal) {
-            this.name = name;
-            this.ordinal = ordinal;
-        }
-    }
 }

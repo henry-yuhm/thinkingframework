@@ -1,5 +1,8 @@
 package org.jointown.logistics.common.entity;
 
+import org.jointown.logistics.common.entity.support.BatchNumberRequest;
+import org.jointown.logistics.common.entity.support.CustomerSign;
+
 import javax.persistence.*;
 
 @Entity
@@ -29,13 +32,13 @@ public class Customer {
 
     private String warehouseAddress;//仓库地址
 
-    private String sign;//标识
+    private CustomerSign sign;//标识
 
     private String identifier;//识别
 
     private String location;//位置
 
-    private BatchNumber.BatchNumberRequest batchNumberRequest;//批号要求
+    private BatchNumberRequest batchNumberRequest;//批号要求
 
     private String category;//类别
 

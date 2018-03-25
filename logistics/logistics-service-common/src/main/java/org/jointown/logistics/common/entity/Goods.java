@@ -1,5 +1,9 @@
 package org.jointown.logistics.common.entity;
 
+import org.jointown.logistics.common.entity.support.SaleClassification;
+import org.jointown.logistics.common.entity.support.SplitGranularity;
+import org.jointown.logistics.common.entity.support.StorageSign;
+
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.math.BigInteger;
@@ -8,7 +12,8 @@ import java.util.Date;
 @Entity
 public class Goods {
     @Id
-    @GeneratedValue
+    @TableGenerator(name = "GoodsId", table = "GoodsId", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.TABLE, generator = "GoodsId")
     private long id;
 
     @OneToOne(fetch = FetchType.LAZY)
@@ -54,9 +59,9 @@ public class Goods {
 
     private String tinyPackageBarcode;//小包装条码
 
-    private Classification wholeClassification;//整件分类
+    private SaleClassification wholeClassification;//整件分类
 
-    private Classification remainderClassification;//零货分类
+    private SaleClassification remainderClassification;//零货分类
 
     private BigDecimal length;//长
 
@@ -79,49 +84,4 @@ public class Goods {
     private String storageCondition;//存储条件
 
     private String storageRequest;//存储要求
-
-    public enum SplitGranularity {
-        SCATTER_AVAILABLE("1", 1),
-        UNSPLIT_MEDIUM_PACKAGE("2", 2),
-        UNSPLIT_FULLLOAD_PACKAGE("3", 3),
-        DECIMAL_AVAILABLE("4", 4);
-
-        private final String name;
-
-        private final int ordinal;
-
-        SplitGranularity(String name, int ordinal) {
-            this.name = name;
-            this.ordinal = ordinal;
-        }
-    }
-
-    public enum Classification {
-        A("A", 1),
-        B("B", 2),
-        C("C", 3);
-
-        private final String name;
-
-        private final int ordinal;
-
-        Classification(String name, int ordinal) {
-            this.name = name;
-            this.ordinal = ordinal;
-        }
-    }
-
-    public enum StorageSign {
-        ALL("1", 1),
-        REMAINDER_ONLY("2", 2);
-
-        private final String name;
-
-        private final int ordinal;
-
-        StorageSign(String name, int ordinal) {
-            this.name = name;
-            this.ordinal = ordinal;
-        }
-    }
 }

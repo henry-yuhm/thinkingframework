@@ -1,11 +1,12 @@
 package org.jointown.logistics.common.entity;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
 public class Owner {
     @Id
+    @TableGenerator(name = "OwnerId", table = "OwnerId", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.TABLE, generator = "OwnerId")
     private long id;
 
     private String name;//名称

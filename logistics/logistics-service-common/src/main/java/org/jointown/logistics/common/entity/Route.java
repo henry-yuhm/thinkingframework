@@ -5,7 +5,8 @@ import javax.persistence.*;
 @Entity
 public class Route {
     @Id
-    @GeneratedValue
+    @TableGenerator(name = "RouteId", table = "RouteId", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.TABLE, generator = "RouteId")
     private long id;
 
     private String no;//编号

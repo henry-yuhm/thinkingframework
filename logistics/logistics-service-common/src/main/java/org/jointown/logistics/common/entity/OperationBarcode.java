@@ -1,5 +1,9 @@
 package org.jointown.logistics.common.entity;
 
+import org.jointown.logistics.common.entity.support.BarcodeType;
+import org.jointown.logistics.common.entity.support.GroupageMode;
+import org.jointown.logistics.common.entity.support.TransferlineSign;
+
 import javax.persistence.*;
 import java.util.Set;
 

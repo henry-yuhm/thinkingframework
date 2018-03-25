@@ -6,7 +6,8 @@ import java.math.BigInteger;
 @Entity
 public class Address {
     @Id
-    @GeneratedValue
+    @TableGenerator(name = "AddressId", table = "AddressId", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.TABLE, generator = "AddressId")
     private long id;
 
     @OneToOne(fetch = FetchType.LAZY)

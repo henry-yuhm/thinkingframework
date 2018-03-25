@@ -6,7 +6,8 @@ import java.math.BigInteger;
 @Entity
 public class Area {
     @Id
-    @GeneratedValue
+    @TableGenerator(name = "AreaId", table = "AreaId", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.TABLE, generator = "AreaId")
     private long id;
 
     @OneToOne(fetch = FetchType.LAZY)
@@ -39,6 +40,14 @@ public class Area {
     private BigInteger fullloadToteboxNumber = BigInteger.ZERO;//满载周转箱数
 
     public Area() {
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
     }
 
     public Warehouse getWarehouse() {

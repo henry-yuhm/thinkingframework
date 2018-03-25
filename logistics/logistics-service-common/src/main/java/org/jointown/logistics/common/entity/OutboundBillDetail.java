@@ -1,5 +1,8 @@
 package org.jointown.logistics.common.entity;
 
+import org.jointown.logistics.common.entity.support.BatchNumberRequest;
+import org.jointown.logistics.common.entity.support.StockStatus;
+
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.math.BigInteger;
@@ -13,9 +16,9 @@ public class OutboundBillDetail extends BillDetail {
     @JoinColumn(foreignKey = @ForeignKey(name = "fk_obd_location"))
     private Location location;//货位
 
-    private Stock.StockStatus stockStatus;//库存状态
+    private StockStatus stockStatus;//库存状态
 
-    private BatchNumber.BatchNumberRequest batchNumberRequest;//批号要求
+    private BatchNumberRequest batchNumberRequest;//批号要求
 
     @Column(nullable = false, precision = 12, scale = 5)
     private BigDecimal plannedQuantity;//计划数量

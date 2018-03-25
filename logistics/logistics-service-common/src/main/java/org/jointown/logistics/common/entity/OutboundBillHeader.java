@@ -1,5 +1,7 @@
 package org.jointown.logistics.common.entity;
 
+import org.jointown.logistics.common.entity.support.*;
+
 import javax.persistence.*;
 import java.util.Date;
 

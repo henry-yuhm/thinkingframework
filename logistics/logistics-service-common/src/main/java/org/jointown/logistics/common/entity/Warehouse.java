@@ -1,5 +1,8 @@
 package org.jointown.logistics.common.entity;
 
+import org.jointown.logistics.common.entity.support.TWFSign;
+import org.jointown.logistics.common.entity.support.TransferlineSigns;
+
 import javax.persistence.*;
 import java.util.Set;
 
@@ -24,33 +27,7 @@ public class Warehouse {
 
     private boolean tablet;//是否使用平板电脑
 
-    private Set<TransferlineSign> transferlineSigns;//输送线标识
+    private Set<TransferlineSigns> transferlineSigns;//输送线标识
 
     private Set<TWFSign> twfSigns;//立体库标识
-
-    public enum TransferlineSign {
-        ;
-
-        private final String name;
-
-        private final int ordinal;
-
-        TransferlineSign(String name, int ordinal) {
-            this.name = name;
-            this.ordinal = ordinal;
-        }
-    }
-
-    public enum TWFSign {
-        ;
-
-        private final String name;
-
-        private final int ordinal;
-
-        TWFSign(String name, int ordinal) {
-            this.name = name;
-            this.ordinal = ordinal;
-        }
-    }
 }

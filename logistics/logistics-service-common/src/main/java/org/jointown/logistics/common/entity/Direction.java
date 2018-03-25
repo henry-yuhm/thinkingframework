@@ -1,13 +1,12 @@
 package org.jointown.logistics.common.entity;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
 public class Direction {
     @Id
-    @GeneratedValue
+    @TableGenerator(name = "DirectionId", table = "DirectionId", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.TABLE, generator = "DirectionId")
     private long id;
 
     private String no;//编号
