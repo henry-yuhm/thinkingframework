@@ -1,5 +1,9 @@
 package org.jointown.logistics.common.entity;
 
+import org.jointown.logistics.common.entity.support.PackageSign;
+import org.jointown.logistics.common.entity.support.PickingDeviceSign;
+import org.jointown.logistics.common.entity.support.UpshelfMode;
+
 import javax.persistence.*;
 import java.math.BigInteger;
 
@@ -22,13 +26,13 @@ public class Area {
 
     private String storeNo;//库房编号
 
-    private String packageSign;//包装标识
+    private PackageSign packageSign;//包装标识
 
-    private String operationGroup;//作业分组
+    private String group;//作业分组
 
-    private String pickingDeviceSign;//拣货设备标识
+    private PickingDeviceSign pickingDeviceSign;//拣货设备标识
 
-    private String upshelfMode;//上架方式
+    private UpshelfMode upshelfMode;//上架方式
 
     private boolean prepicking;//是否提前拣货
 
@@ -90,35 +94,35 @@ public class Area {
         this.storeNo = storeNo;
     }
 
-    public String getPackageSign() {
+    public PackageSign getPackageSign() {
         return packageSign;
     }
 
-    public void setPackageSign(String packageSign) {
+    public void setPackageSign(PackageSign packageSign) {
         this.packageSign = packageSign;
     }
 
-    public String getOperationGroup() {
-        return operationGroup;
+    public String getGroup() {
+        return group;
     }
 
-    public void setOperationGroup(String operationGroup) {
-        this.operationGroup = operationGroup;
+    public void setGroup(String group) {
+        this.group = group;
     }
 
-    public String getPickingDeviceSign() {
+    public PickingDeviceSign getPickingDeviceSign() {
         return pickingDeviceSign;
     }
 
-    public void setPickingDeviceSign(String pickingDeviceSign) {
+    public void setPickingDeviceSign(PickingDeviceSign pickingDeviceSign) {
         this.pickingDeviceSign = pickingDeviceSign;
     }
 
-    public String getUpshelfMode() {
+    public UpshelfMode getUpshelfMode() {
         return upshelfMode;
     }
 
-    public void setUpshelfMode(String upshelfMode) {
+    public void setUpshelfMode(UpshelfMode upshelfMode) {
         this.upshelfMode = upshelfMode;
     }
 

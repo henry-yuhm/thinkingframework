@@ -18,7 +18,7 @@ public class Customer {
 
     private String sourceCode;//源编码
 
-    private Customer parentCustomer;//父客户
+    private Customer parent;//父客户
 
     private String mnemonicCode;//助记码
 
@@ -32,7 +32,7 @@ public class Customer {
 
     private String warehouseAddress;//仓库地址
 
-    private CustomerSign sign;//标识
+    private CustomerSign customerSign;//标识
 
     private String identifier;//识别
 

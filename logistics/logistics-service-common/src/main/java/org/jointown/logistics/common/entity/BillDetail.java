@@ -13,7 +13,7 @@ public abstract class BillDetail {
     protected Warehouse warehouse;//仓库
 
     @OneToOne(fetch = FetchType.LAZY)
-    protected BillDetail parentBillDetail;//父单据明细
+    protected BillDetail parent;//父单据明细
 
     @OneToOne(fetch = FetchType.LAZY)
     protected BillHeader billHeader;//单据抬头

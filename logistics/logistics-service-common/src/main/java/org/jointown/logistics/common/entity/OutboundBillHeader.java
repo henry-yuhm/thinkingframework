@@ -20,11 +20,11 @@ public class OutboundBillHeader extends BillHeader {
 
     private String waveNo;//波次号
 
-    private String dispatchType;//调度类型
+    private DispatchType dispatchType;//调度类型
 
     private String dispatcher;//调度员
 
-    private Date dispatchingTime;//调度时间
+    private Date dispatchTime;//调度时间
 
     private Date releaseTime;//下发时间
 

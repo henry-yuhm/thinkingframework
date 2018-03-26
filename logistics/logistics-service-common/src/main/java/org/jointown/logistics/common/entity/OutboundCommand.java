@@ -45,5 +45,5 @@ public abstract class OutboundCommand extends Command {
     protected String pickingOrder;//拣货顺序
 
     @ManyToMany
-    protected Set<TransferCommand> transferCommands;//补货指令
+    protected Set<TransferCommand> commands;//补货指令
 }

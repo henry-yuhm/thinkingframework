@@ -48,4 +48,127 @@ public class RecheckTable {
     private String splitBillNo;//拆分单编号
 
     private Date modificationTime;//修改时间
+
+    public RecheckTable() {
+    }
+
+    public Warehouse getWarehouse() {
+        return warehouse;
+    }
+
+    public void setWarehouse(Warehouse warehouse) {
+        this.warehouse = warehouse;
+    }
+
+    public String getTableNo() {
+        return tableNo;
+    }
+
+    public void setTableNo(String tableNo) {
+        this.tableNo = tableNo;
+    }
+
+    public TableType getTableType() {
+        return tableType;
+    }
+
+    public void setTableType(TableType tableType) {
+        this.tableType = tableType;
+    }
+
+    public TableCategory getTableCategory() {
+        return tableCategory;
+    }
+
+    public void setTableCategory(TableCategory tableCategory) {
+        this.tableCategory = tableCategory;
+    }
+
+    public boolean isAvailable() {
+        return available;
+    }
+
+    public void setAvailable(boolean available) {
+        this.available = available;
+    }
+
+    public boolean isLocking() {
+        return locking;
+    }
+
+    public void setLocking(boolean locking) {
+        this.locking = locking;
+    }
+
+    public String getBufferNo() {
+        return bufferNo;
+    }
+
+    public void setBufferNo(String bufferNo) {
+        this.bufferNo = bufferNo;
+    }
+
+    public BufferType getBufferType() {
+        return bufferType;
+    }
+
+    public void setBufferType(BufferType bufferType) {
+        this.bufferType = bufferType;
+    }
+
+    public boolean isAutomatic() {
+        return automatic;
+    }
+
+    public void setAutomatic(boolean automatic) {
+        this.automatic = automatic;
+    }
+
+    public String getSlideNo() {
+        return slideNo;
+    }
+
+    public void setSlideNo(String slideNo) {
+        this.slideNo = slideNo;
+    }
+
+    public BigInteger getWorkload() {
+        return workload;
+    }
+
+    public void setWorkload(BigInteger workload) {
+        this.workload = workload;
+    }
+
+    public BigInteger getGoodsNumber() {
+        return goodsNumber;
+    }
+
+    public void setGoodsNumber(BigInteger goodsNumber) {
+        this.goodsNumber = goodsNumber;
+    }
+
+    public TaskBill getTaskBill() {
+        return taskBill;
+    }
+
+    public void setTaskBill(TaskBill taskBill) {
+        this.taskBill = taskBill;
+    }
+
+    public String getSplitBillNo() {
+        return splitBillNo;
+    }
+
+    public void setSplitBillNo(String splitBillNo) {
+        this.splitBillNo = splitBillNo;
+    }
+
+    public Date getModificationTime() {
+        return modificationTime;
+    }
+
+    public void setModificationTime(Date modificationTime) {
+        this.modificationTime = modificationTime;
+    }
 }

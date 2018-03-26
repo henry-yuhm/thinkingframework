@@ -9,11 +9,11 @@ public class RemainderOutboundCommand extends OutboundCommand {
     private String splitBillNo;//拆分单号
 
     @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(foreignKey = @ForeignKey(name = "fk_obc_tbx"))
+    @JoinColumn(foreignKey = @ForeignKey(name = "fk_roc_tbx"))
     private Totebox totebox;//周转箱
 
     @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(foreignKey = @ForeignKey(name = "fk_obc_rct"))
+    @JoinColumn(foreignKey = @ForeignKey(name = "fk_roc_rct"))
     private RecheckTable recheckTable;//复核台
 
     private BigInteger taskGroup;//任务分组

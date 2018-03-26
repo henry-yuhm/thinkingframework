@@ -24,7 +24,7 @@ public abstract class BillHeader {
     @OneToOne(fetch = FetchType.LAZY)
     protected Customer customer;//客户
 
-    protected String billNo;//单据编号
+    protected String billno;//单据编号
 
     protected BillType billType;//单据类型
 
@@ -45,5 +45,5 @@ public abstract class BillHeader {
     protected String remarks;//备注
 
     @ManyToMany
-    protected Set<? extends BillDetail> billDetails;//单据明细
+    protected Set<? extends BillDetail> details;//单据明细
 }

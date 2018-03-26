@@ -13,11 +13,12 @@ public class SorterSlide {
     private long id;
 
     @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(foreignKey = @ForeignKey(name = "fk_sts_wh"))
     private Warehouse warehouse;//仓库
 
     private String no;//编号
 
-    private SorterSlideCategory category;//类别
+    private SorterSlideCategory slideCategory;//类别
 
     private boolean available;//是否可用
 
@@ -43,12 +44,12 @@ public class SorterSlide {
         this.no = no;
     }
 
-    public SorterSlideCategory getCategory() {
-        return category;
+    public SorterSlideCategory getSlideCategory() {
+        return slideCategory;
     }
 
-    public void setCategory(SorterSlideCategory category) {
-        this.category = category;
+    public void setSlideCategory(SorterSlideCategory slideCategory) {
+        this.slideCategory = slideCategory;
     }
 
     public boolean isAvailable() {
@@ -66,5 +67,4 @@ public class SorterSlide {
     public void setWorkload(BigInteger workload) {
         this.workload = workload;
     }
-
 }

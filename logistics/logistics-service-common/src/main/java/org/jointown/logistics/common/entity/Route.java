@@ -14,7 +14,7 @@ public class Route {
     private String name;//名称
 
     @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(foreignKey = @ForeignKey(name = "fk_route_direction"))
+    @JoinColumn(foreignKey = @ForeignKey(name = "fk_rut_dir"))
     private Direction direction;//方向
 
     public Route() {

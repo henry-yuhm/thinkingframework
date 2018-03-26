@@ -11,7 +11,7 @@ public class TaskBill {
     private long id;
 
     @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(foreignKey = @ForeignKey(name = "fk_taskbill_warehouse"))
+    @JoinColumn(foreignKey = @ForeignKey(name = "fk_tb_wh"))
     private Warehouse warehouse;//仓库
 
     private String picker;//拣货员

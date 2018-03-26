@@ -24,7 +24,7 @@ public class Address {
 
     private String address;//地址
 
-    private BigInteger loadingOrder;//装车顺序
+    private BigInteger loadingOrder = BigInteger.ZERO;//装车顺序
 
     private String code;//编码
 

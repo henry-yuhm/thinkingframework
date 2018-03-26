@@ -22,7 +22,7 @@ public abstract class Command {
     protected Customer customer;//客户
 
     @OneToOne(fetch = FetchType.LAZY)
-    protected Command parentCommand;//父指令
+    protected Command parent;//父指令
 
     @OneToOne(fetch = FetchType.LAZY)
     protected BillHeader billHeader;//单据抬头

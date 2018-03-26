@@ -13,7 +13,7 @@ public class Owner {
 
     private String mnemonicCode;//助记吗
 
-    private String stockUpperLimit;//库存上限
+    private String stockUpper;//库存上限
 
     private String serviceHotline;//服务热线
 
@@ -46,12 +46,12 @@ public class Owner {
         this.mnemonicCode = mnemonicCode;
     }
 
-    public String getStockUpperLimit() {
-        return stockUpperLimit;
+    public String getStockUpper() {
+        return stockUpper;
     }
 
-    public void setStockUpperLimit(String stockUpperLimit) {
-        this.stockUpperLimit = stockUpperLimit;
+    public void setStockUpper(String stockUpper) {
+        this.stockUpper = stockUpper;
     }
 
     public String getServiceHotline() {
