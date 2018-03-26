@@ -1,4 +1,6 @@
-package org.jointown.logistics.common.entity;
+package org.jointown.logistics.common.entity.container;
+
+import org.jointown.logistics.common.entity.bill.TaskBill;
 
 import javax.persistence.*;
 

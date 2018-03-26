@@ -84,4 +84,271 @@ public class Goods {
     private String storageCondition;//存储条件
 
     private String storageRequest;//存储要求
+
+    public Goods() {
+    }
+
+    public Owner getOwner() {
+        return owner;
+    }
+
+    public void setOwner(Owner owner) {
+        this.owner = owner;
+    }
+
+    public String getNo() {
+        return no;
+    }
+
+    public void setNo(String no) {
+        this.no = no;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getUniversalName() {
+        return universalName;
+    }
+
+    public void setUniversalName(String universalName) {
+        this.universalName = universalName;
+    }
+
+    public String getMnemonicCode() {
+        return mnemonicCode;
+    }
+
+    public void setMnemonicCode(String mnemonicCode) {
+        this.mnemonicCode = mnemonicCode;
+    }
+
+    public String getSpecification() {
+        return specification;
+    }
+
+    public void setSpecification(String specification) {
+        this.specification = specification;
+    }
+
+    public String getManufacturer() {
+        return manufacturer;
+    }
+
+    public void setManufacturer(String manufacturer) {
+        this.manufacturer = manufacturer;
+    }
+
+    public String getProducingArea() {
+        return producingArea;
+    }
+
+    public void setProducingArea(String producingArea) {
+        this.producingArea = producingArea;
+    }
+
+    public BigInteger getWholePackageQuantity() {
+        return wholePackageQuantity;
+    }
+
+    public void setWholePackageQuantity(BigInteger wholePackageQuantity) {
+        this.wholePackageQuantity = wholePackageQuantity;
+    }
+
+    public BigInteger getMediumPackageQuantity() {
+        return mediumPackageQuantity;
+    }
+
+    public void setMediumPackageQuantity(BigInteger mediumPackageQuantity) {
+        this.mediumPackageQuantity = mediumPackageQuantity;
+    }
+
+    public BigInteger getTinyPackageQuantity() {
+        return tinyPackageQuantity;
+    }
+
+    public void setTinyPackageQuantity(BigInteger tinyPackageQuantity) {
+        this.tinyPackageQuantity = tinyPackageQuantity;
+    }
+
+    public String getPackageUnit() {
+        return packageUnit;
+    }
+
+    public void setPackageUnit(String packageUnit) {
+        this.packageUnit = packageUnit;
+    }
+
+    public String getApprovalNo() {
+        return approvalNo;
+    }
+
+    public void setApprovalNo(String approvalNo) {
+        this.approvalNo = approvalNo;
+    }
+
+    public Date getApprovalNoValidUntil() {
+        return approvalNoValidUntil;
+    }
+
+    public void setApprovalNoValidUntil(Date approvalNoValidUntil) {
+        this.approvalNoValidUntil = approvalNoValidUntil;
+    }
+
+    public SplitGranularity getSplitGranularity() {
+        return splitGranularity;
+    }
+
+    public void setSplitGranularity(SplitGranularity splitGranularity) {
+        this.splitGranularity = splitGranularity;
+    }
+
+    public BigInteger getMinInvoiceUnit() {
+        return minInvoiceUnit;
+    }
+
+    public void setMinInvoiceUnit(BigInteger minInvoiceUnit) {
+        this.minInvoiceUnit = minInvoiceUnit;
+    }
+
+    public String getCategory() {
+        return category;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
+    }
+
+    public String getWholePackageBarcode() {
+        return wholePackageBarcode;
+    }
+
+    public void setWholePackageBarcode(String wholePackageBarcode) {
+        this.wholePackageBarcode = wholePackageBarcode;
+    }
+
+    public String getMediumPackageBarcode() {
+        return mediumPackageBarcode;
+    }
+
+    public void setMediumPackageBarcode(String mediumPackageBarcode) {
+        this.mediumPackageBarcode = mediumPackageBarcode;
+    }
+
+    public String getTinyPackageBarcode() {
+        return tinyPackageBarcode;
+    }
+
+    public void setTinyPackageBarcode(String tinyPackageBarcode) {
+        this.tinyPackageBarcode = tinyPackageBarcode;
+    }
+
+    public SaleClassification getWholeClassification() {
+        return wholeClassification;
+    }
+
+    public void setWholeClassification(SaleClassification wholeClassification) {
+        this.wholeClassification = wholeClassification;
+    }
+
+    public SaleClassification getRemainderClassification() {
+        return remainderClassification;
+    }
+
+    public void setRemainderClassification(SaleClassification remainderClassification) {
+        this.remainderClassification = remainderClassification;
+    }
+
+    public BigDecimal getLength() {
+        return length;
+    }
+
+    public void setLength(BigDecimal length) {
+        this.length = length;
+    }
+
+    public BigDecimal getWidth() {
+        return width;
+    }
+
+    public void setWidth(BigDecimal width) {
+        this.width = width;
+    }
+
+    public BigDecimal getHeight() {
+        return height;
+    }
+
+    public void setHeight(BigDecimal height) {
+        this.height = height;
+    }
+
+    public BigDecimal getWholePackageVolume() {
+        return wholePackageVolume;
+    }
+
+    public void setWholePackageVolume(BigDecimal wholePackageVolume) {
+        this.wholePackageVolume = wholePackageVolume;
+    }
+
+    public BigDecimal getMediumPackageVolume() {
+        return mediumPackageVolume;
+    }
+
+    public void setMediumPackageVolume(BigDecimal mediumPackageVolume) {
+        this.mediumPackageVolume = mediumPackageVolume;
+    }
+
+    public BigDecimal getTinyPackageVolume() {
+        return tinyPackageVolume;
+    }
+
+    public void setTinyPackageVolume(BigDecimal tinyPackageVolume) {
+        this.tinyPackageVolume = tinyPackageVolume;
+    }
+
+    public BigDecimal getGoodsWeight() {
+        return goodsWeight;
+    }
+
+    public void setGoodsWeight(BigDecimal goodsWeight) {
+        this.goodsWeight = goodsWeight;
+    }
+
+    public BigDecimal getPackageWeight() {
+        return packageWeight;
+    }
+
+    public void setPackageWeight(BigDecimal packageWeight) {
+        this.packageWeight = packageWeight;
+    }
+
+    public StorageSign getStorageSign() {
+        return storageSign;
+    }
+
+    public void setStorageSign(StorageSign storageSign) {
+        this.storageSign = storageSign;
+    }
+
+    public String getStorageCondition() {
+        return storageCondition;
+    }
+
+    public void setStorageCondition(String storageCondition) {
+        this.storageCondition = storageCondition;
+    }
+
+    public String getStorageRequest() {
+        return storageRequest;
+    }
+
+    public void setStorageRequest(String storageRequest) {
+        this.storageRequest = storageRequest;
+    }
 }

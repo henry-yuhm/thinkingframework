@@ -1,17 +1,19 @@
 package org.jointown.logistics.common.domain;
 
-import java.io.Serializable;
-
-public abstract class BusinessAdapter implements Serializable {
-    protected String getNullBillDetailMessage() {
+public class ErrorMessage {
+    public static String getNullBillDetailMessage() {
         return "单据明细不存在";
     }
 
-    protected String getNullCustomerMessage() {
+    public static String getNullCustomerMessage() {
         return "客户资料不存在";
     }
 
-    protected Exception getException(String message, Object... objects) {
+    public static String getNullGoodsMessage() {
+        return "商品资料不存在";
+    }
+
+    public static Exception getException(String message, Object... objects) {
         StringBuilder translatedMessage = new StringBuilder();
 
         if (message == null || message.isEmpty()) {

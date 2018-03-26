@@ -15,7 +15,7 @@ spring:
 #    url: jdbc:oracle:thin:@10.3.87.21:1521:LMIS
 #    username: exwms
 #    password: exwms
-    url: jdbc:mysql://10.3.87.202:3306/jlp
+    url: jdbc:mysql://10.3.87.202:3306/ua
     username: ua
     password: ua
     druid:

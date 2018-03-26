@@ -1,4 +1,4 @@
-package org.jointown.logistics.common.entity;
+package org.jointown.logistics.common.entity.container;
 
 import javax.persistence.Entity;
 

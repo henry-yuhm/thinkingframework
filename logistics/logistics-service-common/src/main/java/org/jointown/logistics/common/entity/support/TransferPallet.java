@@ -1,6 +1,6 @@
 package org.jointown.logistics.common.entity.support;
 
-import org.jointown.logistics.common.entity.Pallet;
+import org.jointown.logistics.common.entity.container.Pallet;
 
 import javax.persistence.Embeddable;
 import javax.persistence.FetchType;

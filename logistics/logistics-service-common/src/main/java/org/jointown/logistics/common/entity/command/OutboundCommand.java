@@ -1,5 +1,9 @@
-package org.jointown.logistics.common.entity;
+package org.jointown.logistics.common.entity.command;
 
+import org.jointown.logistics.common.entity.Location;
+import org.jointown.logistics.common.entity.bill.OutboundSaleBillDetail;
+import org.jointown.logistics.common.entity.bill.OutboundSaleBillHeader;
+import org.jointown.logistics.common.entity.bill.TaskBill;
 import org.jointown.logistics.common.entity.support.AppendixSign;
 import org.jointown.logistics.common.entity.support.Quantity;
 import org.jointown.logistics.common.entity.support.StockStatus;
@@ -10,40 +14,46 @@ import java.util.Set;
 @MappedSuperclass
 public abstract class OutboundCommand extends Command {
     @OneToOne(fetch = FetchType.LAZY)
-    protected Location location;//货位
+    private OutboundSaleBillHeader billHeader;//单据抬头
 
-    protected StockStatus stockStatus;//库存状态
+    @OneToOne(fetch = FetchType.LAZY)
+    private OutboundSaleBillDetail billDetail;//单据明细
 
-    protected boolean active;//是否激活
+    @OneToOne(fetch = FetchType.LAZY)
+    private Location location;//货位
+
+    private StockStatus stockStatus;//库存状态
+
+    private boolean active;//是否激活
 
     @AttributeOverrides(value = {
             @AttributeOverride(name = "quantity", column = @Column(name = "creationQuantity", nullable = false, precision = 12, scale = 5)),
             @AttributeOverride(name = "pieces", column = @Column(name = "creationPieces", nullable = false)),
             @AttributeOverride(name = "remainder", column = @Column(name = "creationRemainder", nullable = false, precision = 12, scale = 5))
     })
-    protected Quantity creationQuantity;//创建数量
+    private Quantity creationQuantity;//创建数量
 
     @AttributeOverrides(value = {
             @AttributeOverride(name = "quantity", column = @Column(name = "plannedQuantity", nullable = false, precision = 12, scale = 5)),
             @AttributeOverride(name = "pieces", column = @Column(name = "plannedPieces", nullable = false)),
             @AttributeOverride(name = "remainder", column = @Column(name = "plannedRemainder", nullable = false, precision = 12, scale = 5))
     })
-    protected Quantity plannedQuantity;//计划数量
+    private Quantity plannedQuantity;//计划数量
 
     @AttributeOverrides(value = {
             @AttributeOverride(name = "quantity", column = @Column(name = "actualQuantity", nullable = false, precision = 12, scale = 5)),
             @AttributeOverride(name = "pieces", column = @Column(name = "actualPieces", nullable = false)),
             @AttributeOverride(name = "remainder", column = @Column(name = "actualRemainder", nullable = false, precision = 12, scale = 5))
     })
-    protected Quantity actualQuantity;//实际数量
+    private Quantity actualQuantity;//实际数量
 
     @OneToOne(fetch = FetchType.LAZY)
-    protected TaskBill taskBill;//任务单
+    private TaskBill taskBill;//任务单
 
-    protected AppendixSign appendixSign;//追加标识
+    private AppendixSign appendixSign;//追加标识
 
-    protected String pickingOrder;//拣货顺序
+    private String pickingOrder;//拣货顺序
 
     @ManyToMany
-    protected Set<TransferCommand> commands;//补货指令
+    private Set<TransitionCommand> commands;//补货指令
 }

@@ -1,12 +1,13 @@
 package org.jointown.logistics.common.entity;
 
+import org.jointown.logistics.common.entity.bill.TaskBill;
 import org.jointown.logistics.common.entity.support.BufferType;
 import org.jointown.logistics.common.entity.support.TableCategory;
 import org.jointown.logistics.common.entity.support.TableType;
 
 import javax.persistence.*;
 import java.math.BigInteger;
-import java.util.Date;
+import java.sql.Time;
 
 @Entity
 public class RecheckTable {
@@ -47,7 +48,7 @@ public class RecheckTable {
 
     private String splitBillNo;//拆分单编号
 
-    private Date modificationTime;//修改时间
+    private Time modificationTime;//修改时间
 
     public RecheckTable() {
     }
@@ -164,11 +165,11 @@ public class RecheckTable {
         this.splitBillNo = splitBillNo;
     }
 
-    public Date getModificationTime() {
+    public Time getModificationTime() {
         return modificationTime;
     }
 
-    public void setModificationTime(Date modificationTime) {
+    public void setModificationTime(Time modificationTime) {
         this.modificationTime = modificationTime;
     }
 }

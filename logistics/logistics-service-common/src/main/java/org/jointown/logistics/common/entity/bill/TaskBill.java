@@ -1,7 +1,9 @@
-package org.jointown.logistics.common.entity;
+package org.jointown.logistics.common.entity.bill;
+
+import org.jointown.logistics.common.entity.Warehouse;
 
 import javax.persistence.*;
-import java.util.Date;
+import java.sql.Time;
 
 @Entity
 public class TaskBill {
@@ -16,13 +18,13 @@ public class TaskBill {
 
     private String picker;//拣货员
 
-    private Date pickingStartTime;//拣货开始时间
+    private Time pickingStartTime;//拣货开始时间
 
-    private Date pickingCompleteTime;//拣货完成时间
+    private Time pickingCompleteTime;//拣货完成时间
 
     private String rechecker;//复核员
 
-    private Date recheckStartTime;//复核开始时间
+    private Time recheckStartTime;//复核开始时间
 
-    private Date recheckCompleteTime;//复核完成时间
+    private Time recheckCompleteTime;//复核完成时间
 }

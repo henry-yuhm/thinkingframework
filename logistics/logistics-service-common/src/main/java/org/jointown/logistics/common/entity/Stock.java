@@ -1,5 +1,6 @@
 package org.jointown.logistics.common.entity;
 
+import org.jointown.logistics.common.entity.container.Pallet;
 import org.jointown.logistics.common.entity.support.Quantity;
 import org.jointown.logistics.common.entity.support.StockStatus;
 

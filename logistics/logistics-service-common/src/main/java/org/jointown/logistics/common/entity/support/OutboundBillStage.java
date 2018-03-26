@@ -1,6 +1,6 @@
 package org.jointown.logistics.common.entity.support;
 
-public enum BillStage {
+public enum OutboundBillStage {
     BILL_CREATE("00", 0),
     INIT_COMPLETE("C1", 11),
     WAVE_ARRANGED("D1", 21),
@@ -18,6 +18,6 @@ public enum BillStage {
     OUTER_RECHECK_COMPLETE("W2", 62),
     OPERATION_COMPLETE("ZZ", 99);
 
-    BillStage(String name, int ordinal) {
+    OutboundBillStage(String name, int ordinal) {
     }
 }
