@@ -11,7 +11,7 @@ import javax.validation.constraints.NotNull;
 /**
  * Created by Henry on 2017/4/1.
  */
-@FeignClient(name = "logistics-service-common",
+@FeignClient(name = "logistics-service-core",
         qualifier = "dataInterfaceClient",
         configuration = FeignConfigurer.class,
         fallbackFactory = DataInterfaceClientFallbackFactory.class,

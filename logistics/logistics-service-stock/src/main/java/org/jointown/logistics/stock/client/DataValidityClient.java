@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.validation.constraints.NotNull;
 
-@FeignClient(name = "logistics-service-common",
+@FeignClient(name = "logistics-service-core",
         configuration = FeignConfigurer.class,
         fallbackFactory = DataValidityClientFallbackFactory.class,
         path = "/dataValidity")

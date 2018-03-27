@@ -12,7 +12,7 @@ import org.thinkingframework.boot.mvc.AppWebMvcConfigurerAdapter;
 @EnableEurekaClient
 @EnableFeignClients
 @EnableHystrix
-@EntityScan(basePackages = "org.jointown.logistics.common.entity")
+@EntityScan(basePackages = "org.jointown.logistics.core.entity")
 public class Application extends AppWebMvcConfigurerAdapter {
     public static void main(String[] args) {
         SpringApplication.run(Application.class, args);

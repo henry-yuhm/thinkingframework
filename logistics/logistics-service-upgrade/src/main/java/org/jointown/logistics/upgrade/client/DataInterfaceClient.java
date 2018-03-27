@@ -8,8 +8,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 /**
  * Created by Henry on 2017/4/1.
  */
-@FeignClient(name = "logistics-service-common",
-        path = "/common/dataInterface")
+@FeignClient(name = "logistics-service-core",
+        path = "/core/dataInterface")
 public interface DataInterfaceClient {
     @RequestMapping(value = "/call",
             method = RequestMethod.GET)

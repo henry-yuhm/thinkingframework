@@ -14,7 +14,7 @@
 
     <modules>
         <module>../logistics-service-audit</module>
-        <module>../logistics-service-common</module>
+        <module>../logistics-service-core</module>
         <module>../logistics-service-init</module>
         <module>../logistics-service-resource</module>
         <module>../logistics-service-stock</module>

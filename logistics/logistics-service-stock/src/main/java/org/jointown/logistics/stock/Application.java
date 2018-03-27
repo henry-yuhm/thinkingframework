@@ -11,7 +11,7 @@ import org.springframework.cloud.netflix.hystrix.EnableHystrix;
 @EnableEurekaClient
 @EnableFeignClients
 @EnableHystrix
-@EntityScan(basePackages = {"org.jointown.logistics.common.entity", "org.jointown.logistics.stock.entity"})
+@EntityScan(basePackages = {"org.jointown.logistics.core.entity", "org.jointown.logistics.stock.entity"})
 public class Application {
     public static void main(String[] args) {
         SpringApplication.run(Application.class, args);

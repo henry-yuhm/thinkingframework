@@ -1,11 +1,11 @@
 package org.jointown.logistics.init.domain;
 
-import org.jointown.logistics.common.domain.ErrorMessage;
-import org.jointown.logistics.common.entity.bill.BillDetail;
-import org.jointown.logistics.common.entity.bill.OutboundSaleBillDetail;
-import org.jointown.logistics.common.entity.bill.OutboundSaleBillHeader;
-import org.jointown.logistics.common.entity.support.OutboundBillStage;
-import org.jointown.logistics.common.repository.OutboundBillHeaderRepository;
+import org.jointown.logistics.core.domain.ErrorMessage;
+import org.jointown.logistics.core.entity.bill.BillDetail;
+import org.jointown.logistics.core.entity.bill.OutboundSaleBillDetail;
+import org.jointown.logistics.core.entity.bill.OutboundSaleBillHeader;
+import org.jointown.logistics.core.entity.support.OutboundBillStage;
+import org.jointown.logistics.core.repository.OutboundBillHeaderRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.math.BigDecimal;

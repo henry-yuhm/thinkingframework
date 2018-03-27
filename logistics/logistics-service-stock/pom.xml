@@ -87,14 +87,6 @@
             <groupId>com.oracle</groupId>
             <artifactId>ojdbc8</artifactId>
         </dependency>
-        <!--<dependency>-->
-        <!--<groupId>com.oracle</groupId>-->
-        <!--<artifactId>orai18n</artifactId>-->
-        <!--</dependency>-->
-        <!--<dependency>-->
-        <!--<groupId>com.oracle</groupId>-->
-        <!--<artifactId>ucp</artifactId>-->
-        <!--</dependency>-->
         <dependency>
             <groupId>com.alibaba</groupId>
             <artifactId>fastjson</artifactId>
@@ -102,7 +94,7 @@
 
         <dependency>
             <groupId>org.jointown.logistics</groupId>
-            <artifactId>logistics-service-common</artifactId>
+            <artifactId>logistics-service-core</artifactId>
         </dependency>
     </dependencies>
 
