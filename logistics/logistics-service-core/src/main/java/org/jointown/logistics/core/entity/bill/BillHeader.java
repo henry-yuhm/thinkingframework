@@ -10,6 +10,7 @@ import org.jointown.logistics.core.entity.support.BillType;
 
 import javax.persistence.*;
 import java.sql.Time;
+import java.util.Set;
 
 @MappedSuperclass
 public abstract class BillHeader {
@@ -149,4 +150,6 @@ public abstract class BillHeader {
     public void setRemarks(String remarks) {
         this.remarks = remarks;
     }
+
+    public abstract Set<? extends BillDetail> getDetails();
 }

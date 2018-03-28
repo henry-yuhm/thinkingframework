@@ -86,7 +86,7 @@
         </dependency>
         <dependency>
             <groupId>org.jointown.logistics</groupId>
-            <artifactId>logistics-service-common</artifactId>
+            <artifactId>logistics-service-core</artifactId>
         </dependency>
     </dependencies>
 

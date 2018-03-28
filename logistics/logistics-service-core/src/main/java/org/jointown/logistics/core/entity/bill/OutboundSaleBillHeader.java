@@ -63,12 +63,16 @@ public class OutboundSaleBillHeader extends OutboundBillHeader {
     @Column(nullable = false)
     private String recheckBillPrintSign;//复核单打印标识
 
+    private String recheckBillPrintClerk;//复核单打印员
+
     private Time recheckBillPrintTime;//复核单打印时间
 
     @Column(nullable = false)
     private String reportBillPrintSign;//报告单打印标识
 
     private String reportBillPrintClerk;//报告单打印员
+
+    private Time reportBillPrintTime;//报告单打印时间
 
     @OneToMany
     private Set<OutboundSaleBillDetail> details;//单据明细
@@ -233,6 +237,14 @@ public class OutboundSaleBillHeader extends OutboundBillHeader {
         this.recheckBillPrintSign = recheckBillPrintSign;
     }
 
+    public String getRecheckBillPrintClerk() {
+        return recheckBillPrintClerk;
+    }
+
+    public void setRecheckBillPrintClerk(String recheckBillPrintClerk) {
+        this.recheckBillPrintClerk = recheckBillPrintClerk;
+    }
+
     public Time getRecheckBillPrintTime() {
         return recheckBillPrintTime;
     }
@@ -257,6 +269,15 @@ public class OutboundSaleBillHeader extends OutboundBillHeader {
         this.reportBillPrintClerk = reportBillPrintClerk;
     }
 
+    public Time getReportBillPrintTime() {
+        return reportBillPrintTime;
+    }
+
+    public void setReportBillPrintTime(Time reportBillPrintTime) {
+        this.reportBillPrintTime = reportBillPrintTime;
+    }
+
+    @Override
     public Set<OutboundSaleBillDetail> getDetails() {
         return details;
     }
