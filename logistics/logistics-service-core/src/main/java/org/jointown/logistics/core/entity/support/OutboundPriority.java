@@ -1,6 +1,6 @@
 package org.jointown.logistics.core.entity.support;
 
-public enum BillPriority {
+public enum OutboundPriority {
     GREEN_CHANNEL("10", 10),//绿色通道
     APPENDANT_PICKING("15", 15),//追加拣货
     SCANGUN_PROMOTION("19", 19),//条码枪提升
@@ -18,9 +18,8 @@ public enum BillPriority {
     INITIATIVE_REPLENISHMENT("65", 65),//主动补货
     OUTBOUND_FLITTING("70", 70),//调拨出库
     OUTBOUND_DEMONSTRATION("80", 80),//演示出库
-    DEVICE_MANUAL_OPERATION("90", 90),//设备手动
-    INBOUND_PURCHASE("95", 95);//购进入库
+    DEVICE_MANUAL_OPERATION("90", 90);//设备手动
 
-    BillPriority(String name, int ordinal) {
+    OutboundPriority(String name, int ordinal) {
     }
 }

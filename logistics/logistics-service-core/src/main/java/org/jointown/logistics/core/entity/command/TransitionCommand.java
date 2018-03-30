@@ -10,12 +10,10 @@ import javax.persistence.OneToOne;
 
 @MappedSuperclass
 public abstract class TransitionCommand extends Command {
-    @OneToOne(fetch = FetchType.LAZY)
-    @Column(nullable = false)
+    @OneToOne(fetch = FetchType.LAZY, optional = false)
     private Location sourceLocation;//源货位
 
-    @OneToOne(fetch = FetchType.LAZY)
-    @Column(nullable = false)
+    @OneToOne(fetch = FetchType.LAZY, optional = false)
     private Location targetLocation;//目标货位
 
     @Column(nullable = false)

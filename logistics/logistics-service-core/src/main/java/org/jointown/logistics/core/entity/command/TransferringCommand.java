@@ -1,39 +1,36 @@
 package org.jointown.logistics.core.entity.command;
 
-import org.jointown.logistics.core.entity.bill.TransferringBillDetail;
-import org.jointown.logistics.core.entity.bill.TransferringBillHeader;
+import org.jointown.logistics.core.entity.bill.TransferringDetail;
+import org.jointown.logistics.core.entity.bill.TransferringHeader;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.OneToOne;
 
 @Entity
 public class TransferringCommand extends TransitionCommand {
-    @OneToOne(fetch = FetchType.LAZY)
-    @Column(nullable = false)
-    private TransferringBillHeader header;//单据抬头
+    @OneToOne(fetch = FetchType.LAZY, optional = false)
+    private TransferringHeader header;//单据抬头
 
-    @OneToOne(fetch = FetchType.LAZY)
-    @Column(nullable = false)
-    private TransferringBillDetail detail;//单据明细
+    @OneToOne(fetch = FetchType.LAZY, optional = false)
+    private TransferringDetail detail;//单据明细
 
     public TransferringCommand() {
     }
 
-    public TransferringBillHeader getHeader() {
+    public TransferringHeader getHeader() {
         return header;
     }
 
-    public void setHeader(TransferringBillHeader header) {
+    public void setHeader(TransferringHeader header) {
         this.header = header;
     }
 
-    public TransferringBillDetail getDetail() {
+    public TransferringDetail getDetail() {
         return detail;
     }
 
-    public void setDetail(TransferringBillDetail detail) {
+    public void setDetail(TransferringDetail detail) {
         this.detail = detail;
     }
 }

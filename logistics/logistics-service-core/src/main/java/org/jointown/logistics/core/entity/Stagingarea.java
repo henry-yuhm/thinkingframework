@@ -9,13 +9,12 @@ import javax.persistence.*;
 import java.util.Set;
 
 @Entity
-public class StagingArea {
+public class Stagingarea {
     @Id
     @GeneratedValue
     private long id;
 
-    @OneToOne(fetch = FetchType.LAZY)
-    @Column(nullable = false)
+    @OneToOne(fetch = FetchType.LAZY, optional = false)
     private Warehouse warehouse;//仓库
 
     @Column(nullable = false)
@@ -33,6 +32,7 @@ public class StagingArea {
     private boolean available;//是否可用
 
     @ManyToMany
+    @JoinTable(joinColumns = {@JoinColumn(name = "stagingarea_id")}, inverseJoinColumns = {@JoinColumn(name = "owner_id")})
     private Set<Owner> owners;//业主
 
     private BusinessType businessType;//业务类型
@@ -42,7 +42,7 @@ public class StagingArea {
 
     private TakegoodsMode takegoodsMode;//提货方式
 
-    public StagingArea() {
+    public Stagingarea() {
     }
 
     public Warehouse getWarehouse() {

@@ -14,8 +14,7 @@ public class Route {
     @Column(nullable = false)
     private String name;//名称
 
-    @OneToOne(fetch = FetchType.LAZY)
-    @Column(nullable = false)
+    @OneToOne(fetch = FetchType.LAZY, optional = false)
     private Direction direction;//方向
 
     public Route() {

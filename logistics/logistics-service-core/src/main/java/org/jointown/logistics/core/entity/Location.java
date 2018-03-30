@@ -11,8 +11,7 @@ public class Location {
     @GeneratedValue
     private long id;
 
-    @OneToOne(fetch = FetchType.LAZY)
-    @Column(nullable = false)
+    @OneToOne(fetch = FetchType.LAZY, optional = false)
     private Warehouse warehouse;//仓库
 
     @Column(nullable = false)
@@ -21,19 +20,18 @@ public class Location {
     @Column(nullable = false)
     private String floor;//楼层
 
-    @OneToOne(fetch = FetchType.LAZY)
-    @Column(nullable = false)
+    @OneToOne(fetch = FetchType.LAZY, optional = false)
     private Area area;//区域
 
-    private String group;//分组
+    private String region;//大区
 
     private String roadway;//巷道
 
-    private String row;//排
+    private String x;//排
 
-    private String layer;//层
+    private String y;//列
 
-    private String column;//列
+    private String z;//层
 
     private String shortno;//短编号
 
@@ -117,12 +115,12 @@ public class Location {
         this.area = area;
     }
 
-    public String getGroup() {
-        return group;
+    public String getRegion() {
+        return region;
     }
 
-    public void setGroup(String group) {
-        this.group = group;
+    public void setRegion(String region) {
+        this.region = region;
     }
 
     public String getRoadway() {
@@ -133,28 +131,28 @@ public class Location {
         this.roadway = roadway;
     }
 
-    public String getRow() {
-        return row;
+    public String getX() {
+        return x;
     }
 
-    public void setRow(String row) {
-        this.row = row;
+    public void setX(String x) {
+        this.x = x;
     }
 
-    public String getLayer() {
-        return layer;
+    public String getY() {
+        return y;
     }
 
-    public void setLayer(String layer) {
-        this.layer = layer;
+    public void setY(String y) {
+        this.y = y;
     }
 
-    public String getColumn() {
-        return column;
+    public String getZ() {
+        return z;
     }
 
-    public void setColumn(String column) {
-        this.column = column;
+    public void setZ(String z) {
+        this.z = z;
     }
 
     public String getShortno() {

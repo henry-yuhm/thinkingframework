@@ -11,7 +11,7 @@ import java.math.BigDecimal;
 import java.math.BigInteger;
 
 @MappedSuperclass
-public abstract class OutboundBillDetail extends BillDetail {
+public abstract class OutboundDetail extends Detail {
     @OneToOne(fetch = FetchType.LAZY)
     private Location location;//货位
 

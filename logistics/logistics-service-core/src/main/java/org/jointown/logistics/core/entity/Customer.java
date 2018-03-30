@@ -13,8 +13,7 @@ public class Customer {
     @GeneratedValue
     private long id;
 
-    @OneToOne(fetch = FetchType.LAZY)
-    @Column(nullable = false)
+    @OneToOne(fetch = FetchType.LAZY, optional = false)
     private Owner owner;//业主
 
     @Column(nullable = false)

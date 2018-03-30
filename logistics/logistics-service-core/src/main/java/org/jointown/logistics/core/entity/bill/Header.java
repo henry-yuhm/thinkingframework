@@ -4,26 +4,22 @@ import org.jointown.logistics.core.entity.Customer;
 import org.jointown.logistics.core.entity.Owner;
 import org.jointown.logistics.core.entity.Warehouse;
 import org.jointown.logistics.core.entity.support.BillCategory;
-import org.jointown.logistics.core.entity.support.BillPriority;
 import org.jointown.logistics.core.entity.support.BillSign;
 import org.jointown.logistics.core.entity.support.BillType;
 
 import javax.persistence.*;
 import java.sql.Time;
-import java.util.Set;
 
 @MappedSuperclass
-public abstract class BillHeader {
+public abstract class Header implements Headers {
     @Id
     @GeneratedValue
     private long id;
 
-    @OneToOne(fetch = FetchType.LAZY)
-    @Column(nullable = false)
+    @OneToOne(fetch = FetchType.LAZY, optional = false)
     private Warehouse warehouse;//仓库
 
-    @OneToOne(fetch = FetchType.LAZY)
-    @Column(nullable = false)
+    @OneToOne(fetch = FetchType.LAZY, optional = false)
     private Owner owner;//业主
 
     @OneToOne(fetch = FetchType.LAZY)
@@ -40,9 +36,6 @@ public abstract class BillHeader {
 
     @Column(nullable = false)
     private BillSign sign;//单据标识
-
-    @Column(nullable = false)
-    private BillPriority priority;//单据优先级
 
     @Column(nullable = false)
     private String operator;//操作员
@@ -111,14 +104,6 @@ public abstract class BillHeader {
         this.sign = sign;
     }
 
-    public BillPriority getPriority() {
-        return priority;
-    }
-
-    public void setPriority(BillPriority priority) {
-        this.priority = priority;
-    }
-
     public String getOperator() {
         return operator;
     }
@@ -150,6 +135,4 @@ public abstract class BillHeader {
     public void setRemarks(String remarks) {
         this.remarks = remarks;
     }
-
-    public abstract Set<? extends BillDetail> getDetails();
 }

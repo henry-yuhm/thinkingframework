@@ -11,8 +11,7 @@ import javax.persistence.OneToOne;
 
 @MappedSuperclass
 public abstract class TaskBarcode extends Barcode {
-    @OneToOne(fetch = FetchType.LAZY)
-    @Column(nullable = false)
+    @OneToOne(fetch = FetchType.LAZY, optional = false)
     private Warehouse warehouse;//仓库
 
     @Column(nullable = false)

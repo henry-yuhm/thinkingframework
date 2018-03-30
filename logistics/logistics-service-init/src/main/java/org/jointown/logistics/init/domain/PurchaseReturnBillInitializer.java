@@ -1,11 +1,11 @@
 package org.jointown.logistics.init.domain;
 
-import org.jointown.logistics.core.entity.bill.PurchaseReturnBillHeader;
-import org.jointown.logistics.core.entity.support.BillPriority;
-import org.jointown.logistics.core.repository.BillHeaderRepository;
+import org.jointown.logistics.core.entity.bill.PurchaseOutboundHeader;
+import org.jointown.logistics.core.entity.support.OutboundPriority;
+import org.jointown.logistics.core.repository.HeaderRepository;
 
-public class PurchaseReturnBillInitializer extends AbstractBillInitializer<PurchaseReturnBillHeader> {
-    public PurchaseReturnBillInitializer(BillHeaderRepository<PurchaseReturnBillHeader> repository, long id) {
+public class PurchaseReturnBillInitializer extends AbstractBillInitializer<PurchaseOutboundHeader> {
+    public PurchaseReturnBillInitializer(HeaderRepository<PurchaseOutboundHeader> repository, long id) {
         super(repository, repository.findOne(id));
     }
 
@@ -13,7 +13,7 @@ public class PurchaseReturnBillInitializer extends AbstractBillInitializer<Purch
     public void initialize() throws Exception {
         super.initialize();
 
-        this.getHeader().setPriority(BillPriority.PURCHASE_RETURN);
+        this.getHeader().setPriority(OutboundPriority.PURCHASE_RETURN);
 
         this.getRepository().save(this.getHeader());
     }

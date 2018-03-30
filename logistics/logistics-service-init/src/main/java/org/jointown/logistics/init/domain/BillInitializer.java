@@ -1,10 +1,10 @@
 package org.jointown.logistics.init.domain;
 
-import org.jointown.logistics.core.entity.bill.OutboundBillHeader;
-import org.jointown.logistics.core.repository.BillHeaderRepository;
+import org.jointown.logistics.core.entity.bill.OutboundHeader;
+import org.jointown.logistics.core.repository.HeaderRepository;
 
-public interface BillInitializer<T extends OutboundBillHeader> {
-    BillHeaderRepository getRepository();
+public interface BillInitializer<T extends OutboundHeader> {
+    HeaderRepository getRepository();
 
     T getHeader();
 

@@ -3,6 +3,7 @@ package org.jointown.logistics.core.entity.command;
 import org.jointown.logistics.core.entity.Platform;
 import org.jointown.logistics.core.entity.barcode.WholeBarcode;
 import org.jointown.logistics.core.entity.container.Pallet;
+import org.jointown.logistics.core.entity.task.WholeTask;
 
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -12,6 +13,9 @@ import javax.persistence.OneToOne;
 public class WholeCommand extends OutboundCommand {
     @OneToOne(fetch = FetchType.LAZY)
     private WholeCommand parent;//父指令
+
+    @OneToOne(fetch = FetchType.LAZY)
+    private WholeTask task;//任务
 
     @OneToOne(fetch = FetchType.LAZY)
     private WholeBarcode barcode;//作业条码
@@ -31,6 +35,14 @@ public class WholeCommand extends OutboundCommand {
 
     public void setParent(WholeCommand parent) {
         this.parent = parent;
+    }
+
+    public WholeTask getTask() {
+        return task;
+    }
+
+    public void setTask(WholeTask task) {
+        this.task = task;
     }
 
     public WholeBarcode getBarcode() {

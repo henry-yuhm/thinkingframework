@@ -1,7 +1,7 @@
 package org.jointown.logistics.core.domain;
 
 public class ErrorMessage {
-    public static String getNullBillDetailMessage() {
+    public static String getNullDetailMessage() {
         return "单据明细不存在";
     }
 

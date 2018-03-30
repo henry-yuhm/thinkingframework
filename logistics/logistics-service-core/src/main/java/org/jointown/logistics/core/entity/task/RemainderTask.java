@@ -11,7 +11,7 @@ import java.sql.Time;
 
 @Entity
 public class RemainderTask extends Task {
-    private String splitBill;//拆分单
+    private String splittingBill;//拆分单
 
     @OneToOne(fetch = FetchType.LAZY)
     private Totebox totebox;//周转箱
@@ -19,7 +19,7 @@ public class RemainderTask extends Task {
     @OneToOne(fetch = FetchType.LAZY)
     private RecheckBuffer buffer;//复核暂存位
 
-    private BigInteger group;//任务分组
+    private BigInteger batchno;//任务批次号
 
     private String bufferNo;//暂存位编号
 
@@ -32,12 +32,12 @@ public class RemainderTask extends Task {
     public RemainderTask() {
     }
 
-    public String getSplitBill() {
-        return splitBill;
+    public String getSplittingBill() {
+        return splittingBill;
     }
 
-    public void setSplitBill(String splitBill) {
-        this.splitBill = splitBill;
+    public void setSplittingBill(String splittingBill) {
+        this.splittingBill = splittingBill;
     }
 
     public Totebox getTotebox() {
@@ -56,12 +56,12 @@ public class RemainderTask extends Task {
         this.buffer = buffer;
     }
 
-    public BigInteger getGroup() {
-        return group;
+    public BigInteger getBatchno() {
+        return batchno;
     }
 
-    public void setGroup(BigInteger group) {
-        this.group = group;
+    public void setBatchno(BigInteger batchno) {
+        this.batchno = batchno;
     }
 
     public String getBufferNo() {

@@ -1,10 +1,6 @@
 package org.jointown.logistics.core.entity;
 
-import org.jointown.logistics.core.entity.support.TWFSign;
-import org.jointown.logistics.core.entity.support.TransferlineSigns;
-
 import javax.persistence.*;
-import java.util.Set;
 
 @Entity
 public class Warehouse {
@@ -12,8 +8,7 @@ public class Warehouse {
     @GeneratedValue
     private long id;
 
-    @OneToOne(fetch = FetchType.LAZY)
-    @Column(nullable = false)
+    @OneToOne(fetch = FetchType.LAZY, optional = false)
     private Owner owner;//业主
 
     @Column(nullable = false)
@@ -31,9 +26,9 @@ public class Warehouse {
     @Column(nullable = false)
     private boolean tablet;//是否使用平板电脑
 
-    private Set<TransferlineSigns> transferlineSigns;//输送线标识
-
-    private Set<TWFSign> twfSigns;//立体库标识
+//    private TransferlineSigns[] transferlineSigns;//输送线标识
+//
+//    private TWFSign[] twfSigns;//立体库标识
 
     private String address;//地址
 
@@ -86,22 +81,6 @@ public class Warehouse {
 
     public void setTablet(boolean tablet) {
         this.tablet = tablet;
-    }
-
-    public Set<TransferlineSigns> getTransferlineSigns() {
-        return transferlineSigns;
-    }
-
-    public void setTransferlineSigns(Set<TransferlineSigns> transferlineSigns) {
-        this.transferlineSigns = transferlineSigns;
-    }
-
-    public Set<TWFSign> getTwfSigns() {
-        return twfSigns;
-    }
-
-    public void setTwfSigns(Set<TWFSign> twfSigns) {
-        this.twfSigns = twfSigns;
     }
 
     public String getAddress() {

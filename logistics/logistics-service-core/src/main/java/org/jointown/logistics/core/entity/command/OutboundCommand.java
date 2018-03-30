@@ -1,11 +1,10 @@
 package org.jointown.logistics.core.entity.command;
 
 import org.jointown.logistics.core.entity.Location;
-import org.jointown.logistics.core.entity.bill.OutboundSaleBillDetail;
-import org.jointown.logistics.core.entity.bill.OutboundSaleBillHeader;
+import org.jointown.logistics.core.entity.bill.SaleOutboundDetail;
+import org.jointown.logistics.core.entity.bill.SaleOutboundHeader;
 import org.jointown.logistics.core.entity.support.AppendixSign;
 import org.jointown.logistics.core.entity.support.StockStatus;
-import org.jointown.logistics.core.entity.task.Task;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
@@ -14,16 +13,13 @@ import java.util.Set;
 
 @MappedSuperclass
 public abstract class OutboundCommand extends Command {
-    @OneToOne(fetch = FetchType.LAZY)
-    @Column(nullable = false)
-    private OutboundSaleBillHeader header;//单据抬头
+    @OneToOne(fetch = FetchType.LAZY, optional = false)
+    private SaleOutboundHeader header;//单据抬头
 
-    @OneToOne(fetch = FetchType.LAZY)
-    @Column(nullable = false)
-    private OutboundSaleBillDetail detail;//单据明细
+    @OneToOne(fetch = FetchType.LAZY, optional = false)
+    private SaleOutboundDetail detail;//单据明细
 
-    @OneToOne(fetch = FetchType.LAZY)
-    @Column(nullable = false)
+    @OneToOne(fetch = FetchType.LAZY, optional = false)
     private Location location;//货位
 
     @Column(nullable = false)
@@ -59,31 +55,29 @@ public abstract class OutboundCommand extends Command {
     @Column(nullable = false, precision = 12, scale = 5)
     private BigDecimal factRemainder;//实际余数
 
-    @OneToOne(fetch = FetchType.LAZY)
-    private Task task;//任务单
-
     @Column(nullable = false)
     private AppendixSign appendixSign;//追加标识
 
     @Column(nullable = false)
     private String pickingOrder;//拣货顺序
 
-    @OneToMany
+    @ManyToMany
+    @JoinTable(joinColumns = {@JoinColumn(name = "command_id")}, inverseJoinColumns = {@JoinColumn(name = "rep_command_id")})
     private Set<ReplenishmentCommand> commands;//补货指令
 
-    public OutboundSaleBillHeader getHeader() {
+    public SaleOutboundHeader getHeader() {
         return header;
     }
 
-    public void setHeader(OutboundSaleBillHeader header) {
+    public void setHeader(SaleOutboundHeader header) {
         this.header = header;
     }
 
-    public OutboundSaleBillDetail getDetail() {
+    public SaleOutboundDetail getDetail() {
         return detail;
     }
 
-    public void setDetail(OutboundSaleBillDetail detail) {
+    public void setDetail(SaleOutboundDetail detail) {
         this.detail = detail;
     }
 
@@ -181,14 +175,6 @@ public abstract class OutboundCommand extends Command {
 
     public void setFactRemainder(BigDecimal factRemainder) {
         this.factRemainder = factRemainder;
-    }
-
-    public Task getTask() {
-        return task;
-    }
-
-    public void setTask(Task task) {
-        this.task = task;
     }
 
     public AppendixSign getAppendixSign() {

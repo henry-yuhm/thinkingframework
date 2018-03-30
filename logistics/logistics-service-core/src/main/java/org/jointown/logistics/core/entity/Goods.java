@@ -17,8 +17,7 @@ public class Goods {
     @GeneratedValue
     private long id;
 
-    @OneToOne(fetch = FetchType.LAZY)
-    @Column(nullable = false)
+    @OneToOne(fetch = FetchType.LAZY, optional = false)
     private Owner owner;//业主
 
     @Column(nullable = false)
@@ -63,7 +62,7 @@ public class Goods {
     @Column(nullable = false)
     private BigInteger invoiceUnit;//最小开票单位
 
-    @Column(nullable = false)
+    @OneToOne(fetch = FetchType.LAZY, optional = false)
     private GoodsCategory category;//类别
 
     private String wholePackageBarcode;//大包装条码

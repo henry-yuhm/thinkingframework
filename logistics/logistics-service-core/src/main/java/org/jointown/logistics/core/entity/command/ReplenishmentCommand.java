@@ -1,7 +1,7 @@
 package org.jointown.logistics.core.entity.command;
 
-import org.jointown.logistics.core.entity.bill.ReplenishmentBillDetail;
-import org.jointown.logistics.core.entity.bill.ReplenishmentBillHeader;
+import org.jointown.logistics.core.entity.bill.ReplenishmentDetail;
+import org.jointown.logistics.core.entity.bill.ReplenishmentHeader;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -11,13 +11,11 @@ import java.math.BigDecimal;
 
 @Entity
 public class ReplenishmentCommand extends TransitionCommand {
-    @OneToOne(fetch = FetchType.LAZY)
-    @Column(nullable = false)
-    private ReplenishmentBillHeader header;//单据抬头
+    @OneToOne(fetch = FetchType.LAZY, optional = false)
+    private ReplenishmentHeader header;//单据抬头
 
-    @OneToOne(fetch = FetchType.LAZY)
-    @Column(nullable = false)
-    private ReplenishmentBillDetail detail;//单据明细
+    @OneToOne(fetch = FetchType.LAZY, optional = false)
+    private ReplenishmentDetail detail;//单据明细
 
     @Column(nullable = false, precision = 12, scale = 5)
     private BigDecimal availableQuantity;//可用数量
@@ -25,19 +23,19 @@ public class ReplenishmentCommand extends TransitionCommand {
     public ReplenishmentCommand() {
     }
 
-    public ReplenishmentBillHeader getHeader() {
+    public ReplenishmentHeader getHeader() {
         return header;
     }
 
-    public void setHeader(ReplenishmentBillHeader header) {
+    public void setHeader(ReplenishmentHeader header) {
         this.header = header;
     }
 
-    public ReplenishmentBillDetail getDetail() {
+    public ReplenishmentDetail getDetail() {
         return detail;
     }
 
-    public void setDetail(ReplenishmentBillDetail detail) {
+    public void setDetail(ReplenishmentDetail detail) {
         this.detail = detail;
     }
 

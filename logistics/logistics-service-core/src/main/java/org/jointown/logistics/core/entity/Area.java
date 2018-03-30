@@ -14,8 +14,7 @@ public class Area {
     @GeneratedValue
     private long id;
 
-    @OneToOne(fetch = FetchType.LAZY)
-    @Column(nullable = false)
+    @OneToOne(fetch = FetchType.LAZY, optional = false)
     private Warehouse warehouse;//仓库
 
     @Column(nullable = false)
@@ -33,7 +32,7 @@ public class Area {
     @Column(nullable = false)
     private PackageSign sign;//包装标识
 
-    private String group;//作业分组
+    private String region;//大区
 
     @Column(nullable = false)
     private PickingDevice pickingDevice;//拣货设备
@@ -46,7 +45,6 @@ public class Area {
     @Column(nullable = false)
     private boolean useSorter;//是否使用分拣机
 
-    @OneToOne(fetch = FetchType.LAZY)
     @Column(nullable = false)
     private RecheckMode recheckMode;//复核标识
 
@@ -104,12 +102,12 @@ public class Area {
         this.sign = sign;
     }
 
-    public String getGroup() {
-        return group;
+    public String getRegion() {
+        return region;
     }
 
-    public void setGroup(String group) {
-        this.group = group;
+    public void setRegion(String region) {
+        this.region = region;
     }
 
     public PickingDevice getPickingDevice() {

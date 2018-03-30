@@ -1,6 +1,7 @@
 package org.jointown.logistics.core.entity.command;
 
 import org.jointown.logistics.core.entity.barcode.RemainderBarcode;
+import org.jointown.logistics.core.entity.task.RemainderTask;
 
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -11,6 +12,9 @@ import java.math.BigDecimal;
 public class RemainderCommand extends OutboundCommand {
     @OneToOne(fetch = FetchType.LAZY)
     private RemainderCommand parent;//父指令
+
+    @OneToOne(fetch = FetchType.LAZY)
+    private RemainderTask task;//任务
 
     @OneToOne(fetch = FetchType.LAZY)
     private RemainderBarcode barcode;//作业条码
@@ -26,6 +30,14 @@ public class RemainderCommand extends OutboundCommand {
 
     public void setParent(RemainderCommand parent) {
         this.parent = parent;
+    }
+
+    public RemainderTask getTask() {
+        return task;
+    }
+
+    public void setTask(RemainderTask task) {
+        this.task = task;
     }
 
     public RemainderBarcode getBarcode() {

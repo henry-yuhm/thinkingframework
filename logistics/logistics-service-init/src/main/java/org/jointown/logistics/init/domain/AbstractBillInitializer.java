@@ -1,26 +1,26 @@
 package org.jointown.logistics.init.domain;
 
 import org.jointown.logistics.core.domain.ErrorMessage;
-import org.jointown.logistics.core.entity.bill.BillDetail;
-import org.jointown.logistics.core.entity.bill.OutboundBillHeader;
-import org.jointown.logistics.core.entity.bill.OutboundSaleBillDetail;
-import org.jointown.logistics.core.entity.support.OutboundBillStage;
-import org.jointown.logistics.core.repository.BillHeaderRepository;
+import org.jointown.logistics.core.entity.bill.Detail;
+import org.jointown.logistics.core.entity.bill.OutboundHeader;
+import org.jointown.logistics.core.entity.bill.SaleOutboundDetail;
+import org.jointown.logistics.core.entity.support.OutboundStage;
+import org.jointown.logistics.core.repository.HeaderRepository;
 
 import java.math.BigDecimal;
 
-public abstract class AbstractBillInitializer<T extends OutboundBillHeader> implements BillInitializer<OutboundBillHeader> {
-    private BillHeaderRepository<? extends OutboundBillHeader> repository;
+public abstract class AbstractBillInitializer<T extends OutboundHeader> implements BillInitializer<OutboundHeader> {
+    private HeaderRepository<? extends OutboundHeader> repository;
 
     private T header;
 
-    public AbstractBillInitializer(BillHeaderRepository<? extends OutboundBillHeader> repository, T header) {
+    public AbstractBillInitializer(HeaderRepository<? extends OutboundHeader> repository, T header) {
         this.repository = repository;
         this.header = header;
     }
 
     @Override
-    public BillHeaderRepository getRepository() {
+    public HeaderRepository getRepository() {
         return this.repository;
     }
 
@@ -33,7 +33,7 @@ public abstract class AbstractBillInitializer<T extends OutboundBillHeader> impl
     public void verify() throws Exception {
         StringBuilder message = new StringBuilder();
 
-        if (this.header.getStage().compareTo(OutboundBillStage.INIT_COMPLETE) >= 0) {
+        if (this.header.getStage().compareTo(OutboundStage.INIT_COMPLETE) >= 0) {
             throw ErrorMessage.getException("单据已经初始化", this.header, this.header.getOwner());
         }
 
@@ -42,11 +42,11 @@ public abstract class AbstractBillInitializer<T extends OutboundBillHeader> impl
         }
 
         if (this.header.getDetails() == null || this.header.getDetails().isEmpty()) {
-            throw ErrorMessage.getException(ErrorMessage.getNullBillDetailMessage(), this.header, this.header.getOwner());
+            throw ErrorMessage.getException(ErrorMessage.getNullDetailMessage(), this.header, this.header.getOwner());
         }
 
-        for (BillDetail billDetail : this.header.getDetails()) {
-            OutboundSaleBillDetail detail = (OutboundSaleBillDetail) billDetail;
+        for (Detail billDetail : this.header.getDetails()) {
+            SaleOutboundDetail detail = (SaleOutboundDetail) billDetail;
 
             if (detail.getGoods() == null) {
                 throw ErrorMessage.getException(ErrorMessage.getNullGoodsMessage(), this.header, this.header.getOwner());
@@ -70,6 +70,6 @@ public abstract class AbstractBillInitializer<T extends OutboundBillHeader> impl
     public void initialize() throws Exception {
         this.verify();
 
-        this.header.setStage(OutboundBillStage.INIT_COMPLETE);
+        this.header.setStage(OutboundStage.INIT_COMPLETE);
     }
 }

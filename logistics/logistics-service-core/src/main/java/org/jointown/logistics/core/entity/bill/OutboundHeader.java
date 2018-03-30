@@ -1,21 +1,25 @@
 package org.jointown.logistics.core.entity.bill;
 
-import org.jointown.logistics.core.entity.support.OutboundBillStage;
+import org.jointown.logistics.core.entity.support.OutboundPriority;
+import org.jointown.logistics.core.entity.support.OutboundStage;
 
 import javax.persistence.Column;
 import javax.persistence.MappedSuperclass;
 import java.sql.Time;
 
 @MappedSuperclass
-public abstract class OutboundBillHeader extends BillHeader {
+public abstract class OutboundHeader extends Header {
     @Column(nullable = false)
-    private OutboundBillStage stage;//单据阶段
+    private OutboundStage stage;//阶段
 
     @Column(nullable = false)
-    private boolean wholeBillReversed;//是否整单冲红
+    private OutboundPriority priority;//出库优先级
 
     @Column(nullable = false)
-    private boolean reverseAudit;//是否冲红审核
+    private boolean inversed;//是否整单冲红
+
+    @Column(nullable = false)
+    private boolean inverseAudit;//是否冲红审核
 
     @Column(nullable = false)
     private boolean uploaded;//是否上传
@@ -38,28 +42,36 @@ public abstract class OutboundBillHeader extends BillHeader {
 
     private String buyer;//采购员
 
-    public OutboundBillStage getStage() {
+    public OutboundStage getStage() {
         return stage;
     }
 
-    public void setStage(OutboundBillStage stage) {
+    public void setStage(OutboundStage stage) {
         this.stage = stage;
     }
 
-    public boolean isWholeBillReversed() {
-        return wholeBillReversed;
+    public OutboundPriority getPriority() {
+        return priority;
     }
 
-    public void setWholeBillReversed(boolean wholeBillReversed) {
-        this.wholeBillReversed = wholeBillReversed;
+    public void setPriority(OutboundPriority priority) {
+        this.priority = priority;
     }
 
-    public boolean isReverseAudit() {
-        return reverseAudit;
+    public boolean isInversed() {
+        return inversed;
     }
 
-    public void setReverseAudit(boolean reverseAudit) {
-        this.reverseAudit = reverseAudit;
+    public void setInversed(boolean inversed) {
+        this.inversed = inversed;
+    }
+
+    public boolean isInverseAudit() {
+        return inverseAudit;
+    }
+
+    public void setInverseAudit(boolean inverseAudit) {
+        this.inverseAudit = inverseAudit;
     }
 
     public boolean isUploaded() {

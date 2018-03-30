@@ -1,7 +1,7 @@
 package org.jointown.logistics.core.entity.command;
 
-import org.jointown.logistics.core.entity.bill.OutboundSaleBillDetail;
-import org.jointown.logistics.core.entity.bill.OutboundSaleBillHeader;
+import org.jointown.logistics.core.entity.bill.SaleOutboundDetail;
+import org.jointown.logistics.core.entity.bill.SaleOutboundHeader;
 
 import javax.persistence.FetchType;
 import javax.persistence.MappedSuperclass;
@@ -13,8 +13,8 @@ public abstract class InboundCommand extends Command {
     private InboundCommand parent;//父指令
 
     @OneToOne(fetch = FetchType.LAZY)
-    private OutboundSaleBillHeader header;//单据抬头
+    private SaleOutboundHeader header;//单据抬头
 
     @OneToOne(fetch = FetchType.LAZY)
-    private OutboundSaleBillDetail detail;//单据明细
+    private SaleOutboundDetail detail;//单据明细
 }

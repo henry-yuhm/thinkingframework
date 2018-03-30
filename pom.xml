@@ -143,11 +143,11 @@
             <!--dataAccess-->
 
             <!--thinkingBoot-->
-            <dependency>
-                <groupId>org.thinkingframework.boot</groupId>
-                <artifactId>thinking-boot-starter-parent</artifactId>
-                <version>${thinking.boot.dependencies.version}</version>
-            </dependency>
+            <!--<dependency>-->
+            <!--<groupId>org.thinkingframework.boot</groupId>-->
+            <!--<artifactId>thinking-boot-starter-parent</artifactId>-->
+            <!--<version>${thinking.boot.dependencies.version}</version>-->
+            <!--</dependency>-->
             <dependency>
                 <groupId>org.thinkingframework.boot</groupId>
                 <artifactId>thinking-boot-starter-web</artifactId>
@@ -156,11 +156,11 @@
             <!--thinkingBoot-->
 
             <!--thinkingCloud-->
-            <dependency>
-                <groupId>org.thinkingframework.cloud</groupId>
-                <artifactId>thinking-cloud-starter-parent</artifactId>
-                <version>${thinking.cloud.dependencies.version}</version>
-            </dependency>
+            <!--<dependency>-->
+            <!--<groupId>org.thinkingframework.cloud</groupId>-->
+            <!--<artifactId>thinking-cloud-starter-parent</artifactId>-->
+            <!--<version>${thinking.cloud.dependencies.version}</version>-->
+            <!--</dependency>-->
             <dependency>
                 <groupId>org.thinkingframework.cloud</groupId>
                 <artifactId>thinking-cloud-starter-api-gateway</artifactId>
@@ -189,41 +189,41 @@
             <!--thinkingCloud-->
 
             <!--logistics-->
-            <dependency>
-                <groupId>org.jointown.logistics</groupId>
-                <artifactId>logistics-service-parent</artifactId>
-                <version>${logistics.dependencies.version}</version>
-            </dependency>
+            <!--<dependency>-->
+            <!--<groupId>org.jointown.logistics</groupId>-->
+            <!--<artifactId>logistics-service-parent</artifactId>-->
+            <!--<version>${logistics.dependencies.version}</version>-->
+            <!--</dependency>-->
             <dependency>
                 <groupId>org.jointown.logistics</groupId>
                 <artifactId>logistics-service-core</artifactId>
                 <version>${logistics.dependencies.version}</version>
             </dependency>
-            <dependency>
-                <groupId>org.jointown.logistics</groupId>
-                <artifactId>logistics-service-resource</artifactId>
-                <version>${logistics.dependencies.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.jointown.logistics</groupId>
-                <artifactId>logistics-service-stock</artifactId>
-                <version>${logistics.dependencies.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.jointown.logistics</groupId>
-                <artifactId>logistics-service-transport</artifactId>
-                <version>${logistics.dependencies.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.jointown.logistics</groupId>
-                <artifactId>logistics-service-upgrade</artifactId>
-                <version>${logistics.dependencies.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.jointown.logistics</groupId>
-                <artifactId>logistics-service-workflow</artifactId>
-                <version>${logistics.dependencies.version}</version>
-            </dependency>
+            <!--<dependency>-->
+            <!--<groupId>org.jointown.logistics</groupId>-->
+            <!--<artifactId>logistics-service-resource</artifactId>-->
+            <!--<version>${logistics.dependencies.version}</version>-->
+            <!--</dependency>-->
+            <!--<dependency>-->
+            <!--<groupId>org.jointown.logistics</groupId>-->
+            <!--<artifactId>logistics-service-stock</artifactId>-->
+            <!--<version>${logistics.dependencies.version}</version>-->
+            <!--</dependency>-->
+            <!--<dependency>-->
+            <!--<groupId>org.jointown.logistics</groupId>-->
+            <!--<artifactId>logistics-service-transport</artifactId>-->
+            <!--<version>${logistics.dependencies.version}</version>-->
+            <!--</dependency>-->
+            <!--<dependency>-->
+            <!--<groupId>org.jointown.logistics</groupId>-->
+            <!--<artifactId>logistics-service-upgrade</artifactId>-->
+            <!--<version>${logistics.dependencies.version}</version>-->
+            <!--</dependency>-->
+            <!--<dependency>-->
+            <!--<groupId>org.jointown.logistics</groupId>-->
+            <!--<artifactId>logistics-service-workflow</artifactId>-->
+            <!--<version>${logistics.dependencies.version}</version>-->
+            <!--</dependency>-->
             <!--logistics-->
         </dependencies>
     </dependencyManagement>
@@ -313,7 +313,7 @@
         <repository>
             <id>central2</id>
             <name>Central Repository2</name>
-            <url>http://maven.aliyun.com/nexus/content/groups/public</url>
+            <url>http://maven.aliyun.com/nexus/content/region/public</url>
             <layout>default</layout>
             <releases>
                 <enabled>true</enabled>
@@ -359,7 +359,7 @@
         <pluginRepository>
             <id>central2</id>
             <name>Central Repository2</name>
-            <url>http://maven.aliyun.com/nexus/content/groups/public</url>
+            <url>http://maven.aliyun.com/nexus/content/region/public</url>
             <layout>default</layout>
             <releases>
                 <enabled>true</enabled>
