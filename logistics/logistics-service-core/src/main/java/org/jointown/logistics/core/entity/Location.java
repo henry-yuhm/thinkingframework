@@ -11,7 +11,7 @@ public class Location {
     @GeneratedValue
     private long id;
 
-    @OneToOne(fetch = FetchType.LAZY, optional = false)
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
     private Warehouse warehouse;//仓库
 
     @Column(nullable = false)
@@ -20,7 +20,7 @@ public class Location {
     @Column(nullable = false)
     private String floor;//楼层
 
-    @OneToOne(fetch = FetchType.LAZY, optional = false)
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
     private Area area;//区域
 
     private String region;//大区
@@ -77,7 +77,7 @@ public class Location {
     @Column(nullable = false)
     private PileupType pileupType;//码放类型
 
-    @OneToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY)
     private Transferline transferline;//输送线
 
     public Location() {

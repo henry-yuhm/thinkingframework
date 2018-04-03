@@ -1,15 +1,22 @@
 package org.jointown.logistics.core.entity.bill;
 
+import org.jointown.logistics.core.entity.support.InboundKind;
+
 import javax.persistence.*;
 import java.sql.Time;
+import java.util.LinkedHashSet;
 import java.util.Set;
 
 @Entity
-public class PurchaseOrderHeader extends OrderHeader {
+public class PurchaseOrderHeader extends Header {
+    @Column(nullable = false)
+    private boolean complete;//是否完成
+
+    @Column(nullable = false)
+    private InboundKind kind;//入库类型
+
     @Column(nullable = false)
     private Time invoiceTime;//开票时间
-
-    private String buyer;//采购员
 
     private String contactName;//联系人
 
@@ -28,9 +35,106 @@ public class PurchaseOrderHeader extends OrderHeader {
     private String tempRecord;//温度记录
 
     @ManyToMany
-    @JoinTable(joinColumns = {@JoinColumn(name = "header_id")}, inverseJoinColumns = {@JoinColumn(name = "detail_id")})
-    private Set<PurchaseOrderDetail> details;//单据明细
+    @JoinTable(joinColumns = @JoinColumn(name = "header_id"), inverseJoinColumns = @JoinColumn(name = "detail_id"))
+    private Set<PurchaseOrderDetail> details = new LinkedHashSet<>();//单据明细
 
     public PurchaseOrderHeader() {
+    }
+
+    public boolean isComplete() {
+        return complete;
+    }
+
+    public void setComplete(boolean complete) {
+        this.complete = complete;
+    }
+
+    public InboundKind getKind() {
+        return kind;
+    }
+
+    public void setKind(InboundKind kind) {
+        this.kind = kind;
+    }
+
+    public Time getInvoiceTime() {
+        return invoiceTime;
+    }
+
+    public void setInvoiceTime(Time invoiceTime) {
+        this.invoiceTime = invoiceTime;
+    }
+
+    public String getContactName() {
+        return contactName;
+    }
+
+    public void setContactName(String contactName) {
+        this.contactName = contactName;
+    }
+
+    public String getContactPhone() {
+        return contactPhone;
+    }
+
+    public void setContactPhone(String contactPhone) {
+        this.contactPhone = contactPhone;
+    }
+
+    public String getDepartureLocation() {
+        return departureLocation;
+    }
+
+    public void setDepartureLocation(String departureLocation) {
+        this.departureLocation = departureLocation;
+    }
+
+    public String getShippingMode() {
+        return shippingMode;
+    }
+
+    public void setShippingMode(String shippingMode) {
+        this.shippingMode = shippingMode;
+    }
+
+    public String getShipper() {
+        return shipper;
+    }
+
+    public void setShipper(String shipper) {
+        this.shipper = shipper;
+    }
+
+    public Time getShippingTime() {
+        return shippingTime;
+    }
+
+    public void setShippingTime(Time shippingTime) {
+        this.shippingTime = shippingTime;
+    }
+
+    public String getTempControlMode() {
+        return tempControlMode;
+    }
+
+    public void setTempControlMode(String tempControlMode) {
+        this.tempControlMode = tempControlMode;
+    }
+
+    public String getTempRecord() {
+        return tempRecord;
+    }
+
+    public void setTempRecord(String tempRecord) {
+        this.tempRecord = tempRecord;
+    }
+
+    @Override
+    public Set<PurchaseOrderDetail> getDetails() {
+        return details;
+    }
+
+    public void setDetails(Set<PurchaseOrderDetail> details) {
+        this.details = details;
     }
 }

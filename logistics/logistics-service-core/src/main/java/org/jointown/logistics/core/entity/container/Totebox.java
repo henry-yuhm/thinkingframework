@@ -4,11 +4,11 @@ import org.jointown.logistics.core.entity.task.RemainderTask;
 
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
-import javax.persistence.OneToOne;
+import javax.persistence.ManyToOne;
 
 @Entity
 public class Totebox extends Container {
-    @OneToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY)
     private RemainderTask task;//任务
 
     public Totebox() {

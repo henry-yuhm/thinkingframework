@@ -10,13 +10,13 @@ public class RecheckSlide {
     @GeneratedValue
     private long id;
 
-    @OneToOne(fetch = FetchType.LAZY, optional = false)
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
     private Warehouse warehouse;//仓库
 
     @Column(nullable = false)
     private String no;//编号
 
-    @OneToOne(fetch = FetchType.LAZY, optional = false)
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
     private RecheckTable table;//复核台
 
     public RecheckSlide() {

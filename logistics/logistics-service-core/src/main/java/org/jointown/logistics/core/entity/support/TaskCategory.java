@@ -3,7 +3,7 @@ package org.jointown.logistics.core.entity.support;
 public enum TaskCategory {
     MAKE_INVENTORY("1", 1),//盘点
     GREEN_CHANNEL("2", 2),//绿色通道
-    PURCHASE_RETURN("3", 3),//购进退出
+    RETURNED_PURCHASE("3", 3),//购进退出
     SELF_SERVICE_OUTBOUND("4", 4),//自提出库
     NORMAL_OUTBOUND("5", 5),//普通出库
     PASSIVITY_REPLENISHMENT("6", 6),//被动补货

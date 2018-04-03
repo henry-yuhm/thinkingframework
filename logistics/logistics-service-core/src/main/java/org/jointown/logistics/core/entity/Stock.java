@@ -1,12 +1,11 @@
 package org.jointown.logistics.core.entity;
 
 import org.jointown.logistics.core.entity.container.Pallet;
-import org.jointown.logistics.core.entity.support.StockStatus;
+import org.jointown.logistics.core.entity.support.StockState;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.math.BigInteger;
-import java.math.RoundingMode;
 
 @Entity
 public class Stock {
@@ -14,23 +13,23 @@ public class Stock {
     @GeneratedValue
     private long id;
 
-    @OneToOne(fetch = FetchType.LAZY, optional = false)
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
     private Warehouse warehouse;//仓库
 
-    @OneToOne(fetch = FetchType.LAZY, optional = false)
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
     private Owner owner;//业主
 
-    @OneToOne(fetch = FetchType.LAZY, optional = false)
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
     private Goods goods;//商品
 
-    @OneToOne(fetch = FetchType.LAZY, optional = false)
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
     private Batch batch;//批号
 
-    @OneToOne(fetch = FetchType.LAZY, optional = false)
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
     private Location location;//货位
 
     @Column(nullable = false)
-    private StockStatus status;//库存状态
+    private StockState state;//库存状态
 
     @Column(nullable = false, precision = 12, scale = 5)
     private BigDecimal quantity;//数量
@@ -62,7 +61,7 @@ public class Stock {
     @Column(nullable = false, precision = 12, scale = 5)
     private BigDecimal lockingQuantity;//锁定数量
 
-    @OneToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY)
     private Pallet pallet;//托盘
 
     @Transient
@@ -126,12 +125,12 @@ public class Stock {
         this.location = location;
     }
 
-    public StockStatus getStatus() {
-        return status;
+    public StockState getState() {
+        return state;
     }
 
-    public void setStatus(StockStatus status) {
-        this.status = status;
+    public void setState(StockState state) {
+        this.state = state;
     }
 
     public BigDecimal getQuantity() {
@@ -223,26 +222,50 @@ public class Stock {
     }
 
     public BigDecimal getAvailableOutboundQuantity() {
-        return (quantity.subtract(outboundQuantity).subtract(minusQuantity).add(plusQuantity).subtract(lockingQuantity)).setScale(5, RoundingMode.HALF_UP);
+        return availableOutboundQuantity;
+    }
+
+    public void setAvailableOutboundQuantity(BigDecimal availableOutboundQuantity) {
+        this.availableOutboundQuantity = availableOutboundQuantity;
     }
 
     public BigDecimal getPhysicalOutboundQuantity() {
-        return (quantity.subtract(outboundQuantity).subtract(minusQuantity).subtract(lockingQuantity)).max(BigDecimal.ZERO).setScale(5, RoundingMode.HALF_UP);
+        return physicalOutboundQuantity;
+    }
+
+    public void setPhysicalOutboundQuantity(BigDecimal physicalOutboundQuantity) {
+        this.physicalOutboundQuantity = physicalOutboundQuantity;
     }
 
     public BigDecimal getAvailableGrossQuantity() {
         return availableGrossQuantity;
     }
 
+    public void setAvailableGrossQuantity(BigDecimal availableGrossQuantity) {
+        this.availableGrossQuantity = availableGrossQuantity;
+    }
+
     public BigDecimal getAvailableQuantity() {
-        return (quantity.subtract(outboundQuantity).subtract(minusQuantity).subtract(lockingQuantity)).setScale(5, RoundingMode.HALF_UP);
+        return availableQuantity;
+    }
+
+    public void setAvailableQuantity(BigDecimal availableQuantity) {
+        this.availableQuantity = availableQuantity;
     }
 
     public BigDecimal getAvailableObtainQuantity() {
-        return (quantity.subtract(outboundQuantity).subtract(lockingQuantity)).setScale(5, RoundingMode.HALF_UP);
+        return availableObtainQuantity;
+    }
+
+    public void setAvailableObtainQuantity(BigDecimal availableObtainQuantity) {
+        this.availableObtainQuantity = availableObtainQuantity;
     }
 
     public BigDecimal getAvailableReplenishmentQuantity() {
-        return (quantity.subtract(outboundQuantity).subtract(minusQuantity).add(plusQuantity).subtract(lockingQuantity)).setScale(5, RoundingMode.HALF_UP);
+        return availableReplenishmentQuantity;
+    }
+
+    public void setAvailableReplenishmentQuantity(BigDecimal availableReplenishmentQuantity) {
+        this.availableReplenishmentQuantity = availableReplenishmentQuantity;
     }
 }

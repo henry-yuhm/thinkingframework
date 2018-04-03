@@ -3,23 +3,27 @@ package org.jointown.logistics.core.entity.command;
 import org.jointown.logistics.core.entity.barcode.RemainderBarcode;
 import org.jointown.logistics.core.entity.task.RemainderTask;
 
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.OneToOne;
+import javax.persistence.*;
 import java.math.BigDecimal;
+import java.util.LinkedHashSet;
+import java.util.Set;
 
 @Entity
 public class RemainderCommand extends OutboundCommand {
-    @OneToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY)
     private RemainderCommand parent;//父指令
 
-    @OneToOne(fetch = FetchType.LAZY)
-    private RemainderTask task;//任务
+    @ManyToOne(fetch = FetchType.LAZY)
+    private RemainderTask task;//作业任务
 
-    @OneToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY)
     private RemainderBarcode barcode;//作业条码
 
     private BigDecimal remainder;//余量
+
+    @ManyToMany
+    @JoinTable(joinColumns = @JoinColumn(name = "command_id"), inverseJoinColumns = @JoinColumn(name = "rep_command_id"))
+    private Set<ReplenishmentCommand> commands = new LinkedHashSet<>();//补货指令
 
     public RemainderCommand() {
     }
@@ -54,5 +58,15 @@ public class RemainderCommand extends OutboundCommand {
 
     public void setRemainder(BigDecimal remainder) {
         this.remainder = remainder;
+    }
+
+    @Override
+    public Set<ReplenishmentCommand> getCommands() {
+        return commands;
+    }
+
+    @Override
+    public void setCommands(Set<ReplenishmentCommand> commands) {
+        this.commands = commands;
     }
 }

@@ -7,7 +7,7 @@ public enum OutboundPriority {
     SELF_SERVICE("20", 20),//自提
     CURRENT_AREA_PROMOTION("21", 21),//本区提升
     PREVIOUS_AREA_PROMOTION("22", 22),//前区提升
-    PURCHASE_RETURN("28", 28),//购进退出
+    RETURNED_PURCHASE("28", 28),//购进退出
     SELF_SERVICE_2_DELIVERY("30", 30),//自提转配送
     PASSIVITY_REPLENISHMENT("35", 35),//被动补货
     CONSIGNMENT("40", 40),//托运

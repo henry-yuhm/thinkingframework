@@ -11,16 +11,16 @@ import java.math.BigInteger;
 import java.util.Date;
 
 @Entity
-@Table(schema = "wms")
+@Table(schema = "wms", uniqueConstraints = @UniqueConstraint(name = "uk_goods", columnNames = {"owner_id", "no"}))
 public class Goods {
     @Id
     @GeneratedValue
     private long id;
 
-    @OneToOne(fetch = FetchType.LAZY, optional = false)
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
     private Owner owner;//业主
 
-    @Column(nullable = false)
+    @Column(nullable = false, length = 50)
     private String no;//编号
 
     @Column(nullable = false)
@@ -62,7 +62,7 @@ public class Goods {
     @Column(nullable = false)
     private BigInteger invoiceUnit;//最小开票单位
 
-    @OneToOne(fetch = FetchType.LAZY, optional = false)
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
     private GoodsCategory category;//类别
 
     private String wholePackageBarcode;//大包装条码

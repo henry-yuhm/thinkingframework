@@ -1,26 +1,24 @@
 package org.jointown.logistics.core.entity.command;
 
 import org.jointown.logistics.core.entity.Location;
-import org.jointown.logistics.core.entity.support.StockStatus;
+import org.jointown.logistics.core.entity.support.StockState;
 
-import javax.persistence.Column;
-import javax.persistence.FetchType;
-import javax.persistence.MappedSuperclass;
-import javax.persistence.OneToOne;
+import javax.persistence.*;
 
 @MappedSuperclass
+@Inheritance(strategy = InheritanceType.JOINED)
 public abstract class TransitionCommand extends Command {
-    @OneToOne(fetch = FetchType.LAZY, optional = false)
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
     private Location sourceLocation;//源货位
 
-    @OneToOne(fetch = FetchType.LAZY, optional = false)
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
     private Location targetLocation;//目标货位
 
     @Column(nullable = false)
-    private StockStatus sourceStockStatus;//源库存状态
+    private StockState sourceState;//源库存状态
 
     @Column(nullable = false)
-    private StockStatus targetStockStatus;//目标库存状态
+    private StockState targetState;//目标库存状态
 
     @Column(nullable = false)
     private boolean sourceActive;//源是否激活
@@ -44,20 +42,20 @@ public abstract class TransitionCommand extends Command {
         this.targetLocation = targetLocation;
     }
 
-    public StockStatus getSourceStockStatus() {
-        return sourceStockStatus;
+    public StockState getSourceState() {
+        return sourceState;
     }
 
-    public void setSourceStockStatus(StockStatus sourceStockStatus) {
-        this.sourceStockStatus = sourceStockStatus;
+    public void setSourceState(StockState sourceState) {
+        this.sourceState = sourceState;
     }
 
-    public StockStatus getTargetStockStatus() {
-        return targetStockStatus;
+    public StockState getTargetState() {
+        return targetState;
     }
 
-    public void setTargetStockStatus(StockStatus targetStockStatus) {
-        this.targetStockStatus = targetStockStatus;
+    public void setTargetState(StockState targetState) {
+        this.targetState = targetState;
     }
 
     public boolean isSourceActive() {

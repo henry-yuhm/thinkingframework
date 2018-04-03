@@ -3,8 +3,8 @@ package org.jointown.logistics.core.entity.support;
 public enum BusinessType {
     PURCHASE_INBOUND("1", 1),//购进入库
     SALE_OUTBOUND("2", 2),//销售出库
-    PURCHASE_RETURN("3", 3),//购进退出
-    SALE_RETURN("4", 4),//销售退回
+    RETURNED_PURCHASE("3", 3),//购进退出
+    RETURNED_SALE("4", 4),//销售退回
     REPLENISHMENT("5", 5),//补货
     DEMONSTRATION_OPERATION("6", 6),//演示作业
     LOCATION_MOVEMENT("7", 7),//移库

@@ -3,21 +3,24 @@ package org.jointown.logistics.core.entity.barcode;
 import org.jointown.logistics.core.entity.command.RemainderCommand;
 import org.jointown.logistics.core.entity.support.GroupageMode;
 
-import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
+import javax.persistence.*;
+import java.util.LinkedHashSet;
 import java.util.Set;
 
 @Entity
 public class RemainderBarcode extends OutboundBarcode {
+    @Column(nullable = false)
     private String groupageNo;//拼箱号
 
+    @Column(nullable = false)
     private GroupageMode groupageMode;//拼箱方式
 
     @ManyToMany
-    @JoinTable(joinColumns = {@JoinColumn(name = "barcode_id")}, inverseJoinColumns = {@JoinColumn(name = "command_id")})
-    private Set<RemainderCommand> commands;//指令
+    @JoinTable(joinColumns = @JoinColumn(name = "barcode_id"), inverseJoinColumns = @JoinColumn(name = "command_id"))
+    private Set<RemainderCommand> commands = new LinkedHashSet<>();//指令
+
+    public RemainderBarcode() {
+    }
 
     public String getGroupageNo() {
         return groupageNo;

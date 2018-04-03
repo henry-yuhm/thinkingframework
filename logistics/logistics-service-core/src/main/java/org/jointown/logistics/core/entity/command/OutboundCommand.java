@@ -1,10 +1,10 @@
 package org.jointown.logistics.core.entity.command;
 
 import org.jointown.logistics.core.entity.Location;
-import org.jointown.logistics.core.entity.bill.SaleOutboundDetail;
-import org.jointown.logistics.core.entity.bill.SaleOutboundHeader;
+import org.jointown.logistics.core.entity.bill.OutboundDetail;
+import org.jointown.logistics.core.entity.bill.OutboundHeader;
 import org.jointown.logistics.core.entity.support.AppendixSign;
-import org.jointown.logistics.core.entity.support.StockStatus;
+import org.jointown.logistics.core.entity.support.StockState;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
@@ -12,18 +12,19 @@ import java.math.BigInteger;
 import java.util.Set;
 
 @MappedSuperclass
+@Inheritance(strategy = InheritanceType.JOINED)
 public abstract class OutboundCommand extends Command {
-    @OneToOne(fetch = FetchType.LAZY, optional = false)
-    private SaleOutboundHeader header;//单据抬头
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    private OutboundHeader header;//单据抬头
 
-    @OneToOne(fetch = FetchType.LAZY, optional = false)
-    private SaleOutboundDetail detail;//单据明细
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    private OutboundDetail detail;//单据明细
 
-    @OneToOne(fetch = FetchType.LAZY, optional = false)
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
     private Location location;//货位
 
     @Column(nullable = false)
-    private StockStatus stockStatus;//库存状态
+    private StockState state;//库存状态
 
     @Column(nullable = false)
     private boolean active;//是否激活
@@ -61,23 +62,23 @@ public abstract class OutboundCommand extends Command {
     @Column(nullable = false)
     private String pickingOrder;//拣货顺序
 
-    @ManyToMany
-    @JoinTable(joinColumns = {@JoinColumn(name = "command_id")}, inverseJoinColumns = {@JoinColumn(name = "rep_command_id")})
-    private Set<ReplenishmentCommand> commands;//补货指令
+    public abstract Set<ReplenishmentCommand> getCommands();
 
-    public SaleOutboundHeader getHeader() {
+    public abstract void setCommands(Set<ReplenishmentCommand> commands);
+
+    public OutboundHeader getHeader() {
         return header;
     }
 
-    public void setHeader(SaleOutboundHeader header) {
+    public void setHeader(OutboundHeader header) {
         this.header = header;
     }
 
-    public SaleOutboundDetail getDetail() {
+    public OutboundDetail getDetail() {
         return detail;
     }
 
-    public void setDetail(SaleOutboundDetail detail) {
+    public void setDetail(OutboundDetail detail) {
         this.detail = detail;
     }
 
@@ -89,12 +90,12 @@ public abstract class OutboundCommand extends Command {
         this.location = location;
     }
 
-    public StockStatus getStockStatus() {
-        return stockStatus;
+    public StockState getState() {
+        return state;
     }
 
-    public void setStockStatus(StockStatus stockStatus) {
-        this.stockStatus = stockStatus;
+    public void setState(StockState state) {
+        this.state = state;
     }
 
     public boolean isActive() {
@@ -191,13 +192,5 @@ public abstract class OutboundCommand extends Command {
 
     public void setPickingOrder(String pickingOrder) {
         this.pickingOrder = pickingOrder;
-    }
-
-    public Set<ReplenishmentCommand> getCommands() {
-        return commands;
-    }
-
-    public void setCommands(Set<ReplenishmentCommand> commands) {
-        this.commands = commands;
     }
 }

@@ -6,15 +6,15 @@ import org.jointown.logistics.core.entity.bill.ReplenishmentHeader;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
-import javax.persistence.OneToOne;
+import javax.persistence.ManyToOne;
 import java.math.BigDecimal;
 
 @Entity
 public class ReplenishmentCommand extends TransitionCommand {
-    @OneToOne(fetch = FetchType.LAZY, optional = false)
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
     private ReplenishmentHeader header;//单据抬头
 
-    @OneToOne(fetch = FetchType.LAZY, optional = false)
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
     private ReplenishmentDetail detail;//单据明细
 
     @Column(nullable = false, precision = 12, scale = 5)

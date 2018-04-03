@@ -5,7 +5,7 @@ import org.jointown.logistics.core.entity.table.RecheckBuffer;
 
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
-import javax.persistence.OneToOne;
+import javax.persistence.ManyToOne;
 import java.math.BigInteger;
 import java.sql.Time;
 
@@ -13,10 +13,10 @@ import java.sql.Time;
 public class RemainderTask extends Task {
     private String splittingBill;//拆分单
 
-    @OneToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY)
     private Totebox totebox;//周转箱
 
-    @OneToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY)
     private RecheckBuffer buffer;//复核暂存位
 
     private BigInteger batchno;//任务批次号

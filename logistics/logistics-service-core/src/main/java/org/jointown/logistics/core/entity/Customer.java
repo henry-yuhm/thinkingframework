@@ -13,23 +13,25 @@ public class Customer {
     @GeneratedValue
     private long id;
 
-    @OneToOne(fetch = FetchType.LAZY, optional = false)
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
     private Owner owner;//业主
 
-    @Column(nullable = false)
+    @Column(nullable = false, length = 50)
     private String no;//编号
 
     @Column(nullable = false)
     private String sourceCode;//源编码
 
-    @OneToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY)
     private Customer parent;//父客户
 
+    @Column(nullable = false)
     private String mnemonicCode;//助记码
 
     @Column(nullable = false)
     private String name;//名称
 
+    @Column(nullable = false)
     private String shortName;//简称
 
     private String address;//地址

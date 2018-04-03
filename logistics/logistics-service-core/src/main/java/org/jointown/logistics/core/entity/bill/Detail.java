@@ -7,19 +7,22 @@ import org.jointown.logistics.core.entity.Warehouse;
 import javax.persistence.*;
 
 @MappedSuperclass
-public abstract class Detail implements Details {
+@Inheritance(strategy = InheritanceType.JOINED)
+public abstract class Detail {
     @Id
     @GeneratedValue
     private long id;
 
-    @OneToOne(fetch = FetchType.LAZY, optional = false)
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
     private Warehouse warehouse;//仓库
 
-    @OneToOne(fetch = FetchType.LAZY, optional = false)
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
     private Goods goods;//商品
 
-    @OneToOne(fetch = FetchType.LAZY, optional = false)
+    @ManyToOne(fetch = FetchType.LAZY)
     private Batch batch;//批号
+
+//    public abstract Header getHeader();
 
     public Warehouse getWarehouse() {
         return warehouse;

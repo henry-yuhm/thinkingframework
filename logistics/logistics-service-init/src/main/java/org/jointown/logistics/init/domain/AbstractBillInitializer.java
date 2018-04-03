@@ -1,32 +1,21 @@
 package org.jointown.logistics.init.domain;
 
 import org.jointown.logistics.core.domain.ErrorMessage;
-import org.jointown.logistics.core.entity.bill.Detail;
+import org.jointown.logistics.core.entity.bill.OutboundDetail;
 import org.jointown.logistics.core.entity.bill.OutboundHeader;
-import org.jointown.logistics.core.entity.bill.SaleOutboundDetail;
 import org.jointown.logistics.core.entity.support.OutboundStage;
 import org.jointown.logistics.core.repository.HeaderRepository;
 
 import java.math.BigDecimal;
 
-public abstract class AbstractBillInitializer<T extends OutboundHeader> implements BillInitializer<OutboundHeader> {
-    private HeaderRepository<? extends OutboundHeader> repository;
+public abstract class AbstractBillInitializer implements BillInitializer {
+    protected OutboundHeader header;
 
-    private T header;
+    private HeaderRepository<OutboundHeader> repository;
 
-    public AbstractBillInitializer(HeaderRepository<? extends OutboundHeader> repository, T header) {
+    public AbstractBillInitializer(HeaderRepository<OutboundHeader> repository, long id) {
         this.repository = repository;
-        this.header = header;
-    }
-
-    @Override
-    public HeaderRepository getRepository() {
-        return this.repository;
-    }
-
-    @Override
-    public T getHeader() {
-        return this.header;
+        this.header = repository.findOne(id);
     }
 
     @Override
@@ -45,9 +34,7 @@ public abstract class AbstractBillInitializer<T extends OutboundHeader> implemen
             throw ErrorMessage.getException(ErrorMessage.getNullDetailMessage(), this.header, this.header.getOwner());
         }
 
-        for (Detail billDetail : this.header.getDetails()) {
-            SaleOutboundDetail detail = (SaleOutboundDetail) billDetail;
-
+        for (OutboundDetail detail : this.header.getDetails()) {
             if (detail.getGoods() == null) {
                 throw ErrorMessage.getException(ErrorMessage.getNullGoodsMessage(), this.header, this.header.getOwner());
             } else {
@@ -64,6 +51,11 @@ public abstract class AbstractBillInitializer<T extends OutboundHeader> implemen
             message.insert(0, "明细校验错误");
             throw ErrorMessage.getException(message.toString(), this.header, this.header.getOwner());
         }
+    }
+
+    @Override
+    public void save() {
+        this.repository.save(this.header);
     }
 
     @Override

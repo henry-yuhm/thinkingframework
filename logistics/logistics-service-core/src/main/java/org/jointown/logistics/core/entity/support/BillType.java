@@ -3,8 +3,8 @@ package org.jointown.logistics.core.entity.support;
 public enum BillType {
     INBOUND_PURCHASE("1", 1),//购进入库
     OUTBOUND_SALE("2", 2),//销售出库
-    PURCHASE_RETURN("3", 3),//购进退出
-    SALE_RETURN("4", 4),//销售退回
+    RETURNED_PURCHASE("3", 3),//购进退出
+    RETURNED_SALE("4", 4),//销售退回
     INITIATIVE_REPLENISHMENT("5", 5),//主动补货
     EMERGENCY_REPLENISHMENT("6", 6),//紧急补货
     LOCATION_MOVEMENT("7", 7),//移库

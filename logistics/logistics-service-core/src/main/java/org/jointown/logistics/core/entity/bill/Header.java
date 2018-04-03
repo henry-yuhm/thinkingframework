@@ -9,20 +9,22 @@ import org.jointown.logistics.core.entity.support.BillType;
 
 import javax.persistence.*;
 import java.sql.Time;
+import java.util.Set;
 
 @MappedSuperclass
-public abstract class Header implements Headers {
+@Inheritance(strategy = InheritanceType.JOINED)
+public abstract class Header {
     @Id
     @GeneratedValue
     private long id;
 
-    @OneToOne(fetch = FetchType.LAZY, optional = false)
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
     private Warehouse warehouse;//仓库
 
-    @OneToOne(fetch = FetchType.LAZY, optional = false)
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
     private Owner owner;//业主
 
-    @OneToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY)
     private Customer customer;//客户
 
     @Column(nullable = false)
@@ -40,6 +42,10 @@ public abstract class Header implements Headers {
     @Column(nullable = false)
     private String operator;//操作员
 
+    private String businessman;//业务员
+
+    private String buyer;//采购员
+
     @Column(nullable = false)
     private Time creationTime;//创建时间
 
@@ -47,6 +53,8 @@ public abstract class Header implements Headers {
     private Time modificationTime;//修改时间
 
     private String remarks;//备注
+
+    public abstract Set<? extends Detail> getDetails();
 
     public Warehouse getWarehouse() {
         return warehouse;
@@ -110,6 +118,22 @@ public abstract class Header implements Headers {
 
     public void setOperator(String operator) {
         this.operator = operator;
+    }
+
+    public String getBusinessman() {
+        return businessman;
+    }
+
+    public void setBusinessman(String businessman) {
+        this.businessman = businessman;
+    }
+
+    public String getBuyer() {
+        return buyer;
+    }
+
+    public void setBuyer(String buyer) {
+        this.buyer = buyer;
     }
 
     public Time getCreationTime() {

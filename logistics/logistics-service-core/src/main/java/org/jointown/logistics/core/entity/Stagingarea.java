@@ -6,6 +6,7 @@ import org.jointown.logistics.core.entity.support.StagingAreaType;
 import org.jointown.logistics.core.entity.support.TakegoodsMode;
 
 import javax.persistence.*;
+import java.util.LinkedHashSet;
 import java.util.Set;
 
 @Entity
@@ -14,7 +15,7 @@ public class Stagingarea {
     @GeneratedValue
     private long id;
 
-    @OneToOne(fetch = FetchType.LAZY, optional = false)
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
     private Warehouse warehouse;//仓库
 
     @Column(nullable = false)
@@ -32,12 +33,12 @@ public class Stagingarea {
     private boolean available;//是否可用
 
     @ManyToMany
-    @JoinTable(joinColumns = {@JoinColumn(name = "stagingarea_id")}, inverseJoinColumns = {@JoinColumn(name = "owner_id")})
-    private Set<Owner> owners;//业主
+    @JoinTable(joinColumns = @JoinColumn(name = "stagingarea_id"), inverseJoinColumns = @JoinColumn(name = "owner_id"))
+    private Set<Owner> owners = new LinkedHashSet<>();//业主
 
     private BusinessType businessType;//业务类型
 
-    @OneToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY)
     private Direction direction;//方向
 
     private TakegoodsMode takegoodsMode;//提货方式

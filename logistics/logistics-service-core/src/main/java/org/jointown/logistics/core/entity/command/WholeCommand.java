@@ -5,26 +5,30 @@ import org.jointown.logistics.core.entity.barcode.WholeBarcode;
 import org.jointown.logistics.core.entity.container.Pallet;
 import org.jointown.logistics.core.entity.task.WholeTask;
 
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.OneToOne;
+import javax.persistence.*;
+import java.util.LinkedHashSet;
+import java.util.Set;
 
 @Entity
 public class WholeCommand extends OutboundCommand {
-    @OneToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY)
     private WholeCommand parent;//父指令
 
-    @OneToOne(fetch = FetchType.LAZY)
-    private WholeTask task;//任务
+    @ManyToOne(fetch = FetchType.LAZY)
+    private WholeTask task;//作业任务
 
-    @OneToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY)
     private WholeBarcode barcode;//作业条码
 
-    @OneToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY)
     private Pallet pallet;//托盘
 
-    @OneToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY)
     private Platform platform;//站台
+
+    @ManyToMany
+    @JoinTable(joinColumns = @JoinColumn(name = "command_id"), inverseJoinColumns = @JoinColumn(name = "rep_command_id"))
+    private Set<ReplenishmentCommand> commands = new LinkedHashSet<>();//补货指令
 
     public WholeCommand() {
     }
@@ -67,5 +71,15 @@ public class WholeCommand extends OutboundCommand {
 
     public void setPlatform(Platform platform) {
         this.platform = platform;
+    }
+
+    @Override
+    public Set<ReplenishmentCommand> getCommands() {
+        return commands;
+    }
+
+    @Override
+    public void setCommands(Set<ReplenishmentCommand> commands) {
+        this.commands = commands;
     }
 }

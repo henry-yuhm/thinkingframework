@@ -4,14 +4,12 @@ import org.jointown.logistics.core.entity.Warehouse;
 import org.jointown.logistics.core.entity.support.BarcodeType;
 import org.jointown.logistics.core.entity.support.TransferlineSign;
 
-import javax.persistence.Column;
-import javax.persistence.FetchType;
-import javax.persistence.MappedSuperclass;
-import javax.persistence.OneToOne;
+import javax.persistence.*;
 
 @MappedSuperclass
+@Inheritance(strategy = InheritanceType.JOINED)
 public abstract class TaskBarcode extends Barcode {
-    @OneToOne(fetch = FetchType.LAZY, optional = false)
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
     private Warehouse warehouse;//仓库
 
     @Column(nullable = false)

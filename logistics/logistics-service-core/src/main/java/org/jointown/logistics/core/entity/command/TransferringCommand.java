@@ -5,14 +5,14 @@ import org.jointown.logistics.core.entity.bill.TransferringHeader;
 
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
-import javax.persistence.OneToOne;
+import javax.persistence.ManyToOne;
 
 @Entity
 public class TransferringCommand extends TransitionCommand {
-    @OneToOne(fetch = FetchType.LAZY, optional = false)
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
     private TransferringHeader header;//单据抬头
 
-    @OneToOne(fetch = FetchType.LAZY, optional = false)
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
     private TransferringDetail detail;//单据明细
 
     public TransferringCommand() {
