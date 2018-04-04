@@ -15,10 +15,10 @@ public class Container {
     private Warehouse warehouse;//仓库
 
     @Column(nullable = false)
-    private String no;//编号
+    private String number;//编号
 
     @Column(nullable = false)
-    private boolean available;//是否可用
+    private boolean available = false;//是否可用
 
     public Warehouse getWarehouse() {
         return warehouse;
@@ -28,12 +28,12 @@ public class Container {
         this.warehouse = warehouse;
     }
 
-    public String getNo() {
-        return no;
+    public String getNumber() {
+        return number;
     }
 
-    public void setNo(String no) {
-        this.no = no;
+    public void setNumber(String number) {
+        this.number = number;
     }
 
     public boolean isAvailable() {

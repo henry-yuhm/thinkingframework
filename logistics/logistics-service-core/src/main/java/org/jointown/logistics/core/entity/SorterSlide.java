@@ -1,9 +1,11 @@
 package org.jointown.logistics.core.entity;
 
-import org.jointown.logistics.core.entity.support.SorterSlideCategory;
+import org.jointown.logistics.core.entity.support.BillCategory;
+import org.jointown.logistics.core.entity.support.TaskCategory;
 
 import javax.persistence.*;
-import java.math.BigInteger;
+import java.util.LinkedHashSet;
+import java.util.Set;
 
 @Entity
 public class SorterSlide {
@@ -15,16 +17,21 @@ public class SorterSlide {
     private Warehouse warehouse;//仓库
 
     @Column(nullable = false)
-    private String no;//编号
+    private String number;//编号
 
     @Column(nullable = false)
-    private SorterSlideCategory category;//类别
+    private boolean available = true;//是否可用
 
     @Column(nullable = false)
-    private boolean available;//是否可用
+    private int workload = 0;//工作量
 
-    @Column(nullable = false)
-    private BigInteger workload;//工作量
+    @OneToMany
+    @JoinTable(joinColumns = @JoinColumn(name = "slide_id"), inverseJoinColumns = @JoinColumn(name = "category"))
+    private Set<TaskCategory> taskCategories = new LinkedHashSet<>();//任务类别
+
+    @OneToMany
+    @JoinTable(joinColumns = @JoinColumn(name = "slide_id"), inverseJoinColumns = @JoinColumn(name = "category"))
+    private Set<BillCategory> billCategories = new LinkedHashSet<>();//单据类别
 
     public SorterSlide() {
     }
@@ -37,20 +44,12 @@ public class SorterSlide {
         this.warehouse = warehouse;
     }
 
-    public String getNo() {
-        return no;
+    public String getNumber() {
+        return number;
     }
 
-    public void setNo(String no) {
-        this.no = no;
-    }
-
-    public SorterSlideCategory getCategory() {
-        return category;
-    }
-
-    public void setCategory(SorterSlideCategory category) {
-        this.category = category;
+    public void setNumber(String number) {
+        this.number = number;
     }
 
     public boolean isAvailable() {
@@ -61,11 +60,27 @@ public class SorterSlide {
         this.available = available;
     }
 
-    public BigInteger getWorkload() {
+    public int getWorkload() {
         return workload;
     }
 
-    public void setWorkload(BigInteger workload) {
+    public void setWorkload(int workload) {
         this.workload = workload;
+    }
+
+    public Set<TaskCategory> getTaskCategories() {
+        return taskCategories;
+    }
+
+    public void setTaskCategories(Set<TaskCategory> taskCategories) {
+        this.taskCategories = taskCategories;
+    }
+
+    public Set<BillCategory> getBillCategories() {
+        return billCategories;
+    }
+
+    public void setBillCategories(Set<BillCategory> billCategories) {
+        this.billCategories = billCategories;
     }
 }

@@ -1,7 +1,6 @@
 package org.jointown.logistics.core.entity;
 
 import javax.persistence.*;
-import java.math.BigInteger;
 
 @Entity
 public class Address {
@@ -20,7 +19,7 @@ public class Address {
 
     private String address;//地址
 
-    private BigInteger loadingOrder;//装车顺序
+    private int loadingOrder = 0;//装车顺序
 
     private String code;//编码
 
@@ -66,11 +65,11 @@ public class Address {
         this.address = address;
     }
 
-    public BigInteger getLoadingOrder() {
+    public int getLoadingOrder() {
         return loadingOrder;
     }
 
-    public void setLoadingOrder(BigInteger loadingOrder) {
+    public void setLoadingOrder(int loadingOrder) {
         this.loadingOrder = loadingOrder;
     }
 

@@ -10,7 +10,6 @@ import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.ManyToOne;
 import java.math.BigDecimal;
-import java.math.BigInteger;
 
 @Entity
 public class TransferringDetail extends Detail {
@@ -30,13 +29,13 @@ public class TransferringDetail extends Detail {
     private StockState targetState;//目标库存状态
 
     @Column(nullable = false, precision = 12, scale = 5)
-    private BigDecimal quantity;//数量
+    private BigDecimal quantity = BigDecimal.ZERO;//数量
 
     @Column(nullable = false)
-    private BigInteger pieces;//件数
+    private int pieces = 0;//件数
 
     @Column(nullable = false, precision = 12, scale = 5)
-    private BigDecimal remainder;//余数
+    private BigDecimal remainder = BigDecimal.ZERO;//余数
 
     @ManyToOne(fetch = FetchType.LAZY)
     private Pallet pallet;//托盘
@@ -95,11 +94,11 @@ public class TransferringDetail extends Detail {
         this.quantity = quantity;
     }
 
-    public BigInteger getPieces() {
+    public int getPieces() {
         return pieces;
     }
 
-    public void setPieces(BigInteger pieces) {
+    public void setPieces(int pieces) {
         this.pieces = pieces;
     }
 

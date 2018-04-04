@@ -17,7 +17,7 @@ public class Batch {
     private Goods goods;//商品
 
     @Column(nullable = false)
-    private String no;//编码
+    private String number;//编码
 
     @Column(nullable = false)
     private Date productionDate;//生产日期
@@ -50,12 +50,12 @@ public class Batch {
         this.goods = goods;
     }
 
-    public String getNo() {
-        return no;
+    public String getNumber() {
+        return number;
     }
 
-    public void setNo(String no) {
-        this.no = no;
+    public void setNumber(String number) {
+        this.number = number;
     }
 
     public Date getProductionDate() {

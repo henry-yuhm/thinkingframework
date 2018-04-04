@@ -4,4 +4,6 @@ import javax.persistence.Entity;
 
 @Entity
 public class WholeTask extends Task {
+    public WholeTask() {
+    }
 }

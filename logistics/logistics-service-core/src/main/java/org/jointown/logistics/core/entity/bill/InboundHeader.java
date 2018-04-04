@@ -5,7 +5,7 @@ import org.jointown.logistics.core.entity.support.ArrivalVoucher;
 import org.jointown.logistics.core.entity.support.InboundStage;
 
 import javax.persistence.*;
-import java.sql.Time;
+import java.sql.Date;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
@@ -15,7 +15,7 @@ public class InboundHeader extends Header {
     private PurchaseOrderHeader order;//订单
 
     @Column(nullable = false)
-    private InboundStage stage;//入库阶段
+    private InboundStage stage = InboundStage.CREATED;//入库阶段
 
     @Column(nullable = false)
     private String receivingClerk;//收货员
@@ -25,29 +25,30 @@ public class InboundHeader extends Header {
     private String inspector;//质检员
 
     @Column(nullable = false)
-    private boolean passback;//是否回传
+    private boolean passback = true;//是否回传
 
     @Column(nullable = false)
-    private boolean chargeup;//是否记账
+    private boolean chargeup = false;//是否记账
 
     @Column(nullable = false)
-    private boolean executed;//是否执行
+    private boolean executed = false;//是否执行
 
     @Column(nullable = false)
-    private boolean complete;//是否完成
+    private boolean complete = false;//是否完成
 
     private ArrivalMode arrivalMode;//到货方式
 
     @Column(nullable = false)
-    private ArrivalVoucher arrivalVoucher;//到货凭证
+    private ArrivalVoucher arrivalVoucher = ArrivalVoucher.HOLD;//到货凭证
 
     private String arrivalNo;//到货单号
 
-    private Time arrivalTime;//到货时间
+    private Date arrivalTime;//到货时间
 
     private String saleOrderNo;//销售订单号
 
-    private boolean printed;//是否打印
+    @Column(nullable = false)
+    private boolean printed = false;//是否打印
 
     @ManyToMany
     @JoinTable(joinColumns = @JoinColumn(name = "header_id"), inverseJoinColumns = @JoinColumn(name = "detail_id"))
@@ -152,11 +153,11 @@ public class InboundHeader extends Header {
         this.arrivalNo = arrivalNo;
     }
 
-    public Time getArrivalTime() {
+    public Date getArrivalTime() {
         return arrivalTime;
     }
 
-    public void setArrivalTime(Time arrivalTime) {
+    public void setArrivalTime(Date arrivalTime) {
         this.arrivalTime = arrivalTime;
     }
 

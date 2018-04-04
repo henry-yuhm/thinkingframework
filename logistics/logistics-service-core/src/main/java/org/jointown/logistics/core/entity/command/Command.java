@@ -4,7 +4,8 @@ import org.jointown.logistics.core.entity.Warehouse;
 import org.jointown.logistics.core.entity.support.*;
 
 import javax.persistence.*;
-import java.sql.Time;
+import java.sql.Date;
+import java.time.LocalDate;
 
 @MappedSuperclass
 @Inheritance(strategy = InheritanceType.JOINED)
@@ -26,15 +27,15 @@ public abstract class Command {
     private TaskCategory category;//作业类别
 
     @Column(nullable = false)
-    private TaskStage stage;//作业阶段
+    private TaskStage stage = TaskStage.CREATED;//作业阶段
 
     private TaskMode mode;//作业方式
 
     @Column(nullable = false)
-    private Time creationTime;//创建时间
+    private Date creationTime = Date.valueOf(LocalDate.now());//创建时间
 
     @Column(nullable = false)
-    private Time modificationTime;//修改时间
+    private Date modificationTime = Date.valueOf(LocalDate.now());//修改时间
 
     public Warehouse getWarehouse() {
         return warehouse;
@@ -84,19 +85,19 @@ public abstract class Command {
         this.mode = mode;
     }
 
-    public Time getCreationTime() {
+    public Date getCreationTime() {
         return creationTime;
     }
 
-    public void setCreationTime(Time creationTime) {
+    public void setCreationTime(Date creationTime) {
         this.creationTime = creationTime;
     }
 
-    public Time getModificationTime() {
+    public Date getModificationTime() {
         return modificationTime;
     }
 
-    public void setModificationTime(Time modificationTime) {
+    public void setModificationTime(Date modificationTime) {
         this.modificationTime = modificationTime;
     }
 }

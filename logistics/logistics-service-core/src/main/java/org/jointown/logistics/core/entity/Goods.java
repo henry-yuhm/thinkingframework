@@ -7,11 +7,10 @@ import org.jointown.logistics.core.entity.support.StorageSign;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
-import java.math.BigInteger;
 import java.util.Date;
 
 @Entity
-@Table(schema = "wms", uniqueConstraints = @UniqueConstraint(name = "uk_goods", columnNames = {"owner_id", "no"}))
+@Table(schema = "wms", uniqueConstraints = @UniqueConstraint(name = "uk_goods", columnNames = {"owner_id", "number"}))
 public class Goods {
     @Id
     @GeneratedValue
@@ -21,7 +20,7 @@ public class Goods {
     private Owner owner;//业主
 
     @Column(nullable = false, length = 50)
-    private String no;//编号
+    private String number;//编号
 
     @Column(nullable = false)
     private String name;//名称
@@ -40,13 +39,13 @@ public class Goods {
     private String producingArea;//产地
 
     @Column(nullable = false)
-    private BigInteger wholePackageQuantity;//大包装数量
+    private int wholePackageQuantity;//大包装数量
 
     @Column(nullable = false)
-    private BigInteger mediumPackageQuantity;//中包装数量
+    private int mediumPackageQuantity;//中包装数量
 
     @Column(nullable = false)
-    private BigInteger smallPackageQuantity;//小包装数量
+    private int smallPackageQuantity;//小包装数量
 
     @Column(nullable = false)
     private String packageUnit;//包装单位
@@ -60,7 +59,7 @@ public class Goods {
     private SplitGranularity granularity;//拆分粒度
 
     @Column(nullable = false)
-    private BigInteger invoiceUnit;//最小开票单位
+    private int invoiceUnit = 1;//最小开票单位
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     private GoodsCategory category;//类别
@@ -121,12 +120,12 @@ public class Goods {
         this.owner = owner;
     }
 
-    public String getNo() {
-        return no;
+    public String getNumber() {
+        return number;
     }
 
-    public void setNo(String no) {
-        this.no = no;
+    public void setNumber(String number) {
+        this.number = number;
     }
 
     public String getName() {
@@ -177,27 +176,27 @@ public class Goods {
         this.producingArea = producingArea;
     }
 
-    public BigInteger getWholePackageQuantity() {
+    public int getWholePackageQuantity() {
         return wholePackageQuantity;
     }
 
-    public void setWholePackageQuantity(BigInteger wholePackageQuantity) {
+    public void setWholePackageQuantity(int wholePackageQuantity) {
         this.wholePackageQuantity = wholePackageQuantity;
     }
 
-    public BigInteger getMediumPackageQuantity() {
+    public int getMediumPackageQuantity() {
         return mediumPackageQuantity;
     }
 
-    public void setMediumPackageQuantity(BigInteger mediumPackageQuantity) {
+    public void setMediumPackageQuantity(int mediumPackageQuantity) {
         this.mediumPackageQuantity = mediumPackageQuantity;
     }
 
-    public BigInteger getSmallPackageQuantity() {
+    public int getSmallPackageQuantity() {
         return smallPackageQuantity;
     }
 
-    public void setSmallPackageQuantity(BigInteger smallPackageQuantity) {
+    public void setSmallPackageQuantity(int smallPackageQuantity) {
         this.smallPackageQuantity = smallPackageQuantity;
     }
 
@@ -233,11 +232,11 @@ public class Goods {
         this.granularity = granularity;
     }
 
-    public BigInteger getInvoiceUnit() {
+    public int getInvoiceUnit() {
         return invoiceUnit;
     }
 
-    public void setInvoiceUnit(BigInteger invoiceUnit) {
+    public void setInvoiceUnit(int invoiceUnit) {
         this.invoiceUnit = invoiceUnit;
     }
 

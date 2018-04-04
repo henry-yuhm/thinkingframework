@@ -8,7 +8,8 @@ import org.jointown.logistics.core.entity.support.BillSign;
 import org.jointown.logistics.core.entity.support.BillType;
 
 import javax.persistence.*;
-import java.sql.Time;
+import java.sql.Date;
+import java.time.LocalDate;
 import java.util.Set;
 
 @MappedSuperclass
@@ -27,8 +28,8 @@ public abstract class Header {
     @ManyToOne(fetch = FetchType.LAZY)
     private Customer customer;//客户
 
-    @Column(nullable = false)
-    private String no;//单据编号
+    @Column(unique = true, nullable = false, length = 100)
+    private String number;//单据编号
 
     @Column(nullable = false)
     private BillType type;//单据类型
@@ -47,10 +48,10 @@ public abstract class Header {
     private String buyer;//采购员
 
     @Column(nullable = false)
-    private Time creationTime;//创建时间
+    private Date creationTime = Date.valueOf(LocalDate.now());//创建时间
 
     @Column(nullable = false)
-    private Time modificationTime;//修改时间
+    private Date modificationTime = Date.valueOf(LocalDate.now());//修改时间
 
     private String remarks;//备注
 
@@ -80,12 +81,12 @@ public abstract class Header {
         this.customer = customer;
     }
 
-    public String getNo() {
-        return no;
+    public String getNumber() {
+        return number;
     }
 
-    public void setNo(String no) {
-        this.no = no;
+    public void setNumber(String number) {
+        this.number = number;
     }
 
     public BillType getType() {
@@ -136,19 +137,19 @@ public abstract class Header {
         this.buyer = buyer;
     }
 
-    public Time getCreationTime() {
+    public Date getCreationTime() {
         return creationTime;
     }
 
-    public void setCreationTime(Time creationTime) {
+    public void setCreationTime(Date creationTime) {
         this.creationTime = creationTime;
     }
 
-    public Time getModificationTime() {
+    public Date getModificationTime() {
         return modificationTime;
     }
 
-    public void setModificationTime(Time modificationTime) {
+    public void setModificationTime(Date modificationTime) {
         this.modificationTime = modificationTime;
     }
 

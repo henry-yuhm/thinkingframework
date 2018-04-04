@@ -18,7 +18,7 @@ public class ReplenishmentCommand extends TransitionCommand {
     private ReplenishmentDetail detail;//单据明细
 
     @Column(nullable = false, precision = 12, scale = 5)
-    private BigDecimal availableQuantity;//可用数量
+    private BigDecimal availableQuantity = BigDecimal.ZERO;//可用数量
 
     public ReplenishmentCommand() {
     }

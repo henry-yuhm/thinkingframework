@@ -6,7 +6,6 @@ import org.jointown.logistics.core.entity.support.RecheckMode;
 import org.jointown.logistics.core.entity.support.UpshelfMode;
 
 import javax.persistence.*;
-import java.math.BigInteger;
 
 @Entity
 public class Area {
@@ -18,7 +17,7 @@ public class Area {
     private Warehouse warehouse;//仓库
 
     @Column(nullable = false)
-    private String no;//编号
+    private String number;//编号
 
     @Column(nullable = false)
     private String name;//名称
@@ -49,7 +48,7 @@ public class Area {
     private RecheckMode recheckMode;//复核标识
 
     @Column(nullable = false)
-    private BigInteger fullloadToteboxNumber;//满载周转箱数
+    private int fullloadQuantity = 0;//满载周转箱数
 
     public Area() {
     }
@@ -62,12 +61,12 @@ public class Area {
         this.warehouse = warehouse;
     }
 
-    public String getNo() {
-        return no;
+    public String getNumber() {
+        return number;
     }
 
-    public void setNo(String no) {
-        this.no = no;
+    public void setNumber(String number) {
+        this.number = number;
     }
 
     public String getName() {
@@ -150,16 +149,16 @@ public class Area {
         this.recheckMode = recheckMode;
     }
 
-    public BigInteger getFullloadToteboxNumber() {
-        return fullloadToteboxNumber;
+    public int getFullloadQuantity() {
+        return fullloadQuantity;
     }
 
-    public void setFullloadToteboxNumber(BigInteger fullloadToteboxNumber) {
-        this.fullloadToteboxNumber = fullloadToteboxNumber;
+    public void setFullloadQuantity(int fullloadQuantity) {
+        this.fullloadQuantity = fullloadQuantity;
     }
 
     @Override
     public String toString() {
-        return "作业区域【" + this.no + "】";
+        return "作业区域【" + this.number + "】";
     }
 }

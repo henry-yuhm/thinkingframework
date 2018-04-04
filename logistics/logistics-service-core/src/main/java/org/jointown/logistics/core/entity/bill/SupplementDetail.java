@@ -8,7 +8,6 @@ import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.ManyToOne;
 import java.math.BigDecimal;
-import java.math.BigInteger;
 
 @Entity
 public class SupplementDetail extends Detail {
@@ -22,28 +21,28 @@ public class SupplementDetail extends Detail {
     private StockState state;//库存状态
 
     @Column(nullable = false, precision = 12, scale = 5)
-    private BigDecimal planQuantity;//计划数量
+    private BigDecimal planQuantity = BigDecimal.ZERO;//计划数量
 
     @Column(nullable = false)
-    private BigInteger planPieces;//计划件数
+    private int planPieces = 0;//计划件数
 
     @Column(nullable = false, precision = 12, scale = 5)
-    private BigDecimal planRemainder;//计划余数
+    private BigDecimal planRemainder = BigDecimal.ZERO;//计划余数
 
     @Column(nullable = false, precision = 12, scale = 5)
-    private BigDecimal factQuantity;//实际数量
+    private BigDecimal factQuantity = BigDecimal.ZERO;//实际数量
 
     @Column(nullable = false)
-    private BigInteger factPieces;//实际件数
+    private int factPieces = 0;//实际件数
 
     @Column(nullable = false, precision = 12, scale = 5)
-    private BigDecimal factRemainder;//实际余数
+    private BigDecimal factRemainder = BigDecimal.ZERO;//实际余数
 
     @Column(nullable = false, precision = 12, scale = 5)
-    private BigDecimal wholeQuantity;//整件未处理数量
+    private BigDecimal wholeQuantity = BigDecimal.ZERO;//整件未处理数量
 
     @Column(nullable = false, precision = 12, scale = 5)
-    private BigDecimal remainderQuantity;//零货未处理数量
+    private BigDecimal remainderQuantity = BigDecimal.ZERO;//零货未处理数量
 
     public SupplementDetail() {
     }
@@ -80,11 +79,11 @@ public class SupplementDetail extends Detail {
         this.planQuantity = planQuantity;
     }
 
-    public BigInteger getPlanPieces() {
+    public int getPlanPieces() {
         return planPieces;
     }
 
-    public void setPlanPieces(BigInteger planPieces) {
+    public void setPlanPieces(int planPieces) {
         this.planPieces = planPieces;
     }
 
@@ -104,11 +103,11 @@ public class SupplementDetail extends Detail {
         this.factQuantity = factQuantity;
     }
 
-    public BigInteger getFactPieces() {
+    public int getFactPieces() {
         return factPieces;
     }
 
-    public void setFactPieces(BigInteger factPieces) {
+    public void setFactPieces(int factPieces) {
         this.factPieces = factPieces;
     }
 

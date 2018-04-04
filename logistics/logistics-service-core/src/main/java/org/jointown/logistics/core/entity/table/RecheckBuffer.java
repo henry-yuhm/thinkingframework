@@ -15,7 +15,7 @@ public class RecheckBuffer {
     private Warehouse warehouse;//仓库
 
     @Column(nullable = false)
-    private String no;//编号
+    private String number;//编号
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     private RecheckTable table;//复核台
@@ -24,10 +24,10 @@ public class RecheckBuffer {
     private RecheckSlide slide;//复核滑道
 
     @Column(nullable = false)
-    private RecheckBufferType type;//类型
+    private RecheckBufferType type = RecheckBufferType.NORMAL;//类型
 
     @Column(nullable = false)
-    private boolean available;//是否可用
+    private boolean available = true;//是否可用
 
     public RecheckBuffer() {
     }
@@ -40,12 +40,12 @@ public class RecheckBuffer {
         this.warehouse = warehouse;
     }
 
-    public String getNo() {
-        return no;
+    public String getNumber() {
+        return number;
     }
 
-    public void setNo(String no) {
-        this.no = no;
+    public void setNumber(String number) {
+        this.number = number;
     }
 
     public RecheckTable getTable() {

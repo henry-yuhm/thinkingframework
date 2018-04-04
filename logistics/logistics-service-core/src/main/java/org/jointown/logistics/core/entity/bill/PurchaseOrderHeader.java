@@ -3,20 +3,20 @@ package org.jointown.logistics.core.entity.bill;
 import org.jointown.logistics.core.entity.support.InboundKind;
 
 import javax.persistence.*;
-import java.sql.Time;
+import java.sql.Date;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
 @Entity
 public class PurchaseOrderHeader extends Header {
     @Column(nullable = false)
-    private boolean complete;//是否完成
+    private boolean complete = false;//是否完成
 
     @Column(nullable = false)
     private InboundKind kind;//入库类型
 
     @Column(nullable = false)
-    private Time invoiceTime;//开票时间
+    private Date invoiceTime;//开票时间
 
     private String contactName;//联系人
 
@@ -28,7 +28,7 @@ public class PurchaseOrderHeader extends Header {
 
     private String shipper;//运输方
 
-    private Time shippingTime;//运输时间
+    private Date shippingTime;//运输时间
 
     private String tempControlMode;//温控方式
 
@@ -57,11 +57,11 @@ public class PurchaseOrderHeader extends Header {
         this.kind = kind;
     }
 
-    public Time getInvoiceTime() {
+    public Date getInvoiceTime() {
         return invoiceTime;
     }
 
-    public void setInvoiceTime(Time invoiceTime) {
+    public void setInvoiceTime(Date invoiceTime) {
         this.invoiceTime = invoiceTime;
     }
 
@@ -105,11 +105,11 @@ public class PurchaseOrderHeader extends Header {
         this.shipper = shipper;
     }
 
-    public Time getShippingTime() {
+    public Date getShippingTime() {
         return shippingTime;
     }
 
-    public void setShippingTime(Time shippingTime) {
+    public void setShippingTime(Date shippingTime) {
         this.shippingTime = shippingTime;
     }
 

@@ -5,15 +5,14 @@ import org.jointown.logistics.core.entity.Stagingarea;
 import org.jointown.logistics.core.entity.support.*;
 
 import javax.persistence.*;
-import java.math.BigInteger;
-import java.sql.Time;
+import java.sql.Date;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
 @Entity
 public class OutboundHeader extends Header {
     @Column(nullable = false)
-    private OutboundStage stage;//出库阶段
+    private OutboundStage stage = OutboundStage.CREATED;//出库阶段
 
     @Column(nullable = false)
     private OutboundPriority priority;//出库优先级
@@ -30,29 +29,29 @@ public class OutboundHeader extends Header {
     private String deliveryType;//配送类型
 
     @Column(nullable = false)
-    private Time invoiceTime;//开票时间
+    private Date invoiceTime;//开票时间
 
-    private String settlementType;//结算类型
+    private String settlementType = "无";//结算类型
 
-    private Time settlementTime;//结算时间
+    private Date settlementTime;//结算时间
 
     private TaxType taxType;//税票类型
 
     private String taxName;//税票名称
 
     @Column(nullable = false)
-    private boolean printContract;//是否打印合同
+    private boolean printContract = false;//是否打印合同
 
     private String wave;//波次
 
     @Column(nullable = false)
-    private DispatchType dispatchType;//调度类型
+    private DispatchType dispatchType = DispatchType.AUTOMATIC;//调度类型
 
     private String dispatcher;//调度员
 
-    private Time dispatchTime;//调度时间
+    private Date dispatchTime;//调度时间
 
-    private Time releaseTime;//下发时间
+    private Date releaseTime;//下发时间
 
     @ManyToOne(fetch = FetchType.LAZY)
     private Address address;//地址
@@ -64,44 +63,47 @@ public class OutboundHeader extends Header {
     private Stagingarea targetStagingarea;//终止月台
 
     @Column(nullable = false)
-    private boolean inversed;//是否整单冲红
+    private boolean inversed = false;//是否整单冲红
 
     @Column(nullable = false)
-    private boolean auditing;//是否冲红审核
+    private boolean auditing = false;//是否冲红审核
 
     @Column(nullable = false)
-    private boolean uploaded;//是否上传
+    private boolean uploaded = false;//是否上传
 
     @Column(nullable = false)
-    private boolean collectionComplete;//是否集货完成
+    private boolean collectionComplete = false;//是否集货完成
 
-    private Time taskCompleteTime;//作业完成时间
+    private Date taskCompleteTime;//作业完成时间
 
     private String rechecker;//复核员
 
-    private Time recheckStartTime;//复核开始时间
+    private Date recheckStartTime;//复核开始时间
 
-    private Time recheckCompleteTime;//复核结束时间
+    private Date recheckCompleteTime;//复核结束时间
 
     @Column(nullable = false)
-    private String recheckbillPrintSign;//复核单打印标识
+    private String recheckbillPrintSign = "N";//复核单打印标识
 
     private String recheckbillPrintClerk;//复核单打印员
 
-    private Time recheckbillPrintTime;//复核单打印时间
+    private Date recheckbillPrintTime;//复核单打印时间
 
     @Column(nullable = false)
-    private String reportbillPrintSign;//报告单打印标识
+    private String reportbillPrintSign = "N";//报告单打印标识
 
     private String reportbillPrintClerk;//报告单打印员
 
-    private Time reportbillPrintTime;//报告单打印时间
+    private Date reportbillPrintTime;//报告单打印时间
 
     @Column(nullable = false)
-    private BigInteger printTimes;//打印次数
+    private int printTimes = 0;//打印次数
 
     @Column(nullable = false)
-    private boolean stagingAreaCleaned;//是否清空月台
+    private boolean stagingareaCleaned = false;//是否清空月台
+
+    @Column(nullable = false)
+    private int goodsQuantity = 0;//品规数
 
     @ManyToMany
     @JoinTable(joinColumns = @JoinColumn(name = "header_id"), inverseJoinColumns = @JoinColumn(name = "detail_id"))
@@ -158,11 +160,11 @@ public class OutboundHeader extends Header {
         this.deliveryType = deliveryType;
     }
 
-    public Time getInvoiceTime() {
+    public Date getInvoiceTime() {
         return invoiceTime;
     }
 
-    public void setInvoiceTime(Time invoiceTime) {
+    public void setInvoiceTime(Date invoiceTime) {
         this.invoiceTime = invoiceTime;
     }
 
@@ -174,11 +176,11 @@ public class OutboundHeader extends Header {
         this.settlementType = settlementType;
     }
 
-    public Time getSettlementTime() {
+    public Date getSettlementTime() {
         return settlementTime;
     }
 
-    public void setSettlementTime(Time settlementTime) {
+    public void setSettlementTime(Date settlementTime) {
         this.settlementTime = settlementTime;
     }
 
@@ -230,19 +232,19 @@ public class OutboundHeader extends Header {
         this.dispatcher = dispatcher;
     }
 
-    public Time getDispatchTime() {
+    public Date getDispatchTime() {
         return dispatchTime;
     }
 
-    public void setDispatchTime(Time dispatchTime) {
+    public void setDispatchTime(Date dispatchTime) {
         this.dispatchTime = dispatchTime;
     }
 
-    public Time getReleaseTime() {
+    public Date getReleaseTime() {
         return releaseTime;
     }
 
-    public void setReleaseTime(Time releaseTime) {
+    public void setReleaseTime(Date releaseTime) {
         this.releaseTime = releaseTime;
     }
 
@@ -302,11 +304,11 @@ public class OutboundHeader extends Header {
         this.collectionComplete = collectionComplete;
     }
 
-    public Time getTaskCompleteTime() {
+    public Date getTaskCompleteTime() {
         return taskCompleteTime;
     }
 
-    public void setTaskCompleteTime(Time taskCompleteTime) {
+    public void setTaskCompleteTime(Date taskCompleteTime) {
         this.taskCompleteTime = taskCompleteTime;
     }
 
@@ -318,19 +320,19 @@ public class OutboundHeader extends Header {
         this.rechecker = rechecker;
     }
 
-    public Time getRecheckStartTime() {
+    public Date getRecheckStartTime() {
         return recheckStartTime;
     }
 
-    public void setRecheckStartTime(Time recheckStartTime) {
+    public void setRecheckStartTime(Date recheckStartTime) {
         this.recheckStartTime = recheckStartTime;
     }
 
-    public Time getRecheckCompleteTime() {
+    public Date getRecheckCompleteTime() {
         return recheckCompleteTime;
     }
 
-    public void setRecheckCompleteTime(Time recheckCompleteTime) {
+    public void setRecheckCompleteTime(Date recheckCompleteTime) {
         this.recheckCompleteTime = recheckCompleteTime;
     }
 
@@ -350,11 +352,11 @@ public class OutboundHeader extends Header {
         this.recheckbillPrintClerk = recheckbillPrintClerk;
     }
 
-    public Time getRecheckbillPrintTime() {
+    public Date getRecheckbillPrintTime() {
         return recheckbillPrintTime;
     }
 
-    public void setRecheckbillPrintTime(Time recheckbillPrintTime) {
+    public void setRecheckbillPrintTime(Date recheckbillPrintTime) {
         this.recheckbillPrintTime = recheckbillPrintTime;
     }
 
@@ -374,28 +376,28 @@ public class OutboundHeader extends Header {
         this.reportbillPrintClerk = reportbillPrintClerk;
     }
 
-    public Time getReportbillPrintTime() {
+    public Date getReportbillPrintTime() {
         return reportbillPrintTime;
     }
 
-    public void setReportbillPrintTime(Time reportbillPrintTime) {
+    public void setReportbillPrintTime(Date reportbillPrintTime) {
         this.reportbillPrintTime = reportbillPrintTime;
     }
 
-    public BigInteger getPrintTimes() {
+    public int getPrintTimes() {
         return printTimes;
     }
 
-    public void setPrintTimes(BigInteger printTimes) {
+    public void setPrintTimes(int printTimes) {
         this.printTimes = printTimes;
     }
 
-    public boolean isStagingAreaCleaned() {
-        return stagingAreaCleaned;
+    public boolean isStagingareaCleaned() {
+        return stagingareaCleaned;
     }
 
-    public void setStagingAreaCleaned(boolean stagingAreaCleaned) {
-        this.stagingAreaCleaned = stagingAreaCleaned;
+    public void setStagingareaCleaned(boolean stagingareaCleaned) {
+        this.stagingareaCleaned = stagingareaCleaned;
     }
 
     @Override

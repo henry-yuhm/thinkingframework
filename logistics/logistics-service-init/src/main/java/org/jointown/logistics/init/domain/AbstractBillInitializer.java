@@ -22,7 +22,7 @@ public abstract class AbstractBillInitializer implements BillInitializer {
     public void verify() throws Exception {
         StringBuilder message = new StringBuilder();
 
-        if (this.header.getStage().compareTo(OutboundStage.INIT_COMPLETE) >= 0) {
+        if (this.header.getStage().compareTo(OutboundStage.INITIALIZED) >= 0) {
             throw ErrorMessage.getException("单据已经初始化", this.header, this.header.getOwner());
         }
 
@@ -42,7 +42,7 @@ public abstract class AbstractBillInitializer implements BillInitializer {
                     detail.setWholeQuantity(detail.getFactQuantity().subtract(detail.getFactRemainder()));
                     detail.setRemainderQuantity(detail.getFactRemainder());
                 } else {
-                    message.append("商品【").append(detail.getGoods().getNo()).append("】【").append(detail.getGoods().getName()).append("】数量为0");
+                    message.append("商品【").append(detail.getGoods().getNumber()).append("】【").append(detail.getGoods().getName()).append("】数量为0");
                 }
             }
         }
@@ -62,6 +62,6 @@ public abstract class AbstractBillInitializer implements BillInitializer {
     public void initialize() throws Exception {
         this.verify();
 
-        this.header.setStage(OutboundStage.INIT_COMPLETE);
+        this.header.setStage(OutboundStage.INITIALIZED);
     }
 }

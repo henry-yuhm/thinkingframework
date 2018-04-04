@@ -11,10 +11,10 @@ public abstract class OutboundBarcode extends TaskBarcode {
     private SorterSlide slide;//分拣滑道
 
     @Column(nullable = false)
-    private boolean available;//是否可用
+    private boolean available = true;//是否可用
 
     @Column(nullable = false)
-    private boolean collected;//是否集货
+    private boolean collected = false;//是否集货
 
     public SorterSlide getSlide() {
         return slide;

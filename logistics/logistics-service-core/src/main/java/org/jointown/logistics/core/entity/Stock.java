@@ -5,7 +5,6 @@ import org.jointown.logistics.core.entity.support.StockState;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
-import java.math.BigInteger;
 
 @Entity
 public class Stock {
@@ -32,34 +31,34 @@ public class Stock {
     private StockState state;//库存状态
 
     @Column(nullable = false, precision = 12, scale = 5)
-    private BigDecimal quantity;//数量
+    private BigDecimal quantity = BigDecimal.ZERO;//数量
 
     @Column(nullable = false)
-    private BigInteger pieces;//件数
+    private int pieces = 0;//件数
 
     @Column(nullable = false, precision = 12, scale = 5)
-    private BigDecimal remainder;//余数
+    private BigDecimal remainder = BigDecimal.ZERO;//余数
 
     @Column(nullable = false, precision = 12, scale = 5)
-    private BigDecimal inboundQuantity;//入库预占数量
+    private BigDecimal inboundQuantity = BigDecimal.ZERO;//入库预占数量
 
     @Column(nullable = false, precision = 12, scale = 5)
-    private BigDecimal outboundQuantity;//出库预扣数量
+    private BigDecimal outboundQuantity = BigDecimal.ZERO;//出库预扣数量
 
     @Column(nullable = false, precision = 12, scale = 5)
-    private BigDecimal plusQuantity;//补货预占数量
+    private BigDecimal plusQuantity = BigDecimal.ZERO;//补货预占数量
 
     @Column(nullable = false, precision = 12, scale = 5)
-    private BigDecimal minusQuantity;//补货预扣数量
+    private BigDecimal minusQuantity = BigDecimal.ZERO;//补货预扣数量
 
     @Column(nullable = false, precision = 12, scale = 5)
-    private BigDecimal transitionQuantity;//在途数量
+    private BigDecimal transitionQuantity = BigDecimal.ZERO;//在途数量
 
     @Column(nullable = false)
-    private boolean locking;//是否锁定
+    private boolean locking = false;//是否锁定
 
     @Column(nullable = false, precision = 12, scale = 5)
-    private BigDecimal lockingQuantity;//锁定数量
+    private BigDecimal lockingQuantity = BigDecimal.ZERO;//锁定数量
 
     @ManyToOne(fetch = FetchType.LAZY)
     private Pallet pallet;//托盘
@@ -141,11 +140,11 @@ public class Stock {
         this.quantity = quantity;
     }
 
-    public BigInteger getPieces() {
+    public int getPieces() {
         return pieces;
     }
 
-    public void setPieces(BigInteger pieces) {
+    public void setPieces(int pieces) {
         this.pieces = pieces;
     }
 

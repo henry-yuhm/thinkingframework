@@ -1,12 +1,11 @@
 package org.jointown.logistics.core.entity.table;
 
 import org.jointown.logistics.core.entity.Warehouse;
-import org.jointown.logistics.core.entity.support.RecheckTableCategory;
+import org.jointown.logistics.core.entity.support.BillCategory;
 import org.jointown.logistics.core.entity.support.RecheckTableType;
 
 import javax.persistence.*;
-import java.math.BigInteger;
-import java.sql.Time;
+import java.sql.Date;
 
 @Entity
 public class RecheckTable {
@@ -18,27 +17,27 @@ public class RecheckTable {
     private Warehouse warehouse;//仓库
 
     @Column(nullable = false)
-    private String no;//编号
+    private String number;//编号
 
     @Column(nullable = false)
-    private RecheckTableType type;//类型
+    private RecheckTableType type = RecheckTableType.NORMAL;//类型
 
     @Column(nullable = false)
-    private RecheckTableCategory category;//类别
+    private BillCategory category;//类别
 
     @Column(nullable = false)
-    private boolean locking;//是否锁定
+    private boolean locking = false;//是否锁定
 
     @Column(nullable = false)
     private boolean automatic;//是否自动化
 
     @Column(nullable = false)
-    private BigInteger workload;//工作量
+    private int workload = 0;//工作量
 
     @Column(nullable = false)
-    private BigInteger goodsNumber;//品规数
+    private int goodsQuantity = 0;//品规数
 
-    private Time modificationTime;//修改时间
+    private Date modificationTime;//修改时间
 
     public RecheckTable() {
     }
@@ -51,12 +50,12 @@ public class RecheckTable {
         this.warehouse = warehouse;
     }
 
-    public String getNo() {
-        return no;
+    public String getNumber() {
+        return number;
     }
 
-    public void setNo(String no) {
-        this.no = no;
+    public void setNumber(String number) {
+        this.number = number;
     }
 
     public RecheckTableType getType() {
@@ -67,11 +66,11 @@ public class RecheckTable {
         this.type = type;
     }
 
-    public RecheckTableCategory getCategory() {
+    public BillCategory getCategory() {
         return category;
     }
 
-    public void setCategory(RecheckTableCategory category) {
+    public void setCategory(BillCategory category) {
         this.category = category;
     }
 
@@ -91,27 +90,27 @@ public class RecheckTable {
         this.automatic = automatic;
     }
 
-    public BigInteger getWorkload() {
+    public int getWorkload() {
         return workload;
     }
 
-    public void setWorkload(BigInteger workload) {
+    public void setWorkload(int workload) {
         this.workload = workload;
     }
 
-    public BigInteger getGoodsNumber() {
-        return goodsNumber;
+    public int getGoodsQuantity() {
+        return goodsQuantity;
     }
 
-    public void setGoodsNumber(BigInteger goodsNumber) {
-        this.goodsNumber = goodsNumber;
+    public void setGoodsQuantity(int goodsQuantity) {
+        this.goodsQuantity = goodsQuantity;
     }
 
-    public Time getModificationTime() {
+    public Date getModificationTime() {
         return modificationTime;
     }
 
-    public void setModificationTime(Time modificationTime) {
+    public void setModificationTime(Date modificationTime) {
         this.modificationTime = modificationTime;
     }
 }

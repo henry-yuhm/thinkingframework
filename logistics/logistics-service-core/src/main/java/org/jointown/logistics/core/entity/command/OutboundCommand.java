@@ -3,12 +3,11 @@ package org.jointown.logistics.core.entity.command;
 import org.jointown.logistics.core.entity.Location;
 import org.jointown.logistics.core.entity.bill.OutboundDetail;
 import org.jointown.logistics.core.entity.bill.OutboundHeader;
-import org.jointown.logistics.core.entity.support.AppendixSign;
+import org.jointown.logistics.core.entity.support.AppendantSign;
 import org.jointown.logistics.core.entity.support.StockState;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
-import java.math.BigInteger;
 import java.util.Set;
 
 @MappedSuperclass
@@ -27,40 +26,40 @@ public abstract class OutboundCommand extends Command {
     private StockState state;//库存状态
 
     @Column(nullable = false)
-    private boolean active;//是否激活
+    private boolean activated = false;//是否激活
 
     @Column(nullable = false, precision = 12, scale = 5)
-    private BigDecimal creationQuantity;//创建数量
+    private BigDecimal creationQuantity = BigDecimal.ZERO;//创建数量
 
     @Column(nullable = false)
-    private BigInteger creationPieces;//创建件数
+    private int creationPieces = 0;//创建件数
 
     @Column(nullable = false, precision = 12, scale = 5)
-    private BigDecimal creationRemainder;//创建余数
+    private BigDecimal creationRemainder = BigDecimal.ZERO;//创建余数
 
     @Column(nullable = false, precision = 12, scale = 5)
-    private BigDecimal planQuantity;//计划数量
+    private BigDecimal planQuantity = BigDecimal.ZERO;//计划数量
 
     @Column(nullable = false)
-    private BigInteger planPieces;//计划件数
+    private int planPieces = 0;//计划件数
 
     @Column(nullable = false, precision = 12, scale = 5)
-    private BigDecimal planRemainder;//计划余数
+    private BigDecimal planRemainder = BigDecimal.ZERO;//计划余数
 
     @Column(nullable = false, precision = 12, scale = 5)
-    private BigDecimal factQuantity;//实际数量
+    private BigDecimal factQuantity = BigDecimal.ZERO;//实际数量
 
     @Column(nullable = false)
-    private BigInteger factPieces;//实际件数
+    private int factPieces = 0;//实际件数
 
     @Column(nullable = false, precision = 12, scale = 5)
-    private BigDecimal factRemainder;//实际余数
+    private BigDecimal factRemainder = BigDecimal.ZERO;//实际余数
 
     @Column(nullable = false)
-    private AppendixSign appendixSign;//追加标识
+    private AppendantSign appendantSign = AppendantSign.ORIGINAL;//追加标识
 
     @Column(nullable = false)
-    private String pickingOrder;//拣货顺序
+    private String pickingOrder = "0";//拣货顺序
 
     public abstract Set<ReplenishmentCommand> getCommands();
 
@@ -98,12 +97,12 @@ public abstract class OutboundCommand extends Command {
         this.state = state;
     }
 
-    public boolean isActive() {
-        return active;
+    public boolean isActivated() {
+        return activated;
     }
 
-    public void setActive(boolean active) {
-        this.active = active;
+    public void setActivated(boolean activated) {
+        this.activated = activated;
     }
 
     public BigDecimal getCreationQuantity() {
@@ -114,11 +113,11 @@ public abstract class OutboundCommand extends Command {
         this.creationQuantity = creationQuantity;
     }
 
-    public BigInteger getCreationPieces() {
+    public int getCreationPieces() {
         return creationPieces;
     }
 
-    public void setCreationPieces(BigInteger creationPieces) {
+    public void setCreationPieces(int creationPieces) {
         this.creationPieces = creationPieces;
     }
 
@@ -138,11 +137,11 @@ public abstract class OutboundCommand extends Command {
         this.planQuantity = planQuantity;
     }
 
-    public BigInteger getPlanPieces() {
+    public int getPlanPieces() {
         return planPieces;
     }
 
-    public void setPlanPieces(BigInteger planPieces) {
+    public void setPlanPieces(int planPieces) {
         this.planPieces = planPieces;
     }
 
@@ -162,11 +161,11 @@ public abstract class OutboundCommand extends Command {
         this.factQuantity = factQuantity;
     }
 
-    public BigInteger getFactPieces() {
+    public int getFactPieces() {
         return factPieces;
     }
 
-    public void setFactPieces(BigInteger factPieces) {
+    public void setFactPieces(int factPieces) {
         this.factPieces = factPieces;
     }
 
@@ -178,12 +177,12 @@ public abstract class OutboundCommand extends Command {
         this.factRemainder = factRemainder;
     }
 
-    public AppendixSign getAppendixSign() {
-        return appendixSign;
+    public AppendantSign getAppendantSign() {
+        return appendantSign;
     }
 
-    public void setAppendixSign(AppendixSign appendixSign) {
-        this.appendixSign = appendixSign;
+    public void setAppendantSign(AppendantSign appendantSign) {
+        this.appendantSign = appendantSign;
     }
 
     public String getPickingOrder() {

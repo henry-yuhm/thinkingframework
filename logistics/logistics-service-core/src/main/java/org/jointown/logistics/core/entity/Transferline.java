@@ -12,7 +12,7 @@ public class Transferline {
     private long id;
 
     @Column(nullable = false)
-    private String no;//编号
+    private String number;//编号
 
     @Column(nullable = false)
     private String name;//名称
@@ -20,12 +20,12 @@ public class Transferline {
     public Transferline() {
     }
 
-    public String getNo() {
-        return no;
+    public String getNumber() {
+        return number;
     }
 
-    public void setNo(String no) {
-        this.no = no;
+    public void setNumber(String number) {
+        this.number = number;
     }
 
     public String getName() {

@@ -8,7 +8,6 @@ import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.ManyToOne;
 import java.math.BigDecimal;
-import java.math.BigInteger;
 
 @Entity
 public class ReplenishmentDetail extends Detail {
@@ -21,16 +20,16 @@ public class ReplenishmentDetail extends Detail {
     private String storeCategory;//库别
 
     @Column(nullable = false, precision = 12, scale = 5)
-    private BigDecimal planQuantity;//计划数量
+    private BigDecimal planQuantity = BigDecimal.ZERO;//计划数量
 
     @Column(nullable = false)
-    private BigInteger planPieces;//计划件数
+    private int planPieces = 0;//计划件数
 
     @Column(nullable = false, precision = 12, scale = 5)
-    private BigDecimal factQuantity;//实际数量
+    private BigDecimal factQuantity = BigDecimal.ZERO;//实际数量
 
     @Column(nullable = false)
-    private BigInteger factPieces;//实际件数
+    private int factPieces = 0;//实际件数
 
     @ManyToOne(fetch = FetchType.LAZY)
     private Pallet pallet;//托盘
@@ -71,11 +70,11 @@ public class ReplenishmentDetail extends Detail {
         this.planQuantity = planQuantity;
     }
 
-    public BigInteger getPlanPieces() {
+    public int getPlanPieces() {
         return planPieces;
     }
 
-    public void setPlanPieces(BigInteger planPieces) {
+    public void setPlanPieces(int planPieces) {
         this.planPieces = planPieces;
     }
 
@@ -87,11 +86,11 @@ public class ReplenishmentDetail extends Detail {
         this.factQuantity = factQuantity;
     }
 
-    public BigInteger getFactPieces() {
+    public int getFactPieces() {
         return factPieces;
     }
 
-    public void setFactPieces(BigInteger factPieces) {
+    public void setFactPieces(int factPieces) {
         this.factPieces = factPieces;
     }
 

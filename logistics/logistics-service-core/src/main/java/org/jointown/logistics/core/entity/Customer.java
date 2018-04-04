@@ -17,7 +17,7 @@ public class Customer {
     private Owner owner;//业主
 
     @Column(nullable = false, length = 50)
-    private String no;//编号
+    private String number;//编号
 
     @Column(nullable = false)
     private String sourceCode;//源编码
@@ -63,12 +63,12 @@ public class Customer {
         this.owner = owner;
     }
 
-    public String getNo() {
-        return no;
+    public String getNumber() {
+        return number;
     }
 
-    public void setNo(String no) {
-        this.no = no;
+    public void setNumber(String number) {
+        this.number = number;
     }
 
     public String getSourceCode() {

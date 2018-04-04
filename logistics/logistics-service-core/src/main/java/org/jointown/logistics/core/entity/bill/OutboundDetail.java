@@ -5,7 +5,6 @@ import org.jointown.logistics.core.entity.support.StockState;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
-import java.math.BigInteger;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
@@ -18,54 +17,54 @@ public class OutboundDetail extends Detail {
 //    private OutboundHeader header;//抬头
 
     @Column(nullable = false)
-    private StockState state;//库存状态
+    private StockState state = StockState.QUALIFICATION;//库存状态
 
-    private BatchRequest request;//批号要求
+    private BatchRequest request = BatchRequest.NONE;//批号要求
 
     @Column(nullable = false, precision = 12, scale = 5)
-    private BigDecimal planQuantity;//计划数量
+    private BigDecimal planQuantity = BigDecimal.ZERO;//计划数量
 
     @Column(nullable = false)
-    private BigInteger planPieces;//计划件数
+    private int planPieces = 0;//计划件数
 
     @Column(nullable = false, precision = 12, scale = 5)
-    private BigDecimal planRemainder;//计划余数
+    private BigDecimal planRemainder = BigDecimal.ZERO;//计划余数
 
     @Column(nullable = false, precision = 12, scale = 5)
-    private BigDecimal factQuantity;//实际数量
+    private BigDecimal factQuantity = BigDecimal.ZERO;//实际数量
 
     @Column(nullable = false)
-    private BigInteger factPieces;//实际件数
+    private int factPieces = 0;//实际件数
 
     @Column(nullable = false, precision = 12, scale = 5)
-    private BigDecimal factRemainder;//实际余数
+    private BigDecimal factRemainder = BigDecimal.ZERO;//实际余数
 
     @Column(nullable = false, precision = 12, scale = 5)
-    private BigDecimal wholeQuantity;//整件未处理数量
+    private BigDecimal wholeQuantity = BigDecimal.ZERO;//整件未处理数量
 
     @Column(nullable = false, precision = 12, scale = 5)
-    private BigDecimal remainderQuantity;//零货未处理数量
+    private BigDecimal remainderQuantity = BigDecimal.ZERO;//零货未处理数量
 
     @Column(nullable = false, precision = 12, scale = 5)
-    private BigDecimal lessnessQuantity;//库存不足数量
+    private BigDecimal lessnessQuantity = BigDecimal.ZERO;//库存不足数量
 
     @Column(nullable = false, precision = 12, scale = 5)
-    private BigDecimal price;//单价
+    private BigDecimal price = BigDecimal.ZERO;//单价
 
     @Column(nullable = false, precision = 12, scale = 5)
-    private BigDecimal amount;//金额
+    private BigDecimal amount = BigDecimal.ZERO;//金额
 
     @Column(nullable = false, precision = 12, scale = 5)
-    private BigDecimal taxes;//税票金额
+    private BigDecimal taxes = BigDecimal.ZERO;//税票金额
 
     @Column(nullable = false, precision = 12, scale = 5)
-    private BigDecimal settlementPrice;//结算单价
+    private BigDecimal settlementPrice = BigDecimal.ZERO;//结算单价
 
     @Column(nullable = false, precision = 12, scale = 5)
-    private BigDecimal settlementAmount;//结算金额
+    private BigDecimal settlementAmount = BigDecimal.ZERO;//结算金额
 
     @Column(nullable = false, precision = 12, scale = 5)
-    private BigDecimal flittingCostPrice;//调拨成本价
+    private BigDecimal flittingCostPrice = BigDecimal.ZERO;//调拨成本价
 
     @ManyToMany
     @JoinTable(joinColumns = @JoinColumn(name = "detail_id"), inverseJoinColumns = @JoinColumn(name = "supplement_id"))
@@ -115,11 +114,11 @@ public class OutboundDetail extends Detail {
         this.planQuantity = planQuantity;
     }
 
-    public BigInteger getPlanPieces() {
+    public int getPlanPieces() {
         return planPieces;
     }
 
-    public void setPlanPieces(BigInteger planPieces) {
+    public void setPlanPieces(int planPieces) {
         this.planPieces = planPieces;
     }
 
@@ -139,11 +138,11 @@ public class OutboundDetail extends Detail {
         this.factQuantity = factQuantity;
     }
 
-    public BigInteger getFactPieces() {
+    public int getFactPieces() {
         return factPieces;
     }
 
-    public void setFactPieces(BigInteger factPieces) {
+    public void setFactPieces(int factPieces) {
         this.factPieces = factPieces;
     }
 

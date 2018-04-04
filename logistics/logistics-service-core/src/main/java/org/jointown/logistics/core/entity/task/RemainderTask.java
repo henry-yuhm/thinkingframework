@@ -6,8 +6,7 @@ import org.jointown.logistics.core.entity.table.RecheckBuffer;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.ManyToOne;
-import java.math.BigInteger;
-import java.sql.Time;
+import java.sql.Date;
 
 @Entity
 public class RemainderTask extends Task {
@@ -19,15 +18,15 @@ public class RemainderTask extends Task {
     @ManyToOne(fetch = FetchType.LAZY)
     private RecheckBuffer buffer;//复核暂存位
 
-    private BigInteger batchno;//任务批次号
+    private int batchNumber;//任务批次号
 
-    private String bufferNo;//暂存位编号
+    private String bufferNumber;//暂存位编号
 
     private String rechecker;//复核员
 
-    private Time recheckStartTime;//复核开始时间
+    private Date recheckStartTime;//复核开始时间
 
-    private Time recheckCompleteTime;//复核完成时间
+    private Date recheckCompleteTime;//复核完成时间
 
     public RemainderTask() {
     }
@@ -56,20 +55,20 @@ public class RemainderTask extends Task {
         this.buffer = buffer;
     }
 
-    public BigInteger getBatchno() {
-        return batchno;
+    public int getBatchNumber() {
+        return batchNumber;
     }
 
-    public void setBatchno(BigInteger batchno) {
-        this.batchno = batchno;
+    public void setBatchNumber(int batchNumber) {
+        this.batchNumber = batchNumber;
     }
 
-    public String getBufferNo() {
-        return bufferNo;
+    public String getBufferNumber() {
+        return bufferNumber;
     }
 
-    public void setBufferNo(String bufferNo) {
-        this.bufferNo = bufferNo;
+    public void setBufferNumber(String bufferNumber) {
+        this.bufferNumber = bufferNumber;
     }
 
     public String getRechecker() {
@@ -80,19 +79,19 @@ public class RemainderTask extends Task {
         this.rechecker = rechecker;
     }
 
-    public Time getRecheckStartTime() {
+    public Date getRecheckStartTime() {
         return recheckStartTime;
     }
 
-    public void setRecheckStartTime(Time recheckStartTime) {
+    public void setRecheckStartTime(Date recheckStartTime) {
         this.recheckStartTime = recheckStartTime;
     }
 
-    public Time getRecheckCompleteTime() {
+    public Date getRecheckCompleteTime() {
         return recheckCompleteTime;
     }
 
-    public void setRecheckCompleteTime(Time recheckCompleteTime) {
+    public void setRecheckCompleteTime(Date recheckCompleteTime) {
         this.recheckCompleteTime = recheckCompleteTime;
     }
 }

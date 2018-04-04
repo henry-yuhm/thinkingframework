@@ -19,7 +19,7 @@ public class RemainderCommand extends OutboundCommand {
     @ManyToOne(fetch = FetchType.LAZY)
     private RemainderBarcode barcode;//作业条码
 
-    private BigDecimal remainder;//余量
+    private BigDecimal remainder = BigDecimal.ZERO;//余量
 
     @ManyToMany
     @JoinTable(joinColumns = @JoinColumn(name = "command_id"), inverseJoinColumns = @JoinColumn(name = "rep_command_id"))

@@ -14,7 +14,7 @@ public class RecheckSlide {
     private Warehouse warehouse;//仓库
 
     @Column(nullable = false)
-    private String no;//编号
+    private String number;//编号
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     private RecheckTable table;//复核台
@@ -30,12 +30,12 @@ public class RecheckSlide {
         this.warehouse = warehouse;
     }
 
-    public String getNo() {
-        return no;
+    public String getNumber() {
+        return number;
     }
 
-    public void setNo(String no) {
-        this.no = no;
+    public void setNumber(String number) {
+        this.number = number;
     }
 
     public RecheckTable getTable() {

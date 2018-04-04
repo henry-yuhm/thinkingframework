@@ -15,7 +15,7 @@ public class BeanConfigurer {
     public Map<String, String> parameters(ParameterRepository repository) {
         Map<String, String> parameters = new HashMap<>();
 
-        repository.findAll().forEach(parameter -> parameters.put(parameter.getNo(), parameter.getValue()));
+        repository.findAll().forEach(parameter -> parameters.put(parameter.getNumber(), parameter.getValue()));
 
         return parameters;
     }

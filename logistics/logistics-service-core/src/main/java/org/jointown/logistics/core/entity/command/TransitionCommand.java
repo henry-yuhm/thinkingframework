@@ -21,10 +21,10 @@ public abstract class TransitionCommand extends Command {
     private StockState targetState;//目标库存状态
 
     @Column(nullable = false)
-    private boolean sourceActive;//源是否激活
+    private boolean sourceActivated = false;//源是否激活
 
     @Column(nullable = false)
-    private boolean targetActive;//目标是否激活
+    private boolean targetActivated = false;//目标是否激活
 
     public Location getSourceLocation() {
         return sourceLocation;
@@ -58,19 +58,19 @@ public abstract class TransitionCommand extends Command {
         this.targetState = targetState;
     }
 
-    public boolean isSourceActive() {
-        return sourceActive;
+    public boolean isSourceActivated() {
+        return sourceActivated;
     }
 
-    public void setSourceActive(boolean sourceActive) {
-        this.sourceActive = sourceActive;
+    public void setSourceActivated(boolean sourceActivated) {
+        this.sourceActivated = sourceActivated;
     }
 
-    public boolean isTargetActive() {
-        return targetActive;
+    public boolean isTargetActivated() {
+        return targetActivated;
     }
 
-    public void setTargetActive(boolean targetActive) {
-        this.targetActive = targetActive;
+    public void setTargetActivated(boolean targetActivated) {
+        this.targetActivated = targetActivated;
     }
 }

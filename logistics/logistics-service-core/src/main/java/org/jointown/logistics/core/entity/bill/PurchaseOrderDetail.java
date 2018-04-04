@@ -10,19 +10,19 @@ public class PurchaseOrderDetail extends Detail {
 //    private PurchaseOrderHeader header;//抬头
 
     @Column(nullable = false)
-    private boolean complete;//是否完成
+    private boolean complete = false;//是否完成
 
     @Column(nullable = false, precision = 12, scale = 5)
-    private BigDecimal planQuantity;//计划数量
+    private BigDecimal planQuantity = BigDecimal.ZERO;//计划数量
 
     @Column(nullable = false, precision = 12, scale = 5)
-    private BigDecimal factQuantity;//实际数量
+    private BigDecimal factQuantity = BigDecimal.ZERO;//实际数量
 
     @Column(nullable = false, precision = 12, scale = 5)
-    private BigDecimal price;//单价
+    private BigDecimal price = BigDecimal.ZERO;//单价
 
     @Column(nullable = false, precision = 12, scale = 5)
-    private BigDecimal amount;//金额
+    private BigDecimal amount = BigDecimal.ZERO;//金额
 
     public PurchaseOrderDetail() {
     }

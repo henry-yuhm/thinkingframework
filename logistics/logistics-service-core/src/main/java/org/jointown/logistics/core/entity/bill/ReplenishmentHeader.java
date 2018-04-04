@@ -7,7 +7,7 @@ import java.util.Set;
 @Entity
 public class ReplenishmentHeader extends Header {
     @Column(nullable = false)
-    private boolean complete;//是否完成
+    private boolean complete = false;//是否完成
 
     @ManyToMany
     @JoinTable(joinColumns = @JoinColumn(name = "header_id"), inverseJoinColumns = @JoinColumn(name = "detail_id"))

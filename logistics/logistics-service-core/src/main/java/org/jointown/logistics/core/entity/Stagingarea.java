@@ -1,8 +1,8 @@
 package org.jointown.logistics.core.entity;
 
 import org.jointown.logistics.core.entity.support.BusinessType;
-import org.jointown.logistics.core.entity.support.StagingAreaCategory;
-import org.jointown.logistics.core.entity.support.StagingAreaType;
+import org.jointown.logistics.core.entity.support.StagingareaCategory;
+import org.jointown.logistics.core.entity.support.StagingareaType;
 import org.jointown.logistics.core.entity.support.TakegoodsMode;
 
 import javax.persistence.*;
@@ -19,20 +19,20 @@ public class Stagingarea {
     private Warehouse warehouse;//仓库
 
     @Column(nullable = false)
-    private String no;//编号
+    private String number;//编号
 
     private String name;//名称
 
     @Column(nullable = false)
-    private StagingAreaType type;//类型
+    private StagingareaType type = StagingareaType.NORMAL;//类型
 
     @Column(nullable = false)
-    private StagingAreaCategory category;//类别
+    private StagingareaCategory category;//类别
 
     @Column(nullable = false)
-    private boolean available;//是否可用
+    private boolean available = true;//是否可用
 
-    @ManyToMany
+    @OneToMany
     @JoinTable(joinColumns = @JoinColumn(name = "stagingarea_id"), inverseJoinColumns = @JoinColumn(name = "owner_id"))
     private Set<Owner> owners = new LinkedHashSet<>();//业主
 
@@ -54,12 +54,12 @@ public class Stagingarea {
         this.warehouse = warehouse;
     }
 
-    public String getNo() {
-        return no;
+    public String getNumber() {
+        return number;
     }
 
-    public void setNo(String no) {
-        this.no = no;
+    public void setNumber(String number) {
+        this.number = number;
     }
 
     public String getName() {
@@ -70,19 +70,19 @@ public class Stagingarea {
         this.name = name;
     }
 
-    public StagingAreaType getType() {
+    public StagingareaType getType() {
         return type;
     }
 
-    public void setType(StagingAreaType type) {
+    public void setType(StagingareaType type) {
         this.type = type;
     }
 
-    public StagingAreaCategory getCategory() {
+    public StagingareaCategory getCategory() {
         return category;
     }
 
-    public void setCategory(StagingAreaCategory category) {
+    public void setCategory(StagingareaCategory category) {
         this.category = category;
     }
 

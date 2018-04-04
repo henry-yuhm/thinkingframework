@@ -1,6 +1,6 @@
 package org.jointown.logistics.core.entity.support;
 
-public enum StagingAreaType {
+public enum StagingareaType {
     NORMAL("1", 1),//普通
     APPENDANT_PICKING("2", 2),//追加拣货
     TRADITIONAL_CHINESE_MEDICINE("3", 3),//中药
@@ -9,6 +9,6 @@ public enum StagingAreaType {
     THIRD_PARTY("6", 6),//第三方
     RANDOM("7", 7);//机动
 
-    StagingAreaType(String name, int ordinal) {
+    StagingareaType(String name, int ordinal) {
     }
 }

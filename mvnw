@@ -141,10 +141,10 @@ fi
 
 if [ -z "$JAVA_HOME" ]; then
   javaExecutable="`which javac`"
-  if [ -n "$javaExecutable" ] && ! [ "`expr \"$javaExecutable\" : '\([^ ]*\)'`" = "no" ]; then
+  if [ -n "$javaExecutable" ] && ! [ "`expr \"$javaExecutable\" : '\([^ ]*\)'`" = "number" ]; then
     # readlink(1) is not available as standard on Solaris 10.
     readLink=`which readlink`
-    if [ ! `expr "$readLink" : '\([^ ]*\)'` = "no" ]; then
+    if [ ! `expr "$readLink" : '\([^ ]*\)'` = "number" ]; then
       if $darwin ; then
         javaHome="`dirname \"$javaExecutable\"`"
         javaExecutable="`cd \"$javaHome\" && pwd -P`/javac"

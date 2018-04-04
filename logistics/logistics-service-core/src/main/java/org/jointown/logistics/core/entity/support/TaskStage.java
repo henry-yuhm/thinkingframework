@@ -1,13 +1,13 @@
 package org.jointown.logistics.core.entity.support;
 
 public enum TaskStage {
-    COMMAND_CREATE("00", 0),//指令刚生成
-    OPERATION_AVAILABLE("01", 11),//可以作业
+    CREATED("00", 0),//指令刚生成
+    TASK_READY("01", 11),//可以作业
     REPLENISHMENT_DOWNSHELF_OBTAIN("B1", 21),//补货下架索取
     REPLENISHMENT_DOWNSHELF_CONFIRM("B2", 22),//补货下架确认
     REPLENISHMENT_UPSHELF_OBTAIN("B3", 23),//补货上架索取
     REPLENISHMENT_UPSHELF_CONFIRM("B4", 24),//补货上架确认
-    TASKBILL_CREATE("C2", 31),//生成分配单
+    TASKBILL_CREATED("C2", 31),//生成分配单
     WHOLEBILL_OBTAIN("C3", 32),//整单索取
     PICKING_OBTAIN("C4", 33),//索取
     PICKING_CONFIRM("C5", 34),//确认
@@ -26,7 +26,7 @@ public enum TaskStage {
     INBOUND_PALLET_CONFIRM("R2", 62),//入库托盘确认
     INBOUND_UPSHELF_OBTAIN("R3", 63),//入库上架索取
     INBOUND_UPSHELF_CONFIRM("R4", 64),//入库上架确认
-    OPERATION_COMPLETE("ZZ", 99);//作业终止
+    TERMINATED("ZZ", 99);//作业终止
 
     TaskStage(String name, int ordinal) {
     }

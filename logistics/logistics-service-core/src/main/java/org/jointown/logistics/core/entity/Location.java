@@ -15,7 +15,7 @@ public class Location {
     private Warehouse warehouse;//仓库
 
     @Column(nullable = false)
-    private String no;//编号
+    private String number;//编号
 
     @Column(nullable = false)
     private String floor;//楼层
@@ -27,13 +27,13 @@ public class Location {
 
     private String roadway;//巷道
 
-    private String x;//排
+    private String x = "";//排
 
-    private String y;//列
+    private String y = "";//列
 
-    private String z;//层
+    private String z = "";//层
 
-    private String shortno;//短编号
+    private String shortno = x + y + z;//短编号
 
     @Column(nullable = false, precision = 12, scale = 2)
     private BigDecimal length;//长
@@ -54,19 +54,19 @@ public class Location {
     private PackageSign sign;//包装标识
 
     @Column(nullable = false)
-    private boolean available;//是否可用
+    private boolean available = true;//是否可用
 
     @Column(nullable = false)
-    private boolean locking;//是否锁定
+    private boolean locking = false;//是否锁定
 
     @Column(nullable = false)
     private boolean automatic;//是否自动化
 
     @Column(nullable = false)
-    private LocationType type;//货位类型
+    private LocationType type = LocationType.NORMAL;//货位类型
 
     @Column(nullable = false)
-    private RackMode rackMode;//货架模式
+    private RackMode rackMode = RackMode.CLAPBOARD;//货架模式
 
     @Column(nullable = false)
     private StorageType storageType;//存放类型
@@ -91,12 +91,12 @@ public class Location {
         this.warehouse = warehouse;
     }
 
-    public String getNo() {
-        return no;
+    public String getNumber() {
+        return number;
     }
 
-    public void setNo(String no) {
-        this.no = no;
+    public void setNumber(String number) {
+        this.number = number;
     }
 
     public String getFloor() {

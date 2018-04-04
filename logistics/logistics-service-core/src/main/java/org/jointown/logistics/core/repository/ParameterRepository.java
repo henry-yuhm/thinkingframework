@@ -5,5 +5,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface ParameterRepository extends JpaRepository<Parameter, Long> {
-    Parameter findByNo(String no);
+    Parameter findByNumber(String number);
 }
