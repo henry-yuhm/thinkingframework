@@ -1,7 +1,7 @@
 package org.jointown.logistics.core.entity.bill;
 
 import org.jointown.logistics.core.entity.Location;
-import org.jointown.logistics.core.entity.support.StockState;
+import org.jointown.logistics.core.entity.support.InventoryState;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -18,7 +18,7 @@ public class SupplementDetail extends Detail {
     private Location location;//货位
 
     @Column(nullable = false)
-    private StockState state;//库存状态
+    private InventoryState state;//库存状态
 
     @Column(nullable = false, precision = 12, scale = 5)
     private BigDecimal planQuantity = BigDecimal.ZERO;//计划数量
@@ -63,11 +63,11 @@ public class SupplementDetail extends Detail {
         this.location = location;
     }
 
-    public StockState getState() {
+    public InventoryState getState() {
         return state;
     }
 
-    public void setState(StockState state) {
+    public void setState(InventoryState state) {
         this.state = state;
     }
 

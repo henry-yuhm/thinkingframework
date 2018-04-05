@@ -22,6 +22,6 @@ public interface StockRepository extends JpaRepository<Stock, Stock.StockPk>, Qu
             nativeQuery = true)
     List<String> getStock(String goodsId, String lotNo);
 
-//    @Query(value = "select s from Stock s where s.lotEntity.lotNo = :ownerNo")
-//    List<Stock> findAllBy(@Param("ownerNo") String ownerNo);
+//    @Query(value = "select s from Inventory s where s.lotEntity.lotNo = :ownerNo")
+//    List<Inventory> findAllBy(@Param("ownerNo") String ownerNo);
 }

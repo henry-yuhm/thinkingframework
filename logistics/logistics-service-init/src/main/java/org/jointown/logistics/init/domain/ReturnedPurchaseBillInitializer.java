@@ -6,8 +6,8 @@ import org.jointown.logistics.core.entity.support.TakegoodsMode;
 import org.jointown.logistics.core.repository.HeaderRepository;
 
 public class ReturnedPurchaseBillInitializer extends AbstractBillInitializer {
-    public ReturnedPurchaseBillInitializer(HeaderRepository<OutboundHeader> repository, long id) {
-        super(repository, id);
+    public ReturnedPurchaseBillInitializer(HeaderRepository<OutboundHeader> repository, OutboundHeader header) {
+        super(repository, header);
     }
 
     @Override

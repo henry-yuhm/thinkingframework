@@ -1,7 +1,7 @@
 package org.jointown.logistics.core.entity.support;
 
 public enum TaskCategory {
-    MAKE_INVENTORY("1", 1),//盘点
+    INVENTORY_CHECK("1", 1),//盘点
     GREEN_CHANNEL("2", 2),//绿色通道
     RETURNED_PURCHASE("3", 3),//购进退出
     SELF_SERVICE_OUTBOUND("4", 4),//自提出库

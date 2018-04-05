@@ -15,7 +15,7 @@ public class Owner {
     private String mnemonicCode;//助记码
 
     @Column(nullable = false)
-    private String stockUpper;//库存上限
+    private String inventoryUpper;//库存上限
 
     private String serviceHotline;//服务热线
 
@@ -41,12 +41,12 @@ public class Owner {
         this.mnemonicCode = mnemonicCode;
     }
 
-    public String getStockUpper() {
-        return stockUpper;
+    public String getInventoryUpper() {
+        return inventoryUpper;
     }
 
-    public void setStockUpper(String stockUpper) {
-        this.stockUpper = stockUpper;
+    public void setInventoryUpper(String inventoryUpper) {
+        this.inventoryUpper = inventoryUpper;
     }
 
     public String getServiceHotline() {

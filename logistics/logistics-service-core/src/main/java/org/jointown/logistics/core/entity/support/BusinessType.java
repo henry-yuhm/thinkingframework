@@ -9,7 +9,7 @@ public enum BusinessType {
     DEMONSTRATION_OPERATION("6", 6),//演示作业
     LOCATION_MOVEMENT("7", 7),//移库
     PALLET_RETURN("8", 8),//回盘
-    MAKE_INVENTORY("9", 9),//盘点
+    INVENTORY_CHECK("9", 9),//盘点
     GIFT_OUTBOUND("10", 10),//赠品出库
     BATCHNUMBER_ADJUST("11", 11);//批号调整
 

@@ -1,5 +1,6 @@
 package org.jointown.logistics.core.entity.command;
 
+import org.jointown.logistics.core.entity.Goods;
 import org.jointown.logistics.core.entity.Warehouse;
 import org.jointown.logistics.core.entity.support.*;
 
@@ -16,6 +17,9 @@ public abstract class Command {
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     private Warehouse warehouse;//仓库
+
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    private Goods goods;//商品
 
     @Column(nullable = false)
     private PackageSign sign;//包装标识
@@ -43,6 +47,14 @@ public abstract class Command {
 
     public void setWarehouse(Warehouse warehouse) {
         this.warehouse = warehouse;
+    }
+
+    public Goods getGoods() {
+        return goods;
+    }
+
+    public void setGoods(Goods goods) {
+        this.goods = goods;
     }
 
     public PackageSign getSign() {

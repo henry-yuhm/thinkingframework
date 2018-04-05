@@ -1,13 +1,15 @@
 package org.jointown.logistics.core.entity.command;
 
+import org.jointown.logistics.core.entity.Batch;
 import org.jointown.logistics.core.entity.Location;
 import org.jointown.logistics.core.entity.bill.OutboundDetail;
 import org.jointown.logistics.core.entity.bill.OutboundHeader;
 import org.jointown.logistics.core.entity.support.AppendantSign;
-import org.jointown.logistics.core.entity.support.StockState;
+import org.jointown.logistics.core.entity.support.InventoryState;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
+import java.util.LinkedHashSet;
 import java.util.Set;
 
 @MappedSuperclass
@@ -19,11 +21,14 @@ public abstract class OutboundCommand extends Command {
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     private OutboundDetail detail;//单据明细
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    private Batch batch;//批号
+
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     private Location location;//货位
 
     @Column(nullable = false)
-    private StockState state;//库存状态
+    private InventoryState state;//库存状态
 
     @Column(nullable = false)
     private boolean activated = false;//是否激活
@@ -61,9 +66,9 @@ public abstract class OutboundCommand extends Command {
     @Column(nullable = false)
     private String pickingOrder = "0";//拣货顺序
 
-    public abstract Set<ReplenishmentCommand> getCommands();
-
-    public abstract void setCommands(Set<ReplenishmentCommand> commands);
+    @ManyToMany
+    @JoinTable(joinColumns = @JoinColumn(name = "command_id"), inverseJoinColumns = @JoinColumn(name = "rep_command_id"))
+    private Set<ReplenishmentCommand> commands = new LinkedHashSet<>();//补货指令
 
     public OutboundHeader getHeader() {
         return header;
@@ -81,6 +86,14 @@ public abstract class OutboundCommand extends Command {
         this.detail = detail;
     }
 
+    public Batch getBatch() {
+        return batch;
+    }
+
+    public void setBatch(Batch batch) {
+        this.batch = batch;
+    }
+
     public Location getLocation() {
         return location;
     }
@@ -89,11 +102,11 @@ public abstract class OutboundCommand extends Command {
         this.location = location;
     }
 
-    public StockState getState() {
+    public InventoryState getState() {
         return state;
     }
 
-    public void setState(StockState state) {
+    public void setState(InventoryState state) {
         this.state = state;
     }
 
@@ -191,5 +204,13 @@ public abstract class OutboundCommand extends Command {
 
     public void setPickingOrder(String pickingOrder) {
         this.pickingOrder = pickingOrder;
+    }
+
+    public Set<ReplenishmentCommand> getCommands() {
+        return commands;
+    }
+
+    public void setCommands(Set<ReplenishmentCommand> commands) {
+        this.commands = commands;
     }
 }

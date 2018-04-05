@@ -14,8 +14,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.math.RoundingMode;
-import java.sql.Time;
-import java.time.LocalTime;
+import java.sql.Date;
+import java.time.LocalDate;
 import java.util.Map;
 
 public class OutboundSaleBillInitializer extends AbstractBillInitializer {
@@ -25,8 +25,8 @@ public class OutboundSaleBillInitializer extends AbstractBillInitializer {
     @Autowired
     private AddressRepository addressRepository;
 
-    public OutboundSaleBillInitializer(HeaderRepository<OutboundHeader> repository, long id) {
-        super(repository, id);
+    public OutboundSaleBillInitializer(HeaderRepository<OutboundHeader> repository, OutboundHeader header) {
+        super(repository, header);
     }
 
     @Override
@@ -60,8 +60,8 @@ public class OutboundSaleBillInitializer extends AbstractBillInitializer {
             this.header.setPriority(OutboundPriority.CONSIGNMENT);
         } else if (this.header.getTakegoodsMode() == TakegoodsMode.INNER_CITY_DELIVERY) {
             this.header.setPriority(OutboundPriority.INNER_CITY_DELIVERY);
-        } else if (this.header.getTakegoodsMode() == TakegoodsMode.SELF_SERVICE_STOCKUP) {
-            this.header.setPriority(OutboundPriority.SELF_SERVICE_STOCKUP);
+        } else if (this.header.getTakegoodsMode() == TakegoodsMode.SELF_SERVICE_INVENTORYUP) {
+            this.header.setPriority(OutboundPriority.SELF_SERVICE_INVENTORYUP);
         } else if (this.header.getTakegoodsMode() == TakegoodsMode.OUTER_CITY_DELIVERY) {
             this.header.setPriority(OutboundPriority.OUTER_CITY_DELIVERY);
         } else if (this.header.getTakegoodsMode() == TakegoodsMode.RETAIL_CHAINS) {
@@ -92,10 +92,10 @@ public class OutboundSaleBillInitializer extends AbstractBillInitializer {
         if (this.header.getOwner().isThirdpart() && parameters.get("TPL_PRINTBILL").equals("N")) {
             this.header.setRecheckbillPrintSign("Y");
             this.header.setRecheckbillPrintClerk("admin");
-            this.header.setRecheckbillPrintTime(Time.valueOf(LocalTime.now()));
+            this.header.setRecheckbillPrintTime(Date.valueOf(LocalDate.now()));
             this.header.setReportbillPrintSign("Y");
             this.header.setReportbillPrintClerk("admin");
-            this.header.setReportbillPrintTime(Time.valueOf(LocalTime.now()));
+            this.header.setReportbillPrintTime(Date.valueOf(LocalDate.now()));
         }
         //endregion
 

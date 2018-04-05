@@ -2,7 +2,7 @@ package org.jointown.logistics.core.entity.bill;
 
 import org.jointown.logistics.core.entity.Location;
 import org.jointown.logistics.core.entity.container.Pallet;
-import org.jointown.logistics.core.entity.support.StockState;
+import org.jointown.logistics.core.entity.support.InventoryState;
 import org.jointown.logistics.core.entity.support.TransferringReason;
 
 import javax.persistence.Column;
@@ -23,10 +23,10 @@ public class TransferringDetail extends Detail {
     private Location targetLocation;//目标货位
 
     @Column(nullable = false)
-    private StockState sourceState;//源库存状态
+    private InventoryState sourceState;//源库存状态
 
     @Column(nullable = false)
-    private StockState targetState;//目标库存状态
+    private InventoryState targetState;//目标库存状态
 
     @Column(nullable = false, precision = 12, scale = 5)
     private BigDecimal quantity = BigDecimal.ZERO;//数量
@@ -70,19 +70,19 @@ public class TransferringDetail extends Detail {
         this.targetLocation = targetLocation;
     }
 
-    public StockState getSourceState() {
+    public InventoryState getSourceState() {
         return sourceState;
     }
 
-    public void setSourceState(StockState sourceState) {
+    public void setSourceState(InventoryState sourceState) {
         this.sourceState = sourceState;
     }
 
-    public StockState getTargetState() {
+    public InventoryState getTargetState() {
         return targetState;
     }
 
-    public void setTargetState(StockState targetState) {
+    public void setTargetState(InventoryState targetState) {
         this.targetState = targetState;
     }
 

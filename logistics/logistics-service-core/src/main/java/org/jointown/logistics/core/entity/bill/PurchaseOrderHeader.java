@@ -18,6 +18,8 @@ public class PurchaseOrderHeader extends Header {
     @Column(nullable = false)
     private Date invoiceTime;//开票时间
 
+    private String buyer;//采购员
+
     private String contactName;//联系人
 
     private String contactPhone;//联系电话
@@ -63,6 +65,14 @@ public class PurchaseOrderHeader extends Header {
 
     public void setInvoiceTime(Date invoiceTime) {
         this.invoiceTime = invoiceTime;
+    }
+
+    public String getBuyer() {
+        return buyer;
+    }
+
+    public void setBuyer(String buyer) {
+        this.buyer = buyer;
     }
 
     public String getContactName() {

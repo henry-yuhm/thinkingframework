@@ -1,13 +1,13 @@
 package org.jointown.logistics.core.entity;
 
 import org.jointown.logistics.core.entity.container.Pallet;
-import org.jointown.logistics.core.entity.support.StockState;
+import org.jointown.logistics.core.entity.support.InventoryState;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
 
 @Entity
-public class Stock {
+public class Inventory {
     @Id
     @GeneratedValue
     private long id;
@@ -28,7 +28,7 @@ public class Stock {
     private Location location;//货位
 
     @Column(nullable = false)
-    private StockState state;//库存状态
+    private InventoryState state;//库存状态
 
     @Column(nullable = false, precision = 12, scale = 5)
     private BigDecimal quantity = BigDecimal.ZERO;//数量
@@ -81,7 +81,7 @@ public class Stock {
     @Transient
     private BigDecimal availableReplenishmentQuantity;//可用补货数量
 
-    public Stock() {
+    public Inventory() {
     }
 
     public Warehouse getWarehouse() {
@@ -124,11 +124,11 @@ public class Stock {
         this.location = location;
     }
 
-    public StockState getState() {
+    public InventoryState getState() {
         return state;
     }
 
-    public void setState(StockState state) {
+    public void setState(InventoryState state) {
         this.state = state;
     }
 

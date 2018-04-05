@@ -30,7 +30,7 @@ public class StockController {
     }
 
 //    @GetMapping("/findAllBy")
-//    public List<Stock> findAllBy(@RequestParam("ownerNo") String ownerNo) {
+//    public List<Inventory> findAllBy(@RequestParam("ownerNo") String ownerNo) {
 //        return this.stockService.findAllBy(ownerNo);
 //    }
 

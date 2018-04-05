@@ -13,9 +13,9 @@ public abstract class AbstractBillInitializer implements BillInitializer {
 
     private HeaderRepository<OutboundHeader> repository;
 
-    public AbstractBillInitializer(HeaderRepository<OutboundHeader> repository, long id) {
+    public AbstractBillInitializer(HeaderRepository<OutboundHeader> repository, OutboundHeader header) {
         this.repository = repository;
-        this.header = repository.findOne(id);
+        this.header = header;
     }
 
     @Override

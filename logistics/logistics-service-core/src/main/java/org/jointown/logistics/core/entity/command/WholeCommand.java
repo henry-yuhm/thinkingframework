@@ -5,9 +5,9 @@ import org.jointown.logistics.core.entity.barcode.WholeBarcode;
 import org.jointown.logistics.core.entity.container.Pallet;
 import org.jointown.logistics.core.entity.task.WholeTask;
 
-import javax.persistence.*;
-import java.util.LinkedHashSet;
-import java.util.Set;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.ManyToOne;
 
 @Entity
 public class WholeCommand extends OutboundCommand {
@@ -25,10 +25,6 @@ public class WholeCommand extends OutboundCommand {
 
     @ManyToOne(fetch = FetchType.LAZY)
     private Platform platform;//站台
-
-    @ManyToMany
-    @JoinTable(joinColumns = @JoinColumn(name = "command_id"), inverseJoinColumns = @JoinColumn(name = "rep_command_id"))
-    private Set<ReplenishmentCommand> commands = new LinkedHashSet<>();//补货指令
 
     public WholeCommand() {
     }
@@ -71,15 +67,5 @@ public class WholeCommand extends OutboundCommand {
 
     public void setPlatform(Platform platform) {
         this.platform = platform;
-    }
-
-    @Override
-    public Set<ReplenishmentCommand> getCommands() {
-        return commands;
-    }
-
-    @Override
-    public void setCommands(Set<ReplenishmentCommand> commands) {
-        this.commands = commands;
     }
 }

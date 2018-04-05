@@ -43,7 +43,7 @@ public class Invoice {
 
     @Column(name = "stock_status")
     @JSONField(ordinal = 6,
-            name = "StockState")
+            name = "InventoryState")
     private String stockStatus;
 
     @Column(name = "stock_quantity")

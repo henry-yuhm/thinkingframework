@@ -1,7 +1,7 @@
 package org.jointown.logistics.core.entity.command;
 
 import org.jointown.logistics.core.entity.Location;
-import org.jointown.logistics.core.entity.support.StockState;
+import org.jointown.logistics.core.entity.support.InventoryState;
 
 import javax.persistence.*;
 
@@ -15,10 +15,10 @@ public abstract class TransitionCommand extends Command {
     private Location targetLocation;//目标货位
 
     @Column(nullable = false)
-    private StockState sourceState;//源库存状态
+    private InventoryState sourceState;//源库存状态
 
     @Column(nullable = false)
-    private StockState targetState;//目标库存状态
+    private InventoryState targetState;//目标库存状态
 
     @Column(nullable = false)
     private boolean sourceActivated = false;//源是否激活
@@ -42,19 +42,19 @@ public abstract class TransitionCommand extends Command {
         this.targetLocation = targetLocation;
     }
 
-    public StockState getSourceState() {
+    public InventoryState getSourceState() {
         return sourceState;
     }
 
-    public void setSourceState(StockState sourceState) {
+    public void setSourceState(InventoryState sourceState) {
         this.sourceState = sourceState;
     }
 
-    public StockState getTargetState() {
+    public InventoryState getTargetState() {
         return targetState;
     }
 
-    public void setTargetState(StockState targetState) {
+    public void setTargetState(InventoryState targetState) {
         this.targetState = targetState;
     }
 

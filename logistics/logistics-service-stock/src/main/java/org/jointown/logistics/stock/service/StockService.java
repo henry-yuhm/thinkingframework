@@ -34,7 +34,7 @@ public class StockService {
         return (List<Stock>) this.stockRepository.findAll(predicate);
     }
 
-//    public List<Stock> findAllBy(String ownerNo) {
+//    public List<Inventory> findAllBy(String ownerNo) {
 //        return this.stockRepository.findAllBy(ownerNo);
 //    }
 

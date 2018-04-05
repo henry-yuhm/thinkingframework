@@ -1,7 +1,7 @@
 package org.jointown.logistics.core.entity.bill;
 
 import org.jointown.logistics.core.entity.support.BatchRequest;
-import org.jointown.logistics.core.entity.support.StockState;
+import org.jointown.logistics.core.entity.support.InventoryState;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
@@ -17,7 +17,7 @@ public class OutboundDetail extends Detail {
 //    private OutboundHeader header;//抬头
 
     @Column(nullable = false)
-    private StockState state = StockState.QUALIFICATION;//库存状态
+    private InventoryState state = InventoryState.QUALIFICATION;//库存状态
 
     private BatchRequest request = BatchRequest.NONE;//批号要求
 
@@ -90,11 +90,11 @@ public class OutboundDetail extends Detail {
 //        this.header = header;
 //    }
 
-    public StockState getState() {
+    public InventoryState getState() {
         return state;
     }
 
-    public void setState(StockState state) {
+    public void setState(InventoryState state) {
         this.state = state;
     }
 

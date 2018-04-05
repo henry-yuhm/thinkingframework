@@ -45,8 +45,6 @@ public abstract class Header {
 
     private String businessman;//业务员
 
-    private String buyer;//采购员
-
     @Column(nullable = false)
     private Date creationTime = Date.valueOf(LocalDate.now());//创建时间
 
@@ -127,14 +125,6 @@ public abstract class Header {
 
     public void setBusinessman(String businessman) {
         this.businessman = businessman;
-    }
-
-    public String getBuyer() {
-        return buyer;
-    }
-
-    public void setBuyer(String buyer) {
-        this.buyer = buyer;
     }
 
     public Date getCreationTime() {

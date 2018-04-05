@@ -12,7 +12,7 @@ public enum OutboundPriority {
     PASSIVITY_REPLENISHMENT("35", 35),//被动补货
     CONSIGNMENT("40", 40),//托运
     INNER_CITY_DELIVERY("50", 50),//市内配送
-    SELF_SERVICE_STOCKUP("53", 53),//自提备货
+    SELF_SERVICE_INVENTORYUP("53", 53),//自提备货
     OUTER_CITY_DELIVERY("55", 55),//市外配送
     RETAIL_CHAINS("60", 60),//连锁
     INITIATIVE_REPLENISHMENT("65", 65),//主动补货
