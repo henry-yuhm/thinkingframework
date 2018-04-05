@@ -1,6 +1,5 @@
 package org.jointown.logistics.core.entity.bill;
 
-import org.jointown.logistics.core.entity.Customer;
 import org.jointown.logistics.core.entity.Owner;
 import org.jointown.logistics.core.entity.Warehouse;
 import org.jointown.logistics.core.entity.support.BillCategory;
@@ -24,9 +23,6 @@ public abstract class Header {
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     private Owner owner;//业主
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    private Customer customer;//客户
 
     @Column(unique = true, nullable = false, length = 100)
     private String number;//单据编号
@@ -69,14 +65,6 @@ public abstract class Header {
 
     public void setOwner(Owner owner) {
         this.owner = owner;
-    }
-
-    public Customer getCustomer() {
-        return customer;
-    }
-
-    public void setCustomer(Customer customer) {
-        this.customer = customer;
     }
 
     public String getNumber() {

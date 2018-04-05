@@ -21,7 +21,7 @@ public abstract class OutboundCommand extends Command {
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     private OutboundDetail detail;//单据明细
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
     private Batch batch;//批号
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)

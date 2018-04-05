@@ -1,6 +1,7 @@
 package org.jointown.logistics.core.entity.bill;
 
 import org.jointown.logistics.core.entity.Address;
+import org.jointown.logistics.core.entity.Customer;
 import org.jointown.logistics.core.entity.Stagingarea;
 import org.jointown.logistics.core.entity.support.*;
 
@@ -11,6 +12,9 @@ import java.util.Set;
 
 @Entity
 public class OutboundHeader extends Header {
+    @ManyToOne(fetch = FetchType.LAZY)
+    private Customer customer;//客户
+
     @Column(nullable = false)
     private OutboundStage stage = OutboundStage.CREATED;//出库阶段
 
@@ -112,6 +116,14 @@ public class OutboundHeader extends Header {
     private Set<OutboundDetail> details = new LinkedHashSet<>();//单据明细
 
     public OutboundHeader() {
+    }
+
+    public Customer getCustomer() {
+        return customer;
+    }
+
+    public void setCustomer(Customer customer) {
+        this.customer = customer;
     }
 
     public OutboundStage getStage() {

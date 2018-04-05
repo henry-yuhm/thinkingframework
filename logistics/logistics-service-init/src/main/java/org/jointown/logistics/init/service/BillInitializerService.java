@@ -19,12 +19,12 @@ public class BillInitializerService {
     public void initialize(long id) throws Exception {
         BillInitializer billInitializer;
 
-        OutboundHeader header = repository.findOne(id);
+        OutboundHeader header = this.repository.findOne(id);
 
         if (header.getSaleType() == SaleType.RETURNED_PURCHASE) {
-            billInitializer = new ReturnedPurchaseBillInitializer(repository, header);
+            billInitializer = new ReturnedPurchaseBillInitializer(this.repository, header);
         } else {
-            billInitializer = new OutboundSaleBillInitializer(repository, header);
+            billInitializer = new OutboundSaleBillInitializer(this.repository, header);
         }
 
         billInitializer.initialize();

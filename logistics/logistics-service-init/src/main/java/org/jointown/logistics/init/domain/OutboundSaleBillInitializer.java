@@ -9,6 +9,7 @@ import org.jointown.logistics.core.entity.support.SaleType;
 import org.jointown.logistics.core.entity.support.TakegoodsMode;
 import org.jointown.logistics.core.repository.AddressRepository;
 import org.jointown.logistics.core.repository.HeaderRepository;
+import org.jointown.logistics.core.service.ParameterService;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.math.BigDecimal;
@@ -16,11 +17,13 @@ import java.math.BigInteger;
 import java.math.RoundingMode;
 import java.sql.Date;
 import java.time.LocalDate;
-import java.util.Map;
 
 public class OutboundSaleBillInitializer extends AbstractBillInitializer {
     @Autowired
-    private Map<String, String> parameters;
+    private ParameterService parameterService;
+
+//    @Autowired
+//    private Map<String, String> parameters;
 
     @Autowired
     private AddressRepository addressRepository;
@@ -46,10 +49,10 @@ public class OutboundSaleBillInitializer extends AbstractBillInitializer {
                 equivalentPieces = equivalentPieces.add(detail.getFactQuantity().divide(new BigDecimal(detail.getGoods().getWholePackageQuantity()), RoundingMode.HALF_UP));
             }
 
-            if (goodsNumber <= new BigInteger(parameters.get("PGS_LSTD")).intValue() && equivalentPieces.compareTo(new BigDecimal(parameters.get("JS_LSTD"))) <= 0) {
+            if (goodsNumber <= new BigInteger(this.parameterService.getValue(this.header.getWarehouse(), "PGS_LSTD")).intValue() && equivalentPieces.compareTo(new BigDecimal(this.parameterService.getValue(this.header.getWarehouse(), "JS_LSTD"))) <= 0) {
                 this.header.setPriority(OutboundPriority.GREEN_CHANNEL);
                 this.header.setTakegoodsModeSwitch(TakegoodsMode.GREEN_CHANNEL);
-            } else if (goodsNumber > new BigInteger(parameters.get("PGS_ZTZPS")).intValue() || equivalentPieces.compareTo(new BigDecimal(parameters.get("JS_ZTZPS"))) > 0) {
+            } else if (goodsNumber > new BigInteger(this.parameterService.getValue(this.header.getWarehouse(), "PGS_ZTZPS")).intValue() || equivalentPieces.compareTo(new BigDecimal(this.parameterService.getValue(this.header.getWarehouse(), "JS_ZTZPS"))) > 0) {
                 this.header.setPriority(OutboundPriority.SELF_SERVICE_2_DELIVERY);
                 this.header.setTakegoodsModeSwitch(TakegoodsMode.SELF_SERVICE_2_DELIVERY);
             } else {
@@ -89,13 +92,25 @@ public class OutboundSaleBillInitializer extends AbstractBillInitializer {
         //endregion
 
         //region 三方业主自动打单
-        if (this.header.getOwner().isThirdpart() && parameters.get("TPL_PRINTBILL").equals("N")) {
+        if (this.header.getOwner().isThirdpart() && this.parameterService.getValue(this.header.getWarehouse(), "TPL_PRINTBILL").equals("N")) {
             this.header.setRecheckbillPrintSign("Y");
             this.header.setRecheckbillPrintClerk("admin");
             this.header.setRecheckbillPrintTime(Date.valueOf(LocalDate.now()));
             this.header.setReportbillPrintSign("Y");
             this.header.setReportbillPrintClerk("admin");
             this.header.setReportbillPrintTime(Date.valueOf(LocalDate.now()));
+        }
+        //endregion
+
+        //region 生成配送数据
+        //endregion
+
+        //region 仅作配送合流（不进行拣货）的单据直接更新作业状态为外复核确认
+        //endregion
+
+        //region 自提，绿色通道自动下发
+        if (this.parameterService.isEnable(this.header.getWarehouse(), "ZTDDSFZDXF")) {
+
         }
         //endregion
 

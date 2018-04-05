@@ -2,6 +2,7 @@ package org.jointown.logistics.core.entity.command;
 
 import org.jointown.logistics.core.entity.bill.TransferringDetail;
 import org.jointown.logistics.core.entity.bill.TransferringHeader;
+import org.jointown.logistics.core.entity.container.Pallet;
 
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -14,6 +15,9 @@ public class TransferringCommand extends TransitionCommand {
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     private TransferringDetail detail;//单据明细
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    private Pallet pallet;//托盘
 
     public TransferringCommand() {
     }
@@ -32,5 +36,13 @@ public class TransferringCommand extends TransitionCommand {
 
     public void setDetail(TransferringDetail detail) {
         this.detail = detail;
+    }
+
+    public Pallet getPallet() {
+        return pallet;
+    }
+
+    public void setPallet(Pallet pallet) {
+        this.pallet = pallet;
     }
 }

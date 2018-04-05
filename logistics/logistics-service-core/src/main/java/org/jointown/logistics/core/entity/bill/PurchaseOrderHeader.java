@@ -1,5 +1,6 @@
 package org.jointown.logistics.core.entity.bill;
 
+import org.jointown.logistics.core.entity.Customer;
 import org.jointown.logistics.core.entity.support.InboundKind;
 
 import javax.persistence.*;
@@ -9,6 +10,9 @@ import java.util.Set;
 
 @Entity
 public class PurchaseOrderHeader extends Header {
+    @ManyToOne(fetch = FetchType.LAZY)
+    private Customer customer;//客户
+
     @Column(nullable = false)
     private boolean complete = false;//是否完成
 
@@ -41,6 +45,14 @@ public class PurchaseOrderHeader extends Header {
     private Set<PurchaseOrderDetail> details = new LinkedHashSet<>();//单据明细
 
     public PurchaseOrderHeader() {
+    }
+
+    public Customer getCustomer() {
+        return customer;
+    }
+
+    public void setCustomer(Customer customer) {
+        this.customer = customer;
     }
 
     public boolean isComplete() {

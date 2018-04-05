@@ -1,40 +1,26 @@
-package org.jointown.logistics.core.entity;
+package org.jointown.logistics.core.entity.parameter;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.MappedSuperclass;
 
-@Entity
-public class Parameter {
+@MappedSuperclass
+public abstract class Parameter {
     @Id
     @GeneratedValue
     private long id;
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    private Warehouse warehouse;//仓库
-
-    @Column(nullable = false, length = 50)
+    @Column(unique = true, nullable = false, length = 50)
     private String number;//编号
 
     @Column(nullable = false)
     private String name;//名称
 
     @Column(nullable = false)
-    private String value;//值
-
-    @Column(nullable = false)
     private String sign;//标识
 
     private String remarks;//备注
-
-    public Parameter() {
-    }
-
-    public Warehouse getWarehouse() {
-        return warehouse;
-    }
-
-    public void setWarehouse(Warehouse warehouse) {
-        this.warehouse = warehouse;
-    }
 
     public String getNumber() {
         return number;
@@ -50,14 +36,6 @@ public class Parameter {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public String getValue() {
-        return value;
-    }
-
-    public void setValue(String value) {
-        this.value = value;
     }
 
     public String getSign() {
