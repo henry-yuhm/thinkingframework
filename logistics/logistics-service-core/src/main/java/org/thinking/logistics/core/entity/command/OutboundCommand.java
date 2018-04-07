@@ -1,11 +1,11 @@
 package org.thinking.logistics.core.entity.command;
 
+import org.thinking.logistics.core.domain.support.AppendantSign;
+import org.thinking.logistics.core.domain.support.InventoryState;
 import org.thinking.logistics.core.entity.Batch;
 import org.thinking.logistics.core.entity.Location;
 import org.thinking.logistics.core.entity.bill.OutboundDetail;
 import org.thinking.logistics.core.entity.bill.OutboundHeader;
-import org.thinking.logistics.core.entity.support.AppendantSign;
-import org.thinking.logistics.core.entity.support.InventoryState;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
@@ -68,7 +68,7 @@ public abstract class OutboundCommand extends Command {
 
     @ManyToMany
     @JoinTable(joinColumns = @JoinColumn(name = "command_id"), inverseJoinColumns = @JoinColumn(name = "rep_command_id"))
-    private Set<ReplenishmentCommand> commands = new LinkedHashSet<>();//补货指令
+    private Set<ReplenishingCommand> commands = new LinkedHashSet<>();//补货指令
 
     public OutboundHeader getHeader() {
         return header;
@@ -206,11 +206,11 @@ public abstract class OutboundCommand extends Command {
         this.pickingOrder = pickingOrder;
     }
 
-    public Set<ReplenishmentCommand> getCommands() {
+    public Set<ReplenishingCommand> getCommands() {
         return commands;
     }
 
-    public void setCommands(Set<ReplenishmentCommand> commands) {
+    public void setCommands(Set<ReplenishingCommand> commands) {
         this.commands = commands;
     }
 }

@@ -1,9 +1,9 @@
 package org.thinking.logistics.core.entity.bill;
 
+import org.thinking.logistics.core.domain.support.InventoryState;
+import org.thinking.logistics.core.domain.support.TransferringReason;
 import org.thinking.logistics.core.entity.Location;
 import org.thinking.logistics.core.entity.container.Pallet;
-import org.thinking.logistics.core.entity.support.InventoryState;
-import org.thinking.logistics.core.entity.support.TransferringReason;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;

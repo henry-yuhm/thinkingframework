@@ -1,8 +1,8 @@
 package org.thinking.logistics.init.domain;
 
+import org.thinking.logistics.core.domain.support.OutboundPriority;
+import org.thinking.logistics.core.domain.support.TakegoodsMode;
 import org.thinking.logistics.core.entity.bill.OutboundHeader;
-import org.thinking.logistics.core.entity.support.OutboundPriority;
-import org.thinking.logistics.core.entity.support.TakegoodsMode;
 import org.thinking.logistics.core.repository.HeaderRepository;
 
 public class ReturnedPurchaseBillInitializer extends AbstractBillInitializer {

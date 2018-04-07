@@ -1,8 +1,8 @@
 package org.thinking.logistics.core.entity;
 
-import org.thinking.logistics.core.entity.support.BatchRequest;
-import org.thinking.logistics.core.entity.support.CustomerCategory;
-import org.thinking.logistics.core.entity.support.CustomerSign;
+import org.thinking.logistics.core.domain.support.BatchRequest;
+import org.thinking.logistics.core.domain.support.CustomerCategory;
+import org.thinking.logistics.core.domain.support.CustomerSign;
 
 import javax.persistence.*;
 

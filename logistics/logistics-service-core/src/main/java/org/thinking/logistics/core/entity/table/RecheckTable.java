@@ -1,8 +1,8 @@
 package org.thinking.logistics.core.entity.table;
 
+import org.thinking.logistics.core.domain.support.BillCategory;
+import org.thinking.logistics.core.domain.support.RecheckTableType;
 import org.thinking.logistics.core.entity.Warehouse;
-import org.thinking.logistics.core.entity.support.BillCategory;
-import org.thinking.logistics.core.entity.support.RecheckTableType;
 
 import javax.persistence.*;
 import java.sql.Date;

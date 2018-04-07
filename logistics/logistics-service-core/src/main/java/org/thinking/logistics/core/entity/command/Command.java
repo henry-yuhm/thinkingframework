@@ -1,8 +1,8 @@
 package org.thinking.logistics.core.entity.command;
 
+import org.thinking.logistics.core.domain.support.*;
 import org.thinking.logistics.core.entity.Goods;
 import org.thinking.logistics.core.entity.Warehouse;
-import org.thinking.logistics.core.entity.support.*;
 
 import javax.persistence.*;
 import java.sql.Date;

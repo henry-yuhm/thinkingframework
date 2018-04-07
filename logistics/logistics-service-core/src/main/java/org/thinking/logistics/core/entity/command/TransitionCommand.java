@@ -1,7 +1,7 @@
 package org.thinking.logistics.core.entity.command;
 
+import org.thinking.logistics.core.domain.support.InventoryState;
 import org.thinking.logistics.core.entity.Location;
-import org.thinking.logistics.core.entity.support.InventoryState;
 
 import javax.persistence.*;
 

@@ -1,8 +1,8 @@
 package org.thinking.logistics.core.entity.barcode;
 
+import org.thinking.logistics.core.domain.support.BarcodeType;
+import org.thinking.logistics.core.domain.support.TransferlineSign;
 import org.thinking.logistics.core.entity.Warehouse;
-import org.thinking.logistics.core.entity.support.BarcodeType;
-import org.thinking.logistics.core.entity.support.TransferlineSign;
 
 import javax.persistence.*;
 

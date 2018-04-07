@@ -1,9 +1,9 @@
 package org.thinking.logistics.core.entity;
 
-import org.thinking.logistics.core.entity.support.BusinessType;
-import org.thinking.logistics.core.entity.support.StagingareaCategory;
-import org.thinking.logistics.core.entity.support.StagingareaType;
-import org.thinking.logistics.core.entity.support.TakegoodsMode;
+import org.thinking.logistics.core.domain.support.BusinessType;
+import org.thinking.logistics.core.domain.support.StagingareaCategory;
+import org.thinking.logistics.core.domain.support.StagingareaType;
+import org.thinking.logistics.core.domain.support.TakegoodsMode;
 
 import javax.persistence.*;
 import java.util.LinkedHashSet;

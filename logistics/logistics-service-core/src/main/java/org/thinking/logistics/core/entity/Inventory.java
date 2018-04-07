@@ -1,7 +1,7 @@
 package org.thinking.logistics.core.entity;
 
+import org.thinking.logistics.core.domain.support.InventoryState;
 import org.thinking.logistics.core.entity.container.Pallet;
-import org.thinking.logistics.core.entity.support.InventoryState;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
@@ -79,7 +79,7 @@ public class Inventory {
     private BigDecimal availableObtainQuantity;//可用索取数量
 
     @Transient
-    private BigDecimal availableReplenishmentQuantity;//可用补货数量
+    private BigDecimal availableReplenishingQuantity;//可用补货数量
 
     public Inventory() {
     }
@@ -260,11 +260,11 @@ public class Inventory {
         this.availableObtainQuantity = availableObtainQuantity;
     }
 
-    public BigDecimal getAvailableReplenishmentQuantity() {
-        return availableReplenishmentQuantity;
+    public BigDecimal getAvailableReplenishingQuantity() {
+        return availableReplenishingQuantity;
     }
 
-    public void setAvailableReplenishmentQuantity(BigDecimal availableReplenishmentQuantity) {
-        this.availableReplenishmentQuantity = availableReplenishmentQuantity;
+    public void setAvailableReplenishingQuantity(BigDecimal availableReplenishingQuantity) {
+        this.availableReplenishingQuantity = availableReplenishingQuantity;
     }
 }

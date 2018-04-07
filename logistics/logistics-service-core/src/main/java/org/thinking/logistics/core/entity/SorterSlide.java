@@ -1,7 +1,7 @@
 package org.thinking.logistics.core.entity;
 
-import org.thinking.logistics.core.entity.support.BillCategory;
-import org.thinking.logistics.core.entity.support.TaskCategory;
+import org.thinking.logistics.core.domain.support.BillCategory;
+import org.thinking.logistics.core.domain.support.TaskCategory;
 
 import javax.persistence.*;
 import java.util.LinkedHashSet;

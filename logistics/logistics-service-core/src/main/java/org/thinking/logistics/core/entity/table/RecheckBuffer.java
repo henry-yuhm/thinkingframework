@@ -1,7 +1,7 @@
 package org.thinking.logistics.core.entity.table;
 
+import org.thinking.logistics.core.domain.support.RecheckBufferType;
 import org.thinking.logistics.core.entity.Warehouse;
-import org.thinking.logistics.core.entity.support.RecheckBufferType;
 
 import javax.persistence.*;
 

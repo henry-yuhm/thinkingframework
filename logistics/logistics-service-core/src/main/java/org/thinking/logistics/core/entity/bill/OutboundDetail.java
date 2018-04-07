@@ -1,7 +1,7 @@
 package org.thinking.logistics.core.entity.bill;
 
-import org.thinking.logistics.core.entity.support.BatchRequest;
-import org.thinking.logistics.core.entity.support.InventoryState;
+import org.thinking.logistics.core.domain.support.BatchRequest;
+import org.thinking.logistics.core.domain.support.InventoryState;
 
 import javax.persistence.*;
 import java.math.BigDecimal;

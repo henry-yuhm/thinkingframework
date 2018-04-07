@@ -1,10 +1,10 @@
 package org.thinking.logistics.core.entity.bill;
 
+import org.thinking.logistics.core.domain.support.BillCategory;
+import org.thinking.logistics.core.domain.support.BillSign;
+import org.thinking.logistics.core.domain.support.BillType;
 import org.thinking.logistics.core.entity.Owner;
 import org.thinking.logistics.core.entity.Warehouse;
-import org.thinking.logistics.core.entity.support.BillCategory;
-import org.thinking.logistics.core.entity.support.BillSign;
-import org.thinking.logistics.core.entity.support.BillType;
 
 import javax.persistence.*;
 import java.sql.Date;

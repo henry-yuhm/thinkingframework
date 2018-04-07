@@ -1,7 +1,7 @@
 package org.thinking.logistics.core.entity.barcode;
 
+import org.thinking.logistics.core.domain.support.GroupageMode;
 import org.thinking.logistics.core.entity.command.RemainderCommand;
-import org.thinking.logistics.core.entity.support.GroupageMode;
 
 import javax.persistence.*;
 import java.util.LinkedHashSet;

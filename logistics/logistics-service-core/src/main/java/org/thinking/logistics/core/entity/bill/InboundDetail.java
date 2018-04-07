@@ -1,10 +1,10 @@
 package org.thinking.logistics.core.entity.bill;
 
+import org.thinking.logistics.core.domain.support.Assessment;
+import org.thinking.logistics.core.domain.support.Conveyance;
+import org.thinking.logistics.core.domain.support.ReceiptConclusion;
 import org.thinking.logistics.core.entity.container.Pallet;
 import org.thinking.logistics.core.entity.container.Totebox;
-import org.thinking.logistics.core.entity.support.Assessment;
-import org.thinking.logistics.core.entity.support.Conveyance;
-import org.thinking.logistics.core.entity.support.ReceiptConclusion;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;

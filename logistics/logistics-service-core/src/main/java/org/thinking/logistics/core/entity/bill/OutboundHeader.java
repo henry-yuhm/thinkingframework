@@ -1,9 +1,9 @@
 package org.thinking.logistics.core.entity.bill;
 
+import org.thinking.logistics.core.domain.support.*;
 import org.thinking.logistics.core.entity.Address;
 import org.thinking.logistics.core.entity.Customer;
 import org.thinking.logistics.core.entity.Stagingarea;
-import org.thinking.logistics.core.entity.support.*;
 
 import javax.persistence.*;
 import java.math.BigDecimal;

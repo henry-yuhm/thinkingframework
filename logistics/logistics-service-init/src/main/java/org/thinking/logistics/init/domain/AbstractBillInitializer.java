@@ -1,9 +1,9 @@
 package org.thinking.logistics.init.domain;
 
 import org.thinking.logistics.core.domain.ErrorMessage;
+import org.thinking.logistics.core.domain.support.OutboundStage;
 import org.thinking.logistics.core.entity.bill.OutboundDetail;
 import org.thinking.logistics.core.entity.bill.OutboundHeader;
-import org.thinking.logistics.core.entity.support.OutboundStage;
 import org.thinking.logistics.core.repository.HeaderRepository;
 
 import java.math.BigDecimal;

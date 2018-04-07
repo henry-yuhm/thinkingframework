@@ -1,9 +1,9 @@
 package org.thinking.logistics.core.entity;
 
+import org.thinking.logistics.core.domain.support.SaleClassification;
+import org.thinking.logistics.core.domain.support.SplitGranularity;
+import org.thinking.logistics.core.domain.support.StorageSign;
 import org.thinking.logistics.core.entity.dictionary.GoodsCategory;
-import org.thinking.logistics.core.entity.support.SaleClassification;
-import org.thinking.logistics.core.entity.support.SplitGranularity;
-import org.thinking.logistics.core.entity.support.StorageSign;
 
 import javax.persistence.*;
 import java.math.BigDecimal;

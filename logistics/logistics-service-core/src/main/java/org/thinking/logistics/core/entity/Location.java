@@ -1,6 +1,6 @@
 package org.thinking.logistics.core.entity;
 
-import org.thinking.logistics.core.entity.support.*;
+import org.thinking.logistics.core.domain.support.*;
 
 import javax.persistence.*;
 import java.math.BigDecimal;

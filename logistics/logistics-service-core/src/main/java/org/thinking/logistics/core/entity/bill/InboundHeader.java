@@ -1,8 +1,8 @@
 package org.thinking.logistics.core.entity.bill;
 
-import org.thinking.logistics.core.entity.support.ArrivalMode;
-import org.thinking.logistics.core.entity.support.ArrivalVoucher;
-import org.thinking.logistics.core.entity.support.InboundStage;
+import org.thinking.logistics.core.domain.support.ArrivalMode;
+import org.thinking.logistics.core.domain.support.ArrivalVoucher;
+import org.thinking.logistics.core.domain.support.InboundStage;
 
 import javax.persistence.*;
 import java.sql.Date;

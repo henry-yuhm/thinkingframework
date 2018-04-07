@@ -1,9 +1,9 @@
 package org.thinking.logistics.core.entity;
 
-import org.thinking.logistics.core.entity.support.PackageSign;
-import org.thinking.logistics.core.entity.support.PickingDevice;
-import org.thinking.logistics.core.entity.support.RecheckMode;
-import org.thinking.logistics.core.entity.support.UpshelfMode;
+import org.thinking.logistics.core.domain.support.PackageSign;
+import org.thinking.logistics.core.domain.support.PickingDevice;
+import org.thinking.logistics.core.domain.support.RecheckMode;
+import org.thinking.logistics.core.domain.support.UpshelfMode;
 
 import javax.persistence.*;
 

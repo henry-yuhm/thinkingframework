@@ -2,12 +2,12 @@ package org.thinking.logistics.init.domain;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.thinking.logistics.core.domain.ErrorMessage;
+import org.thinking.logistics.core.domain.support.DispatchType;
+import org.thinking.logistics.core.domain.support.OutboundPriority;
+import org.thinking.logistics.core.domain.support.SaleType;
+import org.thinking.logistics.core.domain.support.TakegoodsMode;
 import org.thinking.logistics.core.entity.Address;
 import org.thinking.logistics.core.entity.bill.OutboundHeader;
-import org.thinking.logistics.core.entity.support.DispatchType;
-import org.thinking.logistics.core.entity.support.OutboundPriority;
-import org.thinking.logistics.core.entity.support.SaleType;
-import org.thinking.logistics.core.entity.support.TakegoodsMode;
 import org.thinking.logistics.core.repository.AddressRepository;
 import org.thinking.logistics.core.repository.HeaderRepository;
 import org.thinking.logistics.core.service.ParameterService;

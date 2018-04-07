@@ -1,7 +1,7 @@
 package org.thinking.logistics.core.entity.bill;
 
+import org.thinking.logistics.core.domain.support.InboundKind;
 import org.thinking.logistics.core.entity.Customer;
-import org.thinking.logistics.core.entity.support.InboundKind;
 
 import javax.persistence.*;
 import java.sql.Date;
