@@ -14,7 +14,7 @@
         <java.version>1.8</java.version>
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
-        <spring.boot.dependencies.version>1.5.10.RELEASE</spring.boot.dependencies.version>
+        <spring.boot.dependencies.version>1.5.11.RELEASE</spring.boot.dependencies.version>
         <spring.cloud.dependencies.version>Edgware.SR3</spring.cloud.dependencies.version>
         <spring.platform.version>Brussels-SR7</spring.platform.version>
         <spring.statemachine.version>2.0.0.RELEASE</spring.statemachine.version>
@@ -190,37 +190,37 @@
 
             <!--logistics-->
             <!--<dependency>-->
-            <!--<groupId>org.jointown.logistics</groupId>-->
+            <!--<groupId>org.thinking.logistics</groupId>-->
             <!--<artifactId>logistics-service-parent</artifactId>-->
             <!--<version>${logistics.dependencies.version}</version>-->
             <!--</dependency>-->
             <dependency>
-                <groupId>org.jointown.logistics</groupId>
+                <groupId>org.thinking.logistics</groupId>
                 <artifactId>logistics-service-core</artifactId>
                 <version>${logistics.dependencies.version}</version>
             </dependency>
             <!--<dependency>-->
-            <!--<groupId>org.jointown.logistics</groupId>-->
+            <!--<groupId>org.thinking.logistics</groupId>-->
             <!--<artifactId>logistics-service-resource</artifactId>-->
             <!--<version>${logistics.dependencies.version}</version>-->
             <!--</dependency>-->
             <!--<dependency>-->
-            <!--<groupId>org.jointown.logistics</groupId>-->
+            <!--<groupId>org.thinking.logistics</groupId>-->
             <!--<artifactId>logistics-service-stock</artifactId>-->
             <!--<version>${logistics.dependencies.version}</version>-->
             <!--</dependency>-->
             <!--<dependency>-->
-            <!--<groupId>org.jointown.logistics</groupId>-->
+            <!--<groupId>org.thinking.logistics</groupId>-->
             <!--<artifactId>logistics-service-transport</artifactId>-->
             <!--<version>${logistics.dependencies.version}</version>-->
             <!--</dependency>-->
             <!--<dependency>-->
-            <!--<groupId>org.jointown.logistics</groupId>-->
+            <!--<groupId>org.thinking.logistics</groupId>-->
             <!--<artifactId>logistics-service-upgrade</artifactId>-->
             <!--<version>${logistics.dependencies.version}</version>-->
             <!--</dependency>-->
             <!--<dependency>-->
-            <!--<groupId>org.jointown.logistics</groupId>-->
+            <!--<groupId>org.thinking.logistics</groupId>-->
             <!--<artifactId>logistics-service-workflow</artifactId>-->
             <!--<version>${logistics.dependencies.version}</version>-->
             <!--</dependency>-->
@@ -272,10 +272,6 @@
     </build>
 
     <repositories>
-        <repository>
-            <id>henry</id>
-            <url>file:/Users/henry/.m2/repository</url>
-        </repository>
         <repository>
             <id>spring-milestones</id>
             <name>Spring Milestones</name>

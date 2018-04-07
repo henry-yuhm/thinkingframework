@@ -46,7 +46,7 @@ spring:
       stat-view-servlet:
         login-username: druid
         login-password: druid
-      aop-patterns: org.jointown.logistics.init.*
+      aop-patterns: org.thinking.logistics.init.*
 #      use-oracle-implicit-cache: true
       access-to-underlying-connection-allowed: true
       connection-properties: druid.stat.mergeSql=true;druid.stat.slowSqlMillis=5000
@@ -86,7 +86,7 @@ ribbon:
     enabled: true
 #logging:
 #  level:
-#    org.jointown.logistics.init.*: DEBUG
+#    org.thinking.logistics.init.*: DEBUG
 ---
 spring:
   profiles: dev

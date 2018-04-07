@@ -8,7 +8,7 @@
         <version>2.0.0</version>
     </parent>
 
-    <groupId>org.jointown.logistics</groupId>
+    <groupId>org.thinking.logistics</groupId>
     <artifactId>logistics-service-parent</artifactId>
     <packaging>pom</packaging>
 
@@ -17,6 +17,7 @@
         <module>../logistics-service-core</module>
         <module>../logistics-service-init</module>
         <module>../logistics-service-resource</module>
+        <module>../logistics-service-servo</module>
         <module>../logistics-service-stock</module>
         <module>../logistics-service-transport</module>
         <module>../logistics-service-upgrade</module>
