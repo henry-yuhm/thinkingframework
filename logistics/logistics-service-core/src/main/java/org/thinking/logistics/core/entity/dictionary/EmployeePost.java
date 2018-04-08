@@ -5,7 +5,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(schema = "wms")
-public class GoodsCategory extends Dictionary {
-    public GoodsCategory() {
+public class EmployeePost extends Dictionary {
+    public EmployeePost() {
     }
 }

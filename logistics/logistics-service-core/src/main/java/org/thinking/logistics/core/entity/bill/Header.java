@@ -3,6 +3,7 @@ package org.thinking.logistics.core.entity.bill;
 import org.thinking.logistics.core.domain.support.BillCategory;
 import org.thinking.logistics.core.domain.support.BillSign;
 import org.thinking.logistics.core.domain.support.BillType;
+import org.thinking.logistics.core.entity.Employee;
 import org.thinking.logistics.core.entity.Owner;
 import org.thinking.logistics.core.entity.Warehouse;
 
@@ -36,10 +37,11 @@ public abstract class Header {
     @Column(nullable = false)
     private BillSign sign;//单据标识
 
-    @Column(nullable = false)
-    private String operator;//操作员
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    private Employee operator;//操作员
 
-    private String businessman;//业务员
+    @ManyToOne(fetch = FetchType.LAZY)
+    private Employee businessman;//业务员
 
     @Column(nullable = false)
     private Date creationTime = Date.valueOf(LocalDate.now());//创建时间
@@ -99,19 +101,19 @@ public abstract class Header {
         this.sign = sign;
     }
 
-    public String getOperator() {
+    public Employee getOperator() {
         return operator;
     }
 
-    public void setOperator(String operator) {
+    public void setOperator(Employee operator) {
         this.operator = operator;
     }
 
-    public String getBusinessman() {
+    public Employee getBusinessman() {
         return businessman;
     }
 
-    public void setBusinessman(String businessman) {
+    public void setBusinessman(Employee businessman) {
         this.businessman = businessman;
     }
 

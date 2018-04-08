@@ -1,7 +1,7 @@
 package org.thinking.logistics.core.entity;
 
+import org.thinking.logistics.core.domain.support.OperationDevice;
 import org.thinking.logistics.core.domain.support.PackageSign;
-import org.thinking.logistics.core.domain.support.PickingDevice;
 import org.thinking.logistics.core.domain.support.RecheckMode;
 import org.thinking.logistics.core.domain.support.UpshelfMode;
 
@@ -34,7 +34,7 @@ public class Area {
     private String region;//大区
 
     @Column(nullable = false)
-    private PickingDevice pickingDevice;//拣货设备
+    private OperationDevice operationDevice;//拣货设备
 
     private UpshelfMode upshelfMode;//上架方式
 
@@ -109,12 +109,12 @@ public class Area {
         this.region = region;
     }
 
-    public PickingDevice getPickingDevice() {
-        return pickingDevice;
+    public OperationDevice getOperationDevice() {
+        return operationDevice;
     }
 
-    public void setPickingDevice(PickingDevice pickingDevice) {
-        this.pickingDevice = pickingDevice;
+    public void setOperationDevice(OperationDevice operationDevice) {
+        this.operationDevice = operationDevice;
     }
 
     public UpshelfMode getUpshelfMode() {

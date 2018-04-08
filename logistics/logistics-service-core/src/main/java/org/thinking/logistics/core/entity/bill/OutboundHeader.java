@@ -3,6 +3,7 @@ package org.thinking.logistics.core.entity.bill;
 import org.thinking.logistics.core.domain.support.*;
 import org.thinking.logistics.core.entity.Address;
 import org.thinking.logistics.core.entity.Customer;
+import org.thinking.logistics.core.entity.Employee;
 import org.thinking.logistics.core.entity.Stagingarea;
 
 import javax.persistence.*;
@@ -36,7 +37,8 @@ public class OutboundHeader extends Header {
     @Column(nullable = false)
     private Date invoiceTime;//开票时间
 
-    private String buyer;//采购员
+    @ManyToOne(fetch = FetchType.LAZY)
+    private Employee buyer;//采购员
 
     private String settlementType = "无";//结算类型
 
@@ -54,7 +56,8 @@ public class OutboundHeader extends Header {
     @Column(nullable = false)
     private DispatchType dispatchType = DispatchType.AUTOMATIC;//调度类型
 
-    private String dispatcher;//调度员
+    @ManyToOne(fetch = FetchType.LAZY)
+    private Employee dispatcher;//调度员
 
     private Date dispatchTime;//调度时间
 
@@ -83,7 +86,8 @@ public class OutboundHeader extends Header {
 
     private Date taskCompleteTime;//作业完成时间
 
-    private String rechecker;//复核员
+    @ManyToOne(fetch = FetchType.LAZY)
+    private Employee rechecker;//复核员
 
     private Date recheckStartTime;//复核开始时间
 
@@ -92,14 +96,16 @@ public class OutboundHeader extends Header {
     @Column(nullable = false)
     private String recheckbillPrintSign = "N";//复核单打印标识
 
-    private String recheckbillPrintClerk;//复核单打印员
+    @ManyToOne(fetch = FetchType.LAZY)
+    private Employee recheckbillPrintClerk;//复核单打印员
 
     private Date recheckbillPrintTime;//复核单打印时间
 
     @Column(nullable = false)
     private String reportbillPrintSign = "N";//报告单打印标识
 
-    private String reportbillPrintClerk;//报告单打印员
+    @ManyToOne(fetch = FetchType.LAZY)
+    private Employee reportbillPrintClerk;//报告单打印员
 
     private Date reportbillPrintTime;//报告单打印时间
 
@@ -186,11 +192,11 @@ public class OutboundHeader extends Header {
         this.invoiceTime = invoiceTime;
     }
 
-    public String getBuyer() {
+    public Employee getBuyer() {
         return buyer;
     }
 
-    public void setBuyer(String buyer) {
+    public void setBuyer(Employee buyer) {
         this.buyer = buyer;
     }
 
@@ -250,11 +256,11 @@ public class OutboundHeader extends Header {
         this.dispatchType = dispatchType;
     }
 
-    public String getDispatcher() {
+    public Employee getDispatcher() {
         return dispatcher;
     }
 
-    public void setDispatcher(String dispatcher) {
+    public void setDispatcher(Employee dispatcher) {
         this.dispatcher = dispatcher;
     }
 
@@ -338,11 +344,11 @@ public class OutboundHeader extends Header {
         this.taskCompleteTime = taskCompleteTime;
     }
 
-    public String getRechecker() {
+    public Employee getRechecker() {
         return rechecker;
     }
 
-    public void setRechecker(String rechecker) {
+    public void setRechecker(Employee rechecker) {
         this.rechecker = rechecker;
     }
 
@@ -370,11 +376,11 @@ public class OutboundHeader extends Header {
         this.recheckbillPrintSign = recheckbillPrintSign;
     }
 
-    public String getRecheckbillPrintClerk() {
+    public Employee getRecheckbillPrintClerk() {
         return recheckbillPrintClerk;
     }
 
-    public void setRecheckbillPrintClerk(String recheckbillPrintClerk) {
+    public void setRecheckbillPrintClerk(Employee recheckbillPrintClerk) {
         this.recheckbillPrintClerk = recheckbillPrintClerk;
     }
 
@@ -394,11 +400,11 @@ public class OutboundHeader extends Header {
         this.reportbillPrintSign = reportbillPrintSign;
     }
 
-    public String getReportbillPrintClerk() {
+    public Employee getReportbillPrintClerk() {
         return reportbillPrintClerk;
     }
 
-    public void setReportbillPrintClerk(String reportbillPrintClerk) {
+    public void setReportbillPrintClerk(Employee reportbillPrintClerk) {
         this.reportbillPrintClerk = reportbillPrintClerk;
     }
 

@@ -9,7 +9,7 @@ public enum OutboundStage {
     SUSPENDED("F2", 32),
     RESEND("F3", 33),
     BATCH_ALLOCATED("F4", 34),
-    PACKED("F5", 35),
+    BUNDLED("F5", 35),
     SPLIT("F6", 36),
     TASK_READY("J1", 41),
     WORKING("J2", 42),

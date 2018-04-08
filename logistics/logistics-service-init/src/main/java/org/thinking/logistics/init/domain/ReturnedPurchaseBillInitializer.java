@@ -2,12 +2,12 @@ package org.thinking.logistics.init.domain;
 
 import org.thinking.logistics.core.domain.support.OutboundPriority;
 import org.thinking.logistics.core.domain.support.TakegoodsMode;
+import org.thinking.logistics.core.entity.Employee;
 import org.thinking.logistics.core.entity.bill.OutboundHeader;
-import org.thinking.logistics.core.repository.HeaderRepository;
 
 public class ReturnedPurchaseBillInitializer extends AbstractBillInitializer {
-    public ReturnedPurchaseBillInitializer(HeaderRepository<OutboundHeader> repository, OutboundHeader header) {
-        super(repository, header);
+    public ReturnedPurchaseBillInitializer(Employee operator, OutboundHeader header) {
+        super(operator, header);
     }
 
     @Override

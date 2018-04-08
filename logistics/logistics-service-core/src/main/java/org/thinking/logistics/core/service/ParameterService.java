@@ -37,20 +37,6 @@ public class ParameterService {
     public String getValue(Warehouse warehouse, String number) {
         Parameter parameter = this.acquireParameter(number);
 
-        if (warehouse == null) {
-            return parameter.getValue();
-        }
-
-        Optional<Parameter.Range> range = parameter.getRanges().stream().filter(r -> r.getWarehouse().equalsIgnoreCase(warehouse.getName())).findFirst();
-
-        return range == null ? parameter.getValue() : range.get().getValue();
-    }
-
-    public boolean isEnable(String number) {
-        return this.isEnable(null, number);
-    }
-
-    public boolean isEnable(Warehouse warehouse, String number) {
-        return Boolean.parseBoolean(this.getValue(warehouse, number));
+        return warehouse == null ? parameter.getValue() : (Optional.of(parameter.getRanges().stream().filter(r -> r.getWarehouse().equalsIgnoreCase(warehouse.getName())).findFirst().get().getValue()).orElse(parameter.getValue()));
     }
 }
