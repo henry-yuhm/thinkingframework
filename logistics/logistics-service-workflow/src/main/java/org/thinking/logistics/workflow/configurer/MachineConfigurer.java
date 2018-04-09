@@ -48,7 +48,7 @@ import java.util.Map;
 @EnableStateMachineFactory
 public class MachineConfigurer extends StateMachineConfigurerAdapter<String, String> {
     @Autowired
-    private WorkflowRepository workflowRepository;
+    private RestTemplate restTemplate;
 
     @Autowired
     private StateRepository stateRepository;
@@ -67,9 +67,6 @@ public class MachineConfigurer extends StateMachineConfigurerAdapter<String, Str
 
     @Autowired
     private MonitorRepository monitorRepository;
-
-    @Autowired
-    private RestTemplate restTemplate;
 
     @Override
     public void configure(StateMachineModelConfigurer<String, String> model) throws Exception {
@@ -108,29 +105,44 @@ public class MachineConfigurer extends StateMachineConfigurerAdapter<String, Str
         return guards;
     }
 
+//    @Bean
+//    public StateMachineComponentResolver<String, String> stateMachineComponentResolver() {
+//        Map<String, Action<String, String>> registeredActions = new HashMap<>();
+//        Map<String, Guard<String, String>> registeredGuards = new HashMap<>();
+//
+//        this.actions().values().forEach(action -> {
+//            if (!action.getName().isEmpty()) {
+//                registeredActions.put(action.getName(), Actions.errorCallingAction(this.restAction(action.getSpel()), this.errorAction()));
+//            }
+//        });
+//
+//        this.guards().values().forEach(guard -> {
+//            if (!guard.getName().isEmpty()) {
+//                registeredGuards.put(guard.getName(), new SpelExpressionGuard<>(new SpelExpressionParser().parseExpression(guard.getSpel())));
+//            }
+//        });
+//
+//        return new DefaultStateMachineComponentResolver<>(registeredActions, registeredGuards);
+//    }
+
     @Bean
-    public StateMachineComponentResolver<String, String> stateMachineComponentResolver() {
-        DefaultStateMachineComponentResolver<String, String> resolver = new DefaultStateMachineComponentResolver<>();
+    public StateMachineModelFactory<String, String> stateMachineModelFactory() {
+        RepositoryStateMachineModelFactory factory = new RepositoryStateMachineModelFactory(this.stateRepository, this.transitionRepository);
+
+        //        factory.setStateMachineComponentResolver(this.stateMachineComponentResolver());
 
         this.actions().values().forEach(action -> {
             if (!action.getName().isEmpty()) {
-                resolver.registerAction(action.getName(), Actions.errorCallingAction(this.restAction(action.getSpel()), this.errorAction()));
+                factory.registerAction(action.getName(), Actions.errorCallingAction(this.restAction(action.getSpel()), this.errorAction()));
             }
         });
 
         this.guards().values().forEach(guard -> {
             if (!guard.getName().isEmpty()) {
-                resolver.registerGuard(guard.getName(), new SpelExpressionGuard<>(new SpelExpressionParser().parseExpression(guard.getSpel())));
+                factory.registerGuard(guard.getName(), new SpelExpressionGuard<>(new SpelExpressionParser().parseExpression(guard.getSpel())));
             }
         });
 
-        return resolver;
-    }
-
-    @Bean
-    public StateMachineModelFactory<String, String> stateMachineModelFactory() {
-        RepositoryStateMachineModelFactory factory = new RepositoryStateMachineModelFactory(this.stateRepository, this.transitionRepository);
-        factory.setStateMachineComponentResolver(this.stateMachineComponentResolver());
         return factory;
     }
 
@@ -223,18 +235,6 @@ public class MachineConfigurer extends StateMachineConfigurerAdapter<String, Str
 
     @Bean
     public StateMachineService<String, String> stateMachineService() {
-        StateMachineService<String, String> stateMachineService = new DefaultStateMachineService<>(this.stateMachineFactory(), this.stateMachineRuntimePersister());
-
-        ((AbstractStateMachineModelFactory) this.stateMachineModelFactory()).setBeanFactory(null);
-
-        this.workflowRepository.findAll().forEach(workflow -> {
-            StateMachine<String, String> stateMachine = stateMachineService.acquireStateMachine(workflow.getId(), false);
-            stateMachine.addStateListener(this.stateMachineListener());
-            stateMachine.getStates().forEach(state -> state.addActionListener(this.actionListener()));
-            stateMachine.getTransitions().forEach(transition -> transition.addActionListener(this.actionListener()));
-            stateMachine.getStateMachineAccessor().withAllRegions().forEach(stateMachineAccess -> stateMachineAccess.addStateMachineInterceptor(this.stateMachineInterceptor()));
-        });
-
-        return stateMachineService;
+        return new DefaultStateMachineService<>(this.stateMachineFactory(), this.stateMachineRuntimePersister());
     }
 }

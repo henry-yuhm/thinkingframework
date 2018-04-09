@@ -4,9 +4,12 @@ import com.alibaba.fastjson.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.statemachine.StateMachine;
 import org.springframework.statemachine.StateMachineException;
+import org.springframework.statemachine.action.ActionListener;
+import org.springframework.statemachine.listener.StateMachineListener;
 import org.springframework.statemachine.persist.StateMachinePersister;
 import org.springframework.statemachine.service.StateMachineService;
 import org.springframework.statemachine.support.AbstractStateMachine;
+import org.springframework.statemachine.support.StateMachineInterceptor;
 import org.springframework.stereotype.Service;
 
 import java.util.LinkedHashMap;
@@ -14,10 +17,28 @@ import java.util.LinkedHashMap;
 @Service
 public class MachineService {
     @Autowired
-    private StateMachinePersister<String, String, String> stateMachinePersister;
+    private StateMachineService<String, String> stateMachineService;
 
     @Autowired
-    private StateMachineService<String, String> stateMachineService;
+    private StateMachineInterceptor<String, String> stateMachineInterceptor;
+
+    @Autowired
+    private StateMachineListener<String, String> stateMachineListener;
+
+    @Autowired
+    private ActionListener<String, String> actionListener;
+
+    @Autowired
+    private StateMachinePersister<String, String, String> stateMachinePersister;
+
+    public void register(String machineId) {
+        this.stateMachineService.releaseStateMachine(machineId, true);
+        StateMachine<String, String> stateMachine = this.stateMachineService.acquireStateMachine(machineId, false);
+        stateMachine.addStateListener(this.stateMachineListener);
+        stateMachine.getStates().forEach(state -> state.addActionListener(this.actionListener));
+        stateMachine.getTransitions().forEach(transition -> transition.addActionListener(this.actionListener));
+        stateMachine.getStateMachineAccessor().withAllRegions().forEach(stateMachineAccess -> stateMachineAccess.addStateMachineInterceptor(this.stateMachineInterceptor));
+    }
 
     public void start(String machineId, String instanceId, String parameters) throws Exception {
         StateMachine<String, String> stateMachine = this.stateMachineService.acquireStateMachine(machineId, false);

@@ -1,66 +1,75 @@
-[
-  {
-    "machineId": "billOutbound",
-    "state": "START",
-    "region": "R0",
-    "initial": 1,
-    "kind": 0,
-    "submachineId": null,
-    "initialAction": null,
-    "parentState": null,
-    "stateActions": null,
-    "entryActions": null,
-    "exitActions": null,
-    "deferredEvents": null
-  },
-  {
-    "machineId": "billOutbound",
-    "state": "ORDER_CREATED",
-    "region": "R0",
-    "initial": 0,
-    "kind": null,
-    "submachineId": null,
-    "initialAction": null,
-    "parentState": null,
-    "stateActions": [
-      {
-        "name": "updateOperationStates"
+{
+  "id": "test",
+  "name": "test",
+  "kind": "test",
+  "nodes": [
+    {
+      "id": "1",
+      "label": "1",
+      "style": {
+        "left": "76px",
+        "top": "154px",
+        "width": "80px",
+        "height": "80px"
+      },
+      "isSelected": true,
+      "shape": "circle",
+      "state": {
+        "deferredEvents": [],
+        "deferredEventsArray": [],
+        "entryActions": [],
+        "exitActions": [],
+        "initial": true,
+        "initialAction": [],
+        "kind": "INITIAL",
+        "machineId": "test",
+        "parentState": null,
+        "region": "R1",
+        "state": "R1",
+        "stateActions": [],
+        "submachineId": ""
       }
-    ],
-    "entryActions": null,
-    "exitActions": null,
-    "deferredEvents": null
-  },
-  {
-    "machineId": "billOutbound",
-    "state": "OPERATION_COMPLETED",
-    "region": "R0",
-    "initial": 0,
-    "kind": null,
-    "submachineId": null,
-    "initialAction": null,
-    "parentState": null,
-    "stateActions": [
-      {
-        "name": "updateOperationStates"
+    },
+    {
+      "id": "2",
+      "label": "2",
+      "style": {
+        "left": "407px",
+        "top": "154px",
+        "width": "80px",
+        "height": "80px"
+      },
+      "isSelected": false,
+      "shape": "circle",
+      "state": {
+        "deferredEvents": [],
+        "deferredEventsArray": [],
+        "entryActions": [],
+        "exitActions": [],
+        "initial": false,
+        "initialAction": [],
+        "kind": "END",
+        "machineId": "test",
+        "parentState": null,
+        "region": "R1",
+        "state": "R2",
+        "stateActions": [],
+        "submachineId": ""
       }
-    ],
-    "entryActions": null,
-    "exitActions": null,
-    "deferredEvents": null
-  },
-  {
-    "machineId": "billOutbound",
-    "state": "END",
-    "region": "R0",
-    "initial": 0,
-    "kind": 1,
-    "submachineId": null,
-    "initialAction": null,
-    "parentState": null,
-    "stateActions": null,
-    "entryActions": null,
-    "exitActions": null,
-    "deferredEvents": null
-  }
-]
+    }
+  ],
+  "lines": [
+    {
+      "source": "1",
+      "target": "2",
+      "label": "1",
+      "transition": {
+        "actions": [],
+        "event": "R1",
+        "guard": "",
+        "kind": "EXTERNAL",
+        "machineId": "test"
+      }
+    }
+  ]
+}

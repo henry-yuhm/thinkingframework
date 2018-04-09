@@ -67,12 +67,12 @@
         <dependency>
             <groupId>org.springframework.statemachine</groupId>
             <artifactId>spring-statemachine-boot</artifactId>
-            <version>1.2.8.RELEASE</version>
+            <version>1.2.10.RELEASE</version>
         </dependency>
         <dependency>
             <groupId>org.springframework.statemachine</groupId>
             <artifactId>spring-statemachine-core</artifactId>
-            <version>1.2.8.RELEASE</version>
+            <version>1.2.10.RELEASE</version>
         </dependency>
         <!--<dependency>-->
         <!--<groupId>org.springframework.statemachine</groupId>-->
@@ -81,27 +81,27 @@
         <dependency>
             <groupId>org.springframework.statemachine</groupId>
             <artifactId>spring-statemachine-data-common</artifactId>
-            <version>1.2.8.RELEASE</version>
+            <version>1.2.10.RELEASE</version>
         </dependency>
         <dependency>
             <groupId>org.springframework.statemachine</groupId>
             <artifactId>spring-statemachine-data-jpa</artifactId>
-            <version>1.2.8.RELEASE</version>
+            <version>1.2.10.RELEASE</version>
         </dependency>
         <dependency>
             <groupId>org.springframework.statemachine</groupId>
             <artifactId>spring-statemachine-kryo</artifactId>
-            <version>1.2.8.RELEASE</version>
+            <version>1.2.10.RELEASE</version>
         </dependency>
         <dependency>
             <groupId>org.springframework.statemachine</groupId>
             <artifactId>spring-statemachine-uml</artifactId>
-            <version>1.2.8.RELEASE</version>
+            <version>1.2.10.RELEASE</version>
         </dependency>
         <dependency>
             <groupId>org.springframework.statemachine</groupId>
             <artifactId>spring-statemachine-test</artifactId>
-            <version>1.2.8.RELEASE</version>
+            <version>1.2.10.RELEASE</version>
         </dependency>
 
         <dependency>
@@ -124,6 +124,10 @@
         <dependency>
             <groupId>org.thinkingframework.boot</groupId>
             <artifactId>thinking-boot-starter-web</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.thinking.logistics</groupId>
+            <artifactId>logistics-service-core</artifactId>
         </dependency>
     </dependencies>
 

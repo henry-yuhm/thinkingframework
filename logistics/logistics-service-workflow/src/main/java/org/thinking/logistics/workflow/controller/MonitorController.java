@@ -19,4 +19,9 @@ public class MonitorController {
     public List<Monitor> findAll() {
         return this.monitorService.findAll();
     }
+
+    @GetMapping("/getAll")
+    public List<String> getAll() {
+        return this.monitorService.getAll();
+    }
 }

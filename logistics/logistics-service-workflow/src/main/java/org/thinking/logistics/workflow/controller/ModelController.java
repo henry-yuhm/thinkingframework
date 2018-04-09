@@ -25,8 +25,8 @@ public class ModelController {
     }
 
     @PutMapping("/save")
-    public boolean save(@RequestBody Workflow workflow) {
-        return this.modelService.save(workflow);
+    public void save(@RequestBody Workflow workflow) throws Exception {
+        this.modelService.save(workflow);
     }
 
     @DeleteMapping("/deleteAll")
