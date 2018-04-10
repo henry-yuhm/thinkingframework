@@ -1,6 +1,6 @@
 spring:
   application:
-    name: thinking-cloud-starter-eureka-server
+    name: thinking-cloud-starter-eureka
 ---
 spring:
   profiles: peer1

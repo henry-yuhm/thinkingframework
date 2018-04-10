@@ -1,4 +1,4 @@
-package org.thinking.logistics.stock;
+package org.thinkingframework.cloud.dashboard;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
