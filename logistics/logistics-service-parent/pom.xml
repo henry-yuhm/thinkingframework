@@ -17,9 +17,9 @@
         <module>../logistics-service-core</module>
         <module>../logistics-service-dispatcher</module>
         <module>../logistics-service-init</module>
+        <module>../logistics-service-inventory</module>
         <module>../logistics-service-resource</module>
         <module>../logistics-service-servo</module>
-        <module>../logistics-service-stock</module>
         <module>../logistics-service-transport</module>
         <module>../logistics-service-upgrade</module>
         <module>../logistics-service-workflow</module>

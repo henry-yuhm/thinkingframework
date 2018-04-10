@@ -4,9 +4,6 @@ spring:
   aop:
     proxy-target-class: true
   cloud:
-    client:
-      ip:
-        address: localhost
     inetutils:
       use-only-site-local-interfaces: true
 #  data:
@@ -81,12 +78,6 @@ spring:
     hibernate:
       naming:
         implicit-strategy: org.springframework.boot.orm.jpa.hibernate.SpringImplicitNamingStrategy
-security:
-  basic:
-    enabled: false
-  user:
-    name: henry
-    password: ocp9i_Explorer
 server:
   port: 8780
 eureka:

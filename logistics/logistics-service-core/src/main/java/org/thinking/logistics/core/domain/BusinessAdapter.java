@@ -1,12 +1,12 @@
 package org.thinking.logistics.core.domain;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.thinking.logistics.core.entity.Employee;
 import org.thinking.logistics.core.entity.Owner;
 import org.thinking.logistics.core.entity.Warehouse;
 import org.thinking.logistics.core.repository.EmployeeRepository;
 import org.thinking.logistics.core.service.ParameterService;
 
+import javax.annotation.Resource;
 import java.math.BigDecimal;
 import java.sql.Date;
 import java.util.regex.Pattern;
@@ -14,46 +14,21 @@ import java.util.regex.Pattern;
 public abstract class BusinessAdapter {
     protected Employee operator;//操作员
 
-    @Autowired
+    @Resource
     private EmployeeRepository employeeRepository;
 
-    @Autowired
+    @Resource
     private ParameterService parameterService;
+
+    public BusinessAdapter() {
+    }
+
+    public BusinessAdapter(Employee operator) {
+        this.operator = operator;
+    }
 
     protected final Employee getEmployee(Owner owner, String number) {
         return this.employeeRepository.findByOwnerAndNumber(owner, number);
-    }
-
-    protected final String getNullDetailMessage() {
-        return "单据明细不存在";
-    }
-
-    protected final String getNullCustomerMessage() {
-        return "客户资料不存在";
-    }
-
-    protected final String getNullGoodsMessage() {
-        return "商品资料不存在";
-    }
-
-    protected Exception getException(String message, Object... objects) {
-        StringBuilder translatedMessage = new StringBuilder();
-
-        if (message == null || message.isEmpty()) {
-            return new Exception("必须定义基本消息内容");
-        }
-
-        //无辅助信息时直接抛出消息
-        if (objects == null || objects.length == 0) {
-            return new Exception(message);
-        }
-
-        //循环构造辅助信息并添加至消息中
-        translatedMessage.append(message);
-        for (Object object : objects) {
-            translatedMessage.append(object.toString());
-        }
-        return new Exception(translatedMessage.toString());
     }
 
     protected final String getStringParameter(String number) {

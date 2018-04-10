@@ -1,6 +1,5 @@
 package org.thinking.logistics.workflow.service;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.statemachine.data.jpa.JpaRepositoryStateMachine;
 import org.springframework.stereotype.Service;
 import org.thinking.logistics.workflow.entity.Workflow;
@@ -9,16 +8,19 @@ import org.thinking.logistics.workflow.repository.WorkflowRepository;
 
 @Service
 public class InstanceService {
-    @Autowired
     private WorkflowRepository workflowRepository;
 
-    @Autowired
     private MachineRepository machineRepository;
 
-    public Workflow findOne(String machineId, String instanceId) {
-        Workflow workflow = this.workflowRepository.findOne(machineId);
+    public InstanceService(WorkflowRepository workflowRepository, MachineRepository machineRepository) {
+        this.workflowRepository = workflowRepository;
+        this.machineRepository = machineRepository;
+    }
 
-        JpaRepositoryStateMachine jpaRepositoryStateMachine = this.machineRepository.findOne(instanceId);
+    public Workflow findOne(String machineId, String instanceId) {
+        Workflow workflow = this.workflowRepository.getOne(machineId);
+
+        JpaRepositoryStateMachine jpaRepositoryStateMachine = this.machineRepository.findById(instanceId).get();
 
         workflow.getNodes().forEach(node -> {
             String s = "";

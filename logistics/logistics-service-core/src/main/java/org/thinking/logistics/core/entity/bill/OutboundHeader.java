@@ -1,5 +1,6 @@
 package org.thinking.logistics.core.entity.bill;
 
+import org.thinking.logistics.core.domain.CompositeException;
 import org.thinking.logistics.core.domain.support.*;
 import org.thinking.logistics.core.entity.Address;
 import org.thinking.logistics.core.entity.Customer;
@@ -126,6 +127,12 @@ public class OutboundHeader extends Header {
     private Set<OutboundDetail> details = new LinkedHashSet<>();//单据明细
 
     public OutboundHeader() {
+    }
+
+    public void isResended() throws Exception {
+        if (this.stage.compareTo(OutboundStage.RESEND) >= 0 && this.getNumber().isEmpty()) {
+            throw CompositeException.getException("单据已经补发", this, this.getOwner());
+        }
     }
 
     public Customer getCustomer() {

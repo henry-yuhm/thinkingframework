@@ -1,6 +1,5 @@
 package org.thinking.logistics.workflow.service;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.statemachine.data.jpa.JpaRepositoryAction;
 import org.springframework.statemachine.data.jpa.JpaRepositoryGuard;
 import org.springframework.statemachine.data.jpa.JpaRepositoryState;
@@ -16,29 +15,32 @@ import java.util.stream.Collectors;
 
 @Service
 public class ModelService {
-    @Autowired
     private WorkflowRepository workflowRepository;
 
-    @Autowired
     private NodeRepository nodeRepository;
 
-    @Autowired
     private LineRepository lineRepository;
 
-    @Autowired
     private StateRepository stateRepository;
 
-    @Autowired
     private TransitionRepository transitionRepository;
 
-    @Autowired
     private Map<String, JpaRepositoryAction> actions;
 
-    @Autowired
     private Map<String, JpaRepositoryGuard> guards;
 
-    @Autowired
     private MachineService machineService;
+
+    public ModelService(WorkflowRepository workflowRepository, NodeRepository nodeRepository, LineRepository lineRepository, StateRepository stateRepository, TransitionRepository transitionRepository, Map<String, JpaRepositoryAction> actions, Map<String, JpaRepositoryGuard> guards, MachineService machineService) {
+        this.workflowRepository = workflowRepository;
+        this.nodeRepository = nodeRepository;
+        this.lineRepository = lineRepository;
+        this.stateRepository = stateRepository;
+        this.transitionRepository = transitionRepository;
+        this.actions = actions;
+        this.guards = guards;
+        this.machineService = machineService;
+    }
 
     private Set<JpaRepositoryAction> getActions(Set<JpaRepositoryAction> actions) {
         Set<JpaRepositoryAction> actionSet = new LinkedHashSet<>();
@@ -55,7 +57,7 @@ public class ModelService {
     }
 
     public Workflow findOne(String id) {
-        return this.workflowRepository.findOne(id);
+        return this.workflowRepository.findById(id).get();
     }
 
     public List<Workflow> findAll() {
@@ -117,7 +119,7 @@ public class ModelService {
             this.stateRepository.save(node.getState());
         });
 
-        this.nodeRepository.save(workflow.getNodes());
+        this.nodeRepository.saveAll(workflow.getNodes());
 
         workflow.getNodes().forEach(node -> {
             nodes.put(node.getId(), node);
@@ -157,7 +159,7 @@ public class ModelService {
             this.transitionRepository.save(line.getTransition());
         });
 
-        this.lineRepository.save(workflow.getLines());
+        this.lineRepository.saveAll(workflow.getLines());
 
         this.workflowRepository.save(workflow);
 

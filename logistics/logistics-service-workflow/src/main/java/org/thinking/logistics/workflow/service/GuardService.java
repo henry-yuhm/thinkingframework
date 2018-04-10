@@ -1,6 +1,5 @@
 package org.thinking.logistics.workflow.service;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.statemachine.data.jpa.JpaRepositoryGuard;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -11,11 +10,14 @@ import java.util.Map;
 
 @Service
 public class GuardService {
-    @Autowired
     private GuardRepository guardRepository;
 
-    @Autowired
     private Map<String, JpaRepositoryGuard> guards;
+
+    public GuardService(GuardRepository guardRepository, Map<String, JpaRepositoryGuard> guards) {
+        this.guardRepository = guardRepository;
+        this.guards = guards;
+    }
 
     public List<JpaRepositoryGuard> findAll() {
         return (List<JpaRepositoryGuard>) this.guardRepository.findAll();

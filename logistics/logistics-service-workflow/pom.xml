@@ -49,10 +49,6 @@
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-security</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-devtools</artifactId>
         </dependency>
         <dependency>
@@ -66,42 +62,43 @@
 
         <dependency>
             <groupId>org.springframework.statemachine</groupId>
-            <artifactId>spring-statemachine-boot</artifactId>
-            <version>1.2.10.RELEASE</version>
+            <artifactId>spring-statemachine-autoconfigure</artifactId>
         </dependency>
         <dependency>
             <groupId>org.springframework.statemachine</groupId>
             <artifactId>spring-statemachine-core</artifactId>
-            <version>1.2.10.RELEASE</version>
         </dependency>
-        <!--<dependency>-->
-        <!--<groupId>org.springframework.statemachine</groupId>-->
-        <!--<artifactId>spring-statemachine-autoconfigure</artifactId>-->
-        <!--</dependency>-->
         <dependency>
             <groupId>org.springframework.statemachine</groupId>
             <artifactId>spring-statemachine-data-common</artifactId>
-            <version>1.2.10.RELEASE</version>
         </dependency>
         <dependency>
             <groupId>org.springframework.statemachine</groupId>
             <artifactId>spring-statemachine-data-jpa</artifactId>
-            <version>1.2.10.RELEASE</version>
         </dependency>
         <dependency>
             <groupId>org.springframework.statemachine</groupId>
             <artifactId>spring-statemachine-kryo</artifactId>
-            <version>1.2.10.RELEASE</version>
         </dependency>
         <dependency>
             <groupId>org.springframework.statemachine</groupId>
-            <artifactId>spring-statemachine-uml</artifactId>
-            <version>1.2.10.RELEASE</version>
+            <artifactId>spring-statemachine-recipes-common</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.statemachine</groupId>
+            <artifactId>spring-statemachine-starter</artifactId>
         </dependency>
         <dependency>
             <groupId>org.springframework.statemachine</groupId>
             <artifactId>spring-statemachine-test</artifactId>
-            <version>1.2.10.RELEASE</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.statemachine</groupId>
+            <artifactId>spring-statemachine-uml</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.statemachine</groupId>
+            <artifactId>spring-statemachine-zookeeper</artifactId>
         </dependency>
 
         <dependency>

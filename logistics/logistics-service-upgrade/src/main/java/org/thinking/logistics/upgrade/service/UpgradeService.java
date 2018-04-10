@@ -1,7 +1,6 @@
 package org.thinking.logistics.upgrade.service;
 
 import com.querydsl.core.types.Predicate;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -17,14 +16,17 @@ import java.util.List;
 @Service
 @Transactional(readOnly = true)
 public class UpgradeService {
-    @Autowired
     private JdbcTemplate jdbcTemplate;
 
-    @Autowired
     private UpgradeRepository upgradeRepository;
 
+    public UpgradeService(JdbcTemplate jdbcTemplate, UpgradeRepository upgradeRepository) {
+        this.jdbcTemplate = jdbcTemplate;
+        this.upgradeRepository = upgradeRepository;
+    }
+
     public UpgradeConfig findOne(Predicate predicate) {
-        return this.upgradeRepository.findOne(predicate);
+        return this.upgradeRepository.findOne(predicate).get();
     }
 
     public List<UpgradeConfig> findAll(Predicate predicate) {

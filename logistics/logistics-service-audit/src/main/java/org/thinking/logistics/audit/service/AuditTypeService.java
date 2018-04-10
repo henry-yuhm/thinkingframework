@@ -1,7 +1,6 @@
 package org.thinking.logistics.audit.service;
 
 import com.querydsl.core.types.Predicate;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.thinking.logistics.audit.entity.AuditType;
@@ -11,11 +10,14 @@ import java.util.List;
 
 @Service
 public class AuditTypeService {
-    @Autowired
     private AuditTypeRepository auditTypeRepository;
 
+    public AuditTypeService(AuditTypeRepository auditTypeRepository) {
+        this.auditTypeRepository = auditTypeRepository;
+    }
+
     public AuditType findOne(Predicate predicate) {
-        return this.auditTypeRepository.findOne(predicate);
+        return this.auditTypeRepository.findOne(predicate).get();
     }
 
     public List<AuditType> findAll(Predicate predicate) {
@@ -31,6 +33,6 @@ public class AuditTypeService {
             }
         });
 
-        return this.auditTypeRepository.save(types);
+        return this.auditTypeRepository.saveAll(types);
     }
 }

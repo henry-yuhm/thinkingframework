@@ -1,14 +1,16 @@
 package org.thinking.logistics.workflow.controller;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.thinking.logistics.workflow.service.MachineService;
 
 @RestController
 @RequestMapping("/stateMachine")
 public class MachineController {
-    @Autowired
     private MachineService machineService;
+
+    public MachineController(MachineService machineService) {
+        this.machineService = machineService;
+    }
 
     @PutMapping("/start")
     public void start(@RequestParam("machineId") String machineId, @RequestParam("instanceId") String instanceId, @RequestBody(required = false) String parameters) throws Exception {

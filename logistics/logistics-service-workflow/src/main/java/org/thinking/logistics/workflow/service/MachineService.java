@@ -1,7 +1,6 @@
 package org.thinking.logistics.workflow.service;
 
 import com.alibaba.fastjson.JSONObject;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.statemachine.StateMachine;
 import org.springframework.statemachine.StateMachineException;
 import org.springframework.statemachine.action.ActionListener;
@@ -16,22 +15,25 @@ import java.util.LinkedHashMap;
 
 @Service
 public class MachineService {
-    @Autowired
     private StateMachineService<String, String> stateMachineService;
 
-    @Autowired
     private StateMachineInterceptor<String, String> stateMachineInterceptor;
 
-    @Autowired
     private StateMachineListener<String, String> stateMachineListener;
 
-    @Autowired
     private ActionListener<String, String> actionListener;
 
-    @Autowired
     private StateMachinePersister<String, String, String> stateMachinePersister;
 
-    public void register(String machineId) {
+    public MachineService(StateMachineService<String, String> stateMachineService, StateMachineInterceptor<String, String> stateMachineInterceptor, StateMachineListener<String, String> stateMachineListener, ActionListener<String, String> actionListener, StateMachinePersister<String, String, String> stateMachinePersister) {
+        this.stateMachineService = stateMachineService;
+        this.stateMachineInterceptor = stateMachineInterceptor;
+        this.stateMachineListener = stateMachineListener;
+        this.actionListener = actionListener;
+        this.stateMachinePersister = stateMachinePersister;
+    }
+
+    void register(String machineId) {
         this.stateMachineService.releaseStateMachine(machineId, true);
         StateMachine<String, String> stateMachine = this.stateMachineService.acquireStateMachine(machineId, false);
         stateMachine.addStateListener(this.stateMachineListener);

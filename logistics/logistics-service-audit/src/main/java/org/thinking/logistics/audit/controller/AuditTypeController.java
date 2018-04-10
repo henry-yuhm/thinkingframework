@@ -1,7 +1,6 @@
 package org.thinking.logistics.audit.controller;
 
 import com.querydsl.core.types.Predicate;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.querydsl.binding.QuerydslPredicate;
 import org.springframework.web.bind.annotation.*;
 import org.thinking.logistics.audit.entity.AuditType;
@@ -12,8 +11,11 @@ import java.util.List;
 @RestController
 @RequestMapping("/auditType")
 public class AuditTypeController {
-    @Autowired
     private AuditTypeService auditTypeService;
+
+    public AuditTypeController(AuditTypeService auditTypeService) {
+        this.auditTypeService = auditTypeService;
+    }
 
     @GetMapping("/findOne")
     public AuditType findOne(@QuerydslPredicate(root = AuditType.class) Predicate predicate) {

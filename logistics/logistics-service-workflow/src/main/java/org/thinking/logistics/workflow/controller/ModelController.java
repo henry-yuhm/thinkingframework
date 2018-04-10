@@ -1,7 +1,6 @@
 package org.thinking.logistics.workflow.controller;
 
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.thinking.logistics.workflow.entity.Workflow;
 import org.thinking.logistics.workflow.service.ModelService;
@@ -11,8 +10,11 @@ import java.util.List;
 @RestController
 @RequestMapping("/model")
 public class ModelController {
-    @Autowired
     private ModelService modelService;
+
+    public ModelController(ModelService modelService) {
+        this.modelService = modelService;
+    }
 
     @GetMapping("/findOne")
     public Workflow findOne(String id) {

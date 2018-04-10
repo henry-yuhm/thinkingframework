@@ -1,6 +1,5 @@
 package org.thinking.logistics.workflow.service;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.statemachine.data.jpa.JpaRepositoryAction;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -11,11 +10,14 @@ import java.util.Map;
 
 @Service
 public class ActionService {
-    @Autowired
     private ActionRepository actionRepository;
 
-    @Autowired
     private Map<String, JpaRepositoryAction> actions;
+
+    public ActionService(ActionRepository actionRepository, Map<String, JpaRepositoryAction> actions) {
+        this.actionRepository = actionRepository;
+        this.actions = actions;
+    }
 
     public List<JpaRepositoryAction> findAll() {
         return (List<JpaRepositoryAction>) this.actionRepository.findAll();

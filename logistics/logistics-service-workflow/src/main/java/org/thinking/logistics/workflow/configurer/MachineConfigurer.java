@@ -1,7 +1,6 @@
 package org.thinking.logistics.workflow.configurer;
 
 import com.alibaba.fastjson.JSONObject;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.expression.spel.standard.SpelExpressionParser;
@@ -40,6 +39,7 @@ import org.springframework.web.client.RestTemplate;
 import org.thinking.logistics.workflow.entity.Monitor;
 import org.thinking.logistics.workflow.repository.*;
 
+import javax.annotation.Resource;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -47,25 +47,25 @@ import java.util.Map;
 @Configuration
 @EnableStateMachineFactory
 public class MachineConfigurer extends StateMachineConfigurerAdapter<String, String> {
-    @Autowired
+    @Resource
     private RestTemplate restTemplate;
 
-    @Autowired
+    @Resource
     private StateRepository stateRepository;
 
-    @Autowired
+    @Resource
     private TransitionRepository transitionRepository;
 
-    @Autowired
+    @Resource
     private ActionRepository actionRepository;
 
-    @Autowired
+    @Resource
     private GuardRepository guardRepository;
 
-    @Autowired
+    @Resource
     private MachineRepository machineRepository;
 
-    @Autowired
+    @Resource
     private MonitorRepository monitorRepository;
 
     @Override
@@ -80,7 +80,7 @@ public class MachineConfigurer extends StateMachineConfigurerAdapter<String, Str
     }
 
     private Action<String, String> restAction(String spel) {
-        return stateContext -> stateContext.getExtendedState().getVariables().putAll(MachineConfigurer.this.restTemplate.postForObject(spel, stateContext.getExtendedState().getVariables(), Map.class));
+        return stateContext -> stateContext.getExtendedState().getVariables().putAll(this.restTemplate.postForObject(spel, stateContext.getExtendedState().getVariables(), Map.class));
     }
 
     private Action<String, String> errorAction() {

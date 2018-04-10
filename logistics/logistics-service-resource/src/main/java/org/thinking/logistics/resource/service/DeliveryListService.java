@@ -2,7 +2,6 @@ package org.thinking.logistics.resource.service;
 
 import com.alibaba.fastjson.JSONObject;
 import com.querydsl.core.types.Predicate;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.thinking.logistics.resource.entity.DeliveryList;
@@ -15,11 +14,14 @@ import java.util.List;
  */
 @Service
 public class DeliveryListService {
-    @Autowired
     private DeliveryListRepository deliveryListRepository;
 
+    public DeliveryListService(DeliveryListRepository deliveryListRepository) {
+        this.deliveryListRepository = deliveryListRepository;
+    }
+
     public DeliveryList findOne(Predicate predicate) {
-        return this.deliveryListRepository.findOne(predicate);
+        return this.deliveryListRepository.findOne(predicate).get();
     }
 
     public List<DeliveryList> findAll(Predicate predicate) {

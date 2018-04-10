@@ -14,11 +14,11 @@
     <packaging>pom</packaging>
 
     <modules>
-        <module>../thinking-cloud-starter-api-gateway</module>
-        <module>../thinking-cloud-starter-eureka-server</module>
-        <module>../thinking-cloud-starter-hystrix-dashboard</module>
-        <module>../thinking-cloud-starter-hystrix-turbine</module>
+        <module>../thinking-cloud-starter-dashboard</module>
+        <module>../thinking-cloud-starter-eureka</module>
+        <module>../thinking-cloud-starter-gateway</module>
         <module>../thinking-cloud-starter-stream</module>
+        <module>../thinking-cloud-starter-turbine</module>
     </modules>
 
 </project>

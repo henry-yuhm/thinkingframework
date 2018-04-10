@@ -2,9 +2,6 @@ spring:
   application:
     name: logistics-service-transport
   cloud:
-    client:
-      ip:
-        address: localhost
     inetutils:
       use-only-site-local-interfaces: true
   datasource:
@@ -24,12 +21,6 @@ spring:
     hibernate:
       naming:
         implicit-strategy: org.springframework.boot.orm.jpa.hibernate.SpringImplicitNamingStrategy
-security:
-  basic:
-    enabled: true
-  user:
-    name: henry
-    password: ocp9i_Explorer
 server:
   port: 8841
 eureka:

@@ -4,14 +4,8 @@ spring:
   aop:
     proxy-target-class: true
   cloud:
-    client:
-      ip:
-        address: localhost
     inetutils:
       use-only-site-local-interfaces: true
-#  data:
-#    rest:
-#      base-path: upgrade
   datasource:
     # JDBC 配置
     type: com.alibaba.druid.pool.DruidDataSource
@@ -61,12 +55,6 @@ spring:
     hibernate:
       naming:
         implicit-strategy: org.springframework.boot.orm.jpa.hibernate.SpringImplicitNamingStrategy
-security:
-  basic:
-    enabled: false
-  user:
-    name: henry
-    password: ocp9i_Explorer
 server:
   port: 8821
 eureka:

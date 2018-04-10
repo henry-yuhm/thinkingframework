@@ -1,6 +1,5 @@
 package org.thinking.logistics.core.service;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.thinking.logistics.core.entity.Parameter;
 import org.thinking.logistics.core.entity.Warehouse;
@@ -14,8 +13,11 @@ import java.util.Optional;
 public class ParameterService {
     private final Map<String, Parameter> parameters = new LinkedHashMap<>();
 
-    @Autowired
     private ParameterRepository repository;
+
+    public ParameterService(ParameterRepository repository) {
+        this.repository = repository;
+    }
 
     private Parameter acquireParameter(String number) {
         synchronized (this.parameters) {

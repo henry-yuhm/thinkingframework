@@ -9,7 +9,10 @@ public class Owner {
     @GeneratedValue
     private long id;
 
-    @Column(nullable = false)
+    @Column(unique = true, nullable = false, length = 50)
+    private String number;//编号
+
+    @Column(unique = true, nullable = false, length = 100)
     private String name;//名称
 
     private String mnemonicCode;//助记码
@@ -23,6 +26,14 @@ public class Owner {
     private boolean thirdpart;//是否第三方
 
     public Owner() {
+    }
+
+    public String getNumber() {
+        return number;
+    }
+
+    public void setNumber(String number) {
+        this.number = number;
     }
 
     public String getName() {
