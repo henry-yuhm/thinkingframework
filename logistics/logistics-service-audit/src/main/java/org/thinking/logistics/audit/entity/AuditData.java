@@ -1,10 +1,14 @@
 package org.thinking.logistics.audit.entity;
 
+import lombok.Data;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
+import java.util.HashMap;
 
 @Entity
+@Data
 public class AuditData implements Serializable {
     @Id
     @GeneratedValue
@@ -19,53 +23,11 @@ public class AuditData implements Serializable {
     @Column(nullable = false, updatable = false)
     private String moduleName;
 
-    @OneToOne
-    @JoinColumn(foreignKey = @ForeignKey(name = "fk_audit_data_audit_type"))
-    private AuditType auditType;
+    @ManyToOne
+    private AuditKind kind;
+
+    private HashMap<String, String> info;
 
     @Column(nullable = false, updatable = false)
     private Date auditTime;
-
-    public AuditData() {
-    }
-
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
-    public String getApplicationName() {
-        return applicationName;
-    }
-
-    public void setApplicationName(String applicationName) {
-        this.applicationName = applicationName;
-    }
-
-    public String getModuleName() {
-        return moduleName;
-    }
-
-    public void setModuleName(String moduleName) {
-        this.moduleName = moduleName;
-    }
-
-    public AuditType getAuditType() {
-        return auditType;
-    }
-
-    public void setAuditType(AuditType auditType) {
-        this.auditType = auditType;
-    }
-
-    public Date getAuditTime() {
-        return auditTime;
-    }
-
-    public void setAuditTime(Date auditTime) {
-        this.auditTime = auditTime;
-    }
 }

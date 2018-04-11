@@ -1,5 +1,7 @@
 package org.thinking.logistics.init.domain;
 
+import lombok.Data;
+import lombok.EqualsAndHashCode;
 import org.thinking.logistics.core.domain.CompositeException;
 import org.thinking.logistics.core.domain.support.DispatchType;
 import org.thinking.logistics.core.domain.support.OutboundPriority;
@@ -13,6 +15,8 @@ import javax.annotation.Resource;
 import java.sql.Date;
 import java.time.LocalDate;
 
+@Data
+@EqualsAndHashCode(callSuper = true)
 public class OutboundSaleInitializer extends AbstractInitializer {
     @Resource
     private AddressRepository addressRepository;

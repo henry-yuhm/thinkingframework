@@ -1,5 +1,6 @@
 package org.thinking.logistics.core.entity.bill;
 
+import lombok.Data;
 import org.thinking.logistics.core.entity.Batch;
 import org.thinking.logistics.core.entity.Goods;
 import org.thinking.logistics.core.entity.Warehouse;
@@ -8,6 +9,7 @@ import javax.persistence.*;
 
 @MappedSuperclass
 @Inheritance(strategy = InheritanceType.JOINED)
+@Data
 public abstract class Detail {
     @Id
     @GeneratedValue
@@ -23,28 +25,4 @@ public abstract class Detail {
     private Batch batch;//批号
 
 //    public abstract Header getHeader();
-
-    public Warehouse getWarehouse() {
-        return warehouse;
-    }
-
-    public void setWarehouse(Warehouse warehouse) {
-        this.warehouse = warehouse;
-    }
-
-    public Goods getGoods() {
-        return goods;
-    }
-
-    public void setGoods(Goods goods) {
-        this.goods = goods;
-    }
-
-    public Batch getBatch() {
-        return batch;
-    }
-
-    public void setBatch(Batch batch) {
-        this.batch = batch;
-    }
 }

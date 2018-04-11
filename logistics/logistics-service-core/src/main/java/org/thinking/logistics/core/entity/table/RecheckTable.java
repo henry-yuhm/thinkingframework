@@ -1,5 +1,6 @@
 package org.thinking.logistics.core.entity.table;
 
+import lombok.Data;
 import org.thinking.logistics.core.domain.support.BillCategory;
 import org.thinking.logistics.core.domain.support.RecheckTableType;
 import org.thinking.logistics.core.entity.Warehouse;
@@ -8,6 +9,7 @@ import javax.persistence.*;
 import java.sql.Date;
 
 @Entity
+@Data
 public class RecheckTable {
     @Id
     @GeneratedValue
@@ -38,79 +40,4 @@ public class RecheckTable {
     private int goodsQuantity = 0;//品规数
 
     private Date modificationTime;//修改时间
-
-    public RecheckTable() {
-    }
-
-    public Warehouse getWarehouse() {
-        return warehouse;
-    }
-
-    public void setWarehouse(Warehouse warehouse) {
-        this.warehouse = warehouse;
-    }
-
-    public String getNumber() {
-        return number;
-    }
-
-    public void setNumber(String number) {
-        this.number = number;
-    }
-
-    public RecheckTableType getType() {
-        return type;
-    }
-
-    public void setType(RecheckTableType type) {
-        this.type = type;
-    }
-
-    public BillCategory getCategory() {
-        return category;
-    }
-
-    public void setCategory(BillCategory category) {
-        this.category = category;
-    }
-
-    public boolean isLocking() {
-        return locking;
-    }
-
-    public void setLocking(boolean locking) {
-        this.locking = locking;
-    }
-
-    public boolean isAutomatic() {
-        return automatic;
-    }
-
-    public void setAutomatic(boolean automatic) {
-        this.automatic = automatic;
-    }
-
-    public int getWorkload() {
-        return workload;
-    }
-
-    public void setWorkload(int workload) {
-        this.workload = workload;
-    }
-
-    public int getGoodsQuantity() {
-        return goodsQuantity;
-    }
-
-    public void setGoodsQuantity(int goodsQuantity) {
-        this.goodsQuantity = goodsQuantity;
-    }
-
-    public Date getModificationTime() {
-        return modificationTime;
-    }
-
-    public void setModificationTime(Date modificationTime) {
-        this.modificationTime = modificationTime;
-    }
 }

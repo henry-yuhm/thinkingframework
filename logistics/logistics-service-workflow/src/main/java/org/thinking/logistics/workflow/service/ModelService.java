@@ -1,5 +1,6 @@
 package org.thinking.logistics.workflow.service;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.statemachine.data.jpa.JpaRepositoryAction;
 import org.springframework.statemachine.data.jpa.JpaRepositoryGuard;
 import org.springframework.statemachine.data.jpa.JpaRepositoryState;
@@ -31,6 +32,7 @@ public class ModelService {
 
     private MachineService machineService;
 
+    @Autowired
     public ModelService(WorkflowRepository workflowRepository, NodeRepository nodeRepository, LineRepository lineRepository, StateRepository stateRepository, TransitionRepository transitionRepository, Map<String, JpaRepositoryAction> actions, Map<String, JpaRepositoryGuard> guards, MachineService machineService) {
         this.workflowRepository = workflowRepository;
         this.nodeRepository = nodeRepository;

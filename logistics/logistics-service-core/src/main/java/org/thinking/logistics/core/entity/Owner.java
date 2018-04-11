@@ -1,9 +1,12 @@
 package org.thinking.logistics.core.entity;
 
+import lombok.Data;
+
 import javax.persistence.*;
 
 @Entity
 @Table(schema = "wms")
+@Data
 public class Owner {
     @Id
     @GeneratedValue
@@ -24,55 +27,4 @@ public class Owner {
 
     @Column(nullable = false)
     private boolean thirdpart;//是否第三方
-
-    public Owner() {
-    }
-
-    public String getNumber() {
-        return number;
-    }
-
-    public void setNumber(String number) {
-        this.number = number;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getMnemonicCode() {
-        return mnemonicCode;
-    }
-
-    public void setMnemonicCode(String mnemonicCode) {
-        this.mnemonicCode = mnemonicCode;
-    }
-
-    public String getInventoryUpper() {
-        return inventoryUpper;
-    }
-
-    public void setInventoryUpper(String inventoryUpper) {
-        this.inventoryUpper = inventoryUpper;
-    }
-
-    public String getServiceHotline() {
-        return serviceHotline;
-    }
-
-    public void setServiceHotline(String serviceHotline) {
-        this.serviceHotline = serviceHotline;
-    }
-
-    public boolean isThirdpart() {
-        return thirdpart;
-    }
-
-    public void setThirdpart(boolean thirdpart) {
-        this.thirdpart = thirdpart;
-    }
 }

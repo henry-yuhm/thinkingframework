@@ -1,5 +1,6 @@
 package org.thinking.logistics.workflow.controller;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.thinking.logistics.workflow.service.MachineService;
 
@@ -8,6 +9,7 @@ import org.thinking.logistics.workflow.service.MachineService;
 public class MachineController {
     private MachineService machineService;
 
+    @Autowired
     public MachineController(MachineService machineService) {
         this.machineService = machineService;
     }

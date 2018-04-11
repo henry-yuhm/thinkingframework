@@ -1,6 +1,7 @@
 package org.thinking.logistics.audit.controller;
 
 import com.querydsl.core.types.Predicate;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.querydsl.binding.QuerydslPredicate;
 import org.springframework.web.bind.annotation.*;
 import org.thinking.logistics.audit.entity.AuditData;
@@ -11,8 +12,9 @@ import java.util.List;
 @RestController
 @RequestMapping("/auditData")
 public class AuditDataController {
-    private AuditDataService auditDataService;
+    private final AuditDataService auditDataService;
 
+    @Autowired
     public AuditDataController(AuditDataService auditDataService) {
         this.auditDataService = auditDataService;
     }
@@ -28,7 +30,7 @@ public class AuditDataController {
     }
 
     @PutMapping("/save")
-    public List<AuditData> save(@RequestBody List<AuditData> datas) {
-        return this.auditDataService.save(datas);
+    public void save(@RequestBody List<AuditData> datas) throws Exception {
+        this.auditDataService.save(datas);
     }
 }

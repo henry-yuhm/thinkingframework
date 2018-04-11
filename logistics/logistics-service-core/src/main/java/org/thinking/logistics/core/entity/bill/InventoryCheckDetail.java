@@ -1,5 +1,7 @@
 package org.thinking.logistics.core.entity.bill;
 
+import lombok.Data;
+import lombok.EqualsAndHashCode;
 import org.thinking.logistics.core.domain.support.InventoryState;
 import org.thinking.logistics.core.domain.support.TransferringReason;
 import org.thinking.logistics.core.entity.Location;
@@ -12,6 +14,8 @@ import javax.persistence.ManyToOne;
 import java.math.BigDecimal;
 
 @Entity
+@Data
+@EqualsAndHashCode(callSuper = true)
 public class InventoryCheckDetail extends Detail {
     @ManyToOne(fetch = FetchType.LAZY)
     private Location location;//货位
@@ -34,71 +38,4 @@ public class InventoryCheckDetail extends Detail {
     private String auditor;//审核员
 
     private TransferringReason reason;//移库原因
-
-    public InventoryCheckDetail() {
-    }
-
-    public Location getLocation() {
-        return location;
-    }
-
-    public void setLocation(Location location) {
-        this.location = location;
-    }
-
-    public InventoryState getState() {
-        return state;
-    }
-
-    public void setState(InventoryState state) {
-        this.state = state;
-    }
-
-    public Pallet getPallet() {
-        return pallet;
-    }
-
-    public void setPallet(Pallet pallet) {
-        this.pallet = pallet;
-    }
-
-    public BigDecimal getQuantity() {
-        return quantity;
-    }
-
-    public void setQuantity(BigDecimal quantity) {
-        this.quantity = quantity;
-    }
-
-    public int getPieces() {
-        return pieces;
-    }
-
-    public void setPieces(int pieces) {
-        this.pieces = pieces;
-    }
-
-    public BigDecimal getRemainder() {
-        return remainder;
-    }
-
-    public void setRemainder(BigDecimal remainder) {
-        this.remainder = remainder;
-    }
-
-    public String getAuditor() {
-        return auditor;
-    }
-
-    public void setAuditor(String auditor) {
-        this.auditor = auditor;
-    }
-
-    public TransferringReason getReason() {
-        return reason;
-    }
-
-    public void setReason(TransferringReason reason) {
-        this.reason = reason;
-    }
 }

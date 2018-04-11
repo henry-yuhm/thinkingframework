@@ -15,6 +15,7 @@
       "isSelected": true,
       "shape": "circle",
       "state": {
+        "_class": "org.springframework.statemachine.data.jpa.JpaRepositoryState",
         "deferredEvents": [],
         "deferredEventsArray": [],
         "entryActions": [],
@@ -42,6 +43,7 @@
       "isSelected": false,
       "shape": "circle",
       "state": {
+        "_class": "org.springframework.statemachine.data.jpa.JpaRepositoryState",
         "deferredEvents": [],
         "deferredEventsArray": [],
         "entryActions": [],
@@ -64,6 +66,7 @@
       "target": "2",
       "label": "1",
       "transition": {
+        "_class": "org.springframework.statemachine.data.jpa.JpaRepositoryTransition",
         "actions": [],
         "event": "R1",
         "guard": "",

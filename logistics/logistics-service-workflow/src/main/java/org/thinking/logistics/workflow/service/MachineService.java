@@ -1,6 +1,7 @@
 package org.thinking.logistics.workflow.service;
 
 import com.alibaba.fastjson.JSONObject;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.statemachine.StateMachine;
 import org.springframework.statemachine.StateMachineException;
 import org.springframework.statemachine.action.ActionListener;
@@ -25,6 +26,7 @@ public class MachineService {
 
     private StateMachinePersister<String, String, String> stateMachinePersister;
 
+    @Autowired
     public MachineService(StateMachineService<String, String> stateMachineService, StateMachineInterceptor<String, String> stateMachineInterceptor, StateMachineListener<String, String> stateMachineListener, ActionListener<String, String> actionListener, StateMachinePersister<String, String, String> stateMachinePersister) {
         this.stateMachineService = stateMachineService;
         this.stateMachineInterceptor = stateMachineInterceptor;

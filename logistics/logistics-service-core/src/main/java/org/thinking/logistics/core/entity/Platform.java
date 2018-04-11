@@ -1,8 +1,11 @@
 package org.thinking.logistics.core.entity;
 
+import lombok.Data;
+
 import javax.persistence.*;
 
 @Entity
+@Data
 public class Platform {
     @Id
     @GeneratedValue
@@ -16,31 +19,4 @@ public class Platform {
 
     @Column(nullable = false)
     private String name;//名称
-
-    public Platform() {
-    }
-
-    public Warehouse getWarehouse() {
-        return warehouse;
-    }
-
-    public void setWarehouse(Warehouse warehouse) {
-        this.warehouse = warehouse;
-    }
-
-    public String getNumber() {
-        return number;
-    }
-
-    public void setNumber(String number) {
-        this.number = number;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
 }

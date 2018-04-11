@@ -1,149 +1,46 @@
 package org.thinking.logistics.upgrade.entity;
 
 import com.alibaba.fastjson.annotation.JSONField;
+import lombok.Data;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.Table;
 import java.math.BigDecimal;
 
 /**
  * Created by Henry on 2017/3/30.
  */
 @Entity
-@Table(name = "UPGRADE_CONFIG")
+@Data
 public class UpgradeConfig {
     @Id
-    @Column(name = "UPGRADE_OBJECT")
-    @JSONField(name = "UpgradeObject")
+    @JSONField
     private String upgradeObject;
 
-    @Column(name = "UPGRADE_ORDER")
-    @JSONField(ordinal = 1,
-            name = "UpgradeOrder")
+    @JSONField(ordinal = 1)
     private BigDecimal upgradeOrder;
 
-    @Column(name = "IS_AVAILABLE")
-    @JSONField(ordinal = 2,
-            name = "IsAvailable")
-    private String isAvailable;
+    @JSONField(ordinal = 2)
+    private boolean available;
 
-    @Column(name = "PRE_UPGRADE")
-    @JSONField(ordinal = 3,
-            name = "preUpgrade")
+    @JSONField(ordinal = 3)
     private String preUpgrade;
 
-    @Column(name = "IS_UPGRADED")
-    @JSONField(ordinal = 4,
-            name = "IsUpgraded")
-    private String isUpgraded;
+    @JSONField(ordinal = 4)
+    private boolean upgraded;
 
-    @Column(name = "UPGRADE_SCRIPT")
-    @JSONField(ordinal = 5,
-            name = "UpgradeScript")
+    @JSONField(ordinal = 5)
     private String upgradeScript;
 
-    @Column(name = "WANTED_ROWS")
-    @JSONField(ordinal = 6,
-            name = "WantedRows")
+    @JSONField(ordinal = 6)
     private BigDecimal wantedRows;
 
-    @Column(name = "UPGRADED_ROWS")
-    @JSONField(ordinal = 7,
-            name = "UpgradedRows")
+    @JSONField(ordinal = 7)
     private BigDecimal upgradedRows;
 
-    @Column(name = "REMARKS")
-    @JSONField(ordinal = 8,
-            name = "Remarks")
+    @JSONField(ordinal = 8)
     private String remarks;
 
-    @Column(name = "ERRORS")
-    @JSONField(ordinal = 9,
-            name = "Errors")
+    @JSONField(ordinal = 9)
     private String errors;
-
-    public UpgradeConfig() {
-    }
-
-    public String getUpgradeObject() {
-        return upgradeObject;
-    }
-
-    public void setUpgradeObject(String upgradeObject) {
-        this.upgradeObject = upgradeObject;
-    }
-
-    public BigDecimal getUpgradeOrder() {
-        return upgradeOrder;
-    }
-
-    public void setUpgradeOrder(BigDecimal upgradeOrder) {
-        this.upgradeOrder = upgradeOrder;
-    }
-
-    public String getIsAvailable() {
-        return isAvailable;
-    }
-
-    public void setIsAvailable(String isAvailable) {
-        this.isAvailable = isAvailable;
-    }
-
-    public String getPreUpgrade() {
-        return preUpgrade;
-    }
-
-    public void setPreUpgrade(String preUpgrade) {
-        this.preUpgrade = preUpgrade;
-    }
-
-    public String getIsUpgraded() {
-        return isUpgraded;
-    }
-
-    public void setIsUpgraded(String isUpgraded) {
-        this.isUpgraded = isUpgraded;
-    }
-
-    public String getUpgradeScript() {
-        return upgradeScript;
-    }
-
-    public void setUpgradeScript(String upgradeScript) {
-        this.upgradeScript = upgradeScript;
-    }
-
-    public BigDecimal getWantedRows() {
-        return wantedRows;
-    }
-
-    public void setWantedRows(BigDecimal wantedRows) {
-        this.wantedRows = wantedRows;
-    }
-
-    public BigDecimal getUpgradedRows() {
-        return upgradedRows;
-    }
-
-    public void setUpgradedRows(BigDecimal upgradedRows) {
-        this.upgradedRows = upgradedRows;
-    }
-
-    public String getRemarks() {
-        return remarks;
-    }
-
-    public void setRemarks(String remarks) {
-        this.remarks = remarks;
-    }
-
-    public String getErrors() {
-        return errors;
-    }
-
-    public void setErrors(String errors) {
-        this.errors = errors;
-    }
 }

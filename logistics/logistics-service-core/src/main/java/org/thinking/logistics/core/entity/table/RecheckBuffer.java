@@ -1,11 +1,13 @@
 package org.thinking.logistics.core.entity.table;
 
+import lombok.Data;
 import org.thinking.logistics.core.domain.support.RecheckBufferType;
 import org.thinking.logistics.core.entity.Warehouse;
 
 import javax.persistence.*;
 
 @Entity
+@Data
 public class RecheckBuffer {
     @Id
     @GeneratedValue
@@ -28,55 +30,4 @@ public class RecheckBuffer {
 
     @Column(nullable = false)
     private boolean available = true;//是否可用
-
-    public RecheckBuffer() {
-    }
-
-    public Warehouse getWarehouse() {
-        return warehouse;
-    }
-
-    public void setWarehouse(Warehouse warehouse) {
-        this.warehouse = warehouse;
-    }
-
-    public String getNumber() {
-        return number;
-    }
-
-    public void setNumber(String number) {
-        this.number = number;
-    }
-
-    public RecheckTable getTable() {
-        return table;
-    }
-
-    public void setTable(RecheckTable table) {
-        this.table = table;
-    }
-
-    public RecheckSlide getSlide() {
-        return slide;
-    }
-
-    public void setSlide(RecheckSlide slide) {
-        this.slide = slide;
-    }
-
-    public RecheckBufferType getType() {
-        return type;
-    }
-
-    public void setType(RecheckBufferType type) {
-        this.type = type;
-    }
-
-    public boolean isAvailable() {
-        return available;
-    }
-
-    public void setAvailable(boolean available) {
-        this.available = available;
-    }
 }

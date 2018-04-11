@@ -1,5 +1,6 @@
 package org.thinking.logistics.dispatcher.service;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.thinking.logistics.core.domain.BusinessAdapter;
@@ -8,16 +9,19 @@ import org.thinking.logistics.core.repository.OutboundHeaderRepository;
 import org.thinking.logistics.core.repository.OwnerRepository;
 import org.thinking.logistics.dispatcher.domain.OutboundOrderDispatcher;
 
-import javax.annotation.Resource;
 import java.util.List;
 
 @Service
 public class DispatcherService extends BusinessAdapter {
-    @Resource
     private OwnerRepository ownerRepository;
 
-    @Resource
     private OutboundHeaderRepository headerRepository;
+
+    @Autowired
+    public DispatcherService(OwnerRepository ownerRepository, OutboundHeaderRepository headerRepository) {
+        this.ownerRepository = ownerRepository;
+        this.headerRepository = headerRepository;
+    }
 
     @Transactional(rollbackFor = Exception.class)
     public void arrangeWave(String ownerNumber, String employeeNumber, List<OutboundHeader> headers) throws Exception {

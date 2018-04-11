@@ -1,5 +1,6 @@
 package org.thinking.logistics.core.entity;
 
+import lombok.Data;
 import org.thinking.logistics.core.domain.support.OperationDevice;
 import org.thinking.logistics.core.domain.support.PackageSign;
 import org.thinking.logistics.core.domain.support.RecheckMode;
@@ -8,6 +9,7 @@ import org.thinking.logistics.core.domain.support.UpshelfMode;
 import javax.persistence.*;
 
 @Entity
+@Data
 public class Area {
     @Id
     @GeneratedValue
@@ -49,113 +51,6 @@ public class Area {
 
     @Column(nullable = false)
     private int fullloadQuantity = 0;//满载周转箱数
-
-    public Area() {
-    }
-
-    public Warehouse getWarehouse() {
-        return warehouse;
-    }
-
-    public void setWarehouse(Warehouse warehouse) {
-        this.warehouse = warehouse;
-    }
-
-    public String getNumber() {
-        return number;
-    }
-
-    public void setNumber(String number) {
-        this.number = number;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getStoreCategory() {
-        return storeCategory;
-    }
-
-    public void setStoreCategory(String storeCategory) {
-        this.storeCategory = storeCategory;
-    }
-
-    public String getStoreNo() {
-        return storeNo;
-    }
-
-    public void setStoreNo(String storeNo) {
-        this.storeNo = storeNo;
-    }
-
-    public PackageSign getSign() {
-        return sign;
-    }
-
-    public void setSign(PackageSign sign) {
-        this.sign = sign;
-    }
-
-    public String getRegion() {
-        return region;
-    }
-
-    public void setRegion(String region) {
-        this.region = region;
-    }
-
-    public OperationDevice getOperationDevice() {
-        return operationDevice;
-    }
-
-    public void setOperationDevice(OperationDevice operationDevice) {
-        this.operationDevice = operationDevice;
-    }
-
-    public UpshelfMode getUpshelfMode() {
-        return upshelfMode;
-    }
-
-    public void setUpshelfMode(UpshelfMode upshelfMode) {
-        this.upshelfMode = upshelfMode;
-    }
-
-    public boolean isPrepicking() {
-        return prepicking;
-    }
-
-    public void setPrepicking(boolean prepicking) {
-        this.prepicking = prepicking;
-    }
-
-    public boolean isUseSorter() {
-        return useSorter;
-    }
-
-    public void setUseSorter(boolean useSorter) {
-        this.useSorter = useSorter;
-    }
-
-    public RecheckMode getRecheckMode() {
-        return recheckMode;
-    }
-
-    public void setRecheckMode(RecheckMode recheckMode) {
-        this.recheckMode = recheckMode;
-    }
-
-    public int getFullloadQuantity() {
-        return fullloadQuantity;
-    }
-
-    public void setFullloadQuantity(int fullloadQuantity) {
-        this.fullloadQuantity = fullloadQuantity;
-    }
 
     @Override
     public String toString() {

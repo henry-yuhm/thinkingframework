@@ -1,6 +1,7 @@
 package org.thinking.logistics.upgrade.service;
 
 import com.querydsl.core.types.Predicate;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -20,6 +21,7 @@ public class UpgradeService {
 
     private UpgradeRepository upgradeRepository;
 
+    @Autowired
     public UpgradeService(JdbcTemplate jdbcTemplate, UpgradeRepository upgradeRepository) {
         this.jdbcTemplate = jdbcTemplate;
         this.upgradeRepository = upgradeRepository;
@@ -56,7 +58,7 @@ public class UpgradeService {
 //		this.jdbcTemplate.call(connection -> connection.prepareCall(connection.nativeSQL(upgradeConfig.getUpgradeScript())), new ArrayList());
         this.jdbcTemplate.execute(upgradeConfig.getUpgradeScript());
 
-        upgradeConfig.setIsUpgraded("Y");
+        upgradeConfig.setUpgraded(true);
         if (this.jdbcTemplate.queryForObject("SELECT COUNT(*) FROM USER_TABLES@WMS_OLD WHERE TABLE_NAME = '" + upgradeConfig.getUpgradeObject() + "'", int.class) > 0) {
             upgradeConfig.setWantedRows(new BigDecimal(this.jdbcTemplate.queryForObject("SELECT COUNT(*) FROM " + upgradeConfig.getUpgradeObject().toString() + "@WMS_OLD", int.class)));
         } else {
@@ -69,9 +71,8 @@ public class UpgradeService {
     }
 
     @Transactional(rollbackFor = Exception.class)
-    public void setUpgradeErrors(UpgradeConfig upgradeConfig,
-                                 Exception ex) {
-        upgradeConfig.setIsUpgraded("E");
+    public void setUpgradeErrors(UpgradeConfig upgradeConfig, Exception ex) {
+        upgradeConfig.setUpgraded(false);
         upgradeConfig.setWantedRows(new BigDecimal(0));
         upgradeConfig.setUpgradedRows(new BigDecimal(0));
         upgradeConfig.setErrors(ex.getMessage());

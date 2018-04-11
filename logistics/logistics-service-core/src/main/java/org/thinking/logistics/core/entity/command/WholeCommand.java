@@ -1,5 +1,7 @@
 package org.thinking.logistics.core.entity.command;
 
+import lombok.Data;
+import lombok.EqualsAndHashCode;
 import org.thinking.logistics.core.entity.Platform;
 import org.thinking.logistics.core.entity.barcode.WholeBarcode;
 import org.thinking.logistics.core.entity.container.Pallet;
@@ -10,6 +12,8 @@ import javax.persistence.FetchType;
 import javax.persistence.ManyToOne;
 
 @Entity
+@Data
+@EqualsAndHashCode(callSuper = true)
 public class WholeCommand extends OutboundCommand {
     @ManyToOne(fetch = FetchType.LAZY)
     private WholeCommand parent;//父指令
@@ -25,47 +29,4 @@ public class WholeCommand extends OutboundCommand {
 
     @ManyToOne(fetch = FetchType.LAZY)
     private Platform platform;//站台
-
-    public WholeCommand() {
-    }
-
-    public WholeCommand getParent() {
-        return parent;
-    }
-
-    public void setParent(WholeCommand parent) {
-        this.parent = parent;
-    }
-
-    public WholeTask getTask() {
-        return task;
-    }
-
-    public void setTask(WholeTask task) {
-        this.task = task;
-    }
-
-    public WholeBarcode getBarcode() {
-        return barcode;
-    }
-
-    public void setBarcode(WholeBarcode barcode) {
-        this.barcode = barcode;
-    }
-
-    public Pallet getPallet() {
-        return pallet;
-    }
-
-    public void setPallet(Pallet pallet) {
-        this.pallet = pallet;
-    }
-
-    public Platform getPlatform() {
-        return platform;
-    }
-
-    public void setPlatform(Platform platform) {
-        this.platform = platform;
-    }
 }

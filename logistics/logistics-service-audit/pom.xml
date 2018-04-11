@@ -90,6 +90,11 @@
         </dependency>
 
         <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+        </dependency>
+
+        <dependency>
             <groupId>org.thinkingframework.boot</groupId>
             <artifactId>thinking-boot-starter-web</artifactId>
         </dependency>

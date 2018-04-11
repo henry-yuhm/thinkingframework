@@ -1,5 +1,6 @@
 package org.thinking.logistics.core.entity.task;
 
+import lombok.Data;
 import org.thinking.logistics.core.entity.Warehouse;
 
 import javax.persistence.*;
@@ -7,6 +8,7 @@ import java.sql.Date;
 
 @MappedSuperclass
 @Inheritance(strategy = InheritanceType.JOINED)
+@Data
 public abstract class Task {
     @Id
     @GeneratedValue
@@ -23,44 +25,4 @@ public abstract class Task {
     private Date pickingStartTime;//拣货开始时间
 
     private Date pickingCompleteTime;//拣货完成时间
-
-    public Warehouse getWarehouse() {
-        return warehouse;
-    }
-
-    public void setWarehouse(Warehouse warehouse) {
-        this.warehouse = warehouse;
-    }
-
-    public String getNumber() {
-        return number;
-    }
-
-    public void setNumber(String number) {
-        this.number = number;
-    }
-
-    public String getPicker() {
-        return picker;
-    }
-
-    public void setPicker(String picker) {
-        this.picker = picker;
-    }
-
-    public Date getPickingStartTime() {
-        return pickingStartTime;
-    }
-
-    public void setPickingStartTime(Date pickingStartTime) {
-        this.pickingStartTime = pickingStartTime;
-    }
-
-    public Date getPickingCompleteTime() {
-        return pickingCompleteTime;
-    }
-
-    public void setPickingCompleteTime(Date pickingCompleteTime) {
-        this.pickingCompleteTime = pickingCompleteTime;
-    }
 }

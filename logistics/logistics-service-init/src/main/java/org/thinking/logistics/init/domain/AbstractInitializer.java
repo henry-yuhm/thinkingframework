@@ -1,5 +1,7 @@
 package org.thinking.logistics.init.domain;
 
+import lombok.Data;
+import lombok.EqualsAndHashCode;
 import org.thinking.logistics.core.domain.BusinessAdapter;
 import org.thinking.logistics.core.domain.CompositeException;
 import org.thinking.logistics.core.domain.support.OutboundStage;
@@ -10,6 +12,8 @@ import org.thinking.logistics.core.repository.OutboundHeaderRepository;
 import javax.annotation.Resource;
 import java.math.BigDecimal;
 
+@Data
+@EqualsAndHashCode(callSuper = true)
 public abstract class AbstractInitializer extends BusinessAdapter implements Initializer {
     OutboundHeader header;
 

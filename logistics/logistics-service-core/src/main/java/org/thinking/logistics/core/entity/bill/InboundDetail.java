@@ -1,5 +1,7 @@
 package org.thinking.logistics.core.entity.bill;
 
+import lombok.Data;
+import lombok.EqualsAndHashCode;
 import org.thinking.logistics.core.domain.support.Assessment;
 import org.thinking.logistics.core.domain.support.Conveyance;
 import org.thinking.logistics.core.domain.support.ReceiptConclusion;
@@ -13,6 +15,8 @@ import javax.persistence.ManyToOne;
 import java.math.BigDecimal;
 
 @Entity
+@Data
+@EqualsAndHashCode(callSuper = true)
 public class InboundDetail extends Detail {
     @ManyToOne(fetch = FetchType.LAZY)
     private InboundDetail parent;//父明细
@@ -71,176 +75,4 @@ public class InboundDetail extends Detail {
     private Conveyance conveyance;//运输工具
 
     private String scanningNo;//扫描单号
-
-    public InboundDetail() {
-    }
-
-    public InboundDetail getParent() {
-        return parent;
-    }
-
-    public void setParent(InboundDetail parent) {
-        this.parent = parent;
-    }
-
-//    @Override
-//    public InboundHeader getHeader() {
-//        return header;
-//    }
-//
-//    public void setHeader(InboundHeader header) {
-//        this.header = header;
-//    }
-
-    public PurchaseOrderDetail getOrder() {
-        return order;
-    }
-
-    public void setOrder(PurchaseOrderDetail order) {
-        this.order = order;
-    }
-
-    public BigDecimal getPlanQuantity() {
-        return planQuantity;
-    }
-
-    public void setPlanQuantity(BigDecimal planQuantity) {
-        this.planQuantity = planQuantity;
-    }
-
-    public int getPlanPieces() {
-        return planPieces;
-    }
-
-    public void setPlanPieces(int planPieces) {
-        this.planPieces = planPieces;
-    }
-
-    public BigDecimal getPlanRemainder() {
-        return planRemainder;
-    }
-
-    public void setPlanRemainder(BigDecimal planRemainder) {
-        this.planRemainder = planRemainder;
-    }
-
-    public BigDecimal getFactQuantity() {
-        return factQuantity;
-    }
-
-    public void setFactQuantity(BigDecimal factQuantity) {
-        this.factQuantity = factQuantity;
-    }
-
-    public int getFactPieces() {
-        return factPieces;
-    }
-
-    public void setFactPieces(int factPieces) {
-        this.factPieces = factPieces;
-    }
-
-    public BigDecimal getFactRemainder() {
-        return factRemainder;
-    }
-
-    public void setFactRemainder(BigDecimal factRemainder) {
-        this.factRemainder = factRemainder;
-    }
-
-    public Pallet getPallet() {
-        return pallet;
-    }
-
-    public void setPallet(Pallet pallet) {
-        this.pallet = pallet;
-    }
-
-    public Totebox getTotebox() {
-        return totebox;
-    }
-
-    public void setTotebox(Totebox totebox) {
-        this.totebox = totebox;
-    }
-
-    public Assessment getAssessment() {
-        return assessment;
-    }
-
-    public void setAssessment(Assessment assessment) {
-        this.assessment = assessment;
-    }
-
-    public ReceiptConclusion getConclusion() {
-        return conclusion;
-    }
-
-    public void setConclusion(ReceiptConclusion conclusion) {
-        this.conclusion = conclusion;
-    }
-
-    public String getRejections() {
-        return rejections;
-    }
-
-    public void setRejections(String rejections) {
-        this.rejections = rejections;
-    }
-
-    public BigDecimal getPrice() {
-        return price;
-    }
-
-    public void setPrice(BigDecimal price) {
-        this.price = price;
-    }
-
-    public BigDecimal getAmount() {
-        return amount;
-    }
-
-    public void setAmount(BigDecimal amount) {
-        this.amount = amount;
-    }
-
-    public String getStoreNo() {
-        return storeNo;
-    }
-
-    public void setStoreNo(String storeNo) {
-        this.storeNo = storeNo;
-    }
-
-    public String getSplitter() {
-        return splitter;
-    }
-
-    public void setSplitter(String splitter) {
-        this.splitter = splitter;
-    }
-
-    public int getTemperature() {
-        return temperature;
-    }
-
-    public void setTemperature(int temperature) {
-        this.temperature = temperature;
-    }
-
-    public Conveyance getConveyance() {
-        return conveyance;
-    }
-
-    public void setConveyance(Conveyance conveyance) {
-        this.conveyance = conveyance;
-    }
-
-    public String getScanningNo() {
-        return scanningNo;
-    }
-
-    public void setScanningNo(String scanningNo) {
-        this.scanningNo = scanningNo;
-    }
 }

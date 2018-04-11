@@ -1,5 +1,7 @@
 package org.thinking.logistics.dispatcher.domain;
 
+import lombok.Data;
+import lombok.EqualsAndHashCode;
 import org.thinking.logistics.core.domain.CompositeException;
 import org.thinking.logistics.core.domain.support.OutboundStage;
 import org.thinking.logistics.core.entity.Employee;
@@ -7,6 +9,8 @@ import org.thinking.logistics.core.entity.bill.OutboundHeader;
 
 import java.util.List;
 
+@Data
+@EqualsAndHashCode(callSuper = true)
 public class OutboundOrderDispatcher extends AbstractDispatcher {
     public OutboundOrderDispatcher(Employee operator, OutboundHeader header) {
         super(operator, header);

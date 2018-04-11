@@ -1,5 +1,7 @@
 package org.thinking.logistics.dispatcher.domain;
 
+import lombok.Data;
+import lombok.EqualsAndHashCode;
 import org.thinking.logistics.core.domain.BusinessAdapter;
 import org.thinking.logistics.core.domain.CompositeException;
 import org.thinking.logistics.core.domain.support.OutboundStage;
@@ -12,6 +14,8 @@ import java.sql.Date;
 import java.time.LocalDate;
 import java.util.List;
 
+@Data
+@EqualsAndHashCode(callSuper = true)
 public abstract class AbstractDispatcher extends BusinessAdapter implements Dispatcher {
     OutboundHeader header;
 

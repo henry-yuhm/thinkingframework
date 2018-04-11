@@ -1,6 +1,6 @@
 package org.thinking.logistics.core.domain.support;
 
-public enum StagingareaType {
+public enum StagingareaKind {
     NORMAL("1", 1),//普通
     APPENDANT_PICKING("2", 2),//追加拣货
     TRADITIONAL_CHINESE_MEDICINE("3", 3),//中药
@@ -9,6 +9,6 @@ public enum StagingareaType {
     THIRD_PARTY("6", 6),//第三方
     RANDOM("7", 7);//机动
 
-    StagingareaType(String name, int ordinal) {
+    StagingareaKind(String name, int ordinal) {
     }
 }

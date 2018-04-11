@@ -1,5 +1,7 @@
 package org.thinking.logistics.core.entity.bill;
 
+import lombok.Data;
+import lombok.EqualsAndHashCode;
 import org.thinking.logistics.core.entity.Location;
 import org.thinking.logistics.core.entity.container.Pallet;
 
@@ -10,6 +12,8 @@ import javax.persistence.ManyToOne;
 import java.math.BigDecimal;
 
 @Entity
+@Data
+@EqualsAndHashCode(callSuper = true)
 public class ReplenishingDetail extends Detail {
 //    @ManyToOne(fetch = FetchType.LAZY, optional = false)
 //    private ReplenishingHeader header;//抬头
@@ -33,72 +37,4 @@ public class ReplenishingDetail extends Detail {
 
     @ManyToOne(fetch = FetchType.LAZY)
     private Pallet pallet;//托盘
-
-    public ReplenishingDetail() {
-    }
-
-//    @Override
-//    public ReplenishingHeader getHeader() {
-//        return header;
-//    }
-//
-//    public void setHeader(ReplenishingHeader header) {
-//        this.header = header;
-//    }
-
-    public Location getLocation() {
-        return location;
-    }
-
-    public void setLocation(Location location) {
-        this.location = location;
-    }
-
-    public String getStoreCategory() {
-        return storeCategory;
-    }
-
-    public void setStoreCategory(String storeCategory) {
-        this.storeCategory = storeCategory;
-    }
-
-    public BigDecimal getPlanQuantity() {
-        return planQuantity;
-    }
-
-    public void setPlanQuantity(BigDecimal planQuantity) {
-        this.planQuantity = planQuantity;
-    }
-
-    public int getPlanPieces() {
-        return planPieces;
-    }
-
-    public void setPlanPieces(int planPieces) {
-        this.planPieces = planPieces;
-    }
-
-    public BigDecimal getFactQuantity() {
-        return factQuantity;
-    }
-
-    public void setFactQuantity(BigDecimal factQuantity) {
-        this.factQuantity = factQuantity;
-    }
-
-    public int getFactPieces() {
-        return factPieces;
-    }
-
-    public void setFactPieces(int factPieces) {
-        this.factPieces = factPieces;
-    }
-
-    public Pallet getPallet() {
-        return pallet;
-    }
-
-    public void setPallet(Pallet pallet) {
-        this.pallet = pallet;
-    }
 }

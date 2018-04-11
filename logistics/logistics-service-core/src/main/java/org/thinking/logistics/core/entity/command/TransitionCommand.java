@@ -1,5 +1,7 @@
 package org.thinking.logistics.core.entity.command;
 
+import lombok.Data;
+import lombok.EqualsAndHashCode;
 import org.thinking.logistics.core.domain.support.InventoryState;
 import org.thinking.logistics.core.entity.Location;
 
@@ -7,6 +9,8 @@ import javax.persistence.*;
 
 @MappedSuperclass
 @Inheritance(strategy = InheritanceType.JOINED)
+@Data
+@EqualsAndHashCode(callSuper = true)
 public abstract class TransitionCommand extends Command {
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     private Location sourceLocation;//源货位
@@ -25,52 +29,4 @@ public abstract class TransitionCommand extends Command {
 
     @Column(nullable = false)
     private boolean targetActivated = false;//目标是否激活
-
-    public Location getSourceLocation() {
-        return sourceLocation;
-    }
-
-    public void setSourceLocation(Location sourceLocation) {
-        this.sourceLocation = sourceLocation;
-    }
-
-    public Location getTargetLocation() {
-        return targetLocation;
-    }
-
-    public void setTargetLocation(Location targetLocation) {
-        this.targetLocation = targetLocation;
-    }
-
-    public InventoryState getSourceState() {
-        return sourceState;
-    }
-
-    public void setSourceState(InventoryState sourceState) {
-        this.sourceState = sourceState;
-    }
-
-    public InventoryState getTargetState() {
-        return targetState;
-    }
-
-    public void setTargetState(InventoryState targetState) {
-        this.targetState = targetState;
-    }
-
-    public boolean isSourceActivated() {
-        return sourceActivated;
-    }
-
-    public void setSourceActivated(boolean sourceActivated) {
-        this.sourceActivated = sourceActivated;
-    }
-
-    public boolean isTargetActivated() {
-        return targetActivated;
-    }
-
-    public void setTargetActivated(boolean targetActivated) {
-        this.targetActivated = targetActivated;
-    }
 }

@@ -1,5 +1,7 @@
 package org.thinking.logistics.core.entity.command;
 
+import lombok.Data;
+import lombok.EqualsAndHashCode;
 import org.thinking.logistics.core.entity.bill.InboundDetail;
 import org.thinking.logistics.core.entity.bill.InboundHeader;
 
@@ -8,6 +10,8 @@ import javax.persistence.FetchType;
 import javax.persistence.ManyToOne;
 
 @Entity
+@Data
+@EqualsAndHashCode(callSuper = true)
 public class InboundCommand extends Command {
     @ManyToOne(fetch = FetchType.LAZY)
     private InboundCommand parent;//父指令
@@ -17,7 +21,4 @@ public class InboundCommand extends Command {
 
     @ManyToOne(fetch = FetchType.LAZY)
     private InboundDetail detail;//单据明细
-
-    public InboundCommand() {
-    }
 }

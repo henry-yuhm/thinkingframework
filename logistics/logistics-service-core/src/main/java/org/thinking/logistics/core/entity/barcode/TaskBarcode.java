@@ -1,5 +1,7 @@
 package org.thinking.logistics.core.entity.barcode;
 
+import lombok.Data;
+import lombok.EqualsAndHashCode;
 import org.thinking.logistics.core.domain.support.BarcodeType;
 import org.thinking.logistics.core.domain.support.TransferlineSign;
 import org.thinking.logistics.core.entity.Warehouse;
@@ -8,6 +10,8 @@ import javax.persistence.*;
 
 @MappedSuperclass
 @Inheritance(strategy = InheritanceType.JOINED)
+@Data
+@EqualsAndHashCode(callSuper = true)
 public abstract class TaskBarcode extends Barcode {
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     private Warehouse warehouse;//仓库
@@ -20,36 +24,4 @@ public abstract class TaskBarcode extends Barcode {
 
     @Column(nullable = false)
     private TransferlineSign sign;//输送线标识
-
-    public Warehouse getWarehouse() {
-        return warehouse;
-    }
-
-    public void setWarehouse(Warehouse warehouse) {
-        this.warehouse = warehouse;
-    }
-
-    public BarcodeType getType() {
-        return type;
-    }
-
-    public void setType(BarcodeType type) {
-        this.type = type;
-    }
-
-    public String getDeviceNo() {
-        return deviceNo;
-    }
-
-    public void setDeviceNo(String deviceNo) {
-        this.deviceNo = deviceNo;
-    }
-
-    public TransferlineSign getSign() {
-        return sign;
-    }
-
-    public void setSign(TransferlineSign sign) {
-        this.sign = sign;
-    }
 }

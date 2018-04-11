@@ -1,5 +1,7 @@
 package org.thinking.logistics.core.domain;
 
+import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.thinking.logistics.core.entity.Employee;
 import org.thinking.logistics.core.entity.Owner;
 import org.thinking.logistics.core.entity.Warehouse;
@@ -11,6 +13,8 @@ import java.math.BigDecimal;
 import java.sql.Date;
 import java.util.regex.Pattern;
 
+@Data
+@NoArgsConstructor
 public abstract class BusinessAdapter {
     protected Employee operator;//操作员
 
@@ -19,9 +23,6 @@ public abstract class BusinessAdapter {
 
     @Resource
     private ParameterService parameterService;
-
-    public BusinessAdapter() {
-    }
 
     public BusinessAdapter(Employee operator) {
         this.operator = operator;
@@ -71,13 +72,5 @@ public abstract class BusinessAdapter {
 
     protected final boolean isEnable(Warehouse warehouse, String number) {
         return Boolean.parseBoolean(this.getStringParameter(warehouse, number));
-    }
-
-    public Employee getOperator() {
-        return operator;
-    }
-
-    public void setOperator(Employee operator) {
-        this.operator = operator;
     }
 }

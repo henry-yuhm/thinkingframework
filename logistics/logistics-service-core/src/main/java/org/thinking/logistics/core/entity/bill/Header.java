@@ -1,5 +1,6 @@
 package org.thinking.logistics.core.entity.bill;
 
+import lombok.Data;
 import org.thinking.logistics.core.domain.support.BillCategory;
 import org.thinking.logistics.core.domain.support.BillSign;
 import org.thinking.logistics.core.domain.support.BillType;
@@ -14,6 +15,7 @@ import java.util.Set;
 
 @MappedSuperclass
 @Inheritance(strategy = InheritanceType.JOINED)
+@Data
 public abstract class Header {
     @Id
     @GeneratedValue
@@ -52,92 +54,4 @@ public abstract class Header {
     private String remarks;//备注
 
     public abstract Set<? extends Detail> getDetails();
-
-    public Warehouse getWarehouse() {
-        return warehouse;
-    }
-
-    public void setWarehouse(Warehouse warehouse) {
-        this.warehouse = warehouse;
-    }
-
-    public Owner getOwner() {
-        return owner;
-    }
-
-    public void setOwner(Owner owner) {
-        this.owner = owner;
-    }
-
-    public String getNumber() {
-        return number;
-    }
-
-    public void setNumber(String number) {
-        this.number = number;
-    }
-
-    public BillType getType() {
-        return type;
-    }
-
-    public void setType(BillType type) {
-        this.type = type;
-    }
-
-    public BillCategory getCategory() {
-        return category;
-    }
-
-    public void setCategory(BillCategory category) {
-        this.category = category;
-    }
-
-    public BillSign getSign() {
-        return sign;
-    }
-
-    public void setSign(BillSign sign) {
-        this.sign = sign;
-    }
-
-    public Employee getOperator() {
-        return operator;
-    }
-
-    public void setOperator(Employee operator) {
-        this.operator = operator;
-    }
-
-    public Employee getBusinessman() {
-        return businessman;
-    }
-
-    public void setBusinessman(Employee businessman) {
-        this.businessman = businessman;
-    }
-
-    public Date getCreationTime() {
-        return creationTime;
-    }
-
-    public void setCreationTime(Date creationTime) {
-        this.creationTime = creationTime;
-    }
-
-    public Date getModificationTime() {
-        return modificationTime;
-    }
-
-    public void setModificationTime(Date modificationTime) {
-        this.modificationTime = modificationTime;
-    }
-
-    public String getRemarks() {
-        return remarks;
-    }
-
-    public void setRemarks(String remarks) {
-        this.remarks = remarks;
-    }
 }

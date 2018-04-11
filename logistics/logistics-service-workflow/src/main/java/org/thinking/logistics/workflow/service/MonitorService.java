@@ -1,5 +1,6 @@
 package org.thinking.logistics.workflow.service;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.thinking.logistics.workflow.entity.Monitor;
 import org.thinking.logistics.workflow.repository.MonitorRepository;
@@ -11,6 +12,7 @@ import java.util.stream.Collectors;
 public class MonitorService {
     private MonitorRepository monitorRepository;
 
+    @Autowired
     public MonitorService(MonitorRepository monitorRepository) {
         this.monitorRepository = monitorRepository;
     }

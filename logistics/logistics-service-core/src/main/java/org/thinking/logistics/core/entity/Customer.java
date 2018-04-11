@@ -1,5 +1,6 @@
 package org.thinking.logistics.core.entity;
 
+import lombok.Data;
 import org.thinking.logistics.core.domain.support.BatchRequest;
 import org.thinking.logistics.core.domain.support.CustomerCategory;
 import org.thinking.logistics.core.domain.support.CustomerSign;
@@ -8,6 +9,7 @@ import javax.persistence.*;
 
 @Entity
 @Table(schema = "wms")
+@Data
 public class Customer {
     @Id
     @GeneratedValue
@@ -54,140 +56,4 @@ public class Customer {
     private String district;//地区
 
     private String businessman;//业务员
-
-    public Owner getOwner() {
-        return owner;
-    }
-
-    public void setOwner(Owner owner) {
-        this.owner = owner;
-    }
-
-    public String getNumber() {
-        return number;
-    }
-
-    public void setNumber(String number) {
-        this.number = number;
-    }
-
-    public String getSourceCode() {
-        return sourceCode;
-    }
-
-    public void setSourceCode(String sourceCode) {
-        this.sourceCode = sourceCode;
-    }
-
-    public Customer getParent() {
-        return parent;
-    }
-
-    public void setParent(Customer parent) {
-        this.parent = parent;
-    }
-
-    public String getMnemonicCode() {
-        return mnemonicCode;
-    }
-
-    public void setMnemonicCode(String mnemonicCode) {
-        this.mnemonicCode = mnemonicCode;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getShortName() {
-        return shortName;
-    }
-
-    public void setShortName(String shortName) {
-        this.shortName = shortName;
-    }
-
-    public String getAddress() {
-        return address;
-    }
-
-    public void setAddress(String address) {
-        this.address = address;
-    }
-
-    public String getPhone() {
-        return phone;
-    }
-
-    public void setPhone(String phone) {
-        this.phone = phone;
-    }
-
-    public CustomerSign getSign() {
-        return sign;
-    }
-
-    public void setSign(CustomerSign sign) {
-        this.sign = sign;
-    }
-
-    public String getIdentifier() {
-        return identifier;
-    }
-
-    public void setIdentifier(String identifier) {
-        this.identifier = identifier;
-    }
-
-    public String getSeat() {
-        return seat;
-    }
-
-    public void setSeat(String seat) {
-        this.seat = seat;
-    }
-
-    public BatchRequest getBatchRequest() {
-        return batchRequest;
-    }
-
-    public void setBatchRequest(BatchRequest batchRequest) {
-        this.batchRequest = batchRequest;
-    }
-
-    public CustomerCategory getCategory() {
-        return category;
-    }
-
-    public void setCategory(CustomerCategory category) {
-        this.category = category;
-    }
-
-    public String getGrade() {
-        return grade;
-    }
-
-    public void setGrade(String grade) {
-        this.grade = grade;
-    }
-
-    public String getDistrict() {
-        return district;
-    }
-
-    public void setDistrict(String district) {
-        this.district = district;
-    }
-
-    public String getBusinessman() {
-        return businessman;
-    }
-
-    public void setBusinessman(String businessman) {
-        this.businessman = businessman;
-    }
 }

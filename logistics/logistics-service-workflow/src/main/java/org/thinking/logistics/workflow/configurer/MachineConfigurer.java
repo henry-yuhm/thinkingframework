@@ -1,6 +1,7 @@
 package org.thinking.logistics.workflow.configurer;
 
 import com.alibaba.fastjson.JSONObject;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.expression.spel.standard.SpelExpressionParser;
@@ -39,7 +40,6 @@ import org.springframework.web.client.RestTemplate;
 import org.thinking.logistics.workflow.entity.Monitor;
 import org.thinking.logistics.workflow.repository.*;
 
-import javax.annotation.Resource;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -47,26 +47,30 @@ import java.util.Map;
 @Configuration
 @EnableStateMachineFactory
 public class MachineConfigurer extends StateMachineConfigurerAdapter<String, String> {
-    @Resource
     private RestTemplate restTemplate;
 
-    @Resource
     private StateRepository stateRepository;
 
-    @Resource
     private TransitionRepository transitionRepository;
 
-    @Resource
     private ActionRepository actionRepository;
 
-    @Resource
     private GuardRepository guardRepository;
 
-    @Resource
     private MachineRepository machineRepository;
 
-    @Resource
     private MonitorRepository monitorRepository;
+
+    @Autowired
+    public MachineConfigurer(RestTemplate restTemplate, StateRepository stateRepository, TransitionRepository transitionRepository, ActionRepository actionRepository, GuardRepository guardRepository, MachineRepository machineRepository, MonitorRepository monitorRepository) {
+        this.restTemplate = restTemplate;
+        this.stateRepository = stateRepository;
+        this.transitionRepository = transitionRepository;
+        this.actionRepository = actionRepository;
+        this.guardRepository = guardRepository;
+        this.machineRepository = machineRepository;
+        this.monitorRepository = monitorRepository;
+    }
 
     @Override
     public void configure(StateMachineModelConfigurer<String, String> model) throws Exception {

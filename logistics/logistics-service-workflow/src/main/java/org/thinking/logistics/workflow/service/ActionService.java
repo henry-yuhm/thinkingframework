@@ -1,5 +1,6 @@
 package org.thinking.logistics.workflow.service;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.statemachine.data.jpa.JpaRepositoryAction;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -14,6 +15,7 @@ public class ActionService {
 
     private Map<String, JpaRepositoryAction> actions;
 
+    @Autowired
     public ActionService(ActionRepository actionRepository, Map<String, JpaRepositoryAction> actions) {
         this.actionRepository = actionRepository;
         this.actions = actions;

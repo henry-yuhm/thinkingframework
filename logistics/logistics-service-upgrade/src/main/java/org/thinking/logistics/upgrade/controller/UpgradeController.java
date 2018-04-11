@@ -2,6 +2,7 @@ package org.thinking.logistics.upgrade.controller;
 
 import com.alibaba.fastjson.JSONObject;
 import com.querydsl.core.types.Predicate;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.querydsl.binding.QuerydslPredicate;
 import org.springframework.web.bind.annotation.*;
 import org.thinking.logistics.upgrade.entity.UpgradeConfig;
@@ -17,6 +18,7 @@ import java.util.List;
 public class UpgradeController {
     private UpgradeService upgradeService;
 
+    @Autowired
     public UpgradeController(UpgradeService upgradeService) {
         this.upgradeService = upgradeService;
     }

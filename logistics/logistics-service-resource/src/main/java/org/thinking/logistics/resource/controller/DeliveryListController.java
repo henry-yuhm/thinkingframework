@@ -1,6 +1,7 @@
 package org.thinking.logistics.resource.controller;
 
 import com.querydsl.core.types.Predicate;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.querydsl.binding.QuerydslPredicate;
 import org.springframework.web.bind.annotation.*;
 import org.thinking.logistics.resource.entity.DeliveryList;
@@ -16,6 +17,7 @@ import java.util.List;
 public class DeliveryListController {
     private DeliveryListService deliveryListService;
 
+    @Autowired
     public DeliveryListController(DeliveryListService deliveryListService) {
         this.deliveryListService = deliveryListService;
     }

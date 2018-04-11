@@ -1,5 +1,6 @@
 package org.thinking.logistics.core.entity;
 
+import lombok.Data;
 import org.thinking.logistics.core.domain.support.BillCategory;
 import org.thinking.logistics.core.domain.support.TaskCategory;
 
@@ -8,6 +9,7 @@ import java.util.LinkedHashSet;
 import java.util.Set;
 
 @Entity
+@Data
 public class SorterSlide {
     @Id
     @GeneratedValue
@@ -32,55 +34,4 @@ public class SorterSlide {
     @OneToMany
     @JoinTable(joinColumns = @JoinColumn(name = "slide_id"), inverseJoinColumns = @JoinColumn(name = "category"))
     private Set<BillCategory> billCategories = new LinkedHashSet<>();//单据类别
-
-    public SorterSlide() {
-    }
-
-    public Warehouse getWarehouse() {
-        return warehouse;
-    }
-
-    public void setWarehouse(Warehouse warehouse) {
-        this.warehouse = warehouse;
-    }
-
-    public String getNumber() {
-        return number;
-    }
-
-    public void setNumber(String number) {
-        this.number = number;
-    }
-
-    public boolean isAvailable() {
-        return available;
-    }
-
-    public void setAvailable(boolean available) {
-        this.available = available;
-    }
-
-    public int getWorkload() {
-        return workload;
-    }
-
-    public void setWorkload(int workload) {
-        this.workload = workload;
-    }
-
-    public Set<TaskCategory> getTaskCategories() {
-        return taskCategories;
-    }
-
-    public void setTaskCategories(Set<TaskCategory> taskCategories) {
-        this.taskCategories = taskCategories;
-    }
-
-    public Set<BillCategory> getBillCategories() {
-        return billCategories;
-    }
-
-    public void setBillCategories(Set<BillCategory> billCategories) {
-        this.billCategories = billCategories;
-    }
 }

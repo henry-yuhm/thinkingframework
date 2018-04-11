@@ -1,38 +1,20 @@
 package org.thinking.logistics.workflow.entity;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Lob;
+import lombok.Data;
+
+import javax.persistence.*;
 import java.io.Serializable;
 
 @Entity
+@Data
 public class Monitor implements Serializable {
     @Id
     @GeneratedValue
     private long id;
 
+    @Column(nullable = false)
     private String machineId;
 
     @Lob
     private String stateContext;
-
-    public Monitor() {
-    }
-
-    public String getMachineId() {
-        return machineId;
-    }
-
-    public void setMachineId(String machineId) {
-        this.machineId = machineId;
-    }
-
-    public String getStateContext() {
-        return stateContext;
-    }
-
-    public void setStateContext(String stateContext) {
-        this.stateContext = stateContext;
-    }
 }

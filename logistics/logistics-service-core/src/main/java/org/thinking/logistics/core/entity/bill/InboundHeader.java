@@ -1,5 +1,7 @@
 package org.thinking.logistics.core.entity.bill;
 
+import lombok.Data;
+import lombok.EqualsAndHashCode;
 import org.thinking.logistics.core.domain.support.ArrivalMode;
 import org.thinking.logistics.core.domain.support.ArrivalVoucher;
 import org.thinking.logistics.core.domain.support.InboundStage;
@@ -10,6 +12,8 @@ import java.util.LinkedHashSet;
 import java.util.Set;
 
 @Entity
+@Data
+@EqualsAndHashCode(callSuper = true)
 public class InboundHeader extends Header {
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     private PurchaseOrderHeader order;//订单
@@ -53,136 +57,4 @@ public class InboundHeader extends Header {
     @ManyToMany
     @JoinTable(joinColumns = @JoinColumn(name = "header_id"), inverseJoinColumns = @JoinColumn(name = "detail_id"))
     private Set<InboundDetail> details = new LinkedHashSet<>();//单据明细
-
-    public InboundHeader() {
-    }
-
-    public PurchaseOrderHeader getOrder() {
-        return order;
-    }
-
-    public void setOrder(PurchaseOrderHeader order) {
-        this.order = order;
-    }
-
-    public InboundStage getStage() {
-        return stage;
-    }
-
-    public void setStage(InboundStage stage) {
-        this.stage = stage;
-    }
-
-    public String getReceivingClerk() {
-        return receivingClerk;
-    }
-
-    public void setReceivingClerk(String receivingClerk) {
-        this.receivingClerk = receivingClerk;
-    }
-
-    public String getAuditor() {
-        return auditor;
-    }
-
-    public void setAuditor(String auditor) {
-        this.auditor = auditor;
-    }
-
-    public String getInspector() {
-        return inspector;
-    }
-
-    public void setInspector(String inspector) {
-        this.inspector = inspector;
-    }
-
-    public boolean isPassback() {
-        return passback;
-    }
-
-    public void setPassback(boolean passback) {
-        this.passback = passback;
-    }
-
-    public boolean isChargeup() {
-        return chargeup;
-    }
-
-    public void setChargeup(boolean chargeup) {
-        this.chargeup = chargeup;
-    }
-
-    public boolean isExecuted() {
-        return executed;
-    }
-
-    public void setExecuted(boolean executed) {
-        this.executed = executed;
-    }
-
-    public boolean isComplete() {
-        return complete;
-    }
-
-    public void setComplete(boolean complete) {
-        this.complete = complete;
-    }
-
-    public ArrivalMode getArrivalMode() {
-        return arrivalMode;
-    }
-
-    public void setArrivalMode(ArrivalMode arrivalMode) {
-        this.arrivalMode = arrivalMode;
-    }
-
-    public ArrivalVoucher getArrivalVoucher() {
-        return arrivalVoucher;
-    }
-
-    public void setArrivalVoucher(ArrivalVoucher arrivalVoucher) {
-        this.arrivalVoucher = arrivalVoucher;
-    }
-
-    public String getArrivalNo() {
-        return arrivalNo;
-    }
-
-    public void setArrivalNo(String arrivalNo) {
-        this.arrivalNo = arrivalNo;
-    }
-
-    public Date getArrivalTime() {
-        return arrivalTime;
-    }
-
-    public void setArrivalTime(Date arrivalTime) {
-        this.arrivalTime = arrivalTime;
-    }
-
-    public String getSaleOrderNo() {
-        return saleOrderNo;
-    }
-
-    public void setSaleOrderNo(String saleOrderNo) {
-        this.saleOrderNo = saleOrderNo;
-    }
-
-    public boolean isPrinted() {
-        return printed;
-    }
-
-    public void setPrinted(boolean printed) {
-        this.printed = printed;
-    }
-
-    @Override
-    public Set<InboundDetail> getDetails() {
-        return details;
-    }
-
-    public void setDetails(Set<InboundDetail> details) {
-        this.details = details;
-    }
 }

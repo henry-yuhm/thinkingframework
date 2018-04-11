@@ -7,7 +7,7 @@ import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
 import org.springframework.cloud.netflix.hystrix.EnableHystrix;
 import org.springframework.cloud.openfeign.EnableFeignClients;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
-import org.thinkingframework.boot.mvc.AppWebMvcConfigurerAdapter;
+import org.thinkingframework.boot.mvc.AppWebMvcConfigurer;
 
 @SpringBootApplication
 @EnableEurekaClient
@@ -15,7 +15,7 @@ import org.thinkingframework.boot.mvc.AppWebMvcConfigurerAdapter;
 @EnableHystrix
 @EntityScan(basePackages = "org.thinking.logistics.core.entity")
 @EnableJpaRepositories(basePackages = "org.thinking.logistics.core.repository")
-public class Application extends AppWebMvcConfigurerAdapter {
+public class Application extends AppWebMvcConfigurer {
     public static void main(String[] args) {
         SpringApplication.run(Application.class, args);
     }

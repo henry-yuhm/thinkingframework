@@ -1,5 +1,6 @@
 package org.thinking.logistics.workflow.service;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.statemachine.data.jpa.JpaRepositoryStateMachine;
 import org.springframework.stereotype.Service;
 import org.thinking.logistics.workflow.entity.Workflow;
@@ -12,6 +13,7 @@ public class InstanceService {
 
     private MachineRepository machineRepository;
 
+    @Autowired
     public InstanceService(WorkflowRepository workflowRepository, MachineRepository machineRepository) {
         this.workflowRepository = workflowRepository;
         this.machineRepository = machineRepository;

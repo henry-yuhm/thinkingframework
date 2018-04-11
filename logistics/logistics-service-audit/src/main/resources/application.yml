@@ -33,7 +33,7 @@ spring:
       min-evictable-idle-time-millis: 1800000
       max-evictable-idle-time-millis: 7200000
       remove-abandoned-timeout: 1800
-      filters: stat,log4j,wall
+#      filters: stat,log4j,wall
       # 监控配置
       web-stat-filter:
         exclusions: /public/*,*.js,*.css,/druid*,*.jsp,*.swf
@@ -69,9 +69,6 @@ eureka:
 ribbon:
   eager-load:
     enabled: true
-#logging:
-#  level:
-#    org.thinking.logistics.audit.*: DEBUG
 ---
 spring:
   profiles: dev

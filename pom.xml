@@ -25,6 +25,7 @@
         <fastjson.version>1.2.47</fastjson.version>
         <springfox.swagger.version>2.8.0</springfox.swagger.version>
         <apt.maven.plugin.version>1.1.3</apt.maven.plugin.version>
+        <lombok.version>1.16.20</lombok.version>
         <thinking.boot.dependencies.version>2.0.0</thinking.boot.dependencies.version>
         <thinking.cloud.dependencies.version>2.0.0</thinking.cloud.dependencies.version>
         <logistics.dependencies.version>2.0.0</logistics.dependencies.version>
@@ -142,12 +143,15 @@
             </dependency>
             <!--dataAccess-->
 
+            <!--lombok-->
+            <dependency>
+                <groupId>org.projectlombok</groupId>
+                <artifactId>lombok</artifactId>
+                <version>${lombok.version}</version>
+            </dependency>
+            <!--lombok-->
+
             <!--thinkingBoot-->
-            <!--<dependency>-->
-            <!--<groupId>org.thinkingframework.boot</groupId>-->
-            <!--<artifactId>thinking-boot-starter-parent</artifactId>-->
-            <!--<version>${thinking.boot.dependencies.version}</version>-->
-            <!--</dependency>-->
             <dependency>
                 <groupId>org.thinkingframework.boot</groupId>
                 <artifactId>thinking-boot-starter-web</artifactId>
@@ -156,11 +160,6 @@
             <!--thinkingBoot-->
 
             <!--thinkingCloud-->
-            <!--<dependency>-->
-            <!--<groupId>org.thinkingframework.cloud</groupId>-->
-            <!--<artifactId>thinking-cloud-starter-parent</artifactId>-->
-            <!--<version>${thinking.cloud.dependencies.version}</version>-->
-            <!--</dependency>-->
             <dependency>
                 <groupId>org.thinkingframework.cloud</groupId>
                 <artifactId>thinking-cloud-starter-api-gateway</artifactId>
@@ -189,41 +188,11 @@
             <!--thinkingCloud-->
 
             <!--logistics-->
-            <!--<dependency>-->
-            <!--<groupId>org.thinking.logistics</groupId>-->
-            <!--<artifactId>logistics-service-parent</artifactId>-->
-            <!--<version>${logistics.dependencies.version}</version>-->
-            <!--</dependency>-->
             <dependency>
                 <groupId>org.thinking.logistics</groupId>
                 <artifactId>logistics-service-core</artifactId>
                 <version>${logistics.dependencies.version}</version>
             </dependency>
-            <!--<dependency>-->
-            <!--<groupId>org.thinking.logistics</groupId>-->
-            <!--<artifactId>logistics-service-resource</artifactId>-->
-            <!--<version>${logistics.dependencies.version}</version>-->
-            <!--</dependency>-->
-            <!--<dependency>-->
-            <!--<groupId>org.thinking.logistics</groupId>-->
-            <!--<artifactId>logistics-service-inventory</artifactId>-->
-            <!--<version>${logistics.dependencies.version}</version>-->
-            <!--</dependency>-->
-            <!--<dependency>-->
-            <!--<groupId>org.thinking.logistics</groupId>-->
-            <!--<artifactId>logistics-service-transport</artifactId>-->
-            <!--<version>${logistics.dependencies.version}</version>-->
-            <!--</dependency>-->
-            <!--<dependency>-->
-            <!--<groupId>org.thinking.logistics</groupId>-->
-            <!--<artifactId>logistics-service-upgrade</artifactId>-->
-            <!--<version>${logistics.dependencies.version}</version>-->
-            <!--</dependency>-->
-            <!--<dependency>-->
-            <!--<groupId>org.thinking.logistics</groupId>-->
-            <!--<artifactId>logistics-service-workflow</artifactId>-->
-            <!--<version>${logistics.dependencies.version}</version>-->
-            <!--</dependency>-->
             <!--logistics-->
         </dependencies>
     </dependencyManagement>

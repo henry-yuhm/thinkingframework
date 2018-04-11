@@ -1,5 +1,6 @@
 package org.thinking.logistics.transport.service;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.thinking.logistics.transport.entity.TransportBillDetail;
 import org.thinking.logistics.transport.entity.TransportBillHeader;
@@ -17,6 +18,7 @@ public class TransportBillService {
 
     private TransportBillDetailRepository transportBillDetailRepository;
 
+    @Autowired
     public TransportBillService(TransportBillHeaderRepository transportBillHeaderRepository, TransportBillDetailRepository transportBillDetailRepository) {
         this.transportBillHeaderRepository = transportBillHeaderRepository;
         this.transportBillDetailRepository = transportBillDetailRepository;

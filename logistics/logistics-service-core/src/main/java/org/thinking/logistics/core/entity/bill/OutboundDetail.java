@@ -1,5 +1,7 @@
 package org.thinking.logistics.core.entity.bill;
 
+import lombok.Data;
+import lombok.EqualsAndHashCode;
 import org.thinking.logistics.core.domain.support.BatchRequest;
 import org.thinking.logistics.core.domain.support.InventoryState;
 
@@ -9,6 +11,8 @@ import java.util.LinkedHashSet;
 import java.util.Set;
 
 @Entity
+@Data
+@EqualsAndHashCode(callSuper = true)
 public class OutboundDetail extends Detail {
     @ManyToOne(fetch = FetchType.LAZY)
     private OutboundDetail parent;//父明细
@@ -69,168 +73,4 @@ public class OutboundDetail extends Detail {
     @ManyToMany
     @JoinTable(joinColumns = @JoinColumn(name = "detail_id"), inverseJoinColumns = @JoinColumn(name = "supplement_id"))
     private Set<SupplementDetail> details = new LinkedHashSet<>();//增补明细
-
-    public OutboundDetail() {
-    }
-
-    public OutboundDetail getParent() {
-        return parent;
-    }
-
-    public void setParent(OutboundDetail parent) {
-        this.parent = parent;
-    }
-
-//    @Override
-//    public OutboundHeader getHeader() {
-//        return header;
-//    }
-//
-//    public void setHeader(OutboundHeader header) {
-//        this.header = header;
-//    }
-
-    public InventoryState getState() {
-        return state;
-    }
-
-    public void setState(InventoryState state) {
-        this.state = state;
-    }
-
-    public BatchRequest getRequest() {
-        return request;
-    }
-
-    public void setRequest(BatchRequest request) {
-        this.request = request;
-    }
-
-    public BigDecimal getPlanQuantity() {
-        return planQuantity;
-    }
-
-    public void setPlanQuantity(BigDecimal planQuantity) {
-        this.planQuantity = planQuantity;
-    }
-
-    public int getPlanPieces() {
-        return planPieces;
-    }
-
-    public void setPlanPieces(int planPieces) {
-        this.planPieces = planPieces;
-    }
-
-    public BigDecimal getPlanRemainder() {
-        return planRemainder;
-    }
-
-    public void setPlanRemainder(BigDecimal planRemainder) {
-        this.planRemainder = planRemainder;
-    }
-
-    public BigDecimal getFactQuantity() {
-        return factQuantity;
-    }
-
-    public void setFactQuantity(BigDecimal factQuantity) {
-        this.factQuantity = factQuantity;
-    }
-
-    public int getFactPieces() {
-        return factPieces;
-    }
-
-    public void setFactPieces(int factPieces) {
-        this.factPieces = factPieces;
-    }
-
-    public BigDecimal getFactRemainder() {
-        return factRemainder;
-    }
-
-    public void setFactRemainder(BigDecimal factRemainder) {
-        this.factRemainder = factRemainder;
-    }
-
-    public BigDecimal getWholeQuantity() {
-        return wholeQuantity;
-    }
-
-    public void setWholeQuantity(BigDecimal wholeQuantity) {
-        this.wholeQuantity = wholeQuantity;
-    }
-
-    public BigDecimal getRemainderQuantity() {
-        return remainderQuantity;
-    }
-
-    public void setRemainderQuantity(BigDecimal remainderQuantity) {
-        this.remainderQuantity = remainderQuantity;
-    }
-
-    public BigDecimal getLessnessQuantity() {
-        return lessnessQuantity;
-    }
-
-    public void setLessnessQuantity(BigDecimal lessnessQuantity) {
-        this.lessnessQuantity = lessnessQuantity;
-    }
-
-    public BigDecimal getPrice() {
-        return price;
-    }
-
-    public void setPrice(BigDecimal price) {
-        this.price = price;
-    }
-
-    public BigDecimal getAmount() {
-        return amount;
-    }
-
-    public void setAmount(BigDecimal amount) {
-        this.amount = amount;
-    }
-
-    public BigDecimal getTaxes() {
-        return taxes;
-    }
-
-    public void setTaxes(BigDecimal taxes) {
-        this.taxes = taxes;
-    }
-
-    public BigDecimal getSettlementPrice() {
-        return settlementPrice;
-    }
-
-    public void setSettlementPrice(BigDecimal settlementPrice) {
-        this.settlementPrice = settlementPrice;
-    }
-
-    public BigDecimal getSettlementAmount() {
-        return settlementAmount;
-    }
-
-    public void setSettlementAmount(BigDecimal settlementAmount) {
-        this.settlementAmount = settlementAmount;
-    }
-
-    public BigDecimal getFlittingCostPrice() {
-        return flittingCostPrice;
-    }
-
-    public void setFlittingCostPrice(BigDecimal flittingCostPrice) {
-        this.flittingCostPrice = flittingCostPrice;
-    }
-
-    public Set<SupplementDetail> getDetails() {
-        return details;
-    }
-
-    public void setDetails(Set<SupplementDetail> details) {
-        this.details = details;
-    }
 }

@@ -1,8 +1,9 @@
 package org.thinking.logistics.core.entity;
 
+import lombok.Data;
 import org.thinking.logistics.core.domain.support.BusinessType;
 import org.thinking.logistics.core.domain.support.StagingareaCategory;
-import org.thinking.logistics.core.domain.support.StagingareaType;
+import org.thinking.logistics.core.domain.support.StagingareaKind;
 import org.thinking.logistics.core.domain.support.TakegoodsMode;
 
 import javax.persistence.*;
@@ -10,6 +11,7 @@ import java.util.LinkedHashSet;
 import java.util.Set;
 
 @Entity
+@Data
 public class Stagingarea {
     @Id
     @GeneratedValue
@@ -24,7 +26,7 @@ public class Stagingarea {
     private String name;//名称
 
     @Column(nullable = false)
-    private StagingareaType type = StagingareaType.NORMAL;//类型
+    private StagingareaKind kind = StagingareaKind.NORMAL;//类型
 
     @Column(nullable = false)
     private StagingareaCategory category;//类别
@@ -42,87 +44,4 @@ public class Stagingarea {
     private Direction direction;//方向
 
     private TakegoodsMode takegoodsMode;//提货方式
-
-    public Stagingarea() {
-    }
-
-    public Warehouse getWarehouse() {
-        return warehouse;
-    }
-
-    public void setWarehouse(Warehouse warehouse) {
-        this.warehouse = warehouse;
-    }
-
-    public String getNumber() {
-        return number;
-    }
-
-    public void setNumber(String number) {
-        this.number = number;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public StagingareaType getType() {
-        return type;
-    }
-
-    public void setType(StagingareaType type) {
-        this.type = type;
-    }
-
-    public StagingareaCategory getCategory() {
-        return category;
-    }
-
-    public void setCategory(StagingareaCategory category) {
-        this.category = category;
-    }
-
-    public boolean isAvailable() {
-        return available;
-    }
-
-    public void setAvailable(boolean available) {
-        this.available = available;
-    }
-
-    public Set<Owner> getOwners() {
-        return owners;
-    }
-
-    public void setOwners(Set<Owner> owners) {
-        this.owners = owners;
-    }
-
-    public BusinessType getBusinessType() {
-        return businessType;
-    }
-
-    public void setBusinessType(BusinessType businessType) {
-        this.businessType = businessType;
-    }
-
-    public Direction getDirection() {
-        return direction;
-    }
-
-    public void setDirection(Direction direction) {
-        this.direction = direction;
-    }
-
-    public TakegoodsMode getTakegoodsMode() {
-        return takegoodsMode;
-    }
-
-    public void setTakegoodsMode(TakegoodsMode takegoodsMode) {
-        this.takegoodsMode = takegoodsMode;
-    }
 }

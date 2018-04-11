@@ -1,8 +1,11 @@
 package org.thinking.logistics.core.entity;
 
+import lombok.Data;
+
 import javax.persistence.*;
 
 @Entity
+@Data
 public class Route {
     @Id
     @GeneratedValue
@@ -16,31 +19,4 @@ public class Route {
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     private Direction direction;//方向
-
-    public Route() {
-    }
-
-    public String getNumber() {
-        return number;
-    }
-
-    public void setNumber(String number) {
-        this.number = number;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public Direction getDirection() {
-        return direction;
-    }
-
-    public void setDirection(Direction direction) {
-        this.direction = direction;
-    }
 }

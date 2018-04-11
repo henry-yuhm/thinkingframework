@@ -1,24 +1,26 @@
 package org.thinking.logistics.audit.service;
 
 import com.querydsl.core.types.Predicate;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.thinking.logistics.audit.entity.AuditData;
-import org.thinking.logistics.audit.entity.AuditType;
+import org.thinking.logistics.audit.entity.AuditKind;
 import org.thinking.logistics.audit.repository.AuditDataRepository;
-import org.thinking.logistics.audit.repository.AuditTypeRepository;
+import org.thinking.logistics.audit.repository.AuditKindRepository;
 
 import java.util.List;
 
 @Service
 public class AuditDataService {
-    private AuditDataRepository auditDataRepository;
+    private final AuditDataRepository auditDataRepository;
 
-    private AuditTypeRepository auditTypeRepository;
+    private final AuditKindRepository auditKindRepository;
 
-    public AuditDataService(AuditDataRepository auditDataRepository, AuditTypeRepository auditTypeRepository) {
+    @Autowired
+    public AuditDataService(AuditDataRepository auditDataRepository, AuditKindRepository auditKindRepository) {
         this.auditDataRepository = auditDataRepository;
-        this.auditTypeRepository = auditTypeRepository;
+        this.auditKindRepository = auditKindRepository;
     }
 
     public AuditData findOne(Predicate predicate) {
@@ -30,16 +32,16 @@ public class AuditDataService {
     }
 
     @Transactional(rollbackFor = Exception.class)
-    public List<AuditData> save(List<AuditData> datas) {
+    public void save(List<AuditData> datas) throws Exception {
         datas.forEach(data -> {
-            AuditType auditType = this.auditTypeRepository.findByName(data.getAuditType().getName());
-            if (auditType == null) {
-                throw new NullPointerException("审计类型【" + data.getAuditType().getName() + "】未定义");
+            AuditKind auditKind = this.auditKindRepository.findByName(data.getKind().getName());
+            if (auditKind == null) {
+                throw new NullPointerException("审计类型【" + data.getKind().getName() + "】未定义");
             } else {
-                data.setAuditType(auditType);
+                data.setKind(auditKind);
             }
         });
 
-        return this.auditDataRepository.saveAll(datas);
+        this.auditDataRepository.saveAll(datas);
     }
 }

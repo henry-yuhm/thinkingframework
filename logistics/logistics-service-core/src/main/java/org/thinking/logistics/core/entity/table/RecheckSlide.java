@@ -1,10 +1,12 @@
 package org.thinking.logistics.core.entity.table;
 
+import lombok.Data;
 import org.thinking.logistics.core.entity.Warehouse;
 
 import javax.persistence.*;
 
 @Entity
+@Data
 public class RecheckSlide {
     @Id
     @GeneratedValue
@@ -18,31 +20,4 @@ public class RecheckSlide {
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     private RecheckTable table;//复核台
-
-    public RecheckSlide() {
-    }
-
-    public Warehouse getWarehouse() {
-        return warehouse;
-    }
-
-    public void setWarehouse(Warehouse warehouse) {
-        this.warehouse = warehouse;
-    }
-
-    public String getNumber() {
-        return number;
-    }
-
-    public void setNumber(String number) {
-        this.number = number;
-    }
-
-    public RecheckTable getTable() {
-        return table;
-    }
-
-    public void setTable(RecheckTable table) {
-        this.table = table;
-    }
 }

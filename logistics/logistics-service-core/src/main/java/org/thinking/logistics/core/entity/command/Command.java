@@ -1,5 +1,6 @@
 package org.thinking.logistics.core.entity.command;
 
+import lombok.Data;
 import org.thinking.logistics.core.domain.support.*;
 import org.thinking.logistics.core.entity.Goods;
 import org.thinking.logistics.core.entity.Warehouse;
@@ -10,6 +11,7 @@ import java.time.LocalDate;
 
 @MappedSuperclass
 @Inheritance(strategy = InheritanceType.JOINED)
+@Data
 public abstract class Command {
     @Id
     @GeneratedValue
@@ -40,76 +42,4 @@ public abstract class Command {
 
     @Column(nullable = false)
     private Date modificationTime = Date.valueOf(LocalDate.now());//修改时间
-
-    public Warehouse getWarehouse() {
-        return warehouse;
-    }
-
-    public void setWarehouse(Warehouse warehouse) {
-        this.warehouse = warehouse;
-    }
-
-    public Goods getGoods() {
-        return goods;
-    }
-
-    public void setGoods(Goods goods) {
-        this.goods = goods;
-    }
-
-    public PackageSign getSign() {
-        return sign;
-    }
-
-    public void setSign(PackageSign sign) {
-        this.sign = sign;
-    }
-
-    public BusinessType getType() {
-        return type;
-    }
-
-    public void setType(BusinessType type) {
-        this.type = type;
-    }
-
-    public TaskCategory getCategory() {
-        return category;
-    }
-
-    public void setCategory(TaskCategory category) {
-        this.category = category;
-    }
-
-    public TaskStage getStage() {
-        return stage;
-    }
-
-    public void setStage(TaskStage stage) {
-        this.stage = stage;
-    }
-
-    public TaskMode getMode() {
-        return mode;
-    }
-
-    public void setMode(TaskMode mode) {
-        this.mode = mode;
-    }
-
-    public Date getCreationTime() {
-        return creationTime;
-    }
-
-    public void setCreationTime(Date creationTime) {
-        this.creationTime = creationTime;
-    }
-
-    public Date getModificationTime() {
-        return modificationTime;
-    }
-
-    public void setModificationTime(Date modificationTime) {
-        this.modificationTime = modificationTime;
-    }
 }

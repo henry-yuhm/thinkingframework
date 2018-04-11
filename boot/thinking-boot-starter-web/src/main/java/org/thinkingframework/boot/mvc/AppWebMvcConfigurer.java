@@ -11,7 +11,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import java.util.ArrayList;
 import java.util.List;
 
-public class AppWebMvcConfigurerAdapter implements WebMvcConfigurer {
+public class AppWebMvcConfigurer implements WebMvcConfigurer {
     @Override
     public void configureMessageConverters(List<HttpMessageConverter<?>> converters) {
         FastJsonConfig fastJsonConfig = new FastJsonConfig();

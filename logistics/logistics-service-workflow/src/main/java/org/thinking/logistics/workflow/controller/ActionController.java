@@ -1,5 +1,6 @@
 package org.thinking.logistics.workflow.controller;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.statemachine.data.jpa.JpaRepositoryAction;
 import org.springframework.web.bind.annotation.*;
 import org.thinking.logistics.workflow.service.ActionService;
@@ -11,6 +12,7 @@ import java.util.List;
 public class ActionController {
     private ActionService actionService;
 
+    @Autowired
     public ActionController(ActionService actionService) {
         this.actionService = actionService;
     }

@@ -1,5 +1,6 @@
 package org.thinking.logistics.init.service;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.thinking.logistics.core.domain.BusinessAdapter;
@@ -10,12 +11,14 @@ import org.thinking.logistics.init.domain.Initializer;
 import org.thinking.logistics.init.domain.OutboundSaleInitializer;
 import org.thinking.logistics.init.domain.ReturnedPurchaseInitializer;
 
-import javax.annotation.Resource;
-
 @Service
 public class InitializerService extends BusinessAdapter {
-    @Resource
     private OutboundHeaderRepository headerRepository;
+
+    @Autowired
+    public InitializerService(OutboundHeaderRepository headerRepository) {
+        this.headerRepository = headerRepository;
+    }
 
     @Transactional(rollbackFor = Exception.class)
     public void initialize(long id) throws Exception {
