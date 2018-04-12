@@ -1,5 +1,6 @@
 package org.thinking.logistics.core.domain.support;
 
+//追加标识
 public enum AppendantSign {
     ORIGINAL("1", 1),//原始指令
     APPENDING("2", 2),//正在追加

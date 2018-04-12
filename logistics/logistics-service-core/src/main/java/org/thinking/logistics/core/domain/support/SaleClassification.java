@@ -1,5 +1,6 @@
 package org.thinking.logistics.core.domain.support;
 
+//销售分类
 public enum SaleClassification {
     A("A", 1),
     B("B", 2),

@@ -9,5 +9,5 @@ public interface Dispatcher {
 
     void releaseWave() throws Exception;
 
-    void releaseBill() throws Exception;
+    void releaseOrder() throws Exception;
 }

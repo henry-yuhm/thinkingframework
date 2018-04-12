@@ -2,8 +2,8 @@ package org.thinking.logistics.core.entity;
 
 import lombok.Data;
 import org.thinking.logistics.core.domain.support.OperationDevice;
-import org.thinking.logistics.core.domain.support.PackageSign;
-import org.thinking.logistics.core.domain.support.RecheckMode;
+import org.thinking.logistics.core.domain.support.PackageKind;
+import org.thinking.logistics.core.domain.support.RecheckKind;
 import org.thinking.logistics.core.domain.support.UpshelfMode;
 
 import javax.persistence.*;
@@ -31,7 +31,7 @@ public class Area {
     private String storeNo;//库房编号
 
     @Column(nullable = false)
-    private PackageSign sign;//包装标识
+    private PackageKind packageKind;//包装类型
 
     private String region;//大区
 
@@ -41,13 +41,13 @@ public class Area {
     private UpshelfMode upshelfMode;//上架方式
 
     @Column(nullable = false)
-    private boolean prepicking;//是否提前拣货
+    private boolean prepicking;//提前拣货
 
     @Column(nullable = false)
-    private boolean useSorter;//是否使用分拣机
+    private boolean useSorter;//使用分拣机
 
     @Column(nullable = false)
-    private RecheckMode recheckMode;//复核标识
+    private RecheckKind recheckKind;//复核类型
 
     @Column(nullable = false)
     private int fullloadQuantity = 0;//满载周转箱数

@@ -15,8 +15,8 @@ public abstract class OutboundBarcode extends TaskBarcode {
     private SorterSlide slide;//分拣滑道
 
     @Column(nullable = false)
-    private boolean available = true;//是否可用
+    private boolean available = true;//可用
 
     @Column(nullable = false)
-    private boolean collected = false;//是否集货
+    private boolean gathered = false;//集货
 }

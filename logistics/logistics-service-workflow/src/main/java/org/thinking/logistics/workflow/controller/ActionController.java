@@ -10,20 +10,20 @@ import java.util.List;
 @RestController
 @RequestMapping("/action")
 public class ActionController {
-    private ActionService actionService;
+    private ActionService service;
 
     @Autowired
-    public ActionController(ActionService actionService) {
-        this.actionService = actionService;
+    public ActionController(ActionService service) {
+        this.service = service;
     }
 
     @GetMapping("/findAll")
     public List<JpaRepositoryAction> findAll() {
-        return this.actionService.findAll();
+        return this.service.findAll();
     }
 
     @PutMapping("/save")
-    public boolean save(@RequestBody List<JpaRepositoryAction> actions) {
-        return this.actionService.save(actions);
+    public void save(@RequestBody List<JpaRepositoryAction> actions) throws Exception {
+        this.service.save(actions);
     }
 }

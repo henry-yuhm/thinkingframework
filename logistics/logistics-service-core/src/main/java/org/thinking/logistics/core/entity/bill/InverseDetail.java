@@ -38,7 +38,7 @@ public class InverseDetail extends Detail {
     private Date operationTime = Date.valueOf(LocalDate.now());//操作时间
 
     @Column(nullable = false)
-    private InverseStage kind;//冲红类型
+    private InverseStage stage;//冲红阶段
 
     private String auditor;//审核员
 

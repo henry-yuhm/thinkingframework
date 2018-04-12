@@ -1,6 +1,5 @@
 package org.thinking.logistics.workflow.entity;
 
-import com.alibaba.fastjson.annotation.JSONField;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -12,20 +11,15 @@ import java.util.Set;
 public class Workflow implements Serializable {
     @Id
     @Column(length = 50)
-    @JSONField
     private String id;
 
-    @JSONField(ordinal = 1)
     private String name;
 
-    @JSONField(ordinal = 2)
     private String kind;
 
-    @ManyToMany(fetch = FetchType.EAGER)
-    @JSONField(ordinal = 3)
+    @OneToMany(fetch = FetchType.EAGER)
     private Set<Node> nodes;
 
-    @ManyToMany(fetch = FetchType.EAGER)
-    @JSONField(ordinal = 4)
+    @OneToMany(fetch = FetchType.EAGER)
     private Set<Line> lines;
 }

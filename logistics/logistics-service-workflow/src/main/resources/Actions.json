@@ -1,29 +1,16 @@
 [
   {
-    "name": "exitS1",
-    "spel": "123"
-  },
-  {
-    "name": "entryS2",
-    "spel": "456"
-  },
-  {
-    "name": "stateS3",
-    "spel": "789"
-  },
-  {
-    "name": "End",
-    "spel": "DDD"
-  },
-  {
+    "_class": "org.springframework.statemachine.data.jpa.JpaRepositoryAction",
     "name": "updateOperationStates",
     "spel": "http://localhost:8770/logistics-service-stock/stock/test"
   },
   {
+    "_class": "org.springframework.statemachine.data.jpa.JpaRepositoryAction",
     "name": "updateBillStates",
     "spel": "http://localhost:8770/logistics-service-state/updateBillStates"
   },
   {
+    "_class": "org.springframework.statemachine.data.jpa.JpaRepositoryAction",
     "name": "updateCommandStates",
     "spel": "http://localhost:8770/logistics-service-state/updateCommandStates"
   }

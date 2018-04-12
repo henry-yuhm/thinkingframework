@@ -13,12 +13,12 @@ public class SuspendedOrderDispatcher extends AbstractDispatcher {
     }
 
     @Override
-    public void releaseBill() throws Exception {
+    public void releaseOrder() throws Exception {
         this.header.isResended();
 
         //region 骨科寄售校验
         //endregion
 
-        super.releaseBill();
+        super.releaseOrder();
     }
 }

@@ -1,6 +1,7 @@
 package org.thinking.logistics.core.domain.support;
 
-public enum TaskStage {
+//指令阶段
+public enum CommandStage {
     CREATED("00", 0),//指令刚生成
     TASK_READY("01", 11),//可以作业
     REPLENISHING_DOWNSHELF_OBTAIN("B1", 21),//补货下架索取
@@ -16,18 +17,18 @@ public enum TaskStage {
     INNER_RECHECK_CONFIRM("C8", 37),//内复核确认(整件确认)
     OUTER_RECHECK_OBTAIN("CA", 41),//外复核索取
     OUTER_RECHECK_CONFIRM("CB", 42),//外复核确认
-    VEHICLE_LOADING_OBTAIN("CC", 51),//装车任务索取
-    VEHICLE_LOADING_CONFIRM("CD", 52),//装车任务确认
-    VEHICLE_LOADING_RECHECK_OBTAIN("CE", 53),//装车复核索取
-    VEHICLE_LOADING_RECHECK_CONFIRM("CF", 54),//装车复核确认
-    VEHICLE_LOADING_INFORMATION_CONFIRM("CG", 55),//装车信息确认
-    DELIVERY_BACK_CONFIRM("CH", 56),//配送返回确认
-    INBOUND_PALLET_OBTAIN("R1", 61),//入库托盘索取
-    INBOUND_PALLET_CONFIRM("R2", 62),//入库托盘确认
-    INBOUND_UPSHELF_OBTAIN("R3", 63),//入库上架索取
-    INBOUND_UPSHELF_CONFIRM("R4", 64),//入库上架确认
+    LOADING_OBTAIN("CC", 51),//装车任务索取
+    LOADING_CONFIRM("CD", 52),//装车任务确认
+    LOADING_RECHECK_OBTAIN("CE", 53),//装车复核索取
+    LOADING_RECHECK_CONFIRM("CF", 54),//装车复核确认
+    LOADING_INFORMATION_CONFIRM("CG", 55),//装车信息确认
+    DISTRIBUTION_BACK_CONFIRM("CH", 56),//配送返回确认
+    PALLET_OBTAIN("R1", 61),//入库托盘索取
+    PALLET_CONFIRM("R2", 62),//入库托盘确认
+    UPSHELF_OBTAIN("R3", 63),//入库上架索取
+    UPSHELF_CONFIRM("R4", 64),//入库上架确认
     TERMINATED("ZZ", 99);//作业终止
 
-    TaskStage(String name, int ordinal) {
+    CommandStage(String name, int ordinal) {
     }
 }

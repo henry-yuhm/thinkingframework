@@ -12,25 +12,25 @@ import java.util.List;
 @RestController
 @RequestMapping("/auditData")
 public class AuditDataController {
-    private final AuditDataService auditDataService;
+    private final AuditDataService service;
 
     @Autowired
-    public AuditDataController(AuditDataService auditDataService) {
-        this.auditDataService = auditDataService;
+    public AuditDataController(AuditDataService service) {
+        this.service = service;
     }
 
     @GetMapping("/findOne")
     public AuditData findOne(@QuerydslPredicate(root = AuditData.class) Predicate predicate) {
-        return this.auditDataService.findOne(predicate);
+        return this.service.findOne(predicate);
     }
 
     @GetMapping("/findAll")
     public List<AuditData> findAll(@QuerydslPredicate(root = AuditData.class) Predicate predicate) {
-        return this.auditDataService.findAll(predicate);
+        return this.service.findAll(predicate);
     }
 
     @PutMapping("/save")
     public void save(@RequestBody List<AuditData> datas) throws Exception {
-        this.auditDataService.save(datas);
+        this.service.save(datas);
     }
 }

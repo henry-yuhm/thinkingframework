@@ -35,9 +35,9 @@ public class OutboundHeader extends Header {
     private TakegoodsMode takegoodsModeSwitch;//提货方式转换
 
     @Column(nullable = false)
-    private SaleType saleType;//销售类型
+    private SaleKind saleKind;//销售类型
 
-    private String deliveryType;//配送类型
+    private String distributionKind;//配送类型
 
     @Column(nullable = false)
     private Date invoiceTime;//开票时间
@@ -45,26 +45,26 @@ public class OutboundHeader extends Header {
     @ManyToOne(fetch = FetchType.LAZY)
     private Employee buyer;//采购员
 
-    private String settlementType = "无";//结算类型
+    private String settlementKind = "无";//结算类型
 
     private Date settlementTime;//结算时间
 
-    private TaxType taxType;//税票类型
+    private TaxKind taxKind;//税票类型
 
     private String taxName;//税票名称
 
     @Column(nullable = false)
-    private boolean printContract = false;//是否打印合同
+    private boolean printContract = false;//打印合同
 
     private String wave;//波次
 
     @Column(nullable = false)
-    private DispatchType dispatchType = DispatchType.AUTOMATIC;//调度类型
+    private DispatcherKind dispatcherKind = DispatcherKind.AUTOMATIC;//调度类型
 
     @ManyToOne(fetch = FetchType.LAZY)
-    private Employee dispatcher;//调度员
+    private Employee dispatchers;//调度员
 
-    private Date dispatchTime;//调度时间
+    private Date dispatcherTime;//调度时间
 
     private Date releaseTime;//下发时间
 
@@ -78,16 +78,16 @@ public class OutboundHeader extends Header {
     private Stagingarea targetStagingarea;//终止月台
 
     @Column(nullable = false)
-    private boolean inversed = false;//是否整单冲红
+    private boolean inversed = false;//整单冲红
 
     @Column(nullable = false)
-    private boolean auditing = false;//是否冲红审核
+    private boolean auditing = false;//冲红审核
 
     @Column(nullable = false)
-    private boolean uploaded = false;//是否上传
+    private boolean uploaded = false;//上传
 
     @Column(nullable = false)
-    private boolean collectionComplete = false;//是否集货完成
+    private boolean gatheringComplete = false;//集货完成
 
     private Date taskCompleteTime;//作业完成时间
 
@@ -118,7 +118,7 @@ public class OutboundHeader extends Header {
     private int printTimes = 0;//打印次数
 
     @Column(nullable = false)
-    private boolean stagingareaCleaned = false;//是否清空月台
+    private boolean stagingareaCleaned = false;//清空月台
 
     @Column(nullable = false)
     private int goodsQuantity = 0;//品规数

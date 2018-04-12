@@ -1,5 +1,6 @@
 package org.thinking.logistics.core.domain.support;
 
+//入库阶段
 public enum InboundStage {
     CREATED("0", 0),//刚生成
     WORKING("1", 1),//正在作业

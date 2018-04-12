@@ -12,20 +12,20 @@ import java.util.List;
 @RestController
 @RequestMapping("/monitor")
 public class MonitorController {
-    private MonitorService monitorService;
+    private MonitorService service;
 
     @Autowired
-    public MonitorController(MonitorService monitorService) {
-        this.monitorService = monitorService;
+    public MonitorController(MonitorService service) {
+        this.service = service;
     }
 
     @GetMapping("/findAll")
     public List<Monitor> findAll() {
-        return this.monitorService.findAll();
+        return this.service.findAll();
     }
 
     @GetMapping("/getAll")
     public List<String> getAll() {
-        return this.monitorService.getAll();
+        return this.service.getAll();
     }
 }

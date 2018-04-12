@@ -15,13 +15,13 @@ public class InsertedOrderDispatcher extends AbstractDispatcher {
     }
 
     @Override
-    public void releaseBill() throws Exception {
+    public void releaseOrder() throws Exception {
         if (this.header.getStage().compareTo(OutboundStage.RELEASED) > 0) {
             throw CompositeException.getException("单据已经下发", this.operator, this.header, this.header.getOwner());
         }
 
         this.header.setWave("0000000005");
 
-        super.releaseBill();
+        super.releaseOrder();
     }
 }

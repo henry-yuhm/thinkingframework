@@ -12,7 +12,7 @@ import java.util.Set;
 @EqualsAndHashCode(callSuper = true)
 public class ReplenishingHeader extends Header {
     @Column(nullable = false)
-    private boolean complete = false;//是否完成
+    private boolean complete = false;//完成
 
     @ManyToMany
     @JoinTable(joinColumns = @JoinColumn(name = "header_id"), inverseJoinColumns = @JoinColumn(name = "detail_id"))

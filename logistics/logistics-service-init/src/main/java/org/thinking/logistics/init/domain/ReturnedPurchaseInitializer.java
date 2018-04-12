@@ -17,7 +17,7 @@ public class ReturnedPurchaseInitializer extends AbstractInitializer {
     public void initialize() throws Exception {
         super.initialize();
 
-        this.header.setPriority(OutboundPriority.RETURNED_PURCHASE);
+        this.header.setPriority(OutboundPriority.PURCHASE_RETURN);
 
         this.header.setTakegoodsMode(TakegoodsMode.NONE);
         this.header.setTakegoodsModeSwitch(TakegoodsMode.NONE);

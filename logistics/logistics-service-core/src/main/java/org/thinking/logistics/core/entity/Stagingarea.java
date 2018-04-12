@@ -1,7 +1,7 @@
 package org.thinking.logistics.core.entity;
 
 import lombok.Data;
-import org.thinking.logistics.core.domain.support.BusinessType;
+import org.thinking.logistics.core.domain.support.BillKind;
 import org.thinking.logistics.core.domain.support.StagingareaCategory;
 import org.thinking.logistics.core.domain.support.StagingareaKind;
 import org.thinking.logistics.core.domain.support.TakegoodsMode;
@@ -32,16 +32,16 @@ public class Stagingarea {
     private StagingareaCategory category;//类别
 
     @Column(nullable = false)
-    private boolean available = true;//是否可用
+    private boolean available = true;//可用
+
+    private BillKind billKind;//单据类型
+
+    private TakegoodsMode takegoodsMode;//提货方式
 
     @OneToMany
     @JoinTable(joinColumns = @JoinColumn(name = "stagingarea_id"), inverseJoinColumns = @JoinColumn(name = "owner_id"))
     private Set<Owner> owners = new LinkedHashSet<>();//业主
 
-    private BusinessType businessType;//业务类型
-
     @ManyToOne(fetch = FetchType.LAZY)
     private Direction direction;//方向
-
-    private TakegoodsMode takegoodsMode;//提货方式
 }

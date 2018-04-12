@@ -30,7 +30,7 @@ public class Employee {
     private String mnemonicCode;//助记码
 
     @Column(nullable = false)
-    private boolean activated = false;//是否激活
+    private boolean activated = false;//激活
 
     @ManyToMany
     @JoinTable(joinColumns = @JoinColumn(name = "employee_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))

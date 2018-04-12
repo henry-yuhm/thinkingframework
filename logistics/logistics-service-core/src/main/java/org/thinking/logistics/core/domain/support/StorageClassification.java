@@ -1,9 +1,10 @@
 package org.thinking.logistics.core.domain.support;
 
-public enum StorageSign {
+//存储分类
+public enum StorageClassification {
     ALL("1", 1),
     REMAINDER_ONLY("2", 2);
 
-    StorageSign(String name, int ordinal) {
+    StorageClassification(String name, int ordinal) {
     }
 }

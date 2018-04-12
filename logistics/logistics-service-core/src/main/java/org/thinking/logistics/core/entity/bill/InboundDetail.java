@@ -55,7 +55,7 @@ public class InboundDetail extends Detail {
     private Assessment assessment;//验收评定
 
     @Column(nullable = false)
-    private ReceiptConclusion conclusion;//收货结论
+    private ReceiptConclusion receiptConclusion;//收货结论
 
     private String rejections;//拒收原因
 

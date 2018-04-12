@@ -27,7 +27,7 @@ public class Address {
     private String code;//编码
 
     @Column(nullable = false)
-    private boolean defaultAddress;//是否默认地址
+    private boolean defaults;//默认地址
 
     private String contactName;//联系人
 

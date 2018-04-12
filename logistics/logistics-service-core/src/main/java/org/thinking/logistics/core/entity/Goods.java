@@ -2,8 +2,8 @@ package org.thinking.logistics.core.entity;
 
 import lombok.Data;
 import org.thinking.logistics.core.domain.support.SaleClassification;
-import org.thinking.logistics.core.domain.support.SplitGranularity;
-import org.thinking.logistics.core.domain.support.StorageSign;
+import org.thinking.logistics.core.domain.support.SplittingGranularity;
+import org.thinking.logistics.core.domain.support.StorageClassification;
 import org.thinking.logistics.core.entity.dictionary.GoodsCategory;
 
 import javax.persistence.*;
@@ -58,7 +58,7 @@ public class Goods {
     private Date approvalValidUntil;//批准文号效期
 
     @Column(nullable = false)
-    private SplitGranularity granularity;//拆分粒度
+    private SplittingGranularity splittingGranularity;//拆分粒度
 
     @Column(nullable = false)
     private int invoiceUnit = 1;//最小开票单位
@@ -103,7 +103,7 @@ public class Goods {
     private BigDecimal packageWeight;//包装重量
 
     @Column(nullable = false)
-    private StorageSign storageSign;//存储标识
+    private StorageClassification storageClassification;//存储分类
 
     @Column(nullable = false)
     private String storageCondition;//存储条件

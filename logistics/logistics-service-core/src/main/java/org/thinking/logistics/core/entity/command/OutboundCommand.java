@@ -32,10 +32,10 @@ public abstract class OutboundCommand extends Command {
     private Location location;//货位
 
     @Column(nullable = false)
-    private InventoryState state;//库存状态
+    private InventoryState inventoryState;//库存状态
 
     @Column(nullable = false)
-    private boolean activated = false;//是否激活
+    private boolean activated = false;//激活
 
     @Column(nullable = false, precision = 12, scale = 5)
     private BigDecimal creationQuantity = BigDecimal.ZERO;//创建数量

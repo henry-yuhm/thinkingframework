@@ -10,15 +10,15 @@ import org.thinking.logistics.workflow.service.InstanceService;
 @RestController
 @RequestMapping("/instance")
 public class InstanceController {
-    private InstanceService instanceService;
+    private InstanceService service;
 
     @Autowired
-    public InstanceController(InstanceService instanceService) {
-        this.instanceService = instanceService;
+    public InstanceController(InstanceService service) {
+        this.service = service;
     }
 
     @GetMapping("/findOne")
     public Workflow findOne(String machineId, String instanceId) {
-        return this.instanceService.findOne(machineId, instanceId);
+        return this.service.findOne(machineId, instanceId);
     }
 }

@@ -15,30 +15,30 @@ import java.util.List;
 @RestController
 @RequestMapping("/deliveryList")
 public class DeliveryListController {
-    private DeliveryListService deliveryListService;
+    private DeliveryListService service;
 
     @Autowired
-    public DeliveryListController(DeliveryListService deliveryListService) {
-        this.deliveryListService = deliveryListService;
+    public DeliveryListController(DeliveryListService service) {
+        this.service = service;
     }
 
     @GetMapping("/findOne")
     public DeliveryList findOne(@QuerydslPredicate(root = DeliveryList.class) Predicate predicate) {
-        return this.deliveryListService.findOne(predicate);
+        return this.service.findOne(predicate);
     }
 
     @GetMapping("/findAll")
     public List<DeliveryList> findAll(@QuerydslPredicate(root = DeliveryList.class) Predicate predicate) {
-        return this.deliveryListService.findAll(predicate);
+        return this.service.findAll(predicate);
     }
 
     @PostMapping("/save")
     public void save(@RequestBody String data) {
-        this.deliveryListService.save(data);
+        this.service.save(data);
     }
 
     @GetMapping("/getFileName")
     public String getFileName(@QuerydslPredicate(root = DeliveryList.class) Predicate predicate) {
-        return this.deliveryListService.getFileName(predicate);
+        return this.service.getFileName(predicate);
     }
 }

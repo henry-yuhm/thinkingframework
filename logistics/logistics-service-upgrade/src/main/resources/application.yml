@@ -49,8 +49,8 @@ spring:
       use-oracle-implicit-cache: true
       access-to-underlying-connection-allowed: true
       connection-properties: druid.stat.mergeSql=true;druid.stat.slowSqlMillis=5000
-#    type: oracle.jdbc.pool.OracleDataSource
-#    type: com.zaxxer.hikari.HikariDataSource
+#    inboundKind: oracle.jdbc.pool.OracleDataSource
+#    inboundKind: com.zaxxer.hikari.HikariDataSource
 #    driver-class-name: oracle.jdbc.OracleDriver
 #    url: jdbc:oracle:thin:@10.3.87.203:1521:LMISHLJ
 #    username: lmis

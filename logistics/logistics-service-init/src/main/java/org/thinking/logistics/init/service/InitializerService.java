@@ -4,7 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.thinking.logistics.core.domain.BusinessAdapter;
-import org.thinking.logistics.core.domain.support.SaleType;
+import org.thinking.logistics.core.domain.support.SaleKind;
 import org.thinking.logistics.core.entity.bill.OutboundHeader;
 import org.thinking.logistics.core.repository.OutboundHeaderRepository;
 import org.thinking.logistics.init.domain.Initializer;
@@ -26,7 +26,7 @@ public class InitializerService extends BusinessAdapter {
 
         OutboundHeader header = this.headerRepository.getOne(id);
 
-        if (header.getSaleType() == SaleType.RETURNED_PURCHASE) {
+        if (header.getSaleKind() == SaleKind.PURCHASE_RETURN) {
             initializer = new ReturnedPurchaseInitializer(header);
         } else {
             initializer = new OutboundSaleInitializer(header);

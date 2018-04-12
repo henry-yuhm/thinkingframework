@@ -16,35 +16,35 @@ import java.util.List;
 @RestController
 @RequestMapping
 public class UpgradeController {
-    private UpgradeService upgradeService;
+    private UpgradeService service;
 
     @Autowired
-    public UpgradeController(UpgradeService upgradeService) {
-        this.upgradeService = upgradeService;
+    public UpgradeController(UpgradeService service) {
+        this.service = service;
     }
 
     @GetMapping("/findOne")
     public UpgradeConfig findOne(@QuerydslPredicate(root = UpgradeConfig.class) Predicate predicate) {
-        return this.upgradeService.findOne(predicate);
+        return this.service.findOne(predicate);
     }
 
     @GetMapping("/findAll")
     public List<UpgradeConfig> findAll(@QuerydslPredicate(root = UpgradeConfig.class) Predicate predicate) {
-        return this.upgradeService.findAll(predicate);
+        return this.service.findAll(predicate);
     }
 
     @PostMapping("/save")
     public void save(@RequestBody String data) {
-        this.upgradeService.save(JSONObject.parseObject(data, UpgradeConfig.class));
+        this.service.save(JSONObject.parseObject(data, UpgradeConfig.class));
     }
 
     @PostMapping("/upgradeAll")
     public void upgradeAll() {
-        for (UpgradeConfig upgradeConfig : this.upgradeService.findAllByIsAvailableAndIsUpgradedOrderByUpgradeOrder("Y", "N")) {
+        for (UpgradeConfig upgradeConfig : this.service.findAllByIsAvailableAndIsUpgradedOrderByUpgradeOrder("Y", "N")) {
             try {
-                this.upgradeService.executeUpgrade(upgradeConfig);
+                this.service.executeUpgrade(upgradeConfig);
             } catch (Exception ex) {
-                this.upgradeService.setUpgradeErrors(upgradeConfig, ex);
+                this.service.setUpgradeErrors(upgradeConfig, ex);
                 break;
             }
         }

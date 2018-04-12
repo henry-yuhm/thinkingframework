@@ -21,7 +21,7 @@ public class InventoryCheckDetail extends Detail {
     private Location location;//货位
 
     @Column(nullable = false)
-    private InventoryState state;//库存状态
+    private InventoryState inventoryState;//库存状态
 
     @ManyToOne(fetch = FetchType.LAZY)
     private Pallet pallet;//托盘

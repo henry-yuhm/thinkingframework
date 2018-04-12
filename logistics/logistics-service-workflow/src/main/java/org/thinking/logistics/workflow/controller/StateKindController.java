@@ -11,15 +11,15 @@ import java.util.Map;
 @RestController
 @RequestMapping("/stateKind")
 public class StateKindController {
-    private StateKindService stateKindService;
+    private StateKindService service;
 
     @Autowired
-    public StateKindController(StateKindService stateKindService) {
-        this.stateKindService = stateKindService;
+    public StateKindController(StateKindService service) {
+        this.service = service;
     }
 
     @GetMapping("/findAll")
     public Map<String, String> findAll() {
-        return this.stateKindService.findAll();
+        return this.service.findAll();
     }
 }

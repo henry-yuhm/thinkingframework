@@ -1,5 +1,6 @@
 package org.thinking.logistics.core.domain.support;
 
+//到货凭证
 public enum ArrivalVoucher {
     HOLD("1", 1),
     NONE("2", 2),

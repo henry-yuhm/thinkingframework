@@ -1,9 +1,10 @@
 package org.thinking.logistics.core.domain.support;
 
+//月台类别
 public enum StagingareaCategory {
-    TINY_CUSTOMER("1", 1),//小型客户区
-    MEDIUM_CUSTOMER("2", 2),//中等客户区
-    HEAVY_CUSTOMER("3", 3);//大型客户区
+    MINIATURE("1", 1),//小型
+    MEDIUM("2", 2),//中等
+    HEAVY("3", 3);//大型
 
     StagingareaCategory(String name, int ordinal) {
     }

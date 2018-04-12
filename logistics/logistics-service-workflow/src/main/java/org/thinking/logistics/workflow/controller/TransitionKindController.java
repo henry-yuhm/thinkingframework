@@ -11,15 +11,15 @@ import java.util.Map;
 @RestController
 @RequestMapping("/transitionKind")
 public class TransitionKindController {
-    private TransitionKindService transitionKindService;
+    private TransitionKindService service;
 
     @Autowired
-    public TransitionKindController(TransitionKindService transitionKindService) {
-        this.transitionKindService = transitionKindService;
+    public TransitionKindController(TransitionKindService service) {
+        this.service = service;
     }
 
     @GetMapping("/findAll")
     public Map<String, String> findAll() {
-        return this.transitionKindService.findAll();
+        return this.service.findAll();
     }
 }

@@ -29,16 +29,16 @@ public class InboundHeader extends Header {
     private String inspector;//质检员
 
     @Column(nullable = false)
-    private boolean passback = true;//是否回传
+    private boolean passback = true;//回传
 
     @Column(nullable = false)
-    private boolean chargeup = false;//是否记账
+    private boolean chargeup = false;//记账
 
     @Column(nullable = false)
-    private boolean executed = false;//是否执行
+    private boolean executed = false;//执行
 
     @Column(nullable = false)
-    private boolean complete = false;//是否完成
+    private boolean complete = false;//完成
 
     private ArrivalMode arrivalMode;//到货方式
 
@@ -52,7 +52,7 @@ public class InboundHeader extends Header {
     private String saleOrderNo;//销售订单号
 
     @Column(nullable = false)
-    private boolean printed = false;//是否打印
+    private boolean printed = false;//打印
 
     @ManyToMany
     @JoinTable(joinColumns = @JoinColumn(name = "header_id"), inverseJoinColumns = @JoinColumn(name = "detail_id"))

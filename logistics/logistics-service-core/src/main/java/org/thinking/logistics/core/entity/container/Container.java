@@ -20,5 +20,5 @@ public class Container {
     private String number;//编号
 
     @Column(nullable = false)
-    private boolean available = false;//是否可用
+    private boolean available = false;//可用
 }

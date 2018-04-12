@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.statemachine.data.jpa.JpaRepositoryGuard;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.thinking.logistics.core.domain.CompositeException;
 import org.thinking.logistics.workflow.repository.GuardRepository;
 
 import java.util.List;
@@ -26,21 +27,21 @@ public class GuardService {
     }
 
     @Transactional(rollbackFor = Exception.class)
-    public boolean save(List<JpaRepositoryGuard> guards) {
-        try {
-            guards.forEach(guard -> {
-                if (this.guards.containsKey(guard.getName())) {
-                    this.guards.get(guard.getName()).setSpel(guard.getSpel());
-                } else {
-                    this.guards.put(guard.getName(), guard);
-                }
+    public void save(List<JpaRepositoryGuard> guards) throws Exception {
+        for (JpaRepositoryGuard guard : guards) {
+            if (guard.getSpel().isEmpty()) {
+                throw CompositeException.getException("看守【" + guard.getName() + "】的表达式不允许为空");
+            }
 
-                this.guardRepository.save(this.guards.get(guard.getName()));
-            });
+            if (this.guards.containsKey(guard.getName())) {
+                this.guards.get(guard.getName()).setSpel(guard.getSpel());
+            } else {
+                this.guards.put(guard.getName(), guard);
+            }
 
-            return true;
-        } catch (Exception ex) {
-            return false;
+            this.guardRepository.save(this.guards.get(guard.getName()));
         }
+
+        this.guardRepository.saveAll(this.guards.values());
     }
 }

@@ -18,10 +18,10 @@ public class PurchaseOrderHeader extends Header {
     private Customer customer;//客户
 
     @Column(nullable = false)
-    private boolean complete = false;//是否完成
+    private boolean complete = false;//完成
 
     @Column(nullable = false)
-    private InboundKind kind;//入库类型
+    private InboundKind inboundKind;//入库类型
 
     @Column(nullable = false)
     private Date invoiceTime;//开票时间

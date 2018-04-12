@@ -21,9 +21,9 @@ public class OutboundDetail extends Detail {
 //    private OutboundHeader header;//抬头
 
     @Column(nullable = false)
-    private InventoryState state = InventoryState.QUALIFICATION;//库存状态
+    private InventoryState inventoryState = InventoryState.QUALIFICATION;//库存状态
 
-    private BatchRequest request = BatchRequest.NONE;//批号要求
+    private BatchRequest request = BatchRequest.NO_DEMAND;//批号要求
 
     @Column(nullable = false, precision = 12, scale = 5)
     private BigDecimal planQuantity = BigDecimal.ZERO;//计划数量

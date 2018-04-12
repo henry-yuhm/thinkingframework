@@ -13,11 +13,11 @@ public class AppointedLocationDispatcher extends AbstractDispatcher {
     }
 
     @Override
-    public void releaseBill() throws Exception {
+    public void releaseOrder() throws Exception {
         this.header.isResended();
 
         this.header.setWave("0000000006");
 
-        super.releaseBill();
+        super.releaseOrder();
     }
 }

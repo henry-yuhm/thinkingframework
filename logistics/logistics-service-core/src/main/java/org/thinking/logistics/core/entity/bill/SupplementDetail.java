@@ -22,7 +22,7 @@ public class SupplementDetail extends Detail {
     private Location location;//货位
 
     @Column(nullable = false)
-    private InventoryState state;//库存状态
+    private InventoryState inventoryState;//库存状态
 
     @Column(nullable = false, precision = 12, scale = 5)
     private BigDecimal planQuantity = BigDecimal.ZERO;//计划数量

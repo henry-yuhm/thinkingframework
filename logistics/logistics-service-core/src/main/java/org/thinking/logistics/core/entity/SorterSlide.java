@@ -2,7 +2,7 @@ package org.thinking.logistics.core.entity;
 
 import lombok.Data;
 import org.thinking.logistics.core.domain.support.BillCategory;
-import org.thinking.logistics.core.domain.support.TaskCategory;
+import org.thinking.logistics.core.domain.support.CommandCategory;
 
 import javax.persistence.*;
 import java.util.LinkedHashSet;
@@ -22,14 +22,14 @@ public class SorterSlide {
     private String number;//编号
 
     @Column(nullable = false)
-    private boolean available = true;//是否可用
+    private boolean available = true;//可用
 
     @Column(nullable = false)
     private int workload = 0;//工作量
 
     @OneToMany
     @JoinTable(joinColumns = @JoinColumn(name = "slide_id"), inverseJoinColumns = @JoinColumn(name = "category"))
-    private Set<TaskCategory> taskCategories = new LinkedHashSet<>();//任务类别
+    private Set<CommandCategory> taskCategories = new LinkedHashSet<>();//任务类别
 
     @OneToMany
     @JoinTable(joinColumns = @JoinColumn(name = "slide_id"), inverseJoinColumns = @JoinColumn(name = "category"))

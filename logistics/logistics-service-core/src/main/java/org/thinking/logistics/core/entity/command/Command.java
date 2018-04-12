@@ -24,18 +24,18 @@ public abstract class Command {
     private Goods goods;//商品
 
     @Column(nullable = false)
-    private PackageSign sign;//包装标识
+    private PackageKind packageKind;//包装类型
 
     @Column(nullable = false)
-    private BusinessType type;//业务类型
+    private CommandKind commandKind;//指令类型
 
     @Column(nullable = false)
-    private TaskCategory category;//作业类别
+    private CommandCategory commandCategory;//指令类别
 
     @Column(nullable = false)
-    private TaskStage stage = TaskStage.CREATED;//作业阶段
+    private CommandStage stage = CommandStage.CREATED;//指令阶段
 
-    private TaskMode mode;//作业方式
+    private WorkMode workMode;//作业方式
 
     @Column(nullable = false)
     private Date creationTime = Date.valueOf(LocalDate.now());//创建时间

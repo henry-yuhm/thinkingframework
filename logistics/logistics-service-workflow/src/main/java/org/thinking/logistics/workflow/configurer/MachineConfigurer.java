@@ -1,6 +1,6 @@
 package org.thinking.logistics.workflow.configurer;
 
-import com.alibaba.fastjson.JSONObject;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -8,6 +8,7 @@ import org.springframework.expression.spel.standard.SpelExpressionParser;
 import org.springframework.messaging.Message;
 import org.springframework.statemachine.StateContext;
 import org.springframework.statemachine.StateMachine;
+import org.springframework.statemachine.StateMachineException;
 import org.springframework.statemachine.action.Action;
 import org.springframework.statemachine.action.ActionListener;
 import org.springframework.statemachine.action.Actions;
@@ -40,12 +41,11 @@ import org.springframework.web.client.RestTemplate;
 import org.thinking.logistics.workflow.entity.Monitor;
 import org.thinking.logistics.workflow.repository.*;
 
-import java.util.ArrayList;
-import java.util.LinkedHashMap;
-import java.util.Map;
+import java.util.*;
 
 @Configuration
 @EnableStateMachineFactory
+@Slf4j
 public class MachineConfigurer extends StateMachineConfigurerAdapter<String, String> {
     private RestTemplate restTemplate;
 
@@ -83,19 +83,27 @@ public class MachineConfigurer extends StateMachineConfigurerAdapter<String, Str
         config.withPersistence().runtimePersister(this.stateMachineRuntimePersister());
     }
 
-    private Action<String, String> restAction(String spel) {
-        return stateContext -> stateContext.getExtendedState().getVariables().putAll(this.restTemplate.postForObject(spel, stateContext.getExtendedState().getVariables(), Map.class));
+    public Action<String, String> restAction(String spel) {
+        return stateContext -> {
+            try {
+                stateContext.getExtendedState().getVariables().putAll(Optional.ofNullable(this.restTemplate.postForObject(spel, stateContext.getExtendedState().getVariables(), Map.class)).orElse(new HashMap()));
+            } catch (Exception ex) {
+                throw new RuntimeException(ex.getMessage(), ex.getCause());
+            }
+        };
     }
 
-    private Action<String, String> errorAction() {
-        return stateContext -> System.out.println("操作执行错误:" + stateContext.getException().getMessage());
+    public Action<String, String> errorAction() {
+        return stateContext -> {
+            throw new StateMachineException(stateContext.getException().getMessage(), stateContext.getException());
+        };
     }
 
     @Bean
     public Map<String, JpaRepositoryAction> actions() {
         Map<String, JpaRepositoryAction> actions = new LinkedHashMap<>();
 
-        this.actionRepository.findAll().forEach(action -> actions.put(action.getName(), action));
+        this.actionRepository.findAll().forEach(action -> actions.put(Optional.ofNullable(action.getName()).orElse(action.getSpel()), action));
 
         return actions;
     }
@@ -136,7 +144,7 @@ public class MachineConfigurer extends StateMachineConfigurerAdapter<String, Str
         //        factory.setStateMachineComponentResolver(this.stateMachineComponentResolver());
 
         this.actions().values().forEach(action -> {
-            if (!action.getName().isEmpty()) {
+            if (!(Optional.ofNullable(action.getName()).orElse("")).isEmpty()) {
                 factory.registerAction(action.getName(), Actions.errorCallingAction(this.restAction(action.getSpel()), this.errorAction()));
             }
         });
@@ -199,24 +207,22 @@ public class MachineConfigurer extends StateMachineConfigurerAdapter<String, Str
             @Override
             public void stateChanged(State<String, String> from, State<String, String> to) {
                 if (from != null) {
-                    System.out.println("状态从【" + from.getId() + "】改变到【" + to.getId() + "】");
+                    log.info("状态从【" + from.getId() + "】改变到【" + to.getId() + "】");
                 }
             }
 
             @Override
             public void stateMachineStarted(StateMachine<String, String> stateMachine) {
-                System.out.println("当前的状态机是【" + stateMachine.getId() + "】");
+                log.info("当前的状态机是【" + stateMachine.getId() + "】");
             }
 
             @Override
             public void stateContext(StateContext<String, String> stateContext) {
-                if (stateContext.getStage() == StateContext.Stage.TRANSITION) {
+                if (stateContext.getStage() == StateContext.Stage.TRANSITION_END) {
                     Monitor monitor = new Monitor();
-
                     monitor.setMachineId(stateContext.getStateMachine().getId());
-                    monitor.setStateContext(JSONObject.toJSONString(stateContext, true));
-
-                    MachineConfigurer.this.monitorRepository.save(monitor);
+                    monitor.setState(stateContext.getStateMachine().getState().getId());
+                    monitorRepository.save(monitor);
                 }
             }
         };

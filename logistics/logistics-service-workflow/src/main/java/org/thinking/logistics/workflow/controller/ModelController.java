@@ -11,30 +11,30 @@ import java.util.List;
 @RestController
 @RequestMapping("/model")
 public class ModelController {
-    private ModelService modelService;
+    private ModelService service;
 
     @Autowired
-    public ModelController(ModelService modelService) {
-        this.modelService = modelService;
+    public ModelController(ModelService service) {
+        this.service = service;
     }
 
     @GetMapping("/findOne")
     public Workflow findOne(String id) {
-        return this.modelService.findOne(id);
+        return this.service.findOne(id);
     }
 
     @GetMapping("/findAll")
     public List<Workflow> findAll() {
-        return this.modelService.findAll();
+        return this.service.findAll();
     }
 
     @PutMapping("/save")
     public void save(@RequestBody Workflow workflow) throws Exception {
-        this.modelService.save(workflow);
+        this.service.save(workflow);
     }
 
     @DeleteMapping("/deleteAll")
     public void deleteAll() {
-        this.modelService.deleteAll();
+        this.service.deleteAll();
     }
 }

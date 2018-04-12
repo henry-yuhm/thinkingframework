@@ -2,8 +2,8 @@ package org.thinking.logistics.core.entity;
 
 import lombok.Data;
 import org.thinking.logistics.core.domain.support.BatchRequest;
-import org.thinking.logistics.core.domain.support.CustomerCategory;
-import org.thinking.logistics.core.domain.support.CustomerSign;
+import org.thinking.logistics.core.domain.support.CustomerClassification;
+import org.thinking.logistics.core.domain.support.CustomerKind;
 
 import javax.persistence.*;
 
@@ -41,7 +41,7 @@ public class Customer {
     private String phone;//电话
 
     @Column(nullable = false)
-    private CustomerSign sign;//标识
+    private CustomerKind kind;//类型
 
     private String identifier;//识别
 
@@ -49,7 +49,7 @@ public class Customer {
 
     private BatchRequest batchRequest;//批号要求
 
-    private CustomerCategory category;//类别
+    private CustomerClassification classification;//分类
 
     private String grade;//等级
 

@@ -30,7 +30,7 @@ public class Inventory {
     private Location location;//货位
 
     @Column(nullable = false)
-    private InventoryState state;//库存状态
+    private InventoryState inventoryState;//库存状态
 
     @Column(nullable = false, precision = 12, scale = 5)
     private BigDecimal quantity = BigDecimal.ZERO;//数量
@@ -57,7 +57,7 @@ public class Inventory {
     private BigDecimal transitionQuantity = BigDecimal.ZERO;//在途数量
 
     @Column(nullable = false)
-    private boolean locking = false;//是否锁定
+    private boolean locking = false;//锁定
 
     @Column(nullable = false, precision = 12, scale = 5)
     private BigDecimal lockingQuantity = BigDecimal.ZERO;//锁定数量

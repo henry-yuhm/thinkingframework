@@ -3,9 +3,9 @@ package org.thinking.logistics.init.domain;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import org.thinking.logistics.core.domain.CompositeException;
-import org.thinking.logistics.core.domain.support.DispatchType;
+import org.thinking.logistics.core.domain.support.DispatcherKind;
 import org.thinking.logistics.core.domain.support.OutboundPriority;
-import org.thinking.logistics.core.domain.support.SaleType;
+import org.thinking.logistics.core.domain.support.SaleKind;
 import org.thinking.logistics.core.domain.support.TakegoodsMode;
 import org.thinking.logistics.core.entity.Address;
 import org.thinking.logistics.core.entity.bill.OutboundHeader;
@@ -30,8 +30,8 @@ public class OutboundSaleInitializer extends AbstractInitializer {
         super.initialize();
 
         //region 优先级、提货方式转换
-        if (this.header.getSaleType() == SaleType.FLITTING) {
-            this.header.setPriority(OutboundPriority.OUTBOUND_FLITTING);
+        if (this.header.getSaleKind() == SaleKind.FLITTING) {
+            this.header.setPriority(OutboundPriority.FLITTING_OUTBOUND);
         } else if (this.header.getTakegoodsMode() == TakegoodsMode.GREEN_CHANNEL) {
             this.header.setPriority(OutboundPriority.GREEN_CHANNEL);
         } else if (this.header.getTakegoodsMode() == TakegoodsMode.SELF_SERVICE) {
@@ -43,27 +43,27 @@ public class OutboundSaleInitializer extends AbstractInitializer {
                 this.header.setPriority(OutboundPriority.GREEN_CHANNEL);
                 this.header.setTakegoodsModeSwitch(TakegoodsMode.GREEN_CHANNEL);
             } else if (this.header.getGoodsQuantity() > this.getIntegerParameter(this.header.getWarehouse(), "PGS_ZTZPS") || this.header.getEquivalentPieces().compareTo(this.getDecimalParameter(this.header.getWarehouse(), "JS_ZTZPS")) > 0) {
-                this.header.setPriority(OutboundPriority.SELF_SERVICE_2_DELIVERY);
-                this.header.setTakegoodsModeSwitch(TakegoodsMode.SELF_SERVICE_2_DELIVERY);
+                this.header.setPriority(OutboundPriority.SELF_SERVICE_2_DISTRIBUTION);
+                this.header.setTakegoodsModeSwitch(TakegoodsMode.SELF_SERVICE_2_DISTRIBUTION);
             } else {
                 this.header.setPriority(OutboundPriority.SELF_SERVICE);
                 this.header.setTakegoodsModeSwitch(TakegoodsMode.SELF_SERVICE);
             }
         } else if (this.header.getTakegoodsMode() == TakegoodsMode.CONSIGNMENT) {
             this.header.setPriority(OutboundPriority.CONSIGNMENT);
-        } else if (this.header.getTakegoodsMode() == TakegoodsMode.INNER_CITY_DELIVERY) {
-            this.header.setPriority(OutboundPriority.INNER_CITY_DELIVERY);
-        } else if (this.header.getTakegoodsMode() == TakegoodsMode.SELF_SERVICE_INVENTORYUP) {
-            this.header.setPriority(OutboundPriority.SELF_SERVICE_INVENTORYUP);
-        } else if (this.header.getTakegoodsMode() == TakegoodsMode.OUTER_CITY_DELIVERY) {
-            this.header.setPriority(OutboundPriority.OUTER_CITY_DELIVERY);
+        } else if (this.header.getTakegoodsMode() == TakegoodsMode.URBAN_DISTRIBUTION) {
+            this.header.setPriority(OutboundPriority.URBAN_DISTRIBUTION);
+        } else if (this.header.getTakegoodsMode() == TakegoodsMode.SELF_SERVICE_STOCKUP) {
+            this.header.setPriority(OutboundPriority.SELF_SERVICE_STOCKUP);
+        } else if (this.header.getTakegoodsMode() == TakegoodsMode.SUBURBAN_DISTRIBUTION) {
+            this.header.setPriority(OutboundPriority.SUBURBAN_DISTRIBUTION);
         } else if (this.header.getTakegoodsMode() == TakegoodsMode.RETAIL_CHAINS) {
             this.header.setPriority(OutboundPriority.RETAIL_CHAINS);
         } else if (this.header.getTakegoodsMode() == TakegoodsMode.FLITTING) {
-            this.header.setPriority(OutboundPriority.OUTBOUND_FLITTING);
+            this.header.setPriority(OutboundPriority.FLITTING_OUTBOUND);
         } else {
-            this.header.setPriority(OutboundPriority.INNER_CITY_DELIVERY);
-            this.header.setTakegoodsModeSwitch(TakegoodsMode.INNER_CITY_DELIVERY);
+            this.header.setPriority(OutboundPriority.URBAN_DISTRIBUTION);
+            this.header.setTakegoodsModeSwitch(TakegoodsMode.URBAN_DISTRIBUTION);
         }
         //endregion
 
@@ -102,8 +102,8 @@ public class OutboundSaleInitializer extends AbstractInitializer {
         if (this.isEnable(this.header.getWarehouse(), "ZTDDSFZDXF")) {
             if ((this.header.getTakegoodsMode() == TakegoodsMode.SELF_SERVICE || this.header.getTakegoodsMode() == TakegoodsMode.GREEN_CHANNEL) &&
                     (this.getStringParameter(this.header.getWarehouse(), "PSHLSHANGP_TYPE").contains(this.header.getCategory().name())) &&
-                    this.header.getSaleType() == SaleType.NORMAL_SALE &&
-                    this.header.getDispatchType() == DispatchType.AUTOMATIC) {
+                    this.header.getSaleKind() == SaleKind.NORMAL_SALE &&
+                    this.header.getDispatcherKind() == DispatcherKind.AUTOMATIC) {
                 //region 系统截单时间处理
                 Date currentTime = Date.valueOf(LocalDate.now());
                 Date trimTime = this.getDateParameter(this.header.getWarehouse(), "JD_TIME");

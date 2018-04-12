@@ -1,9 +1,10 @@
 package org.thinking.logistics.core.domain.support;
 
-public enum StorageStatus {
+//存放状态
+public enum StorageState {
     QUALIFICATION("1", 1),//合格
     DISQUALIFICATION("2", 2);//不合格
 
-    StorageStatus(String name, int ordinal) {
+    StorageState(String name, int ordinal) {
     }
 }

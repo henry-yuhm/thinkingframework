@@ -13,7 +13,7 @@ public class SpecialOrderDispatcher extends AbstractDispatcher {
     }
 
     @Override
-    public void releaseBill() throws Exception {
+    public void releaseOrder() throws Exception {
         //region 特殊订单下发
         //endregion
     }

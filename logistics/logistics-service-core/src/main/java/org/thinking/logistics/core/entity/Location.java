@@ -53,31 +53,31 @@ public class Location {
     private BigDecimal occupationVolume;//占用体积
 
     @Column(nullable = false)
-    private PackageSign sign;//包装标识
+    private PackageKind packageKind;//包装类型
 
     @Column(nullable = false)
-    private boolean available = true;//是否可用
+    private boolean available = true;//可用
 
     @Column(nullable = false)
-    private boolean locking = false;//是否锁定
+    private boolean locking = false;//锁定
 
     @Column(nullable = false)
-    private boolean automatic;//是否自动化
+    private boolean automatic;//自动化
 
     @Column(nullable = false)
-    private LocationType type = LocationType.NORMAL;//货位类型
+    private LocationKind kind = LocationKind.NORMAL;//货位类型
 
     @Column(nullable = false)
-    private RackMode rackMode = RackMode.CLAPBOARD;//货架模式
+    private RackKind rackKind = RackKind.CLAPBOARD;//货架类型
 
     @Column(nullable = false)
-    private StorageType storageType;//存放类型
+    private StorageKind storageKind;//存放类型
 
     @Column(nullable = false)
-    private StorageStatus storageStatus;//存放状态
+    private StorageState storageState;//存放状态
 
     @Column(nullable = false)
-    private PileupType pileupType;//码放类型
+    private PileupKind pileupKind;//码放类型
 
     @ManyToOne(fetch = FetchType.LAZY)
     private Transferline transferline;//输送线

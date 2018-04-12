@@ -12,7 +12,7 @@ import java.util.Set;
 @EqualsAndHashCode(callSuper = true)
 public class InventoryCheckHeader extends Header {
     @Column(nullable = false)
-    private boolean executed = false;//是否执行
+    private boolean executed = false;//执行
 
     @ManyToMany
     @JoinTable(joinColumns = @JoinColumn(name = "header_id"), inverseJoinColumns = @JoinColumn(name = "detail_id"))

@@ -26,5 +26,5 @@ public class Owner {
     private String serviceHotline;//服务热线
 
     @Column(nullable = false)
-    private boolean thirdpart;//是否第三方
+    private boolean thirdpart;//第三方
 }

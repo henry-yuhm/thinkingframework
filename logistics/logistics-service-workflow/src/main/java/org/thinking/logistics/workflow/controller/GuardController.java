@@ -10,20 +10,20 @@ import java.util.List;
 @RestController
 @RequestMapping("/guard")
 public class GuardController {
-    private GuardService guardService;
+    private GuardService service;
 
     @Autowired
-    public GuardController(GuardService guardService) {
-        this.guardService = guardService;
+    public GuardController(GuardService service) {
+        this.service = service;
     }
 
     @GetMapping("/findAll")
     public List<JpaRepositoryGuard> findAll() {
-        return this.guardService.findAll();
+        return this.service.findAll();
     }
 
     @PutMapping("/save")
-    public boolean save(@RequestBody List<JpaRepositoryGuard> guards) {
-        return this.guardService.save(guards);
+    public void save(@RequestBody List<JpaRepositoryGuard> guards) throws Exception {
+        this.service.save(guards);
     }
 }

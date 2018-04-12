@@ -50,8 +50,8 @@ public abstract class AbstractDispatcher extends BusinessAdapter implements Disp
 
         this.headers.forEach(header -> {
             header.setStage(OutboundStage.ARRANGED);
-            header.setDispatcher(this.operator);
-            header.setDispatchTime(Date.valueOf(LocalDate.now()));
+            header.setDispatchers(this.operator);
+            header.setDispatcherTime(Date.valueOf(LocalDate.now()));
         });
 
         this.headerRepository.saveAll(this.headers);
@@ -66,8 +66,8 @@ public abstract class AbstractDispatcher extends BusinessAdapter implements Disp
         this.headers.forEach(header -> {
             header.setStage(OutboundStage.INITIALIZED);
             header.setWave(null);
-            header.setDispatcher(null);
-            header.setDispatchTime(null);
+            header.setDispatchers(null);
+            header.setDispatcherTime(null);
         });
 
         this.headerRepository.saveAll(this.headers);
@@ -81,8 +81,8 @@ public abstract class AbstractDispatcher extends BusinessAdapter implements Disp
 
         this.header.setStage(OutboundStage.INITIALIZED);
         this.header.setWave(null);
-        this.header.setDispatcher(null);
-        this.header.setDispatchTime(null);
+        this.header.setDispatchers(null);
+        this.header.setDispatcherTime(null);
 
         this.headerRepository.save(this.header);
     }
@@ -98,10 +98,10 @@ public abstract class AbstractDispatcher extends BusinessAdapter implements Disp
     }
 
     @Override
-    public void releaseBill() throws Exception {
+    public void releaseOrder() throws Exception {
         this.header.setStage(this.header.getStage() == OutboundStage.SUSPENDED ? OutboundStage.RESEND : OutboundStage.RELEASED);
-        this.header.setDispatcher(this.operator);
-        this.header.setDispatchTime(Date.valueOf(LocalDate.now()));
+        this.header.setDispatchers(this.operator);
+        this.header.setDispatcherTime(Date.valueOf(LocalDate.now()));
         this.header.setReleaseTime(Date.valueOf(LocalDate.now()));
 
         this.headerRepository.save(this.header);

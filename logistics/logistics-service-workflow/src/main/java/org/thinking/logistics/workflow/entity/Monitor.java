@@ -2,7 +2,10 @@ package org.thinking.logistics.workflow.entity;
 
 import lombok.Data;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 import java.io.Serializable;
 
 @Entity
@@ -15,6 +18,6 @@ public class Monitor implements Serializable {
     @Column(nullable = false)
     private String machineId;
 
-    @Lob
-    private String stateContext;
+    @Column(nullable = false)
+    private String state;
 }

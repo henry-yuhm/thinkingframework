@@ -1,8 +1,8 @@
 package org.thinking.logistics.core.entity.table;
 
 import lombok.Data;
-import org.thinking.logistics.core.domain.support.BillCategory;
-import org.thinking.logistics.core.domain.support.RecheckTableType;
+import org.thinking.logistics.core.domain.support.RecheckTableCategory;
+import org.thinking.logistics.core.domain.support.RecheckTableKind;
 import org.thinking.logistics.core.entity.Warehouse;
 
 import javax.persistence.*;
@@ -22,16 +22,16 @@ public class RecheckTable {
     private String number;//编号
 
     @Column(nullable = false)
-    private RecheckTableType type = RecheckTableType.NORMAL;//类型
+    private RecheckTableKind kind = RecheckTableKind.NORMAL;//类型
 
     @Column(nullable = false)
-    private BillCategory category;//类别
+    private RecheckTableCategory category;//类别
 
     @Column(nullable = false)
-    private boolean locking = false;//是否锁定
+    private boolean locking = false;//锁定
 
     @Column(nullable = false)
-    private boolean automatic;//是否自动化
+    private boolean automatic;//自动化
 
     @Column(nullable = false)
     private int workload = 0;//工作量

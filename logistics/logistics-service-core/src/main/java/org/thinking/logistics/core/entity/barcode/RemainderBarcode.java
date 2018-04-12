@@ -2,7 +2,7 @@ package org.thinking.logistics.core.entity.barcode;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import org.thinking.logistics.core.domain.support.GroupageMode;
+import org.thinking.logistics.core.domain.support.GroupageKind;
 import org.thinking.logistics.core.entity.command.RemainderCommand;
 
 import javax.persistence.*;
@@ -14,10 +14,10 @@ import java.util.Set;
 @EqualsAndHashCode(callSuper = true)
 public class RemainderBarcode extends OutboundBarcode {
     @Column(nullable = false)
-    private String groupageNo;//拼箱号
+    private String groupage;//拼箱
 
     @Column(nullable = false)
-    private GroupageMode groupageMode;//拼箱方式
+    private GroupageKind groupageKind;//拼箱类型
 
     @ManyToMany
     @JoinTable(joinColumns = @JoinColumn(name = "barcode_id"), inverseJoinColumns = @JoinColumn(name = "command_id"))
