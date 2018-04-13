@@ -25,7 +25,7 @@
         <module>../resource-dispatcher</module>
         <module>../services-core</module>
         <module>../stagingarea-allocation</module>
-        <module>../state-machine</module>
+        <module>../statemachine-dispatcher</module>
         <module>../upgrade-service</module>
     </modules>
 
