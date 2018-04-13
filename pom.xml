@@ -190,7 +190,12 @@
             <!--logistics-->
             <dependency>
                 <groupId>org.thinking.logistics</groupId>
-                <artifactId>logistics-service-core</artifactId>
+                <artifactId>services-parent</artifactId>
+                <version>${logistics.dependencies.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.thinking.logistics</groupId>
+                <artifactId>services-core</artifactId>
                 <version>${logistics.dependencies.version}</version>
             </dependency>
             <!--logistics-->

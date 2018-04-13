@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://maven.apache.org/POM/4.0.0"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>org.thinkingframework</groupId>
+        <artifactId>thinking-dependencies</artifactId>
+        <version>2.0.0</version>
+    </parent>
+
+    <groupId>org.thinking.logistics</groupId>
+    <artifactId>services-parent</artifactId>
+    <packaging>pom</packaging>
+
+    <modules>
+        <module>../batches-allocation</module>
+        <module>../data-servo</module>
+        <module>../inventory-dispatcher</module>
+        <module>../operation-audit</module>
+        <module>../order-dispatcher</module>
+        <module>../order-initialization</module>
+        <module>../replenishment-dispatcher</module>
+        <module>../resource-dispatcher</module>
+        <module>../services-core</module>
+        <module>../stagingarea-allocation</module>
+        <module>../state-machine</module>
+        <module>../upgrade-service</module>
+    </modules>
+
+</project>
