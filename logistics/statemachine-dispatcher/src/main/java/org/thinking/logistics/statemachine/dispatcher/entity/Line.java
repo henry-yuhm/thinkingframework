@@ -9,7 +9,7 @@ import java.io.Serializable;
 @Entity
 @IdClass(Line.LinePk.class)
 @Data
-public class Line implements Serializable {
+public class Line {
     @Id
     @Column(length = 50)
     private String source;

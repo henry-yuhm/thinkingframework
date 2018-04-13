@@ -1,6 +1,6 @@
 spring:
   application:
-    name: state-machine
+    name: statemachine-dispatcher
   aop:
     proxy-target-class: true
   cloud:

@@ -3,12 +3,11 @@ package org.thinking.logistics.statemachine.dispatcher.entity;
 import lombok.Data;
 
 import javax.persistence.*;
-import java.io.Serializable;
 import java.util.Set;
 
 @Entity
 @Data
-public class Workflow implements Serializable {
+public class Workflow {
     @Id
     @Column(length = 50)
     private String id;

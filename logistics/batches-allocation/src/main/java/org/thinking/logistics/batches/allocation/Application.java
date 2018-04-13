@@ -7,14 +7,14 @@ import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
 import org.springframework.cloud.netflix.hystrix.EnableHystrix;
 import org.springframework.cloud.openfeign.EnableFeignClients;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
-import org.thinkingframework.boot.mvc.AppWebMvcConfigurer;
+import org.thinkingframework.boot.web.mvc.AppWebMvcConfigurer;
 
 @SpringBootApplication
 @EnableEurekaClient
 @EnableFeignClients
 @EnableHystrix
-@EntityScan(basePackages = "org.thinking.logistics.core.entity")
-@EnableJpaRepositories(basePackages = "org.thinking.logistics.core.repository")
+@EntityScan(basePackages = "org.thinking.logistics.services.core.entity")
+@EnableJpaRepositories(basePackages = "org.thinking.logistics.services.core.repository")
 public class Application extends AppWebMvcConfigurer {
     public static void main(String[] args) {
         SpringApplication.run(Application.class, args);

@@ -9,13 +9,13 @@ import org.springframework.cloud.netflix.hystrix.EnableHystrix;
 import org.springframework.cloud.openfeign.EnableFeignClients;
 import org.springframework.context.annotation.Bean;
 import org.springframework.web.client.RestTemplate;
-import org.thinkingframework.boot.mvc.AppWebMvcConfigurer;
+import org.thinkingframework.boot.web.mvc.AppWebMvcConfigurer;
 
 @SpringBootApplication
 @EnableEurekaClient
 @EnableFeignClients
 @EnableHystrix
-@EntityScan(basePackages = "org.thinking.logistics.statemachine.entity")
+@EntityScan(basePackages = "org.thinking.logistics.statemachine.dispatcher.entity")
 public class Application extends AppWebMvcConfigurer {
     public static void main(String[] args) {
         SpringApplication.run(Application.class, args);
