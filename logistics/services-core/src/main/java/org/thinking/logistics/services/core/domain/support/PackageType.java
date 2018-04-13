@@ -1,10 +1,10 @@
 package org.thinking.logistics.services.core.domain.support;
 
 //包装类型
-public enum PackageKind {
+public enum PackageType {
     WHOLE_PIECES("1", 1),
     REMAINDER("2", 2);
 
-    PackageKind(String name, int ordinal) {
+    PackageType(String name, int ordinal) {
     }
 }

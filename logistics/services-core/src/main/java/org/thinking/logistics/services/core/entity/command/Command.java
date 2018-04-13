@@ -24,10 +24,10 @@ public abstract class Command {
     private Goods goods;//商品
 
     @Column(nullable = false)
-    private PackageKind packageKind;//包装类型
+    private PackageType packageType;//包装类型
 
     @Column(nullable = false)
-    private CommandKind commandKind;//指令类型
+    private CommandType commandType;//指令类型
 
     @Column(nullable = false)
     private CommandCategory commandCategory;//指令类别

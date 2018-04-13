@@ -2,7 +2,7 @@ package org.thinking.logistics.services.core.entity.table;
 
 import lombok.Data;
 import org.thinking.logistics.services.core.domain.support.RecheckTableCategory;
-import org.thinking.logistics.services.core.domain.support.RecheckTableKind;
+import org.thinking.logistics.services.core.domain.support.RecheckTableType;
 import org.thinking.logistics.services.core.entity.Warehouse;
 
 import javax.persistence.*;
@@ -22,7 +22,7 @@ public class RecheckTable {
     private String number;//编号
 
     @Column(nullable = false)
-    private RecheckTableKind kind = RecheckTableKind.NORMAL;//类型
+    private RecheckTableType type = RecheckTableType.NORMAL;//类型
 
     @Column(nullable = false)
     private RecheckTableCategory category;//类别

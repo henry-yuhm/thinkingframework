@@ -3,7 +3,7 @@ package org.thinking.logistics.services.core.entity;
 import lombok.Data;
 import org.thinking.logistics.services.core.domain.support.BatchesRequest;
 import org.thinking.logistics.services.core.domain.support.CustomerClassification;
-import org.thinking.logistics.services.core.domain.support.CustomerKind;
+import org.thinking.logistics.services.core.domain.support.CustomerType;
 
 import javax.persistence.*;
 
@@ -41,7 +41,7 @@ public class Customer {
     private String phone;//电话
 
     @Column(nullable = false)
-    private CustomerKind kind;//类型
+    private CustomerType type;//类型
 
     private String identifier;//识别
 

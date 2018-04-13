@@ -1,9 +1,9 @@
 package org.thinking.logistics.services.core.domain.support;
 
 //拼箱类型
-public enum GroupageKind {
+public enum GroupageType {
     ;
 
-    GroupageKind(String name, int ordinal) {
+    GroupageType(String name, int ordinal) {
     }
 }

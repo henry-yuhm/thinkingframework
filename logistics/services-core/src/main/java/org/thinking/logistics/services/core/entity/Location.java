@@ -53,7 +53,7 @@ public class Location {
     private BigDecimal occupationVolume;//占用体积
 
     @Column(nullable = false)
-    private PackageKind packageKind;//包装类型
+    private PackageType packageType;//包装类型
 
     @Column(nullable = false)
     private boolean available = true;//可用
@@ -65,19 +65,19 @@ public class Location {
     private boolean automatic;//自动化
 
     @Column(nullable = false)
-    private LocationKind kind = LocationKind.NORMAL;//货位类型
+    private LocationType type = LocationType.NORMAL;//货位类型
 
     @Column(nullable = false)
-    private RackKind rackKind = RackKind.CLAPBOARD;//货架类型
+    private RackType rackType = RackType.CLAPBOARD;//货架类型
 
     @Column(nullable = false)
-    private StorageKind storageKind;//存放类型
+    private StorageType storageType;//存放类型
 
     @Column(nullable = false)
     private StorageState storageState;//存放状态
 
     @Column(nullable = false)
-    private PileupKind pileupKind;//码放类型
+    private PileupType pileupType;//码放类型
 
     @ManyToOne(fetch = FetchType.LAZY)
     private Transferline transferline;//输送线

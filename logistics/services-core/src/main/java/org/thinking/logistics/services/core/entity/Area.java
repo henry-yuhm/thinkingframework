@@ -2,8 +2,8 @@ package org.thinking.logistics.services.core.entity;
 
 import lombok.Data;
 import org.thinking.logistics.services.core.domain.support.OperationDevice;
-import org.thinking.logistics.services.core.domain.support.PackageKind;
-import org.thinking.logistics.services.core.domain.support.RecheckKind;
+import org.thinking.logistics.services.core.domain.support.PackageType;
+import org.thinking.logistics.services.core.domain.support.RecheckType;
 import org.thinking.logistics.services.core.domain.support.UpshelfMode;
 
 import javax.persistence.*;
@@ -31,7 +31,7 @@ public class Area {
     private String storeNo;//库房编号
 
     @Column(nullable = false)
-    private PackageKind packageKind;//包装类型
+    private PackageType packageType;//包装类型
 
     private String region;//大区
 
@@ -47,7 +47,7 @@ public class Area {
     private boolean useSorter;//使用分拣机
 
     @Column(nullable = false)
-    private RecheckKind recheckKind;//复核类型
+    private RecheckType recheckType;//复核类型
 
     @Column(nullable = false)
     private int fullloadQuantity = 0;//满载周转箱数

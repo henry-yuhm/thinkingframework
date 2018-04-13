@@ -1,9 +1,9 @@
 package org.thinking.logistics.services.core.domain.support;
 
 //输送线类型
-public enum TransferlineKind {
+public enum TransferlineType {
     ;
 
-    TransferlineKind(String name, int ordinal) {
+    TransferlineType(String name, int ordinal) {
     }
 }

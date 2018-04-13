@@ -1,7 +1,7 @@
 package org.thinking.logistics.services.core.domain.support;
 
 //单据类型
-public enum BillKind {
+public enum BillType {
     PURCHASE_INBOUND("11", 11),//采购入库
     SALE_OUTBOUND("12", 12),//销售出库
     PURCHASE_RETURN("13", 13),//采购退货
@@ -13,6 +13,6 @@ public enum BillKind {
     INVENTORY_CHECK("41", 41),//盘点
     DISTRIBUTION("51", 51);//配送
 
-    BillKind(String name, int ordinal) {
+    BillType(String name, int ordinal) {
     }
 }

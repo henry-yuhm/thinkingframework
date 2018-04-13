@@ -10,7 +10,7 @@ import java.io.Serializable;
 
 @Entity
 @Data
-public class AuditKind implements Serializable {
+public class AuditType implements Serializable {
     @Id
     @GeneratedValue
     private long id;

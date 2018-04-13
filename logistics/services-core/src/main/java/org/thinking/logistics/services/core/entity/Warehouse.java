@@ -1,8 +1,8 @@
 package org.thinking.logistics.services.core.entity;
 
 import lombok.Data;
-import org.thinking.logistics.services.core.domain.support.TWFKind;
-import org.thinking.logistics.services.core.domain.support.TransferlineKind;
+import org.thinking.logistics.services.core.domain.support.TWFType;
+import org.thinking.logistics.services.core.domain.support.TransferlineType;
 
 import javax.persistence.*;
 import java.util.Set;
@@ -33,12 +33,12 @@ public class Warehouse {
     private boolean tablet;//使用平板电脑
 
     @OneToMany
-    @JoinTable(joinColumns = @JoinColumn(name = "Warehouse_id"), inverseJoinColumns = @JoinColumn(name = "kind_id"))
-    private Set<TransferlineKind> transferlineKinds;//输送线类型
+    @JoinTable(joinColumns = @JoinColumn(name = "Warehouse_id"), inverseJoinColumns = @JoinColumn(name = "type_id"))
+    private Set<TransferlineType> transferlineTypes;//输送线类型
 
     @OneToMany
-    @JoinTable(joinColumns = @JoinColumn(name = "Warehouse_id"), inverseJoinColumns = @JoinColumn(name = "kind_id"))
-    private Set<TWFKind> twfKinds;//立体库类型
+    @JoinTable(joinColumns = @JoinColumn(name = "Warehouse_id"), inverseJoinColumns = @JoinColumn(name = "type_id"))
+    private Set<TWFType> twfTypes;//立体库类型
 
     private String address;//地址
 }

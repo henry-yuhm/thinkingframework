@@ -2,7 +2,7 @@ package org.thinking.logistics.services.core.entity.bill;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import org.thinking.logistics.services.core.domain.support.InboundKind;
+import org.thinking.logistics.services.core.domain.support.InboundType;
 import org.thinking.logistics.services.core.entity.Customer;
 
 import javax.persistence.*;
@@ -21,7 +21,7 @@ public class PurchaseOrderHeader extends Header {
     private boolean complete = false;//完成
 
     @Column(nullable = false)
-    private InboundKind inboundKind;//入库类型
+    private InboundType inboundType;//入库类型
 
     @Column(nullable = false)
     private Date invoiceTime;//开票时间

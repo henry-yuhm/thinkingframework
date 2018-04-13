@@ -24,7 +24,7 @@ public class AuditData implements Serializable {
     private String moduleName;
 
     @ManyToOne
-    private AuditKind kind;
+    private AuditType type;
 
     private HashMap<String, String> info;
 

@@ -1,9 +1,9 @@
 package org.thinking.logistics.services.core.domain.support;
 
 //税票类型
-public enum TaxKind {
+public enum TaxType {
     ;
 
-    TaxKind(String name, int ordinal) {
+    TaxType(String name, int ordinal) {
     }
 }

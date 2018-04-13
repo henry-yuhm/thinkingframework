@@ -2,8 +2,8 @@ package org.thinking.logistics.services.core.entity.bill;
 
 import lombok.Data;
 import org.thinking.logistics.services.core.domain.support.BillCategory;
-import org.thinking.logistics.services.core.domain.support.BillKind;
 import org.thinking.logistics.services.core.domain.support.BillSource;
+import org.thinking.logistics.services.core.domain.support.BillType;
 import org.thinking.logistics.services.core.entity.Employee;
 import org.thinking.logistics.services.core.entity.Owner;
 import org.thinking.logistics.services.core.entity.Warehouse;
@@ -31,7 +31,7 @@ public abstract class Header {
     private String number;//单据编号
 
     @Column(nullable = false)
-    private BillKind kind;//单据类型
+    private BillType type;//单据类型
 
     @Column(nullable = false)
     private BillCategory category;//单据类别

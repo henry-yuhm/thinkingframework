@@ -1,9 +1,9 @@
 package org.thinking.logistics.services.core.entity;
 
 import lombok.Data;
-import org.thinking.logistics.services.core.domain.support.BillKind;
+import org.thinking.logistics.services.core.domain.support.BillType;
 import org.thinking.logistics.services.core.domain.support.StagingareaCategory;
-import org.thinking.logistics.services.core.domain.support.StagingareaKind;
+import org.thinking.logistics.services.core.domain.support.StagingareaType;
 import org.thinking.logistics.services.core.domain.support.TakegoodsMode;
 
 import javax.persistence.*;
@@ -26,7 +26,7 @@ public class Stagingarea {
     private String name;//名称
 
     @Column(nullable = false)
-    private StagingareaKind kind = StagingareaKind.NORMAL;//类型
+    private StagingareaType type = StagingareaType.NORMAL;//类型
 
     @Column(nullable = false)
     private StagingareaCategory category;//类别
@@ -34,7 +34,7 @@ public class Stagingarea {
     @Column(nullable = false)
     private boolean available = true;//可用
 
-    private BillKind billKind;//单据类型
+    private BillType billType;//单据类型
 
     private TakegoodsMode takegoodsMode;//提货方式
 

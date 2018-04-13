@@ -3,9 +3,9 @@ package org.thinking.logistics.order.initialization.domain;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import org.thinking.logistics.services.core.domain.CompositeException;
-import org.thinking.logistics.services.core.domain.support.DispatcherKind;
+import org.thinking.logistics.services.core.domain.support.DispatcherType;
 import org.thinking.logistics.services.core.domain.support.OutboundPriority;
-import org.thinking.logistics.services.core.domain.support.SaleKind;
+import org.thinking.logistics.services.core.domain.support.SaleType;
 import org.thinking.logistics.services.core.domain.support.TakegoodsMode;
 import org.thinking.logistics.services.core.entity.Address;
 import org.thinking.logistics.services.core.entity.bill.OutboundHeader;
@@ -30,7 +30,7 @@ public class SaleOutboundInitializer extends AbstractInitializer {
         super.initialize();
 
         //region 优先级、提货方式转换
-        if (this.header.getSaleKind() == SaleKind.FLITTING) {
+        if (this.header.getSaleType() == SaleType.FLITTING) {
             this.header.setPriority(OutboundPriority.FLITTING_OUTBOUND);
         } else if (this.header.getTakegoodsMode() == TakegoodsMode.GREEN_CHANNEL) {
             this.header.setPriority(OutboundPriority.GREEN_CHANNEL);
@@ -102,8 +102,8 @@ public class SaleOutboundInitializer extends AbstractInitializer {
         if (this.isEnable(this.header.getWarehouse(), "ZTDDSFZDXF")) {
             if ((this.header.getTakegoodsMode() == TakegoodsMode.SELF_SERVICE || this.header.getTakegoodsMode() == TakegoodsMode.GREEN_CHANNEL) &&
                     (this.getStringParameter(this.header.getWarehouse(), "PSHLSHANGP_TYPE").contains(this.header.getCategory().name())) &&
-                    this.header.getSaleKind() == SaleKind.NORMAL_SALE &&
-                    this.header.getDispatcherKind() == DispatcherKind.AUTOMATIC) {
+                    this.header.getSaleType() == SaleType.NORMAL_SALE &&
+                    this.header.getDispatcherType() == DispatcherType.AUTOMATIC) {
                 //region 系统截单时间处理
                 Date currentTime = Date.valueOf(LocalDate.now());
                 Date trimTime = this.getDateParameter(this.header.getWarehouse(), "JD_TIME");

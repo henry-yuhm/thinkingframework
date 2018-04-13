@@ -1,9 +1,9 @@
 package org.thinking.logistics.services.core.domain.support;
 
 //立体库类型
-public enum TWFKind {
+public enum TWFType {
     ;
 
-    TWFKind(String name, int ordinal) {
+    TWFType(String name, int ordinal) {
     }
 }

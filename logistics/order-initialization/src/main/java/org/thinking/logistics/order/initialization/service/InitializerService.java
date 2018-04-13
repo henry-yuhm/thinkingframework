@@ -7,7 +7,7 @@ import org.thinking.logistics.order.initialization.domain.Initializer;
 import org.thinking.logistics.order.initialization.domain.PurchaseReturnInitializer;
 import org.thinking.logistics.order.initialization.domain.SaleOutboundInitializer;
 import org.thinking.logistics.services.core.domain.BusinessAdapter;
-import org.thinking.logistics.services.core.domain.support.SaleKind;
+import org.thinking.logistics.services.core.domain.support.SaleType;
 import org.thinking.logistics.services.core.entity.bill.OutboundHeader;
 import org.thinking.logistics.services.core.repository.OutboundHeaderRepository;
 
@@ -26,7 +26,7 @@ public class InitializerService extends BusinessAdapter {
 
         OutboundHeader header = this.headerRepository.getOne(id);
 
-        if (header.getSaleKind() == SaleKind.PURCHASE_RETURN) {
+        if (header.getSaleType() == SaleType.PURCHASE_RETURN) {
             initializer = new PurchaseReturnInitializer(header);
         } else {
             initializer = new SaleOutboundInitializer(header);

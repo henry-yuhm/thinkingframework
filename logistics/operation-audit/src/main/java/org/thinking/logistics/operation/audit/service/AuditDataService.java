@@ -5,9 +5,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.thinking.logistics.operation.audit.entity.AuditData;
-import org.thinking.logistics.operation.audit.entity.AuditKind;
+import org.thinking.logistics.operation.audit.entity.AuditType;
 import org.thinking.logistics.operation.audit.repository.AuditDataRepository;
-import org.thinking.logistics.operation.audit.repository.AuditKindRepository;
+import org.thinking.logistics.operation.audit.repository.AuditTypeRepository;
 
 import java.util.List;
 
@@ -15,12 +15,12 @@ import java.util.List;
 public class AuditDataService {
     private final AuditDataRepository auditDataRepository;
 
-    private final AuditKindRepository auditKindRepository;
+    private final AuditTypeRepository auditTypeRepository;
 
     @Autowired
-    public AuditDataService(AuditDataRepository auditDataRepository, AuditKindRepository auditKindRepository) {
+    public AuditDataService(AuditDataRepository auditDataRepository, AuditTypeRepository auditTypeRepository) {
         this.auditDataRepository = auditDataRepository;
-        this.auditKindRepository = auditKindRepository;
+        this.auditTypeRepository = auditTypeRepository;
     }
 
     public AuditData findOne(Predicate predicate) {
@@ -34,11 +34,11 @@ public class AuditDataService {
     @Transactional(rollbackFor = Exception.class)
     public void save(List<AuditData> datas) throws Exception {
         datas.forEach(data -> {
-            AuditKind auditKind = this.auditKindRepository.findByName(data.getKind().getName());
-            if (auditKind == null) {
-                throw new NullPointerException("审计类型【" + data.getKind().getName() + "】未定义");
+            AuditType auditType = this.auditTypeRepository.findByName(data.getType().getName());
+            if (auditType == null) {
+                throw new NullPointerException("审计类型【" + data.getType().getName() + "】未定义");
             } else {
-                data.setKind(auditKind);
+                data.setType(auditType);
             }
         });
 

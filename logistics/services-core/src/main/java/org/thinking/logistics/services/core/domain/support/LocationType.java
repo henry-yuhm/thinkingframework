@@ -1,9 +1,9 @@
 package org.thinking.logistics.services.core.domain.support;
 
 //货位类型
-public enum LocationKind {
+public enum LocationType {
     NORMAL("1", 1);
 
-    LocationKind(String name, int ordinal) {
+    LocationType(String name, int ordinal) {
     }
 }

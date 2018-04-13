@@ -1,7 +1,7 @@
 package org.thinking.logistics.services.core.domain.support;
 
 //指令类型
-public enum CommandKind {
+public enum CommandType {
     PURCHASE_INBOUND("1", 1),//采购入库
     SALE_OUTBOUND("2", 2),//销售出库
     PURCHASE_RETURN("3", 3),//采购退货
@@ -14,6 +14,6 @@ public enum CommandKind {
     GIFT_OUTBOUND("10", 10),//赠品出库
     BATCH_ADJUST("11", 11);//批号调整
 
-    CommandKind(String name, int ordinal) {
+    CommandType(String name, int ordinal) {
     }
 }

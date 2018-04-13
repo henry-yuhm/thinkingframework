@@ -35,9 +35,9 @@ public class OutboundHeader extends Header {
     private TakegoodsMode takegoodsModeSwitch;//提货方式转换
 
     @Column(nullable = false)
-    private SaleKind saleKind;//销售类型
+    private SaleType saleType;//销售类型
 
-    private String distributionKind;//配送类型
+    private String distributionType;//配送类型
 
     @Column(nullable = false)
     private Date invoiceTime;//开票时间
@@ -45,11 +45,11 @@ public class OutboundHeader extends Header {
     @ManyToOne(fetch = FetchType.LAZY)
     private Employee buyer;//采购员
 
-    private String settlementKind = "无";//结算类型
+    private String settlementType = "无";//结算类型
 
     private Date settlementTime;//结算时间
 
-    private TaxKind taxKind;//税票类型
+    private TaxType taxType;//税票类型
 
     private String taxName;//税票名称
 
@@ -59,7 +59,7 @@ public class OutboundHeader extends Header {
     private String wave;//波次
 
     @Column(nullable = false)
-    private DispatcherKind dispatcherKind = DispatcherKind.AUTOMATIC;//调度类型
+    private DispatcherType dispatcherType = DispatcherType.AUTOMATIC;//调度类型
 
     @ManyToOne(fetch = FetchType.LAZY)
     private Employee dispatchers;//调度员
