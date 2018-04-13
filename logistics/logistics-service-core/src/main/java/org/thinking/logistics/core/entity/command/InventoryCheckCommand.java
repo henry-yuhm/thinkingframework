@@ -2,7 +2,7 @@ package org.thinking.logistics.core.entity.command;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import org.thinking.logistics.core.entity.Batch;
+import org.thinking.logistics.core.entity.Batches;
 import org.thinking.logistics.core.entity.bill.InventoryCheckDetail;
 import org.thinking.logistics.core.entity.bill.InventoryCheckHeader;
 import org.thinking.logistics.core.entity.container.Pallet;
@@ -24,10 +24,10 @@ public class InventoryCheckCommand extends TransitionCommand {
     private InventoryCheckDetail detail;//单据明细
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    private Batch sourceBatch;//源批号
+    private Batches sourceBatches;//源批号
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    private Batch targetBatch;//目标批号
+    private Batches targetBatches;//目标批号
 
     @ManyToOne(fetch = FetchType.LAZY)
     private Pallet sourcePallet;//源托盘

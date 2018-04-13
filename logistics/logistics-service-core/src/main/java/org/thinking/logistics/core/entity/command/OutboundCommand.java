@@ -4,7 +4,7 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import org.thinking.logistics.core.domain.support.AppendantSign;
 import org.thinking.logistics.core.domain.support.InventoryState;
-import org.thinking.logistics.core.entity.Batch;
+import org.thinking.logistics.core.entity.Batches;
 import org.thinking.logistics.core.entity.Location;
 import org.thinking.logistics.core.entity.bill.OutboundDetail;
 import org.thinking.logistics.core.entity.bill.OutboundHeader;
@@ -26,7 +26,7 @@ public abstract class OutboundCommand extends Command {
     private OutboundDetail detail;//单据明细
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    private Batch batch;//批号
+    private Batches batches;//批号
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     private Location location;//货位

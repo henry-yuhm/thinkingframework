@@ -2,7 +2,7 @@ package org.thinking.logistics.core.entity.bill;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import org.thinking.logistics.core.domain.support.BatchRequest;
+import org.thinking.logistics.core.domain.support.BatchesRequest;
 import org.thinking.logistics.core.domain.support.InventoryState;
 
 import javax.persistence.*;
@@ -23,7 +23,7 @@ public class OutboundDetail extends Detail {
     @Column(nullable = false)
     private InventoryState inventoryState = InventoryState.QUALIFICATION;//库存状态
 
-    private BatchRequest request = BatchRequest.NO_DEMAND;//批号要求
+    private BatchesRequest request = BatchesRequest.NO_DEMAND;//批号要求
 
     @Column(nullable = false, precision = 12, scale = 5)
     private BigDecimal planQuantity = BigDecimal.ZERO;//计划数量

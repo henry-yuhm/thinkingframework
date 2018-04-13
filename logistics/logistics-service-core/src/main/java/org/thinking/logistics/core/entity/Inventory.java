@@ -24,7 +24,7 @@ public class Inventory {
     private Goods goods;//商品
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    private Batch batch;//批号
+    private Batches batches;//批号
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     private Location location;//货位

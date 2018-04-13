@@ -1,7 +1,7 @@
 package org.thinking.logistics.core.entity.bill;
 
 import lombok.Data;
-import org.thinking.logistics.core.entity.Batch;
+import org.thinking.logistics.core.entity.Batches;
 import org.thinking.logistics.core.entity.Goods;
 import org.thinking.logistics.core.entity.Warehouse;
 
@@ -22,7 +22,7 @@ public abstract class Detail {
     private Goods goods;//商品
 
     @ManyToOne(fetch = FetchType.LAZY)
-    private Batch batch;//批号
+    private Batches batches;//批号
 
 //    public abstract Header getHeader();
 }

@@ -1,7 +1,7 @@
 package org.thinking.logistics.core.entity;
 
 import lombok.Data;
-import org.thinking.logistics.core.domain.support.BatchRequest;
+import org.thinking.logistics.core.domain.support.BatchesRequest;
 import org.thinking.logistics.core.domain.support.CustomerClassification;
 import org.thinking.logistics.core.domain.support.CustomerKind;
 
@@ -47,7 +47,7 @@ public class Customer {
 
     private String seat;//所在地
 
-    private BatchRequest batchRequest;//批号要求
+    private BatchesRequest batchesRequest;//批号要求
 
     private CustomerClassification classification;//分类
 

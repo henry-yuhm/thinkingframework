@@ -8,7 +8,7 @@ import java.util.Date;
 @Entity
 @Table(schema = "wms")
 @Data
-public class Batch {
+public class Batches {
     @Id
     @GeneratedValue
     private long id;

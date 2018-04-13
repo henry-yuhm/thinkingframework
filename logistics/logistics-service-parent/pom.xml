@@ -14,12 +14,15 @@
 
     <modules>
         <module>../logistics-service-audit</module>
+        <module>../logistics-service-batches</module>
         <module>../logistics-service-core</module>
         <module>../logistics-service-dispatcher</module>
         <module>../logistics-service-init</module>
         <module>../logistics-service-inventory</module>
+        <module>../logistics-service-replenishment</module>
         <module>../logistics-service-resource</module>
         <module>../logistics-service-servo</module>
+        <module>../logistics-service-stagingarea</module>
         <module>../logistics-service-transport</module>
         <module>../logistics-service-upgrade</module>
         <module>../logistics-service-workflow</module>
