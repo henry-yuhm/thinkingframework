@@ -31,3 +31,9 @@ zuul:
   sensitive-headers: Content-Type:application/json
   thread-pool:
     use-separate-thread-pools: true
+---
+spring:
+  profiles: dev
+eureka:
+  instance:
+    lease-renewal-interval-in-seconds: 5

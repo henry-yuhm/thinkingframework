@@ -12,7 +12,6 @@
         "top": "78px"
       },
       "state": {
-        "_class": "org.springframework.statemachine.data.jpa.JpaRepositoryState",
         "machineId": "billOutbound",
         "state": "START",
         "region": "R0",
@@ -39,7 +38,6 @@
         "top": "78px"
       },
       "state": {
-        "_class": "org.springframework.statemachine.data.jpa.JpaRepositoryState",
         "machineId": "billOutbound",
         "state": "WORKING",
         "region": "R0",
@@ -63,7 +61,6 @@
         "top": "78px"
       },
       "state": {
-        "_class": "org.springframework.statemachine.data.jpa.JpaRepositoryState",
         "machineId": "billOutbound",
         "state": "END",
         "region": "R0",
@@ -85,13 +82,11 @@
       "target": "billOutbound.WORKING",
       "label": null,
       "transition": {
-        "_class": "org.springframework.statemachine.data.jpa.JpaRepositoryTransition",
         "machineId": "billOutbound",
         "event": "E1",
         "kind": "EXTERNAL",
         "actions": [
           {
-            "_class": "org.springframework.statemachine.data.jpa.JpaRepositoryAction",
             "name": "updateOperationStates"
           }
         ],
@@ -103,13 +98,11 @@
       "target": "billOutbound.END",
       "label": null,
       "transition": {
-        "_class": "org.springframework.statemachine.data.jpa.JpaRepositoryTransition",
         "machineId": "billOutbound",
         "event": "E2",
         "kind": "EXTERNAL",
         "actions": [
           {
-            "_class": "org.springframework.statemachine.data.jpa.JpaRepositoryAction",
             "name": "updateOperationStates"
           }
         ],
