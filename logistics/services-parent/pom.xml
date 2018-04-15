@@ -19,6 +19,7 @@
         <module>../data-servo</module>
         <module>../inventory-dispatcher</module>
         <module>../operation-audit</module>
+        <module>../order-activation</module>
         <module>../order-dispatcher</module>
         <module>../order-initialization</module>
         <module>../replenishment-dispatcher</module>
@@ -26,6 +27,8 @@
         <module>../services-core</module>
         <module>../stagingarea-allocation</module>
         <module>../statemachine-dispatcher</module>
+        <module>../task-bundle</module>
+        <module>../task-grouping</module>
         <module>../upgrade-service</module>
     </modules>
 
