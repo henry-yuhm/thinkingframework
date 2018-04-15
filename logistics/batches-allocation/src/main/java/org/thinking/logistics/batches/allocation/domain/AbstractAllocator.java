@@ -11,7 +11,7 @@ import org.thinking.logistics.services.core.entity.Batches;
 import org.thinking.logistics.services.core.entity.Inventory;
 import org.thinking.logistics.services.core.entity.bill.OutboundDetail;
 import org.thinking.logistics.services.core.entity.bill.OutboundHeader;
-import org.thinking.logistics.services.core.entity.command.Command;
+import org.thinking.logistics.services.core.entity.command.OutboundCommand;
 import org.thinking.logistics.services.core.repository.OutboundHeaderRepository;
 
 import javax.annotation.Resource;
@@ -52,6 +52,11 @@ public abstract class AbstractAllocator extends BusinessAdapter implements Alloc
     }
 
     @Override
+    public void initialize(OutboundDetail detail) throws Exception {
+
+    }
+
+    @Override
     public void getBatchesDirectly(OutboundDetail detail) throws Exception {
 
     }
@@ -87,12 +92,12 @@ public abstract class AbstractAllocator extends BusinessAdapter implements Alloc
     }
 
     @Override
-    public void setCreationQuantity(Command command, BigDecimal quantity) throws Exception {
+    public void setCreationQuantity(OutboundCommand command, BigDecimal quantity) throws Exception {
 
     }
 
     @Override
-    public void setCommand(Command command, Inventory inventory) throws Exception {
+    public void setCommand(OutboundCommand command, Inventory inventory) throws Exception {
 
     }
 
