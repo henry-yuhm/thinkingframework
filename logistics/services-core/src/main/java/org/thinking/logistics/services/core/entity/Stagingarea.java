@@ -32,6 +32,9 @@ public class Stagingarea {
     private StagingareaCategory category;//类别
 
     @Column(nullable = false)
+    private boolean locking = false;//锁定
+
+    @Column(nullable = false)
     private boolean available = true;//可用
 
     private BillType billType;//单据类型

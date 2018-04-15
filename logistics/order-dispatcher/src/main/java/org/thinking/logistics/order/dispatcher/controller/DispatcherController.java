@@ -3,6 +3,7 @@ package org.thinking.logistics.order.dispatcher.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.thinking.logistics.order.dispatcher.service.DispatcherService;
+import org.thinking.logistics.services.core.entity.Employee;
 import org.thinking.logistics.services.core.entity.bill.OutboundHeader;
 
 import java.util.List;
@@ -18,42 +19,42 @@ public class DispatcherController {
     }
 
     @PutMapping("/arrangeWave")
-    public void arrangeWave(@RequestParam String ownerNumber, @RequestParam String employeeNumber, @RequestBody List<OutboundHeader> headers) throws Exception {
-        this.service.arrangeWave(ownerNumber, employeeNumber, headers);
+    public void arrangeWave(@RequestParam Employee employee, @RequestBody List<OutboundHeader> headers) throws Exception {
+        this.service.arrangeWave(employee, headers);
     }
 
     @PutMapping("/cancelWave")
-    public void cancelWave(@RequestParam String ownerNumber, @RequestParam String employeeNumber, @RequestParam String wave) throws Exception {
-        this.service.cancelWave(ownerNumber, employeeNumber, wave);
+    public void cancelWave(@RequestParam Employee employee, @RequestParam String wave) throws Exception {
+        this.service.cancelWave(employee, wave);
     }
 
     @PutMapping("/modifyWave")
-    public void modifyWave(@RequestParam String ownerNumber, @RequestParam String employeeNumber, @RequestParam String headerNumber) throws Exception {
-        this.service.modifyWave(ownerNumber, employeeNumber, headerNumber);
+    public void modifyWave(@RequestParam Employee employee, @RequestParam String headerNumber) throws Exception {
+        this.service.modifyWave(employee, headerNumber);
     }
 
     @PutMapping("/releaseWave")
-    public void releaseWave(@RequestParam String ownerNumber, @RequestParam String employeeNumber, @RequestParam String wave) throws Exception {
-        this.service.releaseWave(ownerNumber, employeeNumber, wave);
+    public void releaseWave(@RequestParam Employee employee, @RequestParam String wave) throws Exception {
+        this.service.releaseWave(employee, wave);
     }
 
     @PutMapping("/releaseAppointedLocationOrder")
-    public void releaseAppointedLocationOrder(@RequestParam String ownerNumber, @RequestParam String employeeNumber, @RequestParam String headerNumber) throws Exception {
-        this.service.releaseAppointedLocationOrder(ownerNumber, employeeNumber, headerNumber);
+    public void releaseAppointedLocationOrder(@RequestParam Employee employee, @RequestParam String headerNumber) throws Exception {
+        this.service.releaseAppointedLocationOrder(employee, headerNumber);
     }
 
     @PutMapping("/releaseInsertedOrder")
-    public void releaseInsertedOrder(@RequestParam String ownerNumber, @RequestParam String employeeNumber, @RequestParam String headerNumber) throws Exception {
-        this.service.releaseInsertedOrder(ownerNumber, employeeNumber, headerNumber);
+    public void releaseInsertedOrder(@RequestParam Employee employee, @RequestParam String headerNumber) throws Exception {
+        this.service.releaseInsertedOrder(employee, headerNumber);
     }
 
     @PutMapping("/releaseSpecialOrder")
-    public void releaseSpecialOrder(@RequestParam String ownerNumber, @RequestParam String employeeNumber, @RequestParam String headerNumber) throws Exception {
-        this.service.releaseSpecialOrder(ownerNumber, employeeNumber, headerNumber);
+    public void releaseSpecialOrder(@RequestParam Employee employee, @RequestParam String headerNumber) throws Exception {
+        this.service.releaseSpecialOrder(employee, headerNumber);
     }
 
     @PutMapping("/releaseSuspendedOrder")
-    public void releaseSuspendedOrder(@RequestParam String ownerNumber, @RequestParam String employeeNumber, @RequestParam String headerNumber) throws Exception {
-        this.service.releaseSuspendedOrder(ownerNumber, employeeNumber, headerNumber);
+    public void releaseSuspendedOrder(@RequestParam Employee employee, @RequestParam String headerNumber) throws Exception {
+        this.service.releaseSuspendedOrder(employee, headerNumber);
     }
 }

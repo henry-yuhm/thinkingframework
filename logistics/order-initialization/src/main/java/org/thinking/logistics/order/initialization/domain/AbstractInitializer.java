@@ -15,7 +15,7 @@ import java.math.BigDecimal;
 @Data
 @EqualsAndHashCode(callSuper = true)
 public abstract class AbstractInitializer extends BusinessAdapter implements Initializer {
-    OutboundHeader header;
+    protected OutboundHeader header;
 
     @Resource
     private OutboundHeaderRepository headerRepository;
@@ -60,7 +60,8 @@ public abstract class AbstractInitializer extends BusinessAdapter implements Ini
     }
 
     @Override
-    public void save() {
+    public void save() throws Exception {
+        this.header.setStage(OutboundStage.INITIALIZED);
         this.headerRepository.save(this.header);
     }
 
@@ -68,6 +69,6 @@ public abstract class AbstractInitializer extends BusinessAdapter implements Ini
     public void initialize() throws Exception {
         this.verify();
 
-        this.header.setStage(OutboundStage.INITIALIZED);
+        this.save();
     }
 }

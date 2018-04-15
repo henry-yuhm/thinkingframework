@@ -3,9 +3,7 @@ package org.thinking.logistics.services.core.domain;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.thinking.logistics.services.core.entity.Employee;
-import org.thinking.logistics.services.core.entity.Owner;
 import org.thinking.logistics.services.core.entity.Warehouse;
-import org.thinking.logistics.services.core.repository.EmployeeRepository;
 import org.thinking.logistics.services.core.service.ParameterService;
 
 import javax.annotation.Resource;
@@ -19,17 +17,10 @@ public abstract class BusinessAdapter {
     protected Employee operator;//操作员
 
     @Resource
-    private EmployeeRepository employeeRepository;
-
-    @Resource
     private ParameterService parameterService;
 
     public BusinessAdapter(Employee operator) {
         this.operator = operator;
-    }
-
-    protected final Employee getEmployee(Owner owner, String number) {
-        return this.employeeRepository.findByOwnerAndNumber(owner, number);
     }
 
     protected final String getStringParameter(String number) {

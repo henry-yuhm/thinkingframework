@@ -14,14 +14,11 @@ public class PurchaseReturnInitializer extends AbstractInitializer {
     }
 
     @Override
-    public void initialize() throws Exception {
-        super.initialize();
-
+    public void save() throws Exception {
         this.header.setPriority(OutboundPriority.PURCHASE_RETURN);
-
         this.header.setTakegoodsMode(TakegoodsMode.NONE);
         this.header.setTakegoodsModeSwitch(TakegoodsMode.NONE);
 
-        this.save();
+        super.save();
     }
 }

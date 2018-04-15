@@ -26,9 +26,7 @@ public class SaleOutboundInitializer extends AbstractInitializer {
     }
 
     @Override
-    public void initialize() throws Exception {
-        super.initialize();
-
+    public void save() throws Exception {
         //region 优先级、提货方式转换
         if (this.header.getSaleType() == SaleType.FLITTING) {
             this.header.setPriority(OutboundPriority.FLITTING_OUTBOUND);
@@ -118,6 +116,6 @@ public class SaleOutboundInitializer extends AbstractInitializer {
         }
         //endregion
 
-        this.save();
+        super.save();
     }
 }

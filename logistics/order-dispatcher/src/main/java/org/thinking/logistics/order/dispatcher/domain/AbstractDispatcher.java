@@ -17,9 +17,9 @@ import java.util.List;
 @Data
 @EqualsAndHashCode(callSuper = true)
 public abstract class AbstractDispatcher extends BusinessAdapter implements Dispatcher {
-    OutboundHeader header;
+    protected OutboundHeader header;
 
-    List<OutboundHeader> headers;
+    protected List<OutboundHeader> headers;
 
     @Resource
     private OutboundHeaderRepository headerRepository;

@@ -1,58 +1,61 @@
 package org.thinking.logistics.order.dispatcher.service;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.thinking.logistics.order.dispatcher.domain.*;
-import org.thinking.logistics.services.core.domain.BillAdapter;
-import org.thinking.logistics.services.core.entity.Owner;
+import org.thinking.logistics.services.core.entity.Employee;
 import org.thinking.logistics.services.core.entity.bill.OutboundHeader;
+import org.thinking.logistics.services.core.repository.OutboundHeaderRepository;
 
 import java.util.List;
 
 @Service
-public class DispatcherService extends BillAdapter {
-    @Transactional(rollbackFor = Exception.class)
-    public void arrangeWave(String ownerNumber, String employeeNumber, List<OutboundHeader> headers) throws Exception {
-        new OutboundOrderDispatcher(this.getEmployee(this.getOwner(ownerNumber), employeeNumber), headers).arrangeWave();
+public class DispatcherService {
+    private OutboundHeaderRepository headerRepository;
+
+    @Autowired
+    public DispatcherService(OutboundHeaderRepository headerRepository) {
+        this.headerRepository = headerRepository;
     }
 
     @Transactional(rollbackFor = Exception.class)
-    public void cancelWave(String ownerNumber, String employeeNumber, String wave) throws Exception {
-        new OutboundOrderDispatcher(this.getEmployee(this.getOwner(ownerNumber), employeeNumber), this.getOutboundHeaders(wave)).cancelWave();
+    public void arrangeWave(Employee employee, List<OutboundHeader> headers) throws Exception {
+        new OutboundOrderDispatcher(employee, headers).arrangeWave();
     }
 
     @Transactional(rollbackFor = Exception.class)
-    public void modifyWave(String ownerNumber, String employeeNumber, String headerNumber) throws Exception {
-        Owner owner = this.getOwner(ownerNumber);
-        new OutboundOrderDispatcher(this.getEmployee(owner, employeeNumber), this.getOutboundHeader(owner, headerNumber)).modifyWave();
+    public void cancelWave(Employee employee, String wave) throws Exception {
+        new OutboundOrderDispatcher(employee, this.headerRepository.findAllByWave(wave)).cancelWave();
     }
 
     @Transactional(rollbackFor = Exception.class)
-    public void releaseWave(String ownerNumber, String employeeNumber, String wave) throws Exception {
-        new OutboundOrderDispatcher(this.getEmployee(this.getOwner(ownerNumber), employeeNumber), this.getOutboundHeaders(wave)).releaseWave();
+    public void modifyWave(Employee employee, String headerNumber) throws Exception {
+        new OutboundOrderDispatcher(employee, this.headerRepository.findByOwnerAndNumber(employee.getOwner(), headerNumber)).modifyWave();
     }
 
     @Transactional(rollbackFor = Exception.class)
-    public void releaseAppointedLocationOrder(String ownerNumber, String employeeNumber, String headerNumber) throws Exception {
-        Owner owner = this.getOwner(ownerNumber);
-        new AppointedLocationDispatcher(this.getEmployee(owner, employeeNumber), this.getOutboundHeader(owner, headerNumber)).releaseOrder();
+    public void releaseWave(Employee employee, String wave) throws Exception {
+        new OutboundOrderDispatcher(employee, this.headerRepository.findAllByWave(wave)).releaseWave();
     }
 
     @Transactional(rollbackFor = Exception.class)
-    public void releaseInsertedOrder(String ownerNumber, String employeeNumber, String headerNumber) throws Exception {
-        Owner owner = this.getOwner(ownerNumber);
-        new InsertedOrderDispatcher(this.getEmployee(owner, employeeNumber), this.getOutboundHeader(owner, headerNumber)).releaseOrder();
+    public void releaseAppointedLocationOrder(Employee employee, String headerNumber) throws Exception {
+        new AppointedLocationDispatcher(employee, this.headerRepository.findByOwnerAndNumber(employee.getOwner(), headerNumber)).releaseOrder();
     }
 
     @Transactional(rollbackFor = Exception.class)
-    public void releaseSpecialOrder(String ownerNumber, String employeeNumber, String headerNumber) throws Exception {
-        Owner owner = this.getOwner(ownerNumber);
-        new SpecialOrderDispatcher(this.getEmployee(owner, employeeNumber), this.getOutboundHeader(owner, headerNumber)).releaseOrder();
+    public void releaseInsertedOrder(Employee employee, String headerNumber) throws Exception {
+        new InsertedOrderDispatcher(employee, this.headerRepository.findByOwnerAndNumber(employee.getOwner(), headerNumber)).releaseOrder();
     }
 
     @Transactional(rollbackFor = Exception.class)
-    public void releaseSuspendedOrder(String ownerNumber, String employeeNumber, String headerNumber) throws Exception {
-        Owner owner = this.getOwner(ownerNumber);
-        new SuspendedOrderDispatcher(this.getEmployee(owner, employeeNumber), this.getOutboundHeader(owner, headerNumber)).releaseOrder();
+    public void releaseSpecialOrder(Employee employee, String headerNumber) throws Exception {
+        new SpecialOrderDispatcher(employee, this.headerRepository.findByOwnerAndNumber(employee.getOwner(), headerNumber)).releaseOrder();
+    }
+
+    @Transactional(rollbackFor = Exception.class)
+    public void releaseSuspendedOrder(Employee employee, String headerNumber) throws Exception {
+        new SuspendedOrderDispatcher(employee, this.headerRepository.findByOwnerAndNumber(employee.getOwner(), headerNumber)).releaseOrder();
     }
 }
