@@ -2,6 +2,7 @@ package org.thinking.logistics.batches.allocation.domain;
 
 import org.thinking.logistics.services.core.entity.Inventory;
 import org.thinking.logistics.services.core.entity.bill.OutboundDetail;
+import org.thinking.logistics.services.core.entity.bill.SupplementDetail;
 import org.thinking.logistics.services.core.entity.command.OutboundCommand;
 
 import java.math.BigDecimal;
@@ -11,6 +12,8 @@ public interface Allocator {
     void verify() throws Exception;
 
     void initialize(OutboundDetail detail) throws Exception;
+
+    void initialize(SupplementDetail detail) throws Exception;
 
     void getBatchesDirectly(OutboundDetail detail) throws Exception;
 
