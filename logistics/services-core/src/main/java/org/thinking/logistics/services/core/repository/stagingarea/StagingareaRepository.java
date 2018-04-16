@@ -1,4 +1,4 @@
-package org.thinking.logistics.services.core.repository;
+package org.thinking.logistics.services.core.repository.stagingarea;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -9,7 +9,7 @@ import org.thinking.logistics.services.core.domain.support.StagingareaType;
 import org.thinking.logistics.services.core.domain.support.TakegoodsMode;
 import org.thinking.logistics.services.core.entity.Direction;
 import org.thinking.logistics.services.core.entity.Owner;
-import org.thinking.logistics.services.core.entity.Stagingarea;
+import org.thinking.logistics.services.core.entity.stagingarea.Stagingarea;
 
 import java.util.LinkedList;
 import java.util.List;

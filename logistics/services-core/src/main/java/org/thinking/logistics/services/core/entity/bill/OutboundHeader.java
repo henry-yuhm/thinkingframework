@@ -7,7 +7,7 @@ import org.thinking.logistics.services.core.domain.support.*;
 import org.thinking.logistics.services.core.entity.Address;
 import org.thinking.logistics.services.core.entity.Customer;
 import org.thinking.logistics.services.core.entity.Employee;
-import org.thinking.logistics.services.core.entity.Stagingarea;
+import org.thinking.logistics.services.core.entity.stagingarea.Stagingarea;
 
 import javax.persistence.*;
 import java.math.BigDecimal;

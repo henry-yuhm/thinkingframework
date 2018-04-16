@@ -9,7 +9,7 @@ import org.thinking.logistics.order.initialization.domain.SaleOutboundInitialize
 import org.thinking.logistics.services.core.domain.BusinessAdapter;
 import org.thinking.logistics.services.core.domain.support.SaleType;
 import org.thinking.logistics.services.core.entity.bill.OutboundHeader;
-import org.thinking.logistics.services.core.repository.OutboundHeaderRepository;
+import org.thinking.logistics.services.core.repository.bill.OutboundHeaderRepository;
 
 @Service
 public class InitializerService extends BusinessAdapter {

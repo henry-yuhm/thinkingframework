@@ -5,5 +5,5 @@ import org.springframework.stereotype.Repository;
 import org.thinking.logistics.statemachine.dispatcher.entity.Line;
 
 @Repository
-public interface LineRepository extends JpaRepository<Line, Line.LinePk> {
+public interface LineRepository extends JpaRepository<Line, Line.PrimaryKey> {
 }

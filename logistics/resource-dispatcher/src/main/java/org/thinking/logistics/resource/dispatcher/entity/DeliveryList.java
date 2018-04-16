@@ -13,7 +13,7 @@ import java.io.Serializable;
  * Created by Henry on 2017/5/27.
  */
 @Entity
-@IdClass(DeliveryList.DeliveryListPk.class)
+@IdClass(DeliveryList.PrimaryKey.class)
 @Data
 public class DeliveryList {
     @Id
@@ -31,7 +31,7 @@ public class DeliveryList {
     private String fileName;
 
     @Data
-    public static class DeliveryListPk implements Serializable {
+    public static class PrimaryKey implements Serializable {
         private String corporationNo;
 
         private String billHeaderId;

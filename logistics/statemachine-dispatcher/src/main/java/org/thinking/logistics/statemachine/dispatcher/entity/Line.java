@@ -7,7 +7,7 @@ import javax.persistence.*;
 import java.io.Serializable;
 
 @Entity
-@IdClass(Line.LinePk.class)
+@IdClass(Line.PrimaryKey.class)
 @Data
 public class Line {
     @Id
@@ -24,7 +24,7 @@ public class Line {
     private JpaRepositoryTransition transition;
 
     @Data
-    public static class LinePk implements Serializable {
+    public static class PrimaryKey implements Serializable {
         private String source;
 
         private String target;

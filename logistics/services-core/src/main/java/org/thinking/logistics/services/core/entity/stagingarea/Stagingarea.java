@@ -1,10 +1,13 @@
-package org.thinking.logistics.services.core.entity;
+package org.thinking.logistics.services.core.entity.stagingarea;
 
 import lombok.Data;
 import org.thinking.logistics.services.core.domain.support.BillType;
 import org.thinking.logistics.services.core.domain.support.StagingareaCategory;
 import org.thinking.logistics.services.core.domain.support.StagingareaType;
 import org.thinking.logistics.services.core.domain.support.TakegoodsMode;
+import org.thinking.logistics.services.core.entity.Direction;
+import org.thinking.logistics.services.core.entity.Owner;
+import org.thinking.logistics.services.core.entity.Warehouse;
 
 import javax.persistence.*;
 import java.util.LinkedHashSet;

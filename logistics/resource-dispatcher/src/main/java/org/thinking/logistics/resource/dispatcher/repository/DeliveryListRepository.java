@@ -9,5 +9,5 @@ import org.thinking.logistics.resource.dispatcher.entity.DeliveryList;
  * Created by Henry on 2017/6/14.
  */
 @Repository
-public interface DeliveryListRepository extends JpaRepository<DeliveryList, DeliveryList.DeliveryListPk>, QuerydslPredicateExecutor<DeliveryList> {
+public interface DeliveryListRepository extends JpaRepository<DeliveryList, DeliveryList.PrimaryKey>, QuerydslPredicateExecutor<DeliveryList> {
 }

@@ -4,7 +4,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.thinking.logistics.services.core.domain.support.SaleType;
 import org.thinking.logistics.services.core.entity.bill.OutboundHeader;
-import org.thinking.logistics.services.core.repository.OutboundHeaderRepository;
+import org.thinking.logistics.services.core.repository.bill.OutboundHeaderRepository;
 import org.thinking.logistics.stagingarea.allocation.domain.Allocator;
 import org.thinking.logistics.stagingarea.allocation.domain.PurchaseReturnAllocator;
 import org.thinking.logistics.stagingarea.allocation.domain.SaleOutboundAllocator;

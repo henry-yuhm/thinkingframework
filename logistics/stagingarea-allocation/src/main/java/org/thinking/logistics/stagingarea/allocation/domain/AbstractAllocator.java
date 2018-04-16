@@ -6,13 +6,17 @@ import org.thinking.logistics.services.core.domain.BusinessAdapter;
 import org.thinking.logistics.services.core.domain.CompositeException;
 import org.thinking.logistics.services.core.domain.support.*;
 import org.thinking.logistics.services.core.entity.Direction;
-import org.thinking.logistics.services.core.entity.Stagingarea;
 import org.thinking.logistics.services.core.entity.bill.OutboundDetail;
 import org.thinking.logistics.services.core.entity.bill.OutboundHeader;
-import org.thinking.logistics.services.core.repository.OutboundHeaderRepository;
-import org.thinking.logistics.services.core.repository.StagingareaRepository;
-import org.thinking.logistics.stagingarea.allocation.entity.StagingareaConfiguration;
-import org.thinking.logistics.stagingarea.allocation.repository.StagingareaConfigurationRepository;
+import org.thinking.logistics.services.core.entity.stagingarea.PhysicalStagingareaConfiguration;
+import org.thinking.logistics.services.core.entity.stagingarea.Stagingarea;
+import org.thinking.logistics.services.core.entity.stagingarea.StagingareaConfiguration;
+import org.thinking.logistics.services.core.entity.stagingarea.VirtualStagingareaConfiguration;
+import org.thinking.logistics.services.core.repository.bill.OutboundHeaderRepository;
+import org.thinking.logistics.services.core.repository.stagingarea.PhysicalStagingareaConfigurationRepository;
+import org.thinking.logistics.services.core.repository.stagingarea.StagingareaConfigurationRepository;
+import org.thinking.logistics.services.core.repository.stagingarea.StagingareaRepository;
+import org.thinking.logistics.services.core.repository.stagingarea.VirtualStagingareaConfigurationRepository;
 
 import javax.annotation.Resource;
 import java.math.BigDecimal;
@@ -41,6 +45,12 @@ public abstract class AbstractAllocator extends BusinessAdapter implements Alloc
 
     @Resource
     private StagingareaConfigurationRepository configurationRepository;
+
+    @Resource
+    private PhysicalStagingareaConfigurationRepository physicalConfigurationRepository;
+
+    @Resource
+    private VirtualStagingareaConfigurationRepository virtualConfigurationRepository;
 
     @Resource
     private StagingareaRepository stagingareaRepository;
@@ -87,12 +97,17 @@ public abstract class AbstractAllocator extends BusinessAdapter implements Alloc
 
     @Override
     public void getPhysicalConfiguration() throws Exception {
-        this.configuration = this.configurationRepository.findByWarehouseAndOwnerAndTakegoodsMode(this.header.getWarehouse(), this.header.getOwner(), this.header.getTakegoodsMode());
+        this.configuration = this.configurationRepository.getOne(new StagingareaConfiguration.PrimaryKey(this.header.getWarehouse(), this.header.getOwner(), this.header.getTakegoodsMode()));
 
         if (this.configuration.getSmallQuantity() == 0 || this.configuration.getLargeQuantity() == 0) {
             throw CompositeException.getException("提货方式【" + this.header.getTakegoodsMode().name() + "】对应的月台件数未设定", this.header, this.header.getOwner());
         }
 
+        this.stagingarea.setType(this.physicalConfigurationRepository.getOne(new PhysicalStagingareaConfiguration.PrimaryKey(this.header.getWarehouse(), this.header.getOwner())).getConfigurations().stream().filter(cfg -> cfg.getBillCategory() == this.header.getCategory()).findFirst().get().getStagingareaType());
+
+        if (this.stagingarea.getType() == null) {
+            throw CompositeException.getException("物理月台配置资料未设置单据对应的业主与类别", this.header, this.header.getOwner());
+        }
     }
 
     @Override
@@ -102,7 +117,11 @@ public abstract class AbstractAllocator extends BusinessAdapter implements Alloc
 
     @Override
     public void getVirtualConfiguration(Direction direction) throws Exception {
+        Optional<VirtualStagingareaConfiguration.Configuration> configuration = this.virtualConfigurationRepository.getOne(new VirtualStagingareaConfiguration.PrimaryKey(this.header.getWarehouse(), this.header.getOwner())).getConfigurations().stream().filter(cfg -> cfg.isAvailable() && cfg.getBillCategory() == this.header.getCategory() && cfg.getTakegoodsMode() == this.header.getTakegoodsMode() && cfg.getSaleType() == this.header.getSaleType() && cfg.getStagingareaCategory() == this.stagingarea.getCategory() && cfg.getDirection() == direction).findAny();
 
+        if (configuration != null) {
+            this.stagingarea = configuration.get().getStagingarea();
+        }
     }
 
     @Override

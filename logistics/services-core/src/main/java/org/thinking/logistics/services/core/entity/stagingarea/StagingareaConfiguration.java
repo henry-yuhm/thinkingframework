@@ -1,4 +1,4 @@
-package org.thinking.logistics.stagingarea.allocation.entity;
+package org.thinking.logistics.services.core.entity.stagingarea;
 
 import lombok.Data;
 import org.thinking.logistics.services.core.domain.support.StagingareaAllocationMode;
@@ -10,7 +10,7 @@ import javax.persistence.*;
 import java.io.Serializable;
 
 @Entity
-@IdClass(StagingareaConfiguration.StagingareaConfigurationPk.class)
+@IdClass(StagingareaConfiguration.PrimaryKey.class)
 @Data
 public class StagingareaConfiguration {
     @Id
@@ -35,11 +35,17 @@ public class StagingareaConfiguration {
     private int largeQuantity = 0;//大订单件数
 
     @Data
-    public static class StagingareaConfigurationPk implements Serializable {
+    public static class PrimaryKey implements Serializable {
         private Warehouse warehouse;//仓库
 
         private Owner owner;//业主
 
         private TakegoodsMode takegoodsMode;//提货方式
+
+        public PrimaryKey(Warehouse warehouse, Owner owner, TakegoodsMode takegoodsMode) {
+            this.warehouse = warehouse;
+            this.owner = owner;
+            this.takegoodsMode = takegoodsMode;
+        }
     }
 }

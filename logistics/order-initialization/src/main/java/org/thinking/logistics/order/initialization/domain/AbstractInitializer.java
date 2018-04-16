@@ -7,7 +7,7 @@ import org.thinking.logistics.services.core.domain.CompositeException;
 import org.thinking.logistics.services.core.domain.support.OutboundStage;
 import org.thinking.logistics.services.core.entity.bill.OutboundDetail;
 import org.thinking.logistics.services.core.entity.bill.OutboundHeader;
-import org.thinking.logistics.services.core.repository.OutboundHeaderRepository;
+import org.thinking.logistics.services.core.repository.bill.OutboundHeaderRepository;
 
 import javax.annotation.Resource;
 import java.math.BigDecimal;

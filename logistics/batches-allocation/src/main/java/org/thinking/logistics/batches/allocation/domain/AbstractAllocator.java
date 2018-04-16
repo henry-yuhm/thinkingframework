@@ -12,7 +12,7 @@ import org.thinking.logistics.services.core.entity.Inventory;
 import org.thinking.logistics.services.core.entity.bill.OutboundDetail;
 import org.thinking.logistics.services.core.entity.bill.OutboundHeader;
 import org.thinking.logistics.services.core.entity.command.OutboundCommand;
-import org.thinking.logistics.services.core.repository.OutboundHeaderRepository;
+import org.thinking.logistics.services.core.repository.bill.OutboundHeaderRepository;
 
 import javax.annotation.Resource;
 import java.math.BigDecimal;

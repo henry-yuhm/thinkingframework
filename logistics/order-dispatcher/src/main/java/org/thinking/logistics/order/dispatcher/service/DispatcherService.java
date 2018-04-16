@@ -6,7 +6,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.thinking.logistics.order.dispatcher.domain.*;
 import org.thinking.logistics.services.core.entity.Employee;
 import org.thinking.logistics.services.core.entity.bill.OutboundHeader;
-import org.thinking.logistics.services.core.repository.OutboundHeaderRepository;
+import org.thinking.logistics.services.core.repository.bill.OutboundHeaderRepository;
 
 import java.util.List;
 
