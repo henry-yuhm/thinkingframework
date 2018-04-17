@@ -8,11 +8,9 @@ import lombok.EqualsAndHashCode;
 public class GoodsReceiver extends AbstractReceiver {
     @Override
     public void verify() throws Exception {
-        super.verify();
     }
 
     @Override
     public void save() throws Exception {
-        super.save();
     }
 }

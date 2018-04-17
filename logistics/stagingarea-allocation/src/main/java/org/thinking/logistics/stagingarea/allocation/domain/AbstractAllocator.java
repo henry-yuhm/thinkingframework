@@ -2,7 +2,7 @@ package org.thinking.logistics.stagingarea.allocation.domain;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import org.thinking.logistics.services.core.domain.BusinessAdapter;
+import org.thinking.logistics.services.core.domain.BusinessBase;
 import org.thinking.logistics.services.core.domain.CompositeException;
 import org.thinking.logistics.services.core.domain.support.*;
 import org.thinking.logistics.services.core.entity.Direction;
@@ -27,7 +27,7 @@ import java.util.Optional;
 
 @Data
 @EqualsAndHashCode(callSuper = true)
-public abstract class AbstractAllocator extends BusinessAdapter implements Allocator {
+public abstract class AbstractAllocator extends BusinessBase implements Allocator {
     protected OutboundHeader header;
 
     protected StagingareaConfiguration configuration;
@@ -136,14 +136,11 @@ public abstract class AbstractAllocator extends BusinessAdapter implements Alloc
         BigDecimal largeQuantity = this.getDecimalParameter(this.header.getWarehouse(), "DZCQJS");
 
         if (this.configuration.getMode() == StagingareaAllocationMode.VOLUMETRIC) {
-            BigDecimal volume = BigDecimal.ZERO;
-            for (OutboundDetail detail : this.header.getDetails()) {
-                volume = volume.add(detail.getFactQuantity().multiply(detail.getGoods().getSmallPackageVolume()));
-            }
+            BigDecimal volume = this.header.getDetails().stream().map(detail -> detail.getFactQuantity().multiply(detail.getGoods().getSmallPackageVolume())).reduce(BigDecimal::multiply).get();
 
             //中药单据体积不能过大
             if (this.header.getCategory() == BillCategory.TRADITIONAL_CHINESE_MEDICINE) {
-                volume = volume.min(standardPieceVolume.multiply(this.getDecimalParameter(this.header.getWarehouse(), "")).multiply(mediumQuantity));
+                volume = volume.min(standardPieceVolume.multiply(this.getDecimalParameter(this.header.getWarehouse(), "ZYZCQLIMIT")).multiply(mediumQuantity));
             }
 
             if (volume.divide(standardPieceVolume, RoundingMode.CEILING).compareTo(smallQuantity) <= 0) {

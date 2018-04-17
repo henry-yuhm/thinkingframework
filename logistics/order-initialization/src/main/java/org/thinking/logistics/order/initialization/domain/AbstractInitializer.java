@@ -2,7 +2,7 @@ package org.thinking.logistics.order.initialization.domain;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import org.thinking.logistics.services.core.domain.BusinessAdapter;
+import org.thinking.logistics.services.core.domain.BusinessBase;
 import org.thinking.logistics.services.core.domain.CompositeException;
 import org.thinking.logistics.services.core.domain.support.OutboundStage;
 import org.thinking.logistics.services.core.entity.bill.OutboundDetail;
@@ -14,7 +14,7 @@ import java.math.BigDecimal;
 
 @Data
 @EqualsAndHashCode(callSuper = true)
-public abstract class AbstractInitializer extends BusinessAdapter implements Initializer {
+public abstract class AbstractInitializer extends BusinessBase implements Initializer {
     protected OutboundHeader header;
 
     @Resource

@@ -1,16 +1,20 @@
 package org.thinking.logistics.services.core.entity;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
+import org.thinking.logistics.services.core.domain.CompositeException;
 import org.thinking.logistics.services.core.domain.support.BatchesRequest;
 import org.thinking.logistics.services.core.domain.support.CustomerClassification;
 import org.thinking.logistics.services.core.domain.support.CustomerType;
 
 import javax.persistence.*;
+import java.util.Optional;
 
 @Entity
 @Table(schema = "wms")
 @Data
-public class Customer {
+@EqualsAndHashCode(callSuper = true)
+public class Customer extends EntityBase<Customer, Long> {
     @Id
     @GeneratedValue
     private long id;
@@ -56,4 +60,15 @@ public class Customer {
     private String district;//地区
 
     private String businessman;//业务员
+
+    @Override
+    public void verify(Customer probe) throws Exception {
+        if (!Optional.ofNullable(probe.getOwner()).isPresent()) {
+            throw CompositeException.getException("客户业主不能为空");
+        }
+
+        if (Optional.ofNullable(probe.getNumber()).get().isEmpty()) {
+            throw CompositeException.getException("客户编号不能为空");
+        }
+    }
 }

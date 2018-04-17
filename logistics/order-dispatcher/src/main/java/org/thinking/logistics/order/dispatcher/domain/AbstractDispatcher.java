@@ -2,7 +2,7 @@ package org.thinking.logistics.order.dispatcher.domain;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import org.thinking.logistics.services.core.domain.BusinessAdapter;
+import org.thinking.logistics.services.core.domain.BusinessBase;
 import org.thinking.logistics.services.core.domain.CompositeException;
 import org.thinking.logistics.services.core.domain.support.OutboundStage;
 import org.thinking.logistics.services.core.entity.Employee;
@@ -16,7 +16,7 @@ import java.util.List;
 
 @Data
 @EqualsAndHashCode(callSuper = true)
-public abstract class AbstractDispatcher extends BusinessAdapter implements Dispatcher {
+public abstract class AbstractDispatcher extends BusinessBase implements Dispatcher {
     protected OutboundHeader header;
 
     protected List<OutboundHeader> headers;

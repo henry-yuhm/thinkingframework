@@ -13,13 +13,13 @@ import java.util.regex.Pattern;
 
 @Data
 @NoArgsConstructor
-public abstract class BusinessAdapter {
+public abstract class BusinessBase {
     protected Employee operator;//操作员
 
     @Resource
     private ParameterService parameterService;
 
-    public BusinessAdapter(Employee operator) {
+    public BusinessBase(Employee operator) {
         this.operator = operator;
     }
 

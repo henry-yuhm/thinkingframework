@@ -1,6 +1,7 @@
 package org.thinking.logistics.services.core.entity;
 
 import lombok.Data;
+import org.thinking.logistics.services.core.domain.CompositeException;
 import org.thinking.logistics.services.core.domain.support.SaleClassification;
 import org.thinking.logistics.services.core.domain.support.SplittingGranularity;
 import org.thinking.logistics.services.core.domain.support.StorageClassification;
@@ -9,11 +10,12 @@ import org.thinking.logistics.services.core.entity.dictionary.GoodsCategory;
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.util.Date;
+import java.util.Optional;
 
 @Entity
 @Table(schema = "wms", uniqueConstraints = @UniqueConstraint(name = "uk_goods", columnNames = {"owner_id", "number"}))
 @Data
-public class Goods {
+public class Goods extends EntityBase<Goods, Long> {
     @Id
     @GeneratedValue
     private long id;
@@ -110,4 +112,15 @@ public class Goods {
 
     @Column(nullable = false)
     private String storageRequest;//存储要求
+
+    @Override
+    public void verify(Goods probe) throws Exception {
+        if (!Optional.ofNullable(probe.getOwner()).isPresent()) {
+            throw CompositeException.getException("商品业主不能为空");
+        }
+
+        if (Optional.ofNullable(probe.getNumber()).get().isEmpty()) {
+            throw CompositeException.getException("商品编号不能为空");
+        }
+    }
 }

@@ -2,7 +2,7 @@ package org.thinking.logistics.batches.allocation.domain;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import org.thinking.logistics.services.core.domain.BusinessAdapter;
+import org.thinking.logistics.services.core.domain.BusinessBase;
 import org.thinking.logistics.services.core.domain.CompositeException;
 import org.thinking.logistics.services.core.domain.support.OutboundStage;
 import org.thinking.logistics.services.core.domain.support.PackageType;
@@ -23,7 +23,7 @@ import java.util.Map;
 
 @Data
 @EqualsAndHashCode(callSuper = true)
-public abstract class AbstractAllocator extends BusinessAdapter implements Allocator {
+public abstract class AbstractAllocator extends BusinessBase implements Allocator {
     protected final OutboundHeader header;
 
     protected final boolean remainder2Whole;

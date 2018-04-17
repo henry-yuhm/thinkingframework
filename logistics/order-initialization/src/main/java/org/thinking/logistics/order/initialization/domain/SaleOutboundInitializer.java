@@ -33,10 +33,6 @@ public class SaleOutboundInitializer extends AbstractInitializer {
         } else if (this.header.getTakegoodsMode() == TakegoodsMode.GREEN_CHANNEL) {
             this.header.setPriority(OutboundPriority.GREEN_CHANNEL);
         } else if (this.header.getTakegoodsMode() == TakegoodsMode.SELF_SERVICE) {
-//            for (OutboundDetail detail : this.header.getDetails()) {
-//                equivalentPieces = equivalentPieces.add(detail.getFactQuantity().divide(new BigDecimal(detail.getGoods().getWholePackageQuantity()), RoundingMode.HALF_UP));
-//            }
-
             if (this.header.getGoodsQuantity() <= this.getIntegerParameter(this.header.getWarehouse(), "PGS_LSTD") && this.header.getEquivalentPieces().compareTo(this.getDecimalParameter(this.header.getWarehouse(), "JS_LSTD")) <= 0) {
                 this.header.setPriority(OutboundPriority.GREEN_CHANNEL);
                 this.header.setTakegoodsModeSwitch(TakegoodsMode.GREEN_CHANNEL);

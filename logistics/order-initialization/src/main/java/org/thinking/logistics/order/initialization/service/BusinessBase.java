@@ -6,17 +6,16 @@ import org.springframework.transaction.annotation.Transactional;
 import org.thinking.logistics.order.initialization.domain.Initializer;
 import org.thinking.logistics.order.initialization.domain.PurchaseReturnInitializer;
 import org.thinking.logistics.order.initialization.domain.SaleOutboundInitializer;
-import org.thinking.logistics.services.core.domain.BusinessAdapter;
 import org.thinking.logistics.services.core.domain.support.SaleType;
 import org.thinking.logistics.services.core.entity.bill.OutboundHeader;
 import org.thinking.logistics.services.core.repository.bill.OutboundHeaderRepository;
 
 @Service
-public class InitializerService extends BusinessAdapter {
+public class BusinessBase extends BusinessBase {
     private OutboundHeaderRepository headerRepository;
 
     @Autowired
-    public InitializerService(OutboundHeaderRepository headerRepository) {
+    public BusinessBase(OutboundHeaderRepository headerRepository) {
         this.headerRepository = headerRepository;
     }
 
