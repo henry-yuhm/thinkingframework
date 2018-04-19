@@ -1,9 +1,9 @@
 package org.thinking.logistics.batches.allocation.domain;
 
-import org.thinking.logistics.services.core.entity.Inventory;
 import org.thinking.logistics.services.core.entity.bill.OutboundDetail;
 import org.thinking.logistics.services.core.entity.bill.SupplementDetail;
 import org.thinking.logistics.services.core.entity.command.OutboundCommand;
+import org.thinking.logistics.services.core.entity.inventory.Inventory;
 
 import java.math.BigDecimal;
 import java.util.List;

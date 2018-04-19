@@ -2,6 +2,7 @@ package org.thinking.logistics.batches.allocation.domain;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import org.springframework.data.domain.Example;
 import org.thinking.logistics.services.core.domain.BusinessBase;
 import org.thinking.logistics.services.core.domain.CompositeException;
 import org.thinking.logistics.services.core.domain.support.OutboundStage;
@@ -9,12 +10,15 @@ import org.thinking.logistics.services.core.domain.support.PackageType;
 import org.thinking.logistics.services.core.domain.support.SaleType;
 import org.thinking.logistics.services.core.domain.support.ValidPeriodType;
 import org.thinking.logistics.services.core.entity.Batches;
-import org.thinking.logistics.services.core.entity.Inventory;
 import org.thinking.logistics.services.core.entity.bill.OutboundDetail;
 import org.thinking.logistics.services.core.entity.bill.OutboundHeader;
 import org.thinking.logistics.services.core.entity.bill.SupplementDetail;
 import org.thinking.logistics.services.core.entity.command.OutboundCommand;
+import org.thinking.logistics.services.core.entity.inventory.BatchesInventory;
+import org.thinking.logistics.services.core.entity.inventory.Inventory;
 import org.thinking.logistics.services.core.repository.bill.OutboundHeaderRepository;
+import org.thinking.logistics.services.core.repository.inventory.BatchesInventoryRepository;
+import org.thinking.logistics.services.core.repository.inventory.InventoryRepository;
 
 import javax.annotation.Resource;
 import java.math.BigDecimal;
@@ -38,10 +42,18 @@ public abstract class AbstractAllocator extends BusinessBase implements Allocato
 
     protected Map<Batches, BigDecimal> batches;
 
+    protected List<BatchesInventory> batchesInventories;
+
     protected List<Inventory> inventories;
 
     @Resource
     private OutboundHeaderRepository headerRepository;
+
+    @Resource
+    private BatchesInventoryRepository batchesInventoryRepository;
+
+    @Resource
+    private InventoryRepository inventoryRepository;
 
     public AbstractAllocator(OutboundHeader header) {
         this.header = header;
@@ -81,7 +93,49 @@ public abstract class AbstractAllocator extends BusinessBase implements Allocato
 
     @Override
     public void getBatchesDirectly(OutboundDetail detail) throws Exception {
+        if (detail.getRequest() == null) {
+            this.validPeriodType = ValidPeriodType.ALL;
+            this.batchesQuantity = 0;
+        } else {
+            switch (detail.getRequest()) {
+                case SINGLE:
+                    this.validPeriodType = ValidPeriodType.ALL;
+                    this.batchesQuantity = 1;
+                    break;
+                case NEW:
+                    this.validPeriodType = ValidPeriodType.NEW;
+                    this.batchesQuantity = 2;
+                    break;
+                case SINGLE_NEW:
+                    this.validPeriodType = ValidPeriodType.NEW;
+                    this.batchesQuantity = 1;
+                    break;
+                case NO_DEMAND:
+                    this.validPeriodType = ValidPeriodType.ALL;
+                    this.batchesQuantity = 2;
+                    break;
+                case CLEANUP:
+                    this.validPeriodType = ValidPeriodType.ALL;
+                    this.batchesQuantity = 3;
+                    break;
+            }
+        }
 
+        //region 批号库存
+        BatchesInventory.PrimaryKey key = new BatchesInventory.PrimaryKey();
+        key.setGoods(detail.getGoods());
+        if (this.batchesQuantity == 0) {
+            key.setBatches(detail.getBatches());
+        }
+        if (this.validPeriodType.compareTo(ValidPeriodType.ALL) == 0) {
+            key.setType(this.validPeriodType);
+        }
+
+        BatchesInventory probe = new BatchesInventory();
+        probe.setKey(key);
+
+        this.batchesInventories = this.batchesInventoryRepository.findAll(Example.of(probe));
+        //endregion
     }
 
     @Override

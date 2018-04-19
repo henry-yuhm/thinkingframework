@@ -1,7 +1,8 @@
-package org.thinking.logistics.services.core.entity;
+package org.thinking.logistics.services.core.entity.inventory;
 
 import lombok.Data;
 import org.thinking.logistics.services.core.domain.support.InventoryState;
+import org.thinking.logistics.services.core.entity.*;
 import org.thinking.logistics.services.core.entity.container.Pallet;
 
 import javax.persistence.*;
@@ -82,4 +83,12 @@ public class Inventory {
 
     @Transient
     private BigDecimal availableReplenishingQuantity;//可用补货数量
+
+    public BigDecimal getAvailableOutboundQuantity() {
+        return quantity.subtract(outboundQuantity).subtract(minusQuantity).add(plusQuantity).subtract(lockingQuantity);
+    }
+
+    public BigDecimal getPhysicalOutboundQuantity() {
+        return quantity.subtract(outboundQuantity).subtract(lockingQuantity).max(BigDecimal.ZERO);
+    }
 }
