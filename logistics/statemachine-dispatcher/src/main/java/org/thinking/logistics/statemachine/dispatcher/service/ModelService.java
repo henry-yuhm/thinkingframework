@@ -1,6 +1,7 @@
 package org.thinking.logistics.statemachine.dispatcher.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.statemachine.data.jpa.JpaRepositoryAction;
 import org.springframework.statemachine.data.jpa.JpaRepositoryGuard;
 import org.springframework.statemachine.data.jpa.JpaRepositoryState;
@@ -63,7 +64,7 @@ public class ModelService {
     }
 
     public List<Workflow> findAll() {
-        return this.workflowRepository.findAll();
+        return this.workflowRepository.findAll(Sort.by("id"));
     }
 
     @Transactional(rollbackFor = Exception.class)

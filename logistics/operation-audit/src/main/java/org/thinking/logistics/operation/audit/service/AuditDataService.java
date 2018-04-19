@@ -5,7 +5,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.thinking.logistics.operation.audit.entity.AuditData;
-import org.thinking.logistics.operation.audit.entity.AuditType;
 import org.thinking.logistics.operation.audit.repository.AuditDataRepository;
 import org.thinking.logistics.operation.audit.repository.AuditTypeRepository;
 
@@ -33,14 +32,14 @@ public class AuditDataService {
 
     @Transactional(rollbackFor = Exception.class)
     public void save(List<AuditData> datas) throws Exception {
-        datas.forEach(data -> {
-            AuditType auditType = this.auditTypeRepository.findByName(data.getType().getName());
-            if (auditType == null) {
-                throw new NullPointerException("审计类型【" + data.getType().getName() + "】未定义");
-            } else {
-                data.setType(auditType);
-            }
-        });
+//        for (AuditData data : datas) {
+//            AuditType auditType = this.auditTypeRepository.findByName(data.getType().getName());
+//            if (auditType == null) {
+//                throw new NullPointerException("审计类型【" + data.getType().getName() + "】未定义");
+//            } else {
+//                data.setType(auditType);
+//            }
+//        }
 
         this.auditDataRepository.saveAll(datas);
     }

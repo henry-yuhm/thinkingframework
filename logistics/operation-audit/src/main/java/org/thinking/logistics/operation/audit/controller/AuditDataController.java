@@ -3,10 +3,13 @@ package org.thinking.logistics.operation.audit.controller;
 import com.querydsl.core.types.Predicate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.querydsl.binding.QuerydslPredicate;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.thinking.logistics.operation.audit.entity.AuditData;
 import org.thinking.logistics.operation.audit.service.AuditDataService;
+import org.thinking.logistics.services.core.domain.CompositeException;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -30,7 +33,13 @@ public class AuditDataController {
     }
 
     @PutMapping("/save")
-    public void save(@RequestBody List<AuditData> datas) throws Exception {
+    public void save(@Valid @RequestBody List<AuditData> datas, BindingResult result) throws Exception {
+        if (result.hasErrors()) {
+            StringBuilder builder = new StringBuilder();
+            result.getAllErrors().forEach(objectError -> builder.append(objectError.getDefaultMessage()));
+            throw CompositeException.getException(builder.toString());
+        }
+
         this.service.save(datas);
     }
 }
