@@ -7,8 +7,10 @@ import org.thinking.logistics.services.core.domain.support.NotExistsEntityExcept
 import org.thinking.logistics.services.core.service.EntityService;
 
 import javax.annotation.Resource;
+import javax.persistence.MappedSuperclass;
 import java.util.Optional;
 
+@MappedSuperclass
 @Data
 public abstract class EntityBase<E, ID> {
     @Resource

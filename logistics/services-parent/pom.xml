@@ -16,6 +16,7 @@
 
     <modules>
         <module>../batches-allocation</module>
+        <module>../data-exchange</module>
         <module>../data-servo</module>
         <module>../inventory-dispatcher</module>
         <module>../operation-audit</module>
