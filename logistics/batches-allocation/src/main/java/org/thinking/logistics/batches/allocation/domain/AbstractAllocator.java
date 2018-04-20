@@ -22,6 +22,7 @@ import org.thinking.logistics.services.core.repository.inventory.InventoryReposi
 
 import javax.annotation.Resource;
 import java.math.BigDecimal;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
@@ -32,19 +33,21 @@ public abstract class AbstractAllocator extends BusinessBase implements Allocato
 
     protected final boolean remainder2Whole;
 
+    protected final boolean newBatches;
+
     protected PackageType packageType;
 
-    protected int allocationQuantity = 0;
+    protected BigDecimal allocationQuantity = BigDecimal.ZERO;
 
     protected ValidPeriodType validPeriodType;
 
-    protected int batchesQuantity = 0;
+    protected int batchesNumber = 0;
 
     protected Map<Batches, BigDecimal> batches;
 
-    protected List<BatchesInventory> batchesInventories;
+    protected List<BatchesInventory> batchesInventories = new LinkedList<>();
 
-    protected List<Inventory> inventories;
+    protected List<Inventory> inventories = new LinkedList<>();
 
     @Resource
     private OutboundHeaderRepository headerRepository;
@@ -58,6 +61,7 @@ public abstract class AbstractAllocator extends BusinessBase implements Allocato
     public AbstractAllocator(OutboundHeader header) {
         this.header = header;
         this.remainder2Whole = this.isEnable(this.header.getWarehouse(), "ZJBZCLH");
+        this.newBatches = this.isEnable(this.header.getWarehouse(), this.packageType == PackageType.WHOLEPIECES ? "ZJWYQCXPH" : "LHWYQCXPH");
     }
 
     @Override
@@ -95,28 +99,28 @@ public abstract class AbstractAllocator extends BusinessBase implements Allocato
     public void getBatchesDirectly(OutboundDetail detail) throws Exception {
         if (detail.getRequest() == null) {
             this.validPeriodType = ValidPeriodType.ALL;
-            this.batchesQuantity = 0;
+            this.batchesNumber = 0;
         } else {
             switch (detail.getRequest()) {
                 case SINGLE:
                     this.validPeriodType = ValidPeriodType.ALL;
-                    this.batchesQuantity = 1;
+                    this.batchesNumber = 1;
                     break;
                 case NEW:
                     this.validPeriodType = ValidPeriodType.NEW;
-                    this.batchesQuantity = 2;
+                    this.batchesNumber = 2;
                     break;
                 case SINGLE_NEW:
                     this.validPeriodType = ValidPeriodType.NEW;
-                    this.batchesQuantity = 1;
+                    this.batchesNumber = 1;
                     break;
                 case NO_DEMAND:
                     this.validPeriodType = ValidPeriodType.ALL;
-                    this.batchesQuantity = 2;
+                    this.batchesNumber = 2;
                     break;
                 case CLEANUP:
                     this.validPeriodType = ValidPeriodType.ALL;
-                    this.batchesQuantity = 3;
+                    this.batchesNumber = 3;
                     break;
             }
         }
@@ -124,7 +128,7 @@ public abstract class AbstractAllocator extends BusinessBase implements Allocato
         //region 批号库存
         BatchesInventory.PrimaryKey key = new BatchesInventory.PrimaryKey();
         key.setGoods(detail.getGoods());
-        if (this.batchesQuantity == 0) {
+        if (this.batchesNumber == 0) {
             key.setBatches(detail.getBatches());
         }
         if (this.validPeriodType.compareTo(ValidPeriodType.ALL) == 0) {
@@ -136,6 +140,114 @@ public abstract class AbstractAllocator extends BusinessBase implements Allocato
 
         this.batchesInventories = this.batchesInventoryRepository.findAll(Example.of(probe));
         //endregion
+
+        int batchesNumber = this.batchesInventories.size();
+        if (batchesNumber == 0) {
+            return;
+        }
+
+        BigDecimal firstBatchesInventory;
+        BigDecimal secondBatchesInventory;
+        BigDecimal outboundQuantity;
+        int lastIndex = this.batchesInventories.size() - 1;
+
+        for (BatchesInventory first : this.batchesInventories) {
+            if (this.allocationQuantity.compareTo(BigDecimal.ZERO) <= 0) {
+                break;
+            }
+
+            firstBatchesInventory = this.packageType == PackageType.WHOLEPIECES ? first.getPalletInventory().add(first.getWholepiecesInventory()) : first.getRemainderInventory();
+
+            if (firstBatchesInventory.compareTo(BigDecimal.ZERO) <= 0) {
+                batchesNumber = batchesNumber - 1;
+                continue;
+            }
+
+            //region 指定批号计算、单批号计算、多批号计算
+            if (this.batchesNumber == 0 || this.batchesNumber == 1 || this.batchesNumber == 3) {
+                if (firstBatchesInventory.compareTo(this.allocationQuantity) >= 0) {
+                    if (this.batchesNumber == 1 && !(this.validPeriodType.compareTo(ValidPeriodType.ALL) == 0) && first.getKey().getType().compareTo(ValidPeriodType.NEW) == 0 && first.getType().compareTo(ValidPeriodType.OLD) == 0) {
+                        //单一批号系统按参数确定是否出单一新批号
+                        if (!this.newBatches) {
+                            continue;
+                        }
+                    }
+
+                    outboundQuantity = this.allocationQuantity;
+                    this.allocationQuantity = BigDecimal.ZERO;
+
+                    this.batches.put(first.getKey().getBatches(), outboundQuantity);
+
+                    //单批号计算时退出循环
+                    if (this.batchesNumber == 1) {
+                        break;
+                    }
+                } else {
+                    //指定批号、单批号计算时找下一批号
+                    if (this.batchesNumber == 0 || this.batchesNumber == 1) {
+                        continue;
+                    }
+
+                    //多批号不足时出可出零货库存
+                    outboundQuantity = firstBatchesInventory;
+                    this.allocationQuantity = this.allocationQuantity.subtract(outboundQuantity);
+
+                    this.batches.put(first.getKey().getBatches(), outboundQuantity);
+                }
+            }
+            //endregion
+
+            //region 双批号计算
+            if (this.batchesNumber == 2) {
+                if (batchesNumber == 1) {
+                    outboundQuantity = this.allocationQuantity.min(firstBatchesInventory);
+                    this.allocationQuantity = this.allocationQuantity.subtract(outboundQuantity);
+
+                    this.batches.put(first.getKey().getBatches(), outboundQuantity);
+
+                    break;
+                } else {
+                    for (BatchesInventory second : this.batchesInventories.subList(this.batchesInventories.indexOf(first) + 1, lastIndex)) {
+                        if (this.allocationQuantity.compareTo(BigDecimal.ZERO) <= 0) {
+                            break;
+                        }
+
+                        secondBatchesInventory = this.packageType == PackageType.WHOLEPIECES ? second.getPalletInventory().add(second.getWholepiecesInventory()) : second.getRemainderInventory();
+
+                        if (firstBatchesInventory.add(secondBatchesInventory).compareTo(this.allocationQuantity) >= 0) {
+                            if (firstBatchesInventory.compareTo(this.allocationQuantity) >= 0) {
+                                //该批号为当前最老批号，出库
+                                outboundQuantity = this.allocationQuantity;
+                                this.allocationQuantity = BigDecimal.ZERO;
+
+                                this.batches.put(first.getKey().getBatches(), outboundQuantity);
+                            } else {
+                                //先出老批号
+                                outboundQuantity = this.allocationQuantity.min(firstBatchesInventory);
+                                this.allocationQuantity = this.allocationQuantity.subtract(outboundQuantity);
+
+                                this.batches.put(first.getKey().getBatches(), outboundQuantity);
+
+                                //再出次老批号
+                                outboundQuantity = this.allocationQuantity.min(secondBatchesInventory);
+                                this.allocationQuantity = this.allocationQuantity.subtract(outboundQuantity);
+
+                                this.batches.put(second.getKey().getBatches(), outboundQuantity);
+                            }
+                        }
+
+                        if (this.batchesInventories.indexOf(second) == lastIndex) {
+                            break;
+                        }
+                    }
+
+                    if (this.batchesInventories.indexOf(first) == lastIndex - 1) {
+                        break;
+                    }
+                }
+            }
+            //endregion
+        }
     }
 
     @Override
