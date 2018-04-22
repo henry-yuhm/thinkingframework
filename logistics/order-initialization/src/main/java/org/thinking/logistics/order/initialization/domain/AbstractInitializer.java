@@ -4,6 +4,7 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import org.thinking.logistics.services.core.domain.BusinessBase;
 import org.thinking.logistics.services.core.domain.CompositeException;
+import org.thinking.logistics.services.core.domain.support.NotExistsEntityException;
 import org.thinking.logistics.services.core.domain.support.OutboundStage;
 import org.thinking.logistics.services.core.entity.bill.OutboundDetail;
 import org.thinking.logistics.services.core.entity.bill.OutboundHeader;
@@ -33,19 +34,19 @@ public abstract class AbstractInitializer extends BusinessBase implements Initia
         }
 
         if (this.header.getCustomer() == null) {
-            throw CompositeException.getException(CompositeException.getNullCustomerMessage(), this.header, this.header.getOwner());
+            throw CompositeException.getException(NotExistsEntityException.CUSTOMER.name(), this.header, this.header.getOwner());
         }
 
         if (this.header.getDetails() == null || this.header.getDetails().isEmpty()) {
-            throw CompositeException.getException(CompositeException.getNullDetailMessage(), this.header, this.header.getOwner());
+            throw CompositeException.getException(NotExistsEntityException.DETAIL.name(), this.header, this.header.getOwner());
         }
 
         for (OutboundDetail detail : this.header.getDetails()) {
             if (detail.getGoods() == null) {
-                throw CompositeException.getException(CompositeException.getNullGoodsMessage(), this.header, this.header.getOwner());
+                throw CompositeException.getException(NotExistsEntityException.GOODS.name(), this.header, this.header.getOwner());
             } else {
                 if (detail.getFactQuantity().compareTo(BigDecimal.ZERO) > 0) {
-                    detail.setWholeQuantity(detail.getFactQuantity().subtract(detail.getFactRemainder()));
+                    detail.setWholepiecesQuantity(detail.getFactQuantity().subtract(detail.getFactRemainder()));
                     detail.setRemainderQuantity(detail.getFactRemainder());
                 } else {
                     message.append("商品【").append(detail.getGoods().getNumber()).append("】【").append(detail.getGoods().getName()).append("】数量为0");

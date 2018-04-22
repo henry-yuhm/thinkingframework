@@ -24,12 +24,12 @@ public class PhysicalStagingareaConfiguration {
 
     @ManyToMany
     @JoinTable(
-            joinColumns = {
-                    @JoinColumn(name = "warehouse_id"),
-                    @JoinColumn(name = "owner_id")},
-            inverseJoinColumns = {
-                    @JoinColumn(name = "bill_category"),
-                    @JoinColumn(name = "stagingarea_type")}
+        joinColumns = {
+            @JoinColumn(name = "warehouse_id"),
+            @JoinColumn(name = "owner_id")},
+        inverseJoinColumns = {
+            @JoinColumn(name = "bill_category"),
+            @JoinColumn(name = "stagingarea_type")}
     )
     private Set<Configuration> configurations;
 

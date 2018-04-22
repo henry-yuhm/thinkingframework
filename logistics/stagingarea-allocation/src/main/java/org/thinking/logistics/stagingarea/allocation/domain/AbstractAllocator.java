@@ -84,22 +84,22 @@ public abstract class AbstractAllocator extends BusinessBase implements Allocato
 
         for (OutboundDetail detail : this.header.getDetails()) {
             //校验包装数
-            if (Optional.of(detail.getGoods().getWholePackageQuantity()).orElse(0) == 0) {
+            if (Optional.of(detail.getGoods().getLargePackageQuantity()).orElse(BigDecimal.ZERO).compareTo(BigDecimal.ZERO) == 0) {
                 throw CompositeException.getException("商品大包装数未设定", this.header, this.header.getOwner(), detail.getGoods());
             }
 
             //校验长宽高
-            if (Optional.of(detail.getGoods().getWholePackageVolume()).orElse(BigDecimal.ZERO) == BigDecimal.ZERO) {
+            if (Optional.of(detail.getGoods().getLargePackageVolume()).orElse(BigDecimal.ZERO).compareTo(BigDecimal.ZERO) == 0) {
                 throw CompositeException.getException("商品长宽高未设定", this.header, this.header.getOwner(), detail.getGoods());
             }
         }
     }
 
     @Override
-    public void getPhysicalConfiguration() throws Exception {
+    public void acquirePhysicalConfiguration() throws Exception {
         this.configuration = this.configurationRepository.getOne(new StagingareaConfiguration.PrimaryKey(this.header.getWarehouse(), this.header.getOwner(), this.header.getTakegoodsMode()));
 
-        if (this.configuration.getSmallQuantity() == 0 || this.configuration.getLargeQuantity() == 0) {
+        if (this.configuration.getSmallQuantity().compareTo(BigDecimal.ZERO) == 0 || this.configuration.getLargeQuantity().compareTo(BigDecimal.ZERO) == 0) {
             throw CompositeException.getException("提货方式【" + this.header.getTakegoodsMode().name() + "】对应的月台件数未设定", this.header, this.header.getOwner());
         }
 
@@ -111,12 +111,12 @@ public abstract class AbstractAllocator extends BusinessBase implements Allocato
     }
 
     @Override
-    public void getVirtualConfiguration() throws Exception {
-        this.getVirtualConfiguration(null);
+    public void acquireVirtualConfiguration() throws Exception {
+        this.acquireVirtualConfiguration(null);
     }
 
     @Override
-    public void getVirtualConfiguration(Direction direction) throws Exception {
+    public void acquireVirtualConfiguration(Direction direction) throws Exception {
         Optional<VirtualStagingareaConfiguration.Configuration> configuration = this.virtualConfigurationRepository.getOne(new VirtualStagingareaConfiguration.PrimaryKey(this.header.getWarehouse(), this.header.getOwner())).getConfigurations().stream().filter(cfg -> cfg.isAvailable() && cfg.getBillCategory() == this.header.getCategory() && cfg.getTakegoodsMode() == this.header.getTakegoodsMode() && cfg.getSaleType() == this.header.getSaleType() && cfg.getStagingareaCategory() == this.stagingarea.getCategory() && cfg.getDirection() == direction).findAny();
 
         if (configuration != null) {
@@ -125,7 +125,7 @@ public abstract class AbstractAllocator extends BusinessBase implements Allocato
     }
 
     @Override
-    public void getCategory() throws Exception {
+    public void acquireCategory() throws Exception {
         BigDecimal standardPieceVolume = this.getDecimalParameter(this.header.getWarehouse(), "BZJTJ");
         if (standardPieceVolume.toString().isEmpty()) {
             throw CompositeException.getException("标准件体积参数未设定", this.header, this.header.getOwner());
@@ -170,13 +170,13 @@ public abstract class AbstractAllocator extends BusinessBase implements Allocato
     }
 
     @Override
-    public void getAvailableArea() throws Exception {
+    public void acquireAvailableArea() throws Exception {
         if (this.stagingarea.getType() == StagingareaType.NORMAL) {
             this.stagingarea.setBillType(this.header.getType());
             this.stagingarea.setTakegoodsMode(this.header.getTakegoodsMode() == TakegoodsMode.GREEN_CHANNEL ? TakegoodsMode.SELF_SERVICE : this.header.getTakegoodsMode());
             this.stagingarea.setDirection(this.header.getAddress().getDirection());
 
-            List<String> numbers = this.stagingareaRepository.getAvailableArea(this.stagingarea.getType(), this.stagingarea.getCategory(), this.stagingarea.getBillType(), this.stagingarea.getTakegoodsMode(), this.stagingarea.getOwners(), this.stagingarea.getDirection());
+            List<String> numbers = this.stagingareaRepository.acquireAvailableArea(this.stagingarea.getType(), this.stagingarea.getCategory(), this.stagingarea.getBillType(), this.stagingarea.getTakegoodsMode(), this.stagingarea.getOwners(), this.stagingarea.getDirection());
 
             for (int i = 0; i < numbers.size(); i++) {
                 if (i + this.quantity - 1 > numbers.size()) {
@@ -184,7 +184,7 @@ public abstract class AbstractAllocator extends BusinessBase implements Allocato
                     break;
                 }
 
-                this.stagingareas = this.stagingareaRepository.getAvailableArea(numbers.get(i), numbers.get(i + this.quantity - 1), this.stagingarea.getType(), this.stagingarea.getCategory(), this.stagingarea.getBillType(), this.stagingarea.getTakegoodsMode(), this.stagingarea.getOwners(), this.stagingarea.getDirection());
+                this.stagingareas = this.stagingareaRepository.acquireAvailableArea(numbers.get(i), numbers.get(i + this.quantity - 1), this.stagingarea.getType(), this.stagingarea.getCategory(), this.stagingarea.getBillType(), this.stagingarea.getTakegoodsMode(), this.stagingarea.getOwners(), this.stagingarea.getDirection());
 
                 if (this.quantity == this.stagingareas.size()) {
                     break;
@@ -214,13 +214,13 @@ public abstract class AbstractAllocator extends BusinessBase implements Allocato
     public void allocate() throws Exception {
         this.verify();
 
-        this.getPhysicalConfiguration();
+        this.acquirePhysicalConfiguration();
 
-        this.getCategory();
+        this.acquireCategory();
 
-        this.getVirtualConfiguration();
+        this.acquireVirtualConfiguration();
 
-        this.getAvailableArea();
+        this.acquireAvailableArea();
 
         if (this.trial) {
             return;

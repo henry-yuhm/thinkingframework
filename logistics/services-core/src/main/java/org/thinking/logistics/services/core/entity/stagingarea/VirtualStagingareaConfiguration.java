@@ -27,17 +27,17 @@ public class VirtualStagingareaConfiguration {
 
     @ManyToMany
     @JoinTable(
-            joinColumns = {
-                    @JoinColumn(name = "warehouse_id"),
-                    @JoinColumn(name = "owner_id")},
-            inverseJoinColumns = {
-                    @JoinColumn(name = "bill_category"),
-                    @JoinColumn(name = "takegoods_mode"),
-                    @JoinColumn(name = "sale_type"),
-                    @JoinColumn(name = "stagingarea_category"),
-                    @JoinColumn(name = "direction"),
-                    @JoinColumn(name = "stagingarea"),
-                    @JoinColumn(name = "available")}
+        joinColumns = {
+            @JoinColumn(name = "warehouse_id"),
+            @JoinColumn(name = "owner_id")},
+        inverseJoinColumns = {
+            @JoinColumn(name = "bill_category"),
+            @JoinColumn(name = "takegoods_mode"),
+            @JoinColumn(name = "sale_type"),
+            @JoinColumn(name = "stagingarea_category"),
+            @JoinColumn(name = "direction"),
+            @JoinColumn(name = "stagingarea"),
+            @JoinColumn(name = "available")}
     )
     private Set<Configuration> configurations;
 

@@ -45,7 +45,7 @@ public class ModelService {
         this.machineService = machineService;
     }
 
-    private Set<JpaRepositoryAction> getActions(Set<JpaRepositoryAction> actions) {
+    private Set<JpaRepositoryAction> acquireActions(Set<JpaRepositoryAction> actions) {
         Set<JpaRepositoryAction> actionSet = new LinkedHashSet<>();
 
         if (actions != null && actions.size() > 0) {
@@ -102,9 +102,9 @@ public class ModelService {
                     existingState.setInitialAction(this.actions.get(node.getState().getInitialAction().getName()));
                 }
                 existingState.setParentState(node.getState().getParentState());
-                existingState.setStateActions(this.getActions(node.getState().getStateActions()));
-                existingState.setEntryActions(this.getActions(node.getState().getEntryActions()));
-                existingState.setExitActions(this.getActions(node.getState().getExitActions()));
+                existingState.setStateActions(this.acquireActions(node.getState().getStateActions()));
+                existingState.setEntryActions(this.acquireActions(node.getState().getEntryActions()));
+                existingState.setExitActions(this.acquireActions(node.getState().getExitActions()));
                 existingState.setDeferredEvents(node.getState().getDeferredEvents());
 
                 node.setState(existingState);
@@ -114,9 +114,9 @@ public class ModelService {
                 } else {
                     node.getState().setInitialAction(this.actions.get(node.getState().getInitialAction().getName()));
                 }
-                node.getState().setStateActions(this.getActions(node.getState().getStateActions()));
-                node.getState().setEntryActions(this.getActions(node.getState().getEntryActions()));
-                node.getState().setExitActions(this.getActions(node.getState().getExitActions()));
+                node.getState().setStateActions(this.acquireActions(node.getState().getStateActions()));
+                node.getState().setEntryActions(this.acquireActions(node.getState().getEntryActions()));
+                node.getState().setExitActions(this.acquireActions(node.getState().getExitActions()));
             }
 
             this.stateRepository.save(node.getState());
@@ -142,7 +142,7 @@ public class ModelService {
 
                 existingTransition.setEvent(line.getTransition().getEvent());
                 existingTransition.setKind(line.getTransition().getKind());
-                existingTransition.setActions(this.getActions(line.getTransition().getActions()));
+                existingTransition.setActions(this.acquireActions(line.getTransition().getActions()));
                 if (line.getTransition().getGuard() == null) {
                     existingTransition.setGuard(null);
                 } else {
@@ -151,7 +151,7 @@ public class ModelService {
 
                 line.setTransition(existingTransition);
             } else {
-                line.getTransition().setActions(this.getActions(line.getTransition().getActions()));
+                line.getTransition().setActions(this.acquireActions(line.getTransition().getActions()));
                 if (line.getTransition().getGuard() == null) {
                     line.getTransition().setGuard(null);
                 } else {

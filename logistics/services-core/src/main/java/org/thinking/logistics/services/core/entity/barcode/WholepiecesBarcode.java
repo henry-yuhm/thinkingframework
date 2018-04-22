@@ -2,7 +2,7 @@ package org.thinking.logistics.services.core.entity.barcode;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import org.thinking.logistics.services.core.entity.command.WholeCommand;
+import org.thinking.logistics.services.core.entity.command.WholepiecesCommand;
 
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
@@ -14,8 +14,8 @@ import java.util.Set;
 @Entity
 @Data
 @EqualsAndHashCode(callSuper = true)
-public class WholeBarcode extends OutboundBarcode {
+public class WholepiecesBarcode extends OutboundBarcode {
     @ManyToMany
     @JoinTable(joinColumns = @JoinColumn(name = "barcode_id"), inverseJoinColumns = @JoinColumn(name = "command_id"))
-    private Set<WholeCommand> commands = new LinkedHashSet<>();//指令
+    private Set<WholepiecesCommand> commands = new LinkedHashSet<>();//指令
 }

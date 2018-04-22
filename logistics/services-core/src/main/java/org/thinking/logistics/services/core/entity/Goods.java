@@ -9,6 +9,7 @@ import org.thinking.logistics.services.core.entity.dictionary.GoodsCategory;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.Date;
 import java.util.Optional;
 
@@ -43,13 +44,13 @@ public class Goods extends EntityBase<Goods, Long> {
     private String producingArea;//产地
 
     @Column(nullable = false)
-    private int wholePackageQuantity;//大包装数量
+    private BigDecimal largePackageQuantity;//大包装数量
 
     @Column(nullable = false)
-    private int mediumPackageQuantity;//中包装数量
+    private BigDecimal mediumPackageQuantity;//中包装数量
 
     @Column(nullable = false)
-    private int smallPackageQuantity;//小包装数量
+    private BigDecimal smallPackageQuantity;//小包装数量
 
     @Column(nullable = false)
     private String packageUnit;//包装单位
@@ -68,14 +69,14 @@ public class Goods extends EntityBase<Goods, Long> {
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     private GoodsCategory category;//类别
 
-    private String wholePackageBarcode;//大包装条码
+    private String largePackageBarcode;//大包装条码
 
     private String mediumPackageBarcode;//中包装条码
 
     private String smallPackageBarcode;//小包装条码
 
     @Column(nullable = false)
-    private SaleClassification wholeClassification;//整件分类
+    private SaleClassification wholepiecesClassification;//整件分类
 
     @Column(nullable = false)
     private SaleClassification remainderClassification;//零货分类
@@ -90,7 +91,7 @@ public class Goods extends EntityBase<Goods, Long> {
     private BigDecimal height;//高
 
     @Column(nullable = false)
-    private BigDecimal wholePackageVolume;//大包装体积
+    private BigDecimal largePackageVolume;//大包装体积
 
     @Column(nullable = false)
     private BigDecimal mediumPackageVolume;//中包装体积
@@ -113,6 +114,8 @@ public class Goods extends EntityBase<Goods, Long> {
     @Column(nullable = false)
     private String storageRequest;//存储要求
 
+    private BigDecimal tcmOutboundQuantity;//中药大件数量
+
     @Override
     public void verify(Goods probe) throws Exception {
         if (!Optional.ofNullable(probe.getOwner()).isPresent()) {
@@ -121,6 +124,30 @@ public class Goods extends EntityBase<Goods, Long> {
 
         if (Optional.ofNullable(probe.getNumber()).get().isEmpty()) {
             throw CompositeException.getException("商品编号不能为空");
+        }
+    }
+
+    public final BigDecimal getPieces(BigDecimal quantity) {
+        if (Optional.of(this.largePackageQuantity).orElse(BigDecimal.ZERO) == BigDecimal.ZERO) {
+            return BigDecimal.ZERO;
+        } else {
+            if (this.storageClassification == StorageClassification.REMAINDER_ONLY) {
+                return BigDecimal.ZERO;
+            } else {
+                return new BigDecimal(quantity.signum()).multiply(quantity.abs().divide(this.largePackageQuantity, RoundingMode.FLOOR));
+            }
+        }
+    }
+
+    public final BigDecimal getRemainder(BigDecimal quantity) {
+        if (Optional.of(this.largePackageQuantity).orElse(BigDecimal.ZERO) == BigDecimal.ZERO) {
+            return BigDecimal.ZERO;
+        } else {
+            if (this.storageClassification == StorageClassification.REMAINDER_ONLY) {
+                return new BigDecimal(quantity.signum()).multiply(quantity.abs());
+            } else {
+                return new BigDecimal(quantity.signum()).multiply(quantity.abs().remainder(this.largePackageQuantity));
+            }
         }
     }
 }

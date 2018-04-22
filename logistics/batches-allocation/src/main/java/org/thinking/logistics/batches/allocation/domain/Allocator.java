@@ -1,43 +1,37 @@
 package org.thinking.logistics.batches.allocation.domain;
 
+import org.thinking.logistics.services.core.entity.Batches;
+import org.thinking.logistics.services.core.entity.Goods;
 import org.thinking.logistics.services.core.entity.bill.OutboundDetail;
-import org.thinking.logistics.services.core.entity.bill.SupplementDetail;
 import org.thinking.logistics.services.core.entity.command.OutboundCommand;
 import org.thinking.logistics.services.core.entity.inventory.Inventory;
 
 import java.math.BigDecimal;
-import java.util.List;
 
 public interface Allocator {
     void verify() throws Exception;
 
     void initialize(OutboundDetail detail) throws Exception;
 
-    void initialize(SupplementDetail detail) throws Exception;
+    void acquireBatchesInventory(OutboundDetail detail) throws Exception;
 
-    void getBatchesDirectly(OutboundDetail detail) throws Exception;
+    void acquireBatches(boolean replenishing) throws Exception;
 
-    void getBatchesIndirectly(OutboundDetail detail) throws Exception;
+    void replenish(Goods goods, Batches batches, BigDecimal quantity) throws Exception;
 
-    void apportionLocation() throws Exception;
+    void acquireLocation(OutboundDetail detail) throws Exception;
 
-    void appointLocation() throws Exception;
+    void appointLocation(OutboundDetail detail) throws Exception;
 
-    void addInventory() throws Exception;
+    void addInventory(Inventory inventory, BigDecimal quantity) throws Exception;
 
     void setDetail(OutboundDetail detail) throws Exception;
 
-    int getCommandRows(BigDecimal quantity) throws Exception;
-
-    void setCreationQuantity(OutboundCommand command, BigDecimal quantity) throws Exception;
-
-    void setCommand(OutboundCommand command, Inventory inventory) throws Exception;
+    OutboundCommand acquireCommand(OutboundDetail detail, Inventory inventory, BigDecimal quantity) throws Exception;
 
     void charge(Inventory inventory) throws Exception;
 
-    void generateCommandsDirectly(List<Inventory> inventories) throws Exception;
-
-    void generateCommandsIndirectly(List<Inventory> inventories) throws Exception;
+    void generateCommands(boolean directly, OutboundDetail detail) throws Exception;
 
     void check() throws Exception;
 

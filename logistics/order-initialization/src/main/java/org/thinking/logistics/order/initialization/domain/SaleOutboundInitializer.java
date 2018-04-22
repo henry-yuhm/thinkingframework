@@ -95,9 +95,9 @@ public class SaleOutboundInitializer extends AbstractInitializer {
         //region 自提，绿色通道自动下发
         if (this.isEnable(this.header.getWarehouse(), "ZTDDSFZDXF")) {
             if ((this.header.getTakegoodsMode() == TakegoodsMode.SELF_SERVICE || this.header.getTakegoodsMode() == TakegoodsMode.GREEN_CHANNEL) &&
-                    (this.getStringParameter(this.header.getWarehouse(), "PSHLSHANGP_TYPE").contains(this.header.getCategory().name())) &&
-                    this.header.getSaleType() == SaleType.NORMAL_SALE &&
-                    this.header.getDispatcherType() == DispatcherType.AUTOMATIC) {
+                (this.getStringParameter(this.header.getWarehouse(), "PSHLSHANGP_TYPE").contains(this.header.getCategory().name())) &&
+                this.header.getSaleType() == SaleType.NORMAL_SALE &&
+                this.header.getDispatcherType() == DispatcherType.AUTOMATIC) {
                 //region 系统截单时间处理
                 Date currentTime = Date.valueOf(LocalDate.now());
                 Date trimTime = this.getDateParameter(this.header.getWarehouse(), "JD_TIME");

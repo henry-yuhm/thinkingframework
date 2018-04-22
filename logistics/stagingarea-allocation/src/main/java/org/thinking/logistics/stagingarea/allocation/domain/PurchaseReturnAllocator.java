@@ -13,8 +13,8 @@ public class PurchaseReturnAllocator extends AbstractAllocator {
     }
 
     @Override
-    public void getAvailableArea() throws Exception {
-        super.getAvailableArea();
+    public void acquireAvailableArea() throws Exception {
+        super.acquireAvailableArea();
 
         if (this.stagingareas.size() == 0) {
             throw CompositeException.getException("需【" + this.quantity + "】个、类型【" + this.stagingarea.getType().name() + "】", this.header, this.header.getOwner());

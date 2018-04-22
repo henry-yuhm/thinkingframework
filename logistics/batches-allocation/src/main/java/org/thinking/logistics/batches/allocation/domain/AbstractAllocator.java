@@ -5,33 +5,36 @@ import lombok.EqualsAndHashCode;
 import org.springframework.data.domain.Example;
 import org.thinking.logistics.services.core.domain.BusinessBase;
 import org.thinking.logistics.services.core.domain.CompositeException;
-import org.thinking.logistics.services.core.domain.support.OutboundStage;
-import org.thinking.logistics.services.core.domain.support.PackageType;
-import org.thinking.logistics.services.core.domain.support.SaleType;
-import org.thinking.logistics.services.core.domain.support.ValidPeriodType;
+import org.thinking.logistics.services.core.domain.support.*;
 import org.thinking.logistics.services.core.entity.Batches;
+import org.thinking.logistics.services.core.entity.Goods;
 import org.thinking.logistics.services.core.entity.bill.OutboundDetail;
 import org.thinking.logistics.services.core.entity.bill.OutboundHeader;
-import org.thinking.logistics.services.core.entity.bill.SupplementDetail;
 import org.thinking.logistics.services.core.entity.command.OutboundCommand;
+import org.thinking.logistics.services.core.entity.command.RemainderCommand;
+import org.thinking.logistics.services.core.entity.command.ReplenishingCommand;
+import org.thinking.logistics.services.core.entity.command.WholepiecesCommand;
 import org.thinking.logistics.services.core.entity.inventory.BatchesInventory;
 import org.thinking.logistics.services.core.entity.inventory.Inventory;
+import org.thinking.logistics.services.core.entity.inventory.OutboundConfiguration;
 import org.thinking.logistics.services.core.repository.bill.OutboundHeaderRepository;
+import org.thinking.logistics.services.core.repository.command.OutboundCommandRepository;
+import org.thinking.logistics.services.core.repository.command.ReplenishingCommandRepository;
 import org.thinking.logistics.services.core.repository.inventory.BatchesInventoryRepository;
 import org.thinking.logistics.services.core.repository.inventory.InventoryRepository;
+import org.thinking.logistics.services.core.repository.inventory.OutboundConfigurationRepository;
 
 import javax.annotation.Resource;
 import java.math.BigDecimal;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
+import java.math.RoundingMode;
+import java.util.*;
 
 @Data
 @EqualsAndHashCode(callSuper = true)
 public abstract class AbstractAllocator extends BusinessBase implements Allocator {
     protected final OutboundHeader header;
 
-    protected final boolean remainder2Whole;
+    protected final boolean remainder2Wholepieces;
 
     protected final boolean newBatches;
 
@@ -43,11 +46,13 @@ public abstract class AbstractAllocator extends BusinessBase implements Allocato
 
     protected int batchesNumber = 0;
 
-    protected Map<Batches, BigDecimal> batches;
+    protected Map<Batches, BigDecimal> batches = new LinkedHashMap<>();
 
     protected List<BatchesInventory> batchesInventories = new LinkedList<>();
 
     protected List<Inventory> inventories = new LinkedList<>();
+
+    protected List<OutboundCommand> commands = new LinkedList<>();
 
     @Resource
     private OutboundHeaderRepository headerRepository;
@@ -56,11 +61,20 @@ public abstract class AbstractAllocator extends BusinessBase implements Allocato
     private BatchesInventoryRepository batchesInventoryRepository;
 
     @Resource
+    private OutboundConfigurationRepository configurationRepository;
+
+    @Resource
     private InventoryRepository inventoryRepository;
+
+    @Resource
+    private OutboundCommandRepository commandRepository;
+
+    @Resource
+    private ReplenishingCommandRepository replenishingCommandRepository;
 
     public AbstractAllocator(OutboundHeader header) {
         this.header = header;
-        this.remainder2Whole = this.isEnable(this.header.getWarehouse(), "ZJBZCLH");
+        this.remainder2Wholepieces = this.isEnable(this.header.getWarehouse(), "ZJBZCLH");
         this.newBatches = this.isEnable(this.header.getWarehouse(), this.packageType == PackageType.WHOLEPIECES ? "ZJWYQCXPH" : "LHWYQCXPH");
     }
 
@@ -77,26 +91,20 @@ public abstract class AbstractAllocator extends BusinessBase implements Allocato
 
     @Override
     public void initialize(OutboundDetail detail) throws Exception {
-        detail.setWholeQuantity(detail.getFactQuantity().subtract(detail.getFactRemainder()));
-        detail.setRemainderQuantity(detail.getFactRemainder());
-    }
-
-    @Override
-    public void initialize(SupplementDetail detail) throws Exception {
-        detail.setWholeQuantity(detail.getFactQuantity().subtract(detail.getFactRemainder()));
+        detail.setWholepiecesQuantity(detail.getFactQuantity().subtract(detail.getFactRemainder()));
         detail.setRemainderQuantity(detail.getFactRemainder());
 
         //零货出整件处理
-        if (detail.getWholeQuantity().compareTo(BigDecimal.ZERO) > 0) {
-            if (this.remainder2Whole && detail.getLocation() != null && detail.getLocation().getPackageType() == PackageType.REMAINDER) {
-                detail.setWholeQuantity(BigDecimal.ZERO);
+        if (detail.getWholepiecesQuantity().compareTo(BigDecimal.ZERO) > 0) {
+            if (this.remainder2Wholepieces && detail.getLocation() != null && detail.getLocation().getPackageType() == PackageType.REMAINDER) {
+                detail.setWholepiecesQuantity(BigDecimal.ZERO);
                 detail.setRemainderQuantity(detail.getFactQuantity());
             }
         }
     }
 
     @Override
-    public void getBatchesDirectly(OutboundDetail detail) throws Exception {
+    public void acquireBatchesInventory(OutboundDetail detail) throws Exception {
         if (detail.getRequest() == null) {
             this.validPeriodType = ValidPeriodType.ALL;
             this.batchesNumber = 0;
@@ -140,6 +148,23 @@ public abstract class AbstractAllocator extends BusinessBase implements Allocato
 
         this.batchesInventories = this.batchesInventoryRepository.findAll(Example.of(probe));
         //endregion
+    }
+
+    @Override
+    public void acquireBatches(boolean replenishing) throws Exception {
+        this.batches.clear();
+
+        if (this.batchesInventories.size() == 0) {
+            return;
+        }
+
+        if (this.allocationQuantity.compareTo(BigDecimal.ZERO) <= 0) {
+            return;
+        }
+
+        if (replenishing && this.packageType == PackageType.WHOLEPIECES) {
+            return;
+        }
 
         int batchesNumber = this.batchesInventories.size();
         if (batchesNumber == 0) {
@@ -156,7 +181,11 @@ public abstract class AbstractAllocator extends BusinessBase implements Allocato
                 break;
             }
 
-            firstBatchesInventory = this.packageType == PackageType.WHOLEPIECES ? first.getPalletInventory().add(first.getWholepiecesInventory()) : first.getRemainderInventory();
+            if (replenishing) {
+                firstBatchesInventory = first.getAvailableInventory();
+            } else {
+                firstBatchesInventory = this.packageType == PackageType.WHOLEPIECES ? first.getPalletInventory().add(first.getWholepiecesInventory()) : first.getRemainderInventory();
+            }
 
             if (firstBatchesInventory.compareTo(BigDecimal.ZERO) <= 0) {
                 batchesNumber = batchesNumber - 1;
@@ -174,13 +203,20 @@ public abstract class AbstractAllocator extends BusinessBase implements Allocato
                     }
 
                     outboundQuantity = this.allocationQuantity;
+
+                    if (replenishing) {
+                        this.replenish(first.getKey().getGoods(), first.getKey().getBatches(), this.allocationQuantity.subtract(first.getRemainderInventory()));
+                    }
+
                     this.allocationQuantity = BigDecimal.ZERO;
 
                     this.batches.put(first.getKey().getBatches(), outboundQuantity);
 
-                    //单批号计算时退出循环
-                    if (this.batchesNumber == 1) {
-                        break;
+                    if (!replenishing) {
+                        //单批号计算时退出循环
+                        if (this.batchesNumber == 1) {
+                            break;
+                        }
                     }
                 } else {
                     //指定批号、单批号计算时找下一批号
@@ -188,8 +224,8 @@ public abstract class AbstractAllocator extends BusinessBase implements Allocato
                         continue;
                     }
 
-                    //多批号不足时出可出零货库存
-                    outboundQuantity = firstBatchesInventory;
+                    //多批号不足时出可出库存
+                    outboundQuantity = replenishing ? first.getRemainderInventory() : firstBatchesInventory;
                     this.allocationQuantity = this.allocationQuantity.subtract(outboundQuantity);
 
                     this.batches.put(first.getKey().getBatches(), outboundQuantity);
@@ -200,44 +236,84 @@ public abstract class AbstractAllocator extends BusinessBase implements Allocato
             //region 双批号计算
             if (this.batchesNumber == 2) {
                 if (batchesNumber == 1) {
-                    outboundQuantity = this.allocationQuantity.min(firstBatchesInventory);
-                    this.allocationQuantity = this.allocationQuantity.subtract(outboundQuantity);
+                    if (replenishing) {
+                        if (firstBatchesInventory.compareTo(this.allocationQuantity) >= 0) {
+                            outboundQuantity = this.allocationQuantity;
 
-                    this.batches.put(first.getKey().getBatches(), outboundQuantity);
+                            this.replenish(first.getKey().getGoods(), first.getKey().getBatches(), this.allocationQuantity.subtract(first.getRemainderInventory()));
 
-                    break;
+                            this.allocationQuantity = BigDecimal.ZERO;
+
+                            this.batches.put(first.getKey().getBatches(), outboundQuantity);
+                        } else {
+                            this.allocationQuantity = this.allocationQuantity.subtract(first.getRemainderInventory());
+
+                            this.batches.put(first.getKey().getBatches(), first.getRemainderInventory());
+                        }
+                    } else {
+                        outboundQuantity = this.allocationQuantity.min(firstBatchesInventory);
+                        this.allocationQuantity = this.allocationQuantity.subtract(outboundQuantity);
+
+                        this.batches.put(first.getKey().getBatches(), outboundQuantity);
+
+                        break;
+                    }
                 } else {
                     for (BatchesInventory second : this.batchesInventories.subList(this.batchesInventories.indexOf(first) + 1, lastIndex)) {
                         if (this.allocationQuantity.compareTo(BigDecimal.ZERO) <= 0) {
                             break;
                         }
 
-                        secondBatchesInventory = this.packageType == PackageType.WHOLEPIECES ? second.getPalletInventory().add(second.getWholepiecesInventory()) : second.getRemainderInventory();
+                        if (replenishing) {
+                            secondBatchesInventory = second.getAvailableInventory();
+                        } else {
+                            secondBatchesInventory = this.packageType == PackageType.WHOLEPIECES ? second.getPalletInventory().add(second.getWholepiecesInventory()) : second.getRemainderInventory();
+                        }
 
                         if (firstBatchesInventory.add(secondBatchesInventory).compareTo(this.allocationQuantity) >= 0) {
                             if (firstBatchesInventory.compareTo(this.allocationQuantity) >= 0) {
                                 //该批号为当前最老批号，出库
                                 outboundQuantity = this.allocationQuantity;
+
+                                if (replenishing) {
+                                    this.replenish(first.getKey().getGoods(), first.getKey().getBatches(), this.allocationQuantity.subtract(first.getRemainderInventory()));
+                                }
+
                                 this.allocationQuantity = BigDecimal.ZERO;
 
                                 this.batches.put(first.getKey().getBatches(), outboundQuantity);
                             } else {
-                                //先出老批号
-                                outboundQuantity = this.allocationQuantity.min(firstBatchesInventory);
-                                this.allocationQuantity = this.allocationQuantity.subtract(outboundQuantity);
+                                if (replenishing) {
+                                    //先出老批号
+                                    this.batches.put(first.getKey().getBatches(), first.getRemainderInventory());
 
-                                this.batches.put(first.getKey().getBatches(), outboundQuantity);
+                                    //再出次老批号
+                                    this.batches.put(second.getKey().getBatches(), this.allocationQuantity.subtract(first.getRemainderInventory()));
 
-                                //再出次老批号
-                                outboundQuantity = this.allocationQuantity.min(secondBatchesInventory);
-                                this.allocationQuantity = this.allocationQuantity.subtract(outboundQuantity);
+                                    //次老批号补货
+                                    this.replenish(second.getKey().getGoods(), second.getKey().getBatches(), this.allocationQuantity.subtract(first.getRemainderInventory()).subtract(second.getRemainderInventory()));
 
-                                this.batches.put(second.getKey().getBatches(), outboundQuantity);
+                                    this.allocationQuantity = BigDecimal.ZERO;
+                                } else {
+                                    //先出老批号
+                                    outboundQuantity = this.allocationQuantity.min(firstBatchesInventory);
+                                    this.allocationQuantity = this.allocationQuantity.subtract(outboundQuantity);
+
+                                    this.batches.put(first.getKey().getBatches(), outboundQuantity);
+
+                                    //再出次老批号
+                                    outboundQuantity = this.allocationQuantity.min(secondBatchesInventory);
+                                    this.allocationQuantity = this.allocationQuantity.subtract(outboundQuantity);
+
+                                    this.batches.put(second.getKey().getBatches(), outboundQuantity);
+                                }
                             }
                         }
 
-                        if (this.batchesInventories.indexOf(second) == lastIndex) {
-                            break;
+                        if (!replenishing) {
+                            if (this.batchesInventories.indexOf(second) == lastIndex) {
+                                break;
+                            }
                         }
                     }
 
@@ -251,43 +327,190 @@ public abstract class AbstractAllocator extends BusinessBase implements Allocato
     }
 
     @Override
-    public void getBatchesIndirectly(OutboundDetail detail) throws Exception {
+    public void replenish(Goods goods, Batches batches, BigDecimal quantity) throws Exception {
 
     }
 
     @Override
-    public void apportionLocation() throws Exception {
+    public void acquireLocation(OutboundDetail detail) throws Exception {
+        if (this.batches.size() == 0) {
+            return;
+        }
 
+        //region 出库配置
+        List<OutboundConfiguration> configurations = this.configurationRepository.acquireConfiguration(this.header.getWarehouse(), this.header.getOwner(), this.packageType, this.header.getCategory(), this.header.getSaleType(), packageType == PackageType.WHOLEPIECES ? detail.getGoods().getPieces(detail.getWholepiecesQuantity()) : detail.getGoods().getRemainder(detail.getRemainderQuantity()));
+        if (configurations.size() == 0) {
+            throw CompositeException.getException("批号库房出库顺序未设置", this.header, this.header.getOwner());
+        }
+        //endregion
+
+        //中药根据参数重定义特殊库房出库顺序
+        if (this.header.getCategory() == BillCategory.TRADITIONAL_CHINESE_MEDICINE && this.isEnable(this.header.getWarehouse(), "ZYDJCLBHCK") && detail.getFactQuantity().compareTo(detail.getGoods().getTcmOutboundQuantity()) >= 0) {
+            int pos1 = configurations.indexOf(configurations.stream().filter(cfg -> cfg.getStoreNo().equalsIgnoreCase("LBK")).findAny().get());
+            int pos2 = configurations.indexOf(configurations.stream().filter(cfg -> cfg.getStoreNo().equalsIgnoreCase("ZYL")).findAny().get());
+            if (pos1 >= 0) {
+                configurations.get(pos1).setStoreNo("ZYL");
+            }
+            if (pos2 >= 0) {
+                configurations.get(pos2).setStoreNo("LBK");
+            }
+        }
+
+        BigDecimal batchesQuantity = BigDecimal.ZERO;
+        for (BigDecimal quantity : this.batches.values()) {
+            batchesQuantity = batchesQuantity.add(quantity);
+        }
+
+        List<Inventory> inventories;
+        for (Batches batches : this.batches.keySet()) {
+            if (this.batches.get(batches).compareTo(BigDecimal.ZERO) == 0) {
+                break;
+            }
+
+            //按批号库房出库顺序分配出库批号
+            for (OutboundConfiguration configuration : configurations) {
+                if (configuration.getStoreNo().equalsIgnoreCase("LTK")) {
+                    //立体库在途库存
+                    inventories = this.inventoryRepository.acquireTransitionalInventory(detail.getGoods(), batches);
+
+                    for (Inventory inventory : inventories) {
+                        inventory.setAvailableOutboundQuantity(inventory.getTransitionalQuantity());
+
+                        this.addInventory(inventory, this.batches.get(batches));
+
+                        if (this.batches.get(batches).compareTo(BigDecimal.ZERO) == 0) {
+                            break;
+                        }
+                    }
+                }
+
+                if (this.batches.get(batches).compareTo(BigDecimal.ZERO) == 0) {
+                    break;
+                }
+
+                inventories = this.inventoryRepository.acquireLocationInventory(detail.getGoods(), batches, detail.getInventoryState(), configuration.getStoreCategory(), configuration.getStoreNo());
+
+                if (inventories == null || inventories.size() == 0) {
+                    continue;
+                }
+
+                for (Inventory inventory : inventories) {
+                    if (inventory.getAvailableOutboundQuantity().compareTo(BigDecimal.ZERO) > 0) {
+                        if (this.packageType == PackageType.WHOLEPIECES) {
+                            if (detail.getGoods().getPieces(inventory.getAvailableOutboundQuantity()).compareTo(BigDecimal.ZERO) == 0) {
+                                continue;
+                            }
+                        }
+
+                        this.addInventory(inventory, this.batches.get(batches));
+                    }
+
+                    if (this.batches.get(batches).compareTo(BigDecimal.ZERO) == 0) {
+                        break;
+                    }
+                }
+
+                if (this.batches.get(batches).compareTo(BigDecimal.ZERO) == 0) {
+                    break;
+                }
+            }
+        }
+
+        BigDecimal locationQuantity = BigDecimal.ZERO;
+        for (Inventory inventory : this.inventories) {
+            locationQuantity = locationQuantity.add(inventory.getAvailableOutboundQuantity());
+        }
+
+        //批号库存满足，货位库存不满足报错
+        if (batchesQuantity.compareTo(BigDecimal.ZERO) > 0 && locationQuantity.compareTo(batchesQuantity) < 0) {
+            throw CompositeException.getException("货位分配失败，货位总出库数量【" + locationQuantity + "】小于批号总出库数量【" + batchesQuantity + "】", this.header, this.header.getOwner(), detail.getGoods());
+        }
     }
 
     @Override
-    public void appointLocation() throws Exception {
+    public void appointLocation(OutboundDetail detail) throws Exception {
+        Inventory inventory = this.inventoryRepository.findByWarehouseAndOwnerAndGoodsAndBatchesAndLocationAndInventoryState(this.header.getWarehouse(), this.header.getOwner(), detail.getGoods(), detail.getBatches(), detail.getLocation(), detail.getInventoryState());
 
+        if (this.packageType == PackageType.REMAINDER &&
+            detail.getGoods().getSplittingGranularity() == SplittingGranularity.MEDIUM_PACKAGE &&
+            !inventory.getLocation().getArea().getStoreNo().equalsIgnoreCase("NHK") &&
+            !inventory.getLocation().getArea().getStoreNo().equalsIgnoreCase("THK")) {
+            inventory.setAvailableOutboundQuantity(inventory.getAvailableOutboundQuantity().divide(detail.getGoods().getMediumPackageQuantity(), RoundingMode.FLOOR).multiply(detail.getGoods().getMediumPackageQuantity()));
+        }
+
+        if (inventory.getAvailableOutboundQuantity().compareTo(BigDecimal.ZERO) == 0) {
+            return;
+        }
+
+        this.addInventory(inventory, this.allocationQuantity);
     }
 
     @Override
-    public void addInventory() throws Exception {
+    public void addInventory(Inventory inventory, BigDecimal quantity) throws Exception {
+        BigDecimal outboundQuantity;
 
+        if (inventory.getAvailableOutboundQuantity().compareTo(quantity) <= 0) {
+            outboundQuantity = inventory.getAvailableOutboundQuantity();
+            quantity = quantity.subtract(inventory.getAvailableOutboundQuantity());
+        } else {
+            outboundQuantity = quantity;
+            quantity = BigDecimal.ZERO;
+        }
+
+        inventory.setAvailableOutboundQuantity(outboundQuantity);
+
+        this.inventories.add(inventory);
     }
 
     @Override
     public void setDetail(OutboundDetail detail) throws Exception {
-
     }
 
     @Override
-    public int getCommandRows(BigDecimal quantity) throws Exception {
-        return 0;
-    }
+    public OutboundCommand acquireCommand(OutboundDetail detail, Inventory inventory, BigDecimal quantity) throws Exception {
+        OutboundCommand command = this.packageType == PackageType.WHOLEPIECES ? new WholepiecesCommand() : new RemainderCommand();
 
-    @Override
-    public void setCreationQuantity(OutboundCommand command, BigDecimal quantity) throws Exception {
+        command.setWarehouse(this.header.getWarehouse());
+        command.setPackageType(this.packageType);
+        if (this.header.getCategory() == BillCategory.GIFT && this.header.getParent() == null) {
+            command.setCommandType(CommandType.GIFT_OUTBOUND);
+        } else if (this.header.getSaleType() == SaleType.PURCHASE_RETURN) {
+            command.setCommandType(CommandType.PURCHASE_RETURN);
+        } else {
+            command.setCommandType(CommandType.SALE_OUTBOUND);
+        }
+        if (command.getCommandType() == CommandType.PURCHASE_RETURN) {
+            command.setCommandCategory(CommandCategory.PURCHASE_RETURN);
+        } else if (this.header.getCategory() == BillCategory.GIFT) {
+            command.setCommandCategory(CommandCategory.GIFT_OUTBOUND);
+        } else if (this.header.getTakegoodsModeSwitch() == TakegoodsMode.GREEN_CHANNEL) {
+            command.setCommandCategory(CommandCategory.GREEN_CHANNEL);
+        } else if (this.header.getTakegoodsModeSwitch() == TakegoodsMode.SELF_SERVICE || this.header.getTakegoodsModeSwitch() == TakegoodsMode.SELF_SERVICE_STOCKUP) {
+            command.setCommandCategory(CommandCategory.SELF_SERVICE_OUTBOUND);
+        } else {
+            command.setCommandCategory(CommandCategory.NORMAL_OUTBOUND);
+        }
+        command.setHeader(this.header);
+        command.setDetail(detail);
+        command.setGoods(inventory.getGoods());
+        command.setBatches(inventory.getBatches());
+        command.setLocation(inventory.getLocation());
+        command.setInventoryState(inventory.getInventoryState());
+        command.setCreationQuantity(quantity);
+        command.setCreationPieces(inventory.getGoods().getPieces(quantity));
+        command.setCreationRemainder(inventory.getGoods().getRemainder(quantity));
+        command.setPlanQuantity(command.getCreationQuantity());
+        command.setPlanPieces(command.getCreationPieces());
+        command.setPlanRemainder(command.getCreationRemainder());
+        command.setFactQuantity(command.getCreationQuantity());
+        command.setFactPieces(command.getCreationPieces());
+        command.setFactRemainder(command.getCreationRemainder());
+        command.setPickingOrder("");
+        if (inventory.getPallet() != null) {
+            ((WholepiecesCommand) command).setPallet(inventory.getPallet());
+        }
 
-    }
-
-    @Override
-    public void setCommand(OutboundCommand command, Inventory inventory) throws Exception {
-
+        return command;
     }
 
     @Override
@@ -296,13 +519,84 @@ public abstract class AbstractAllocator extends BusinessBase implements Allocato
     }
 
     @Override
-    public void generateCommandsDirectly(List list) throws Exception {
+    public void generateCommands(boolean directly, OutboundDetail detail) throws Exception {
+        if (this.inventories.size() == 0) {
+            return;
+        }
 
-    }
+        BigDecimal directQuantity;
+        BigDecimal replenishedQuantity;
+        for (Inventory inventory : this.inventories) {
+            if (inventory.getAvailableOutboundQuantity().compareTo(inventory.getPhysicalOutboundQuantity()) <= 0) {
+                directQuantity = inventory.getAvailableOutboundQuantity();
+                replenishedQuantity = BigDecimal.ZERO;
+            } else {
+                directQuantity = inventory.getPhysicalOutboundQuantity();
+                replenishedQuantity = inventory.getAvailableOutboundQuantity().subtract(inventory.getPhysicalOutboundQuantity());
 
-    @Override
-    public void generateCommandsIndirectly(List list) throws Exception {
+                if (directly) {
+                    replenishedQuantity = BigDecimal.ZERO;
+                    inventory.setAvailableOutboundQuantity(inventory.getPhysicalOutboundQuantity());
+                }
+            }
 
+            if (directQuantity.compareTo(BigDecimal.ZERO) > 0) {
+                this.commands.add(this.acquireCommand(detail, inventory, directQuantity));
+            }
+
+            if (replenishedQuantity.compareTo(BigDecimal.ZERO) > 0) {
+                directQuantity = BigDecimal.ZERO;
+
+                List<ReplenishingCommand> replenishingCommands = this.replenishingCommandRepository.acquireReplenishedCommands(inventory.getGoods(), inventory.getBatches(), inventory.getLocation());
+                for (ReplenishingCommand replenishingCommand : replenishingCommands) {
+                    if (replenishedQuantity.compareTo(BigDecimal.ZERO) == 0) {
+                        break;
+                    }
+
+                    if (replenishingCommand.getAvailableQuantity().compareTo(replenishedQuantity) >= 0) {
+                        directQuantity = replenishedQuantity;
+                        replenishedQuantity = BigDecimal.ZERO;
+                    } else {
+                        directQuantity = replenishingCommand.getAvailableQuantity();
+                        replenishedQuantity = replenishedQuantity.subtract(directQuantity);
+                    }
+
+                    replenishingCommand.setAvailableQuantity(replenishingCommand.getAvailableQuantity().subtract(directQuantity));
+
+                    //region 同商品同批号同货位零货要累加数量
+                    Optional<OutboundCommand> optionalCommand = this.commands.stream().filter(cmd -> cmd.getGoods() == inventory.getGoods() && cmd.getBatches() == inventory.getBatches() && cmd.getLocation() == inventory.getLocation() && cmd.getPackageType() == PackageType.REMAINDER && this.packageType == PackageType.REMAINDER).findAny();
+                    OutboundCommand outboundCommand;
+                    if (optionalCommand == null) {
+                        outboundCommand = this.acquireCommand(detail, inventory, directQuantity);
+                        outboundCommand.getCommands().add(replenishingCommand);
+                        this.commands.add(outboundCommand);
+                    } else {
+                        outboundCommand = optionalCommand.get();
+                        outboundCommand.setCreationQuantity(outboundCommand.getCreationQuantity().add(directQuantity));
+                        outboundCommand.setCreationPieces(outboundCommand.getGoods().getPieces(outboundCommand.getCreationQuantity()));
+                        outboundCommand.setCreationRemainder(outboundCommand.getGoods().getRemainder(outboundCommand.getCreationQuantity()));
+                        outboundCommand.setPlanQuantity(outboundCommand.getCreationQuantity());
+                        outboundCommand.setPlanPieces(outboundCommand.getCreationPieces());
+                        outboundCommand.setPlanRemainder(outboundCommand.getCreationRemainder());
+                        outboundCommand.setFactQuantity(outboundCommand.getCreationQuantity());
+                        outboundCommand.setFactPieces(outboundCommand.getCreationPieces());
+                        outboundCommand.setFactRemainder(outboundCommand.getCreationRemainder());
+                        outboundCommand.getCommands().add(replenishingCommand);
+                    }
+                    //endregion
+                }
+
+                if (replenishedQuantity.compareTo(BigDecimal.ZERO) > 0) {
+                    throw CompositeException.getException("批号指令生成错误，没有找到可用的补货在途数量", this.header, this.header.getOwner(), detail.getGoods());
+                }
+
+                this.replenishingCommandRepository.saveAll(replenishingCommands);
+            }
+
+            this.charge(inventory);
+        }
+
+        this.commandRepository.saveAll(this.commands);
     }
 
     @Override

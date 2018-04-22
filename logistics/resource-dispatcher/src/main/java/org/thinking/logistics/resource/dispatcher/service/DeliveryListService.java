@@ -35,21 +35,7 @@ public class DeliveryListService {
         this.deliveryListRepository.saveAndFlush(JSONObject.parseObject(data, DeliveryList.class));
     }
 
-//    public List<DeliveryListEntity> getDeliveryLists(String corporationNo, String billHeaderId) {
-//        QDeliveryListEntity qDeliveryListEntity = QDeliveryListEntity.deliveryListEntity;
-//
-//        JPAQueryFactory jpaQueryFactory = new JPAQueryFactory(entityManager);
-//        List<DeliveryListEntity> deliveryListEntities = jpaQueryFactory.selectFrom(qDeliveryListEntity)
-//                .where(qDeliveryListEntity.corporationNo.eq(corporationNo)
-//                        .and(qDeliveryListEntity.billHeaderId.eq(billHeaderId)))
-//                .fetch()
-//                .stream()
-//                .collect(Collectors.toList());
-//
-//        return deliveryListEntities;
-//    }
-
-    public String getFileName(Predicate predicate) {
+    public String acquireFileName(Predicate predicate) {
         return this.findOne(predicate).getFileName();
     }
 }

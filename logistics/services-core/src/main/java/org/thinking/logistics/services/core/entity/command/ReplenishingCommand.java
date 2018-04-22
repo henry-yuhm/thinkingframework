@@ -2,6 +2,7 @@ package org.thinking.logistics.services.core.entity.command;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import org.thinking.logistics.services.core.entity.Batches;
 import org.thinking.logistics.services.core.entity.bill.ReplenishingDetail;
 import org.thinking.logistics.services.core.entity.bill.ReplenishingHeader;
 import org.thinking.logistics.services.core.entity.container.Pallet;
@@ -21,6 +22,9 @@ public class ReplenishingCommand extends TransitionCommand {
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     private ReplenishingDetail detail;//单据明细
+
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    private Batches batches;//批号
 
     @ManyToOne(fetch = FetchType.LAZY)
     private Pallet pallet;//托盘

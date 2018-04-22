@@ -39,7 +39,7 @@ public class InventoryCheckCommand extends TransitionCommand {
     private BigDecimal inventoryQuantity = BigDecimal.ZERO;//库存数量
 
     @Column(nullable = false)
-    private int inventoryPieces = 0;//库存件数
+    private BigDecimal inventoryPieces = BigDecimal.ZERO;//库存件数
 
     @Column(nullable = false, precision = 12, scale = 5)
     private BigDecimal inventoryRemainder = BigDecimal.ZERO;//库存余数
@@ -48,7 +48,7 @@ public class InventoryCheckCommand extends TransitionCommand {
     private BigDecimal factQuantity = BigDecimal.ZERO;//实际数量
 
     @Column(nullable = false)
-    private int factPieces = 0;//实际件数
+    private BigDecimal factPieces = BigDecimal.ZERO;//实际件数
 
     @Column(nullable = false, precision = 12, scale = 5)
     private BigDecimal factRemainder = BigDecimal.ZERO;//实际余数

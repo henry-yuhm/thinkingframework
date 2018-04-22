@@ -20,6 +20,9 @@ import java.util.Set;
 @EqualsAndHashCode(callSuper = true)
 public class OutboundHeader extends Header {
     @ManyToOne(fetch = FetchType.LAZY)
+    private OutboundHeader parent;//父抬头
+
+    @ManyToOne(fetch = FetchType.LAZY)
     private Customer customer;//客户
 
     @Column(nullable = false)

@@ -37,7 +37,7 @@ public class Inventory {
     private BigDecimal quantity = BigDecimal.ZERO;//数量
 
     @Column(nullable = false)
-    private int pieces = 0;//件数
+    private BigDecimal pieces = BigDecimal.ZERO;//件数
 
     @Column(nullable = false, precision = 12, scale = 5)
     private BigDecimal remainder = BigDecimal.ZERO;//余数
@@ -55,7 +55,7 @@ public class Inventory {
     private BigDecimal minusQuantity = BigDecimal.ZERO;//补货预扣数量
 
     @Column(nullable = false, precision = 12, scale = 5)
-    private BigDecimal transitionQuantity = BigDecimal.ZERO;//在途数量
+    private BigDecimal transitionalQuantity = BigDecimal.ZERO;//在途数量
 
     @Column(nullable = false)
     private boolean locking = false;//锁定

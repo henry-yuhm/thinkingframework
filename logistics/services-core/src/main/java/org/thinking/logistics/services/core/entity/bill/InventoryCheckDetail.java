@@ -30,7 +30,7 @@ public class InventoryCheckDetail extends Detail {
     private BigDecimal quantity = BigDecimal.ZERO;//数量
 
     @Column(nullable = false)
-    private int pieces = 0;//件数
+    private BigDecimal pieces = BigDecimal.ZERO;//件数
 
     @Column(nullable = false, precision = 12, scale = 5)
     private BigDecimal remainder = BigDecimal.ZERO;//余数

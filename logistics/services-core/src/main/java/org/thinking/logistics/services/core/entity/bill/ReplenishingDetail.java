@@ -27,13 +27,13 @@ public class ReplenishingDetail extends Detail {
     private BigDecimal planQuantity = BigDecimal.ZERO;//计划数量
 
     @Column(nullable = false)
-    private int planPieces = 0;//计划件数
+    private BigDecimal planPieces = BigDecimal.ZERO;//计划件数
 
     @Column(nullable = false, precision = 12, scale = 5)
     private BigDecimal factQuantity = BigDecimal.ZERO;//实际数量
 
     @Column(nullable = false)
-    private int factPieces = 0;//实际件数
+    private BigDecimal factPieces = BigDecimal.ZERO;//实际件数
 
     @ManyToOne(fetch = FetchType.LAZY)
     private Pallet pallet;//托盘

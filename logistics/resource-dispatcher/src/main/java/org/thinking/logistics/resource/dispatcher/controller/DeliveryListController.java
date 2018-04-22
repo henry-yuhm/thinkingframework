@@ -37,8 +37,8 @@ public class DeliveryListController {
         this.service.save(data);
     }
 
-    @GetMapping("/getFileName")
-    public String getFileName(@QuerydslPredicate(root = DeliveryList.class) Predicate predicate) {
-        return this.service.getFileName(predicate);
+    @GetMapping("/acquireFileName")
+    public String acquireFileName(@QuerydslPredicate(root = DeliveryList.class) Predicate predicate) {
+        return this.service.acquireFileName(predicate);
     }
 }

@@ -13,8 +13,8 @@ public class SpecialOrderAllocator extends AbstractAllocator {
     }
 
     @Override
-    public void appointLocation() throws Exception {
-        super.appointLocation();
+    public void acquireLocation(OutboundDetail detail) throws Exception {
+        super.acquireLocation(detail);
     }
 
     @Override

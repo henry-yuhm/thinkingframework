@@ -1,14 +1,6 @@
 package org.thinking.logistics.services.core.domain;
 
 public class CompositeException {
-//    public static String getNullDetailMessage() {
-//        return "单据明细不存在";
-//    }
-//
-//    public static String getNullGoodsMessage() {
-//        return "商品资料不存在";
-//    }
-
     public static Exception getException(String message, Object... objects) {
         StringBuilder translatedMessage = new StringBuilder();
 

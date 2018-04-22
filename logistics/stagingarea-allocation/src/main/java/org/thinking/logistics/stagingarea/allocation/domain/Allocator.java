@@ -5,15 +5,15 @@ import org.thinking.logistics.services.core.entity.Direction;
 public interface Allocator {
     void verify() throws Exception;
 
-    void getPhysicalConfiguration() throws Exception;
+    void acquirePhysicalConfiguration() throws Exception;
 
-    void getVirtualConfiguration() throws Exception;
+    void acquireVirtualConfiguration() throws Exception;
 
-    void getVirtualConfiguration(Direction direction) throws Exception;
+    void acquireVirtualConfiguration(Direction direction) throws Exception;
 
-    void getCategory() throws Exception;
+    void acquireCategory() throws Exception;
 
-    void getAvailableArea() throws Exception;
+    void acquireAvailableArea() throws Exception;
 
     void save();
 

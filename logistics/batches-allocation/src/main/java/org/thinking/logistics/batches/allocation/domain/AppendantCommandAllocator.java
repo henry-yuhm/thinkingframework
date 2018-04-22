@@ -7,6 +7,8 @@ import org.thinking.logistics.services.core.entity.bill.OutboundHeader;
 import org.thinking.logistics.services.core.entity.command.OutboundCommand;
 import org.thinking.logistics.services.core.entity.inventory.Inventory;
 
+import java.math.BigDecimal;
+
 @Data
 @EqualsAndHashCode(callSuper = true)
 public class AppendantCommandAllocator extends AbstractAllocator {
@@ -28,8 +30,8 @@ public class AppendantCommandAllocator extends AbstractAllocator {
     }
 
     @Override
-    public void setCommand(OutboundCommand command, Inventory inventory) throws Exception {
-        super.setCommand(command, inventory);
+    public OutboundCommand acquireCommand(OutboundDetail detail, Inventory inventory, BigDecimal quantity) throws Exception {
+        return super.acquireCommand(detail, inventory, quantity);
     }
 
     @Override

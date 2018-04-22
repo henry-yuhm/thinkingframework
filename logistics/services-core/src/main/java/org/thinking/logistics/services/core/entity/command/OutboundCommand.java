@@ -41,7 +41,7 @@ public abstract class OutboundCommand extends Command {
     private BigDecimal creationQuantity = BigDecimal.ZERO;//创建数量
 
     @Column(nullable = false)
-    private int creationPieces = 0;//创建件数
+    private BigDecimal creationPieces = BigDecimal.ZERO;//创建件数
 
     @Column(nullable = false, precision = 12, scale = 5)
     private BigDecimal creationRemainder = BigDecimal.ZERO;//创建余数
@@ -50,7 +50,7 @@ public abstract class OutboundCommand extends Command {
     private BigDecimal planQuantity = BigDecimal.ZERO;//计划数量
 
     @Column(nullable = false)
-    private int planPieces = 0;//计划件数
+    private BigDecimal planPieces = BigDecimal.ZERO;//计划件数
 
     @Column(nullable = false, precision = 12, scale = 5)
     private BigDecimal planRemainder = BigDecimal.ZERO;//计划余数
@@ -59,7 +59,7 @@ public abstract class OutboundCommand extends Command {
     private BigDecimal factQuantity = BigDecimal.ZERO;//实际数量
 
     @Column(nullable = false)
-    private int factPieces = 0;//实际件数
+    private BigDecimal factPieces = BigDecimal.ZERO;//实际件数
 
     @Column(nullable = false, precision = 12, scale = 5)
     private BigDecimal factRemainder = BigDecimal.ZERO;//实际余数
