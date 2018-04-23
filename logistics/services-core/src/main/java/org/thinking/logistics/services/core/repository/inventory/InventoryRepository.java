@@ -1,18 +1,22 @@
 package org.thinking.logistics.services.core.repository.inventory;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Lock;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 import org.thinking.logistics.services.core.domain.support.InventoryState;
 import org.thinking.logistics.services.core.entity.*;
 import org.thinking.logistics.services.core.entity.inventory.Inventory;
 
+import javax.persistence.LockModeType;
 import java.util.LinkedList;
 
 @Repository
 public interface InventoryRepository extends JpaRepository<Inventory, Long> {
+    @Lock(LockModeType.PESSIMISTIC_WRITE)
     Inventory findByWarehouseAndOwnerAndGoodsAndBatchesAndLocationAndInventoryState(Warehouse warehouse, Owner owner, Goods goods, Batches batches, Location location, InventoryState inventoryState);
 
+    @Lock(LockModeType.PESSIMISTIC_WRITE)
     @Query(value = "select i from Inventory i " +
         "where i.goods = :goods " +
         "and i.batches = :batches " +
@@ -20,6 +24,7 @@ public interface InventoryRepository extends JpaRepository<Inventory, Long> {
         "order by i.transitionalQuantity")
     LinkedList<Inventory> acquireTransitionalInventory(Goods goods, Batches batches);
 
+    @Lock(LockModeType.PESSIMISTIC_WRITE)
     @Query(value = "select i from Inventory i " +
         "where i.goods = :goods " +
         "and i.batches = :batches " +

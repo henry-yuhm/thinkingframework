@@ -1,6 +1,7 @@
 package org.thinking.logistics.services.core.repository.command;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Lock;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 import org.thinking.logistics.services.core.entity.Batches;
@@ -8,10 +9,12 @@ import org.thinking.logistics.services.core.entity.Goods;
 import org.thinking.logistics.services.core.entity.Location;
 import org.thinking.logistics.services.core.entity.command.ReplenishingCommand;
 
+import javax.persistence.LockModeType;
 import java.util.List;
 
 @Repository
 public interface ReplenishingCommandRepository extends JpaRepository<ReplenishingCommand, Long> {
+    @Lock(LockModeType.PESSIMISTIC_WRITE)
     @Query(value = "select cmd from ReplenishingCommand cmd " +
         "where cmd.goods = :goods " +
         "and cmd.batches = :batches " +
