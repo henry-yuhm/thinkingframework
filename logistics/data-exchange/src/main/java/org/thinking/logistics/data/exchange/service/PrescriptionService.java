@@ -50,12 +50,12 @@ public class PrescriptionService {
         request.setBusinessType("YY110");
         request.setIp(InetAddress.getLocalHost().getHostAddress());
         request.setHostName(InetAddress.getLocalHost().getHostName());
-        criteria.setDownloadState(DownloadState.未下载);
+        criteria.setDownloadState(DownloadState.UNDOWNLOADED);
         criteria.setPage(10);
         request.setCriteria(criteria);
 
         int features = SerializerFeature.config(JSON.DEFAULT_GENERATE_FEATURE, SerializerFeature.WriteEnumUsingName, false);
-        String body = JSONObject.toJSONString(request, features, SerializerFeature.EMPTY);
+        String body = JSONObject.toJSONString(request, features, SerializerFeature.WriteEnumUsingToString);
         HttpHeaders httpHeaders = new HttpHeaders();
         httpHeaders.add("Content-Type", "application/json");
         httpHeaders.add("Code", "B028");
@@ -89,5 +89,12 @@ public class PrescriptionService {
                 throw CompositeException.getException("单据【" + result.getOrderNo() + "】更新下载状态出错，错误信息为【" + result.getMessage() + "】");
             }
         }
+    }
+
+    public void test(String body) {
+        int features = SerializerFeature.config(JSON.DEFAULT_GENERATE_FEATURE, SerializerFeature.WriteEnumUsingName, false);
+//        features=SerializerFeature.config(features, SerializerFeature.WriteEnumUsingToString, true);
+        Request.Criteria criteria = JSONObject.parseObject(body, Request.Criteria.class);
+        body = JSONObject.toJSONString(criteria, features);
     }
 }

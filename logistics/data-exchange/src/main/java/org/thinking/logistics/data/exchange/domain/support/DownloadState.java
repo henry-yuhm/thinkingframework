@@ -1,10 +1,22 @@
 package org.thinking.logistics.data.exchange.domain.support;
 
 public enum DownloadState {
-    未下载("0", 0),
-    已下载("1", 1),
-    全部("2", 2);
-
-    DownloadState(String name, int ordinal) {
-    }
+    UNDOWNLOADED {
+        @Override
+        public String toString() {
+            return "未下载";
+        }
+    },
+    DOWNLOADED {
+        @Override
+        public String toString() {
+            return "已下载";
+        }
+    },
+    ALL {
+        @Override
+        public String toString() {
+            return "全部";
+        }
+    };
 }
