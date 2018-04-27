@@ -1,6 +1,7 @@
 package org.thinking.logistics.services.core.entity.stagingarea;
 
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.thinking.logistics.services.core.domain.support.BillType;
 import org.thinking.logistics.services.core.domain.support.StagingareaCategory;
 import org.thinking.logistics.services.core.domain.support.StagingareaType;
@@ -15,6 +16,7 @@ import java.util.Set;
 
 @Entity
 @Data
+@NoArgsConstructor
 public class Stagingarea {
     @Id
     @GeneratedValue
@@ -24,7 +26,7 @@ public class Stagingarea {
     private Warehouse warehouse;//仓库
 
     @Column(nullable = false)
-    private String number;//编号
+    private String no;//编号
 
     private String name;//名称
 

@@ -1,21 +1,19 @@
 package org.thinking.logistics.services.core.entity;
 
 import lombok.Data;
-import org.thinking.logistics.services.core.domain.CompositeException;
 
 import javax.persistence.*;
-import java.util.Optional;
 
 @Entity
-@Table(schema = "wms")
+@Table(schema = "lmis")
 @Data
-public class Owner extends EntityBase<Owner, Long> {
+public class Owner {
     @Id
     @GeneratedValue
     private long id;
 
     @Column(unique = true, nullable = false, length = 50)
-    private String number;//编号
+    private String no;//编号
 
     @Column(unique = true, nullable = false, length = 100)
     private String name;//名称
@@ -30,10 +28,10 @@ public class Owner extends EntityBase<Owner, Long> {
     @Column(nullable = false)
     private boolean thirdpart;//第三方
 
-    @Override
-    public void verify(Owner probe) throws Exception {
-        if (Optional.ofNullable(probe.getNumber()).get().isEmpty()) {
-            throw CompositeException.getException("业主编号不能为空");
-        }
-    }
+//    @Override
+//    public void verify(Owner probe) throws Exception {
+//        if (Optional.ofNullable(probe.getNo()).get().isEmpty()) {
+//            throw CompositeException.getException("业主编号不能为空");
+//        }
+//    }
 }

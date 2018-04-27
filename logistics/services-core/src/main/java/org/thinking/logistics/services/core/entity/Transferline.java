@@ -15,7 +15,7 @@ public class Transferline {
     private long id;
 
     @Column(nullable = false)
-    private String number;//编号
+    private String no;//编号
 
     @Column(nullable = false)
     private String name;//名称

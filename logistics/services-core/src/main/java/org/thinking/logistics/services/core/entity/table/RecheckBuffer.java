@@ -17,7 +17,7 @@ public class RecheckBuffer {
     private Warehouse warehouse;//仓库
 
     @Column(nullable = false)
-    private String number;//编号
+    private String no;//编号
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     private RecheckTable table;//复核台

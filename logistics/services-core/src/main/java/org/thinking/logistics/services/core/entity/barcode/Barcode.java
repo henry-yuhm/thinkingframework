@@ -15,7 +15,7 @@ public abstract class Barcode {
     private long id;
 
     @Column(nullable = false, length = 20)
-    private String number;//编号
+    private String no;//编号
 
     @Column(nullable = false)
     private Date creationTime = Date.valueOf(LocalDate.now());//创建时间

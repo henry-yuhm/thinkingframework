@@ -6,17 +6,27 @@ import org.thinking.logistics.services.core.entity.Batches;
 import org.thinking.logistics.services.core.entity.Goods;
 
 import javax.persistence.*;
-import java.io.Serializable;
 import java.math.BigDecimal;
 
 @Entity
+@Table(schema = "lmis", uniqueConstraints = @UniqueConstraint(name = "uk_batches_inventory", columnNames = {"goods_id", "batches_id", "type"}))
 @Data
 public class BatchesInventory {
-    @EmbeddedId
-    private PrimaryKey key;
+    @Id
+    @GeneratedValue
+    private long id;
+
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    private Goods goods;//商品
+
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    private Batches batches;//批号
 
     @Column(nullable = false)
     private ValidPeriodType type;//效期类型
+
+    @Column(nullable = false)
+    private ValidPeriodType mixedType;//效期类型
 
     @Column(nullable = false, precision = 12, scale = 5)
     private BigDecimal availableInventory = BigDecimal.ZERO;//可用库存
@@ -32,17 +42,4 @@ public class BatchesInventory {
 
     @Column(nullable = false, precision = 12, scale = 5)
     private BigDecimal intransitInventory = BigDecimal.ZERO;//在途库存
-
-    @Embeddable
-    @Data
-    public static class PrimaryKey implements Serializable {
-        @ManyToOne(fetch = FetchType.LAZY, optional = false)
-        private Goods goods;//商品
-
-        @ManyToOne(fetch = FetchType.LAZY, optional = false)
-        private Batches batches;//批号
-
-        @Column(nullable = false)
-        private ValidPeriodType type;//效期类型
-    }
 }

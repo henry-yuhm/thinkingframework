@@ -134,17 +134,14 @@ public abstract class AbstractAllocator extends BusinessBase implements Allocato
         }
 
         //region 批号库存
-        BatchesInventory.PrimaryKey key = new BatchesInventory.PrimaryKey();
-        key.setGoods(detail.getGoods());
+        BatchesInventory probe = new BatchesInventory();
+        probe.setGoods(detail.getGoods());
         if (this.batchesNumber == 0) {
-            key.setBatches(detail.getBatches());
+            probe.setBatches(detail.getBatches());
         }
         if (this.validPeriodType.compareTo(ValidPeriodType.ALL) == 0) {
-            key.setType(this.validPeriodType);
+            probe.setType(this.validPeriodType);
         }
-
-        BatchesInventory probe = new BatchesInventory();
-        probe.setKey(key);
 
         this.batchesInventories = this.batchesInventoryRepository.findAll(Example.of(probe));
         //endregion
@@ -195,7 +192,7 @@ public abstract class AbstractAllocator extends BusinessBase implements Allocato
             //region 指定批号计算、单批号计算、多批号计算
             if (this.batchesNumber == 0 || this.batchesNumber == 1 || this.batchesNumber == 3) {
                 if (firstBatchesInventory.compareTo(this.allocationQuantity) >= 0) {
-                    if (this.batchesNumber == 1 && !(this.validPeriodType.compareTo(ValidPeriodType.ALL) == 0) && first.getKey().getType().compareTo(ValidPeriodType.NEW) == 0 && first.getType().compareTo(ValidPeriodType.OLD) == 0) {
+                    if (this.batchesNumber == 1 && !(this.validPeriodType.compareTo(ValidPeriodType.ALL) == 0) && first.getType().compareTo(ValidPeriodType.NEW) == 0 && first.getMixedType().compareTo(ValidPeriodType.OLD) == 0) {
                         //单一批号系统按参数确定是否出单一新批号
                         if (!this.newBatches) {
                             continue;
@@ -205,12 +202,12 @@ public abstract class AbstractAllocator extends BusinessBase implements Allocato
                     outboundQuantity = this.allocationQuantity;
 
                     if (replenishing) {
-                        this.replenish(first.getKey().getGoods(), first.getKey().getBatches(), this.allocationQuantity.subtract(first.getRemainderInventory()));
+                        this.replenish(first.getGoods(), first.getBatches(), this.allocationQuantity.subtract(first.getRemainderInventory()));
                     }
 
                     this.allocationQuantity = BigDecimal.ZERO;
 
-                    this.batches.put(first.getKey().getBatches(), outboundQuantity);
+                    this.batches.put(first.getBatches(), outboundQuantity);
 
                     if (!replenishing) {
                         //单批号计算时退出循环
@@ -228,7 +225,7 @@ public abstract class AbstractAllocator extends BusinessBase implements Allocato
                     outboundQuantity = replenishing ? first.getRemainderInventory() : firstBatchesInventory;
                     this.allocationQuantity = this.allocationQuantity.subtract(outboundQuantity);
 
-                    this.batches.put(first.getKey().getBatches(), outboundQuantity);
+                    this.batches.put(first.getBatches(), outboundQuantity);
                 }
             }
             //endregion
@@ -240,21 +237,21 @@ public abstract class AbstractAllocator extends BusinessBase implements Allocato
                         if (firstBatchesInventory.compareTo(this.allocationQuantity) >= 0) {
                             outboundQuantity = this.allocationQuantity;
 
-                            this.replenish(first.getKey().getGoods(), first.getKey().getBatches(), this.allocationQuantity.subtract(first.getRemainderInventory()));
+                            this.replenish(first.getGoods(), first.getBatches(), this.allocationQuantity.subtract(first.getRemainderInventory()));
 
                             this.allocationQuantity = BigDecimal.ZERO;
 
-                            this.batches.put(first.getKey().getBatches(), outboundQuantity);
+                            this.batches.put(first.getBatches(), outboundQuantity);
                         } else {
                             this.allocationQuantity = this.allocationQuantity.subtract(first.getRemainderInventory());
 
-                            this.batches.put(first.getKey().getBatches(), first.getRemainderInventory());
+                            this.batches.put(first.getBatches(), first.getRemainderInventory());
                         }
                     } else {
                         outboundQuantity = this.allocationQuantity.min(firstBatchesInventory);
                         this.allocationQuantity = this.allocationQuantity.subtract(outboundQuantity);
 
-                        this.batches.put(first.getKey().getBatches(), outboundQuantity);
+                        this.batches.put(first.getBatches(), outboundQuantity);
 
                         break;
                     }
@@ -276,22 +273,22 @@ public abstract class AbstractAllocator extends BusinessBase implements Allocato
                                 outboundQuantity = this.allocationQuantity;
 
                                 if (replenishing) {
-                                    this.replenish(first.getKey().getGoods(), first.getKey().getBatches(), this.allocationQuantity.subtract(first.getRemainderInventory()));
+                                    this.replenish(first.getGoods(), first.getBatches(), this.allocationQuantity.subtract(first.getRemainderInventory()));
                                 }
 
                                 this.allocationQuantity = BigDecimal.ZERO;
 
-                                this.batches.put(first.getKey().getBatches(), outboundQuantity);
+                                this.batches.put(first.getBatches(), outboundQuantity);
                             } else {
                                 if (replenishing) {
                                     //先出老批号
-                                    this.batches.put(first.getKey().getBatches(), first.getRemainderInventory());
+                                    this.batches.put(first.getBatches(), first.getRemainderInventory());
 
                                     //再出次老批号
-                                    this.batches.put(second.getKey().getBatches(), this.allocationQuantity.subtract(first.getRemainderInventory()));
+                                    this.batches.put(second.getBatches(), this.allocationQuantity.subtract(first.getRemainderInventory()));
 
                                     //次老批号补货
-                                    this.replenish(second.getKey().getGoods(), second.getKey().getBatches(), this.allocationQuantity.subtract(first.getRemainderInventory()).subtract(second.getRemainderInventory()));
+                                    this.replenish(second.getGoods(), second.getBatches(), this.allocationQuantity.subtract(first.getRemainderInventory()).subtract(second.getRemainderInventory()));
 
                                     this.allocationQuantity = BigDecimal.ZERO;
                                 } else {
@@ -299,13 +296,13 @@ public abstract class AbstractAllocator extends BusinessBase implements Allocato
                                     outboundQuantity = this.allocationQuantity.min(firstBatchesInventory);
                                     this.allocationQuantity = this.allocationQuantity.subtract(outboundQuantity);
 
-                                    this.batches.put(first.getKey().getBatches(), outboundQuantity);
+                                    this.batches.put(first.getBatches(), outboundQuantity);
 
                                     //再出次老批号
                                     outboundQuantity = this.allocationQuantity.min(secondBatchesInventory);
                                     this.allocationQuantity = this.allocationQuantity.subtract(outboundQuantity);
 
-                                    this.batches.put(second.getKey().getBatches(), outboundQuantity);
+                                    this.batches.put(second.getBatches(), outboundQuantity);
                                 }
                             }
                         }

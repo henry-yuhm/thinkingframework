@@ -5,5 +5,5 @@ import org.springframework.stereotype.Repository;
 import org.thinking.logistics.services.core.entity.inventory.BatchesInventory;
 
 @Repository
-public interface BatchesInventoryRepository extends JpaRepository<BatchesInventory, BatchesInventory.PrimaryKey> {
+public interface BatchesInventoryRepository extends JpaRepository<BatchesInventory, Long> {
 }

@@ -19,7 +19,7 @@ public class Area {
     private Warehouse warehouse;//仓库
 
     @Column(nullable = false)
-    private String number;//编号
+    private String no;//编号
 
     @Column(nullable = false)
     private String name;//名称
@@ -54,6 +54,6 @@ public class Area {
 
     @Override
     public String toString() {
-        return "作业区域【" + this.number + "】";
+        return "作业区域【" + this.no + "】";
     }
 }

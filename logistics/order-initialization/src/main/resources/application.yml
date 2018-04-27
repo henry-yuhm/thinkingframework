@@ -12,12 +12,12 @@ spring:
   datasource:
     # JDBC 配置
     type: com.alibaba.druid.pool.DruidDataSource
-#    url: jdbc:oracle:thin:@10.3.87.21:1521:LMIS
-#    username: exwms
-#    password: exwms
-    url: jdbc:mysql://10.3.87.202:3306/ua
-    username: ua
-    password: ua
+    url: jdbc:oracle:thin:@10.211.55.3:1521:WMS
+    username: exwms
+    password: exwms
+#    url: jdbc:mysql://10.3.87.202:3306/ua
+#    username: ua
+#    password: ua
     druid:
       # 连接池配置
       name: druidPool
@@ -39,36 +39,29 @@ spring:
       min-evictable-idle-time-millis: 1800000
       max-evictable-idle-time-millis: 7200000
       remove-abandoned-timeout: 1800
-      filters: stat,log4j,wall
       # 监控配置
       web-stat-filter:
         exclusions: /public/*,*.js,*.css,/druid*,*.jsp,*.swf
       stat-view-servlet:
         login-username: druid
         login-password: druid
-      aop-patterns: org.thinking.logistics.init.*
+      aop-patterns: org.thinking.logistics.order.initialization.*
 #      use-oracle-implicit-cache: true
       access-to-underlying-connection-allowed: true
       connection-properties: druid.stat.mergeSql=true;druid.stat.slowSqlMillis=5000
   jpa:
-#    database: oracle
-    database: mysql
+    database: oracle
+#    database: mysql
 #    show-sql: true
     properties:
       hibernate:
-#        dialect: org.hibernate.dialect.Oracle12cDialect
-        dialect: org.hibernate.dialect.MySQL5Dialect
+        dialect: org.hibernate.dialect.Oracle12cDialect
+#        dialect: org.hibernate.dialect.MySQL5Dialect
     hibernate:
       ddl-auto: update
       naming:
         implicit-strategy: org.springframework.boot.orm.jpa.hibernate.SpringImplicitNamingStrategy
         physical-strategy: org.springframework.boot.orm.jpa.hibernate.SpringPhysicalNamingStrategy
-security:
-  basic:
-    enabled: false
-  user:
-    name: henry
-    password: ocp9i_Explorer
 server:
   port: 8871
 eureka:
@@ -86,7 +79,7 @@ ribbon:
     enabled: true
 #logging:
 #  level:
-#    org.thinking.logistics.init.*: DEBUG
+#    org.thinking.logistics.order.initialization.*: DEBUG
 ---
 spring:
   profiles: dev

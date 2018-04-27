@@ -5,5 +5,5 @@ import org.springframework.stereotype.Repository;
 import org.thinking.logistics.services.core.entity.stagingarea.VirtualStagingareaConfiguration;
 
 @Repository
-public interface VirtualStagingareaConfigurationRepository extends JpaRepository<VirtualStagingareaConfiguration, VirtualStagingareaConfiguration.PrimaryKey> {
+public interface VirtualStagingareaConfigurationRepository extends JpaRepository<VirtualStagingareaConfiguration, Long> {
 }

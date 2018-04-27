@@ -22,9 +22,9 @@ public class RemainderTask extends Task {
     @ManyToOne(fetch = FetchType.LAZY)
     private RecheckBuffer buffer;//复核暂存位
 
-    private int batchNumber;//任务批次号
+    private int batchNo;//任务批次号
 
-    private String bufferNumber;//暂存位编号
+    private String bufferNo;//暂存位编号
 
     private String rechecker;//复核员
 

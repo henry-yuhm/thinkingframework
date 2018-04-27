@@ -1,20 +1,17 @@
 package org.thinking.logistics.services.core.entity;
 
 import lombok.Data;
-import lombok.EqualsAndHashCode;
-import org.thinking.logistics.services.core.domain.CompositeException;
 import org.thinking.logistics.services.core.domain.support.BatchesRequest;
 import org.thinking.logistics.services.core.domain.support.CustomerClassification;
 import org.thinking.logistics.services.core.domain.support.CustomerType;
 
 import javax.persistence.*;
-import java.util.Optional;
 
 @Entity
-@Table(schema = "wms")
+@Table(schema = "lmis")
 @Data
-@EqualsAndHashCode(callSuper = true)
-public class Customer extends EntityBase<Customer, Long> {
+//@EqualsAndHashCode(callSuper = true)
+public class Customer {
     @Id
     @GeneratedValue
     private long id;
@@ -23,7 +20,7 @@ public class Customer extends EntityBase<Customer, Long> {
     private Owner owner;//业主
 
     @Column(nullable = false, length = 50)
-    private String number;//编号
+    private String no;//编号
 
     @Column(nullable = false)
     private String sourceCode;//源编码
@@ -61,14 +58,14 @@ public class Customer extends EntityBase<Customer, Long> {
 
     private String businessman;//业务员
 
-    @Override
-    public void verify(Customer probe) throws Exception {
-        if (!Optional.ofNullable(probe.getOwner()).isPresent()) {
-            throw CompositeException.getException("客户业主不能为空");
-        }
-
-        if (Optional.ofNullable(probe.getNumber()).get().isEmpty()) {
-            throw CompositeException.getException("客户编号不能为空");
-        }
-    }
+//    @Override
+//    public void verify(Customer probe) throws Exception {
+//        if (!Optional.ofNullable(probe.getOwner()).isPresent()) {
+//            throw CompositeException.getException("客户业主不能为空");
+//        }
+//
+//        if (Optional.ofNullable(probe.getNo()).get().isEmpty()) {
+//            throw CompositeException.getException("客户编号不能为空");
+//        }
+//    }
 }

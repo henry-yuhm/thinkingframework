@@ -1,8 +1,7 @@
-package org.thinking.logistics.services.core.entity;
+package org.thinking.logistics.services.core.entity.employee;
 
 import lombok.Data;
-import org.thinking.logistics.services.core.domain.support.DeviceAuthority;
-import org.thinking.logistics.services.core.domain.support.OperationDevice;
+import org.thinking.logistics.services.core.entity.Owner;
 import org.thinking.logistics.services.core.entity.dictionary.EmployeePost;
 import org.thinking.logistics.services.core.entity.dictionary.EmployeeRole;
 
@@ -11,7 +10,7 @@ import java.util.LinkedHashSet;
 import java.util.Set;
 
 @Entity
-@Table(schema = "wms", uniqueConstraints = @UniqueConstraint(name = "uk_employee", columnNames = {"owner_id", "number"}))
+@Table(schema = "lmis", uniqueConstraints = @UniqueConstraint(name = "uk_employee", columnNames = {"owner_id", "no"}))
 @Data
 public class Employee {
     @Id
@@ -22,7 +21,7 @@ public class Employee {
     private Owner owner;//业主
 
     @Column(nullable = false, length = 50)
-    private String number;//编号
+    private String no;//编号
 
     @Column(nullable = false)
     private String name;//名称
@@ -34,31 +33,20 @@ public class Employee {
 
     @ManyToMany
     @JoinTable(joinColumns = @JoinColumn(name = "employee_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
-    private Set<EmployeeRole> roles;//角色
+    private Set<EmployeeRole> roles = new LinkedHashSet<>();//角色
 
     @ManyToMany
     @JoinTable(joinColumns = @JoinColumn(name = "employee_id"), inverseJoinColumns = @JoinColumn(name = "post_id"))
-    private Set<EmployeePost> posts;//岗位
+    private Set<EmployeePost> posts = new LinkedHashSet<>();//岗位
 
-    @Embedded
-    private Set<Authentication> authentications;//认证
+    @OneToOne(fetch = FetchType.LAZY)
+    private DeviceAuthority authority;//设备权限
 
-    private Set<DeviceAuthority> authorities;//设备权限
+    @OneToMany
+    @JoinTable(joinColumns = @JoinColumn(name = "employee_id"), inverseJoinColumns = @JoinColumn(name = "authentication_id"))
+    private Set<DeviceAuthentication> authentications = new LinkedHashSet<>();//设备认证
 
     @OneToMany
     @JoinTable(joinColumns = @JoinColumn(name = "employee_id"), inverseJoinColumns = @JoinColumn(name = "owner_id"))
     private Set<Owner> owners = new LinkedHashSet<>();//业主
-
-    @Embeddable
-    @Data
-    public static class Authentication {
-        @Column(nullable = false)
-        private OperationDevice device;//操作设备
-
-        @Column(nullable = false)
-        private String jobNumber;//工号
-
-        @Column(nullable = false)
-        private String password;//密码
-    }
 }

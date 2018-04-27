@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.thinking.logistics.resource.dispatcher.entity.DeliveryList;
-import org.thinking.logistics.resource.dispatcher.entity.QDeliveryList;
+import org.thinking.logistics.resource.dispatcher.entity.dsl.QDeliveryList;
 import org.thinking.logistics.resource.dispatcher.repository.DeliveryListRepository;
 
 import java.util.List;

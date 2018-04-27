@@ -5,8 +5,8 @@ import lombok.EqualsAndHashCode;
 import org.thinking.logistics.services.core.domain.BusinessBase;
 import org.thinking.logistics.services.core.domain.CompositeException;
 import org.thinking.logistics.services.core.domain.support.OutboundStage;
-import org.thinking.logistics.services.core.entity.Employee;
 import org.thinking.logistics.services.core.entity.bill.OutboundHeader;
+import org.thinking.logistics.services.core.entity.employee.Employee;
 import org.thinking.logistics.services.core.repository.bill.OutboundHeaderRepository;
 
 import javax.annotation.Resource;

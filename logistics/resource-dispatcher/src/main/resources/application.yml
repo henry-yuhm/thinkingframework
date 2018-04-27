@@ -46,6 +46,9 @@ spring:
       use-oracle-implicit-cache: true
       access-to-underlying-connection-allowed: true
       connection-properties: druid.stat.mergeSql=true;druid.stat.slowSqlMillis=5000
+      filter:
+        log4j:
+          enabled: true
   jpa:
     database: oracle
     show-sql: true

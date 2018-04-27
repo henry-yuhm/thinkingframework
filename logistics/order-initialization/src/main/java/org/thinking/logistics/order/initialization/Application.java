@@ -1,5 +1,6 @@
 package org.thinking.logistics.order.initialization;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
@@ -15,6 +16,7 @@ import org.thinkingframework.boot.web.mvc.AppWebMvcConfigurer;
 @EnableHystrix
 @EntityScan(basePackages = "org.thinking.logistics.services.core.entity")
 @EnableJpaRepositories(basePackages = "org.thinking.logistics.services.core.repository")
+@Slf4j
 public class Application extends AppWebMvcConfigurer {
     public static void main(String[] args) {
         SpringApplication.run(Application.class, args);

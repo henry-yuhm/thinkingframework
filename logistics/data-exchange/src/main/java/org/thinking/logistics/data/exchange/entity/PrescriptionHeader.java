@@ -33,11 +33,11 @@ public class PrescriptionHeader implements EntityBase {
 
     @Column(nullable = false, length = 40)
     @JSONField(name = "RecipeNO")
-    private String prescriptionNumber;//处方号
+    private String prescriptionNo;//处方号
 
     @Column(nullable = false, length = 20)
     @JSONField(name = "InvoiceNO")
-    private String invoiceNumber;//发票号
+    private String invoiceNo;//发票号
 
     @Column(nullable = false, length = 20)
     @JSONField(name = "DistributionSiteCode")
@@ -49,7 +49,7 @@ public class PrescriptionHeader implements EntityBase {
 
     @Column(nullable = false, length = 20)
     @JSONField(name = "PatientNO")
-    private String patientNO;//患者编号
+    private String patientNo;//患者编号
 
     @Column(nullable = false, length = 64)
     @JSONField(name = "Patient")

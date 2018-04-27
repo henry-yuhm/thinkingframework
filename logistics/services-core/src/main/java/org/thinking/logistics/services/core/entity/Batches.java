@@ -6,7 +6,7 @@ import javax.persistence.*;
 import java.util.Date;
 
 @Entity
-@Table(schema = "wms")
+@Table(schema = "lmis")
 @Data
 public class Batches {
     @Id
@@ -20,7 +20,7 @@ public class Batches {
     private Goods goods;//商品
 
     @Column(nullable = false)
-    private String number;//编码
+    private String no;//编码
 
     @Column(nullable = false)
     private Date productionDate;//生产日期

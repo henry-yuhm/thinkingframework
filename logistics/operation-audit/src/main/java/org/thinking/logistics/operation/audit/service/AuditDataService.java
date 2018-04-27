@@ -33,11 +33,11 @@ public class AuditDataService {
     @Transactional(rollbackFor = Exception.class)
     public void save(List<AuditData> datas) throws Exception {
 //        for (AuditData data : datas) {
-//            AuditType auditType = this.auditTypeRepository.findByName(data.getType().getName());
+//            AuditType auditType = this.auditTypeRepository.findByName(data.getTypes().getName());
 //            if (auditType == null) {
-//                throw new NullPointerException("审计类型【" + data.getType().getName() + "】未定义");
+//                throw new NullPointerException("审计类型【" + data.getTypes().getName() + "】未定义");
 //            } else {
-//                data.setType(auditType);
+//                data.setTypes(auditType);
 //            }
 //        }
 

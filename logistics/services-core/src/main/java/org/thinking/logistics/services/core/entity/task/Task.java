@@ -18,7 +18,7 @@ public abstract class Task {
     private Warehouse warehouse;//仓库
 
     @Column(nullable = false)
-    private String number;//编号
+    private String no;//编号
 
     private String picker;//拣货员
 

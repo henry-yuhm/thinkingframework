@@ -20,7 +20,7 @@ import java.util.Set;
 @Repository
 public interface StagingareaRepository extends JpaRepository<Stagingarea, Long> {
     @Lock(LockModeType.PESSIMISTIC_WRITE)
-    @Query(value = "select sga.number from Stagingarea sga " +
+    @Query(value = "select sga.no from Stagingarea sga " +
         "where sga.type=:type " +
         "and sga.category=:category " +
         "and sga.locking=false " +
@@ -29,13 +29,13 @@ public interface StagingareaRepository extends JpaRepository<Stagingarea, Long> 
         "and sga.takegoodsMode=:takegoodsMode " +
         "and sga.owners in :owners " +
         "and sga.direction=:direction " +
-        "order by sga.number")
+        "order by sga.no")
     LinkedList<String> acquireAvailableArea(StagingareaType type, StagingareaCategory category, BillType billType, TakegoodsMode takegoodsMode, Set<Owner> owners, Direction direction);
 
     @Lock(LockModeType.PESSIMISTIC_WRITE)
     @Query(value = "select sga from Stagingarea sga " +
-        "where sga.number>=:from " +
-        "and sga.number<=:to " +
+        "where sga.no>=:from " +
+        "and sga.no<=:to " +
         "and sga.type=:type " +
         "and sga.category=:category " +
         "and sga.locking=false " +
@@ -44,6 +44,6 @@ public interface StagingareaRepository extends JpaRepository<Stagingarea, Long> 
         "and sga.takegoodsMode=:takegoodsMode " +
         "and sga.owners in :owners " +
         "and sga.direction=:direction " +
-        "order by sga.number")
+        "order by sga.no")
     List<Stagingarea> acquireAvailableArea(String from, String to, StagingareaType type, StagingareaCategory category, BillType billType, TakegoodsMode takegoodsMode, Set<Owner> owners, Direction direction);
 }

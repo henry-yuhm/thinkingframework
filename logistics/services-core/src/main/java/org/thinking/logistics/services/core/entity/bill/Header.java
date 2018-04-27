@@ -4,9 +4,9 @@ import lombok.Data;
 import org.thinking.logistics.services.core.domain.support.BillCategory;
 import org.thinking.logistics.services.core.domain.support.BillSource;
 import org.thinking.logistics.services.core.domain.support.BillType;
-import org.thinking.logistics.services.core.entity.Employee;
 import org.thinking.logistics.services.core.entity.Owner;
 import org.thinking.logistics.services.core.entity.Warehouse;
+import org.thinking.logistics.services.core.entity.employee.Employee;
 
 import javax.persistence.*;
 import java.sql.Date;
@@ -28,7 +28,7 @@ public abstract class Header {
     private Owner owner;//业主
 
     @Column(unique = true, nullable = false, length = 100)
-    private String number;//单据编号
+    private String no;//单据编号
 
     @Column(nullable = false)
     private BillType type;//单据类型

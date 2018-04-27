@@ -3,12 +3,10 @@ package org.thinking.logistics.data.servo.domain;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import org.thinking.logistics.services.core.domain.CompositeException;
-import org.thinking.logistics.services.core.domain.support.NotExistsEntityException;
 import org.thinking.logistics.services.core.entity.Customer;
 import org.thinking.logistics.services.core.service.EntityService;
 
 import javax.annotation.Resource;
-import java.util.Optional;
 
 @Data
 @EqualsAndHashCode(callSuper = true)
@@ -28,7 +26,7 @@ public class CustomerReceiver extends AbstractReceiver {
             throw CompositeException.getException("客户资料未传输成功");
         }
 
-        this.customer.setOwner(Optional.of(this.customer.getOwner()).orElseThrow(() -> CompositeException.getException("业主未指定")).getOne(this.customer.getOwner(), NotExistsEntityException.OWNER));
+//        this.customer.setOwner(Optional.of(this.customer.getOwner()).orElseThrow(() -> CompositeException.getException("业主未指定")).getOne(this.customer.getOwner(), NotExistsEntityException.OWNER));
     }
 
     @Override

@@ -16,7 +16,7 @@ import java.math.BigDecimal;
 import java.util.LinkedList;
 
 @Repository
-public interface OutboundConfigurationRepository extends JpaRepository<OutboundConfiguration, OutboundConfiguration.PrimaryKey> {
+public interface OutboundConfigurationRepository extends JpaRepository<OutboundConfiguration, Long> {
     @Lock(LockModeType.PESSIMISTIC_WRITE)
     @Query(value = "select cfg from OutboundConfiguration cfg " +
         "where cfg.warehouse = :warehouse " +

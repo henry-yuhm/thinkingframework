@@ -49,7 +49,7 @@ public abstract class AbstractInitializer extends BusinessBase implements Initia
                     detail.setWholepiecesQuantity(detail.getFactQuantity().subtract(detail.getFactRemainder()));
                     detail.setRemainderQuantity(detail.getFactRemainder());
                 } else {
-                    message.append("商品【").append(detail.getGoods().getNumber()).append("】【").append(detail.getGoods().getName()).append("】数量为0");
+                    message.append("商品【").append(detail.getGoods().getNo()).append("】【").append(detail.getGoods().getName()).append("】数量为0");
                 }
             }
         }

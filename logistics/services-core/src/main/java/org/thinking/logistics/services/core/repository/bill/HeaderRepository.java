@@ -7,5 +7,5 @@ import org.thinking.logistics.services.core.entity.bill.Header;
 
 @Repository
 public interface HeaderRepository<H extends Header> extends JpaRepository<H, Long> {
-    H findByOwnerAndNumber(Owner owner, String number);
+    H findByOwnerAndNo(Owner owner, String no);
 }

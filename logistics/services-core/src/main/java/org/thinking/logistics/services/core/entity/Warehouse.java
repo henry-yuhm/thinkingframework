@@ -5,7 +5,7 @@ import org.thinking.logistics.services.core.domain.support.TWFType;
 import org.thinking.logistics.services.core.domain.support.TransferlineType;
 
 import javax.persistence.*;
-import java.util.Set;
+import java.util.LinkedHashMap;
 
 @Entity
 @Data
@@ -32,13 +32,9 @@ public class Warehouse {
     @Column(nullable = false)
     private boolean tablet;//使用平板电脑
 
-    @OneToMany
-    @JoinTable(joinColumns = @JoinColumn(name = "Warehouse_id"), inverseJoinColumns = @JoinColumn(name = "type_id"))
-    private Set<TransferlineType> transferlineTypes;//输送线类型
+    private LinkedHashMap<Integer, TransferlineType> transferlineTypes = new LinkedHashMap<>();//输送线类型
 
-    @OneToMany
-    @JoinTable(joinColumns = @JoinColumn(name = "Warehouse_id"), inverseJoinColumns = @JoinColumn(name = "type_id"))
-    private Set<TWFType> twfTypes;//立体库类型
+    private LinkedHashMap<Integer, TWFType> twfTypes = new LinkedHashMap<>();//立体库类型
 
     private String address;//地址
 }

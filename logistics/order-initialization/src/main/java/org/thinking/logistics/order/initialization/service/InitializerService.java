@@ -22,15 +22,9 @@ public class InitializerService extends BusinessBase {
 
     @Transactional(rollbackFor = Exception.class)
     public void initialize(long id) throws Exception {
-        Initializer initializer;
-
         OutboundHeader header = this.headerRepository.getOne(id);
 
-        if (header.getSaleType() == SaleType.PURCHASE_RETURN) {
-            initializer = new PurchaseReturnInitializer(header);
-        } else {
-            initializer = new SaleOutboundInitializer(header);
-        }
+        Initializer initializer = header.getSaleType() == SaleType.PURCHASE_RETURN ? new PurchaseReturnInitializer(header) : new SaleOutboundInitializer(header);
 
         initializer.initialize();
     }

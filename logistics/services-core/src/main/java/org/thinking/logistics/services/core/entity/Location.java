@@ -17,7 +17,7 @@ public class Location {
     private Warehouse warehouse;//仓库
 
     @Column(nullable = false)
-    private String number;//编号
+    private String no;//编号
 
     @Column(nullable = false)
     private String floor;//楼层

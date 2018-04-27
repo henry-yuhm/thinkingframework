@@ -12,6 +12,9 @@ import org.thinking.logistics.services.core.entity.stagingarea.PhysicalStagingar
 import org.thinking.logistics.services.core.entity.stagingarea.Stagingarea;
 import org.thinking.logistics.services.core.entity.stagingarea.StagingareaConfiguration;
 import org.thinking.logistics.services.core.entity.stagingarea.VirtualStagingareaConfiguration;
+import org.thinking.logistics.services.core.entity.stagingarea.dsl.QPhysicalStagingareaConfiguration;
+import org.thinking.logistics.services.core.entity.stagingarea.dsl.QStagingareaConfiguration;
+import org.thinking.logistics.services.core.entity.stagingarea.dsl.QVirtualStagingareaConfiguration;
 import org.thinking.logistics.services.core.repository.bill.OutboundHeaderRepository;
 import org.thinking.logistics.services.core.repository.stagingarea.PhysicalStagingareaConfigurationRepository;
 import org.thinking.logistics.services.core.repository.stagingarea.StagingareaConfigurationRepository;
@@ -97,15 +100,31 @@ public abstract class AbstractAllocator extends BusinessBase implements Allocato
 
     @Override
     public void acquirePhysicalConfiguration() throws Exception {
-        this.configuration = this.configurationRepository.getOne(new StagingareaConfiguration.PrimaryKey(this.header.getWarehouse(), this.header.getOwner(), this.header.getTakegoodsMode()));
+        QStagingareaConfiguration qStagingareaConfiguration = QStagingareaConfiguration.stagingareaConfiguration;
+        this.configuration = this.queryFactory
+            .selectFrom(qStagingareaConfiguration)
+            .where(
+                qStagingareaConfiguration.warehouse.eq(this.header.getWarehouse())
+                    .and(qStagingareaConfiguration.owner.eq(this.header.getOwner()))
+                    .and(qStagingareaConfiguration.takegoodsMode.eq(this.header.getTakegoodsMode())))
+            .fetchOne();
+        if (this.configuration == null) {
+            throw CompositeException.getException("月台配置参数未设定", this.header, this.header.getOwner());
+        }
+//        this.configuration = this.configurationRepository.getOne(new StagingareaConfiguration.PrimaryKey(this.header.getWarehouse(), this.header.getOwner(), this.header.getTakegoodsMode()));
 
         if (this.configuration.getSmallQuantity().compareTo(BigDecimal.ZERO) == 0 || this.configuration.getLargeQuantity().compareTo(BigDecimal.ZERO) == 0) {
             throw CompositeException.getException("提货方式【" + this.header.getTakegoodsMode().name() + "】对应的月台件数未设定", this.header, this.header.getOwner());
         }
 
-        this.stagingarea.setType(this.physicalConfigurationRepository.getOne(new PhysicalStagingareaConfiguration.PrimaryKey(this.header.getWarehouse(), this.header.getOwner())).getConfigurations().stream().filter(cfg -> cfg.getBillCategory() == this.header.getCategory()).findFirst().get().getStagingareaType());
-
-        if (this.stagingarea.getType() == null) {
+        QPhysicalStagingareaConfiguration qPhysicalStagingareaConfiguration = QPhysicalStagingareaConfiguration.physicalStagingareaConfiguration;
+        PhysicalStagingareaConfiguration physicalConfiguration = this.queryFactory.selectFrom(qPhysicalStagingareaConfiguration)
+            .where(
+                qPhysicalStagingareaConfiguration.warehouse.eq(this.header.getWarehouse())
+                    .and(qPhysicalStagingareaConfiguration.owner.eq(this.header.getOwner()))
+                    .and(qPhysicalStagingareaConfiguration.billCategory.eq(this.header.getCategory())))
+            .fetchOne();
+        if (physicalConfiguration == null) {
             throw CompositeException.getException("物理月台配置资料未设置单据对应的业主与类别", this.header, this.header.getOwner());
         }
     }
@@ -117,10 +136,25 @@ public abstract class AbstractAllocator extends BusinessBase implements Allocato
 
     @Override
     public void acquireVirtualConfiguration(Direction direction) throws Exception {
-        Optional<VirtualStagingareaConfiguration.Configuration> configuration = this.virtualConfigurationRepository.getOne(new VirtualStagingareaConfiguration.PrimaryKey(this.header.getWarehouse(), this.header.getOwner())).getConfigurations().stream().filter(cfg -> cfg.isAvailable() && cfg.getBillCategory() == this.header.getCategory() && cfg.getTakegoodsMode() == this.header.getTakegoodsMode() && cfg.getSaleType() == this.header.getSaleType() && cfg.getStagingareaCategory() == this.stagingarea.getCategory() && cfg.getDirection() == direction).findAny();
+        QVirtualStagingareaConfiguration cfg = QVirtualStagingareaConfiguration.virtualStagingareaConfiguration;
+        VirtualStagingareaConfiguration configuration = this.queryFactory.selectFrom(cfg)
+            .where(
+                cfg.warehouse.eq(this.header.getWarehouse())
+                    .and(cfg.owner.isNull().or(cfg.owner.eq(this.header.getOwner())))
+                    .and(cfg.available.eq(true))
+                    .and(cfg.billCategory.isNull().or(cfg.billCategory.eq(this.header.getCategory())))
+                    .and(cfg.takegoodsMode.isNull().or(cfg.takegoodsMode.eq(this.header.getTakegoodsMode())))
+                    .and(cfg.saleType.isNull().or(cfg.saleType.eq(this.header.getSaleType())))
+                    .and(cfg.stagingareaCategory.isNull().or(cfg.stagingareaCategory.eq(this.stagingarea.getCategory())))
+                    .and(cfg.direction.isNull().or(cfg.direction.eq(direction))))
+            .orderBy(cfg.owner.when(this.header.getOwner()).then(0).otherwise(1).asc())
+            .orderBy(cfg.billCategory.desc())
+            .orderBy(cfg.takegoodsMode.desc())
+            .orderBy(cfg.direction.no.desc())
+            .fetchOne();
 
         if (configuration != null) {
-            this.stagingarea = configuration.get().getStagingarea();
+            this.stagingarea = configuration.getStagingarea();
         }
     }
 

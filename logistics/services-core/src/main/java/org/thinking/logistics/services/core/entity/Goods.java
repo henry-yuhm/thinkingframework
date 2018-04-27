@@ -1,7 +1,6 @@
 package org.thinking.logistics.services.core.entity;
 
 import lombok.Data;
-import org.thinking.logistics.services.core.domain.CompositeException;
 import org.thinking.logistics.services.core.domain.support.SaleClassification;
 import org.thinking.logistics.services.core.domain.support.SplittingGranularity;
 import org.thinking.logistics.services.core.domain.support.StorageClassification;
@@ -14,9 +13,10 @@ import java.util.Date;
 import java.util.Optional;
 
 @Entity
-@Table(schema = "wms", uniqueConstraints = @UniqueConstraint(name = "uk_goods", columnNames = {"owner_id", "number"}))
+@Table(schema = "lmis", uniqueConstraints = @UniqueConstraint(name = "uk_goods", columnNames = {"owner_id", "no"}))
 @Data
-public class Goods extends EntityBase<Goods, Long> {
+//@EqualsAndHashCode(callSuper = true)
+public class Goods {
     @Id
     @GeneratedValue
     private long id;
@@ -25,7 +25,7 @@ public class Goods extends EntityBase<Goods, Long> {
     private Owner owner;//业主
 
     @Column(nullable = false, length = 50)
-    private String number;//编号
+    private String no;//编号
 
     @Column(nullable = false)
     private String name;//名称
@@ -116,16 +116,16 @@ public class Goods extends EntityBase<Goods, Long> {
 
     private BigDecimal tcmOutboundQuantity;//中药大件数量
 
-    @Override
-    public void verify(Goods probe) throws Exception {
-        if (!Optional.ofNullable(probe.getOwner()).isPresent()) {
-            throw CompositeException.getException("商品业主不能为空");
-        }
-
-        if (Optional.ofNullable(probe.getNumber()).get().isEmpty()) {
-            throw CompositeException.getException("商品编号不能为空");
-        }
-    }
+//    @Override
+//    public void verify(Goods probe) throws Exception {
+//        if (!Optional.ofNullable(probe.getOwner()).isPresent()) {
+//            throw CompositeException.getException("商品业主不能为空");
+//        }
+//
+//        if (Optional.ofNullable(probe.getNo()).get().isEmpty()) {
+//            throw CompositeException.getException("商品编号不能为空");
+//        }
+//    }
 
     public final BigDecimal getPieces(BigDecimal quantity) {
         if (Optional.of(this.largePackageQuantity).orElse(BigDecimal.ZERO) == BigDecimal.ZERO) {

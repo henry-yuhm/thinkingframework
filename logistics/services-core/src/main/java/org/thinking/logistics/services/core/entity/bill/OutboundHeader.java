@@ -6,7 +6,7 @@ import org.thinking.logistics.services.core.domain.CompositeException;
 import org.thinking.logistics.services.core.domain.support.*;
 import org.thinking.logistics.services.core.entity.Address;
 import org.thinking.logistics.services.core.entity.Customer;
-import org.thinking.logistics.services.core.entity.Employee;
+import org.thinking.logistics.services.core.entity.employee.Employee;
 import org.thinking.logistics.services.core.entity.stagingarea.Stagingarea;
 
 import javax.persistence.*;
@@ -134,7 +134,7 @@ public class OutboundHeader extends Header {
     private Set<OutboundDetail> details = new LinkedHashSet<>();//单据明细
 
     public void isResended() throws Exception {
-        if (this.stage.compareTo(OutboundStage.RESEND) >= 0 && this.getNumber().isEmpty()) {
+        if (this.stage.compareTo(OutboundStage.RESEND) >= 0 && this.getNo().isEmpty()) {
             throw CompositeException.getException("单据已经补发", this, this.getOwner());
         }
     }

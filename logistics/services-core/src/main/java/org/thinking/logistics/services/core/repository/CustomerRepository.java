@@ -7,5 +7,5 @@ import org.thinking.logistics.services.core.entity.Owner;
 
 @Repository
 public interface CustomerRepository extends JpaRepository<Customer, Long> {
-    Customer findByOwnerAndNumber(Owner owner, String number);
+    Customer findByOwnerAndNo(Owner owner, String no);
 }
