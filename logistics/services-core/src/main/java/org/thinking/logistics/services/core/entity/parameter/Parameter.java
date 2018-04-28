@@ -8,7 +8,7 @@ import java.util.LinkedHashSet;
 import java.util.Set;
 
 @Entity
-@Table(schema = "lmis")
+@Table(schema = "wms")
 @Data
 @NoArgsConstructor
 public class Parameter {

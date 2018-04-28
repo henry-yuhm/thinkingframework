@@ -6,7 +6,7 @@ import javax.persistence.*;
 import java.util.Date;
 
 @Entity
-@Table(schema = "lmis")
+@Table(schema = "wms")
 @Data
 public class Batches {
     @Id

@@ -46,7 +46,7 @@ public class Stagingarea {
 
     private TakegoodsMode takegoodsMode;//提货方式
 
-    @OneToMany
+    @ManyToMany
     @JoinTable(joinColumns = @JoinColumn(name = "stagingarea_id"), inverseJoinColumns = @JoinColumn(name = "owner_id"))
     private Set<Owner> owners = new LinkedHashSet<>();//业主
 

@@ -8,5 +8,5 @@ import javax.persistence.Entity;
 @Entity
 @Data
 @EqualsAndHashCode(callSuper = true)
-public class WholeTask extends Task {
+public class WholepiecesTask extends Task {
 }

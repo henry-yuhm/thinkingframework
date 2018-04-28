@@ -5,7 +5,7 @@ import lombok.Data;
 import javax.persistence.*;
 
 @Entity
-@Table(schema = "lmis")
+@Table(schema = "wms")
 @Data
 public class Owner {
     @Id

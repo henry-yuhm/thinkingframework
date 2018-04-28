@@ -8,18 +8,15 @@ import org.thinking.logistics.services.core.domain.support.*;
 import org.thinking.logistics.services.core.entity.Direction;
 import org.thinking.logistics.services.core.entity.bill.OutboundDetail;
 import org.thinking.logistics.services.core.entity.bill.OutboundHeader;
-import org.thinking.logistics.services.core.entity.stagingarea.PhysicalStagingareaConfiguration;
+import org.thinking.logistics.services.core.entity.stagingarea.PhysicalConfiguration;
 import org.thinking.logistics.services.core.entity.stagingarea.Stagingarea;
 import org.thinking.logistics.services.core.entity.stagingarea.StagingareaConfiguration;
-import org.thinking.logistics.services.core.entity.stagingarea.VirtualStagingareaConfiguration;
-import org.thinking.logistics.services.core.entity.stagingarea.dsl.QPhysicalStagingareaConfiguration;
+import org.thinking.logistics.services.core.entity.stagingarea.VirtualConfiguration;
+import org.thinking.logistics.services.core.entity.stagingarea.dsl.QPhysicalConfiguration;
 import org.thinking.logistics.services.core.entity.stagingarea.dsl.QStagingareaConfiguration;
-import org.thinking.logistics.services.core.entity.stagingarea.dsl.QVirtualStagingareaConfiguration;
+import org.thinking.logistics.services.core.entity.stagingarea.dsl.QVirtualConfiguration;
 import org.thinking.logistics.services.core.repository.bill.OutboundHeaderRepository;
-import org.thinking.logistics.services.core.repository.stagingarea.PhysicalStagingareaConfigurationRepository;
-import org.thinking.logistics.services.core.repository.stagingarea.StagingareaConfigurationRepository;
 import org.thinking.logistics.services.core.repository.stagingarea.StagingareaRepository;
-import org.thinking.logistics.services.core.repository.stagingarea.VirtualStagingareaConfigurationRepository;
 
 import javax.annotation.Resource;
 import java.math.BigDecimal;
@@ -45,15 +42,6 @@ public abstract class AbstractAllocator extends BusinessBase implements Allocato
 
     @Resource
     private OutboundHeaderRepository headerRepository;
-
-    @Resource
-    private StagingareaConfigurationRepository configurationRepository;
-
-    @Resource
-    private PhysicalStagingareaConfigurationRepository physicalConfigurationRepository;
-
-    @Resource
-    private VirtualStagingareaConfigurationRepository virtualConfigurationRepository;
 
     @Resource
     private StagingareaRepository stagingareaRepository;
@@ -100,29 +88,28 @@ public abstract class AbstractAllocator extends BusinessBase implements Allocato
 
     @Override
     public void acquirePhysicalConfiguration() throws Exception {
-        QStagingareaConfiguration qStagingareaConfiguration = QStagingareaConfiguration.stagingareaConfiguration;
+        QStagingareaConfiguration configuration = QStagingareaConfiguration.stagingareaConfiguration;
         this.configuration = this.queryFactory
-            .selectFrom(qStagingareaConfiguration)
+            .selectFrom(configuration)
             .where(
-                qStagingareaConfiguration.warehouse.eq(this.header.getWarehouse())
-                    .and(qStagingareaConfiguration.owner.eq(this.header.getOwner()))
-                    .and(qStagingareaConfiguration.takegoodsMode.eq(this.header.getTakegoodsMode())))
+                configuration.warehouse.eq(this.header.getWarehouse())
+                    .and(configuration.owner.eq(this.header.getOwner()))
+                    .and(configuration.takegoodsMode.eq(this.header.getTakegoodsMode())))
             .fetchOne();
         if (this.configuration == null) {
             throw CompositeException.getException("月台配置参数未设定", this.header, this.header.getOwner());
         }
-//        this.configuration = this.configurationRepository.getOne(new StagingareaConfiguration.PrimaryKey(this.header.getWarehouse(), this.header.getOwner(), this.header.getTakegoodsMode()));
 
         if (this.configuration.getSmallQuantity().compareTo(BigDecimal.ZERO) == 0 || this.configuration.getLargeQuantity().compareTo(BigDecimal.ZERO) == 0) {
             throw CompositeException.getException("提货方式【" + this.header.getTakegoodsMode().name() + "】对应的月台件数未设定", this.header, this.header.getOwner());
         }
 
-        QPhysicalStagingareaConfiguration qPhysicalStagingareaConfiguration = QPhysicalStagingareaConfiguration.physicalStagingareaConfiguration;
-        PhysicalStagingareaConfiguration physicalConfiguration = this.queryFactory.selectFrom(qPhysicalStagingareaConfiguration)
+        QPhysicalConfiguration cfg = QPhysicalConfiguration.physicalConfiguration;
+        PhysicalConfiguration physicalConfiguration = this.queryFactory.selectFrom(cfg)
             .where(
-                qPhysicalStagingareaConfiguration.warehouse.eq(this.header.getWarehouse())
-                    .and(qPhysicalStagingareaConfiguration.owner.eq(this.header.getOwner()))
-                    .and(qPhysicalStagingareaConfiguration.billCategory.eq(this.header.getCategory())))
+                cfg.warehouse.eq(this.header.getWarehouse())
+                    .and(cfg.owner.eq(this.header.getOwner()))
+                    .and(cfg.billCategory.eq(this.header.getCategory())))
             .fetchOne();
         if (physicalConfiguration == null) {
             throw CompositeException.getException("物理月台配置资料未设置单据对应的业主与类别", this.header, this.header.getOwner());
@@ -136,8 +123,8 @@ public abstract class AbstractAllocator extends BusinessBase implements Allocato
 
     @Override
     public void acquireVirtualConfiguration(Direction direction) throws Exception {
-        QVirtualStagingareaConfiguration cfg = QVirtualStagingareaConfiguration.virtualStagingareaConfiguration;
-        VirtualStagingareaConfiguration configuration = this.queryFactory.selectFrom(cfg)
+        QVirtualConfiguration cfg = QVirtualConfiguration.virtualConfiguration;
+        VirtualConfiguration configuration = this.queryFactory.selectFrom(cfg)
             .where(
                 cfg.warehouse.eq(this.header.getWarehouse())
                     .and(cfg.owner.isNull().or(cfg.owner.eq(this.header.getOwner())))
@@ -169,7 +156,7 @@ public abstract class AbstractAllocator extends BusinessBase implements Allocato
         BigDecimal mediumQuantity = this.getDecimalParameter(this.header.getWarehouse(), "ZZCQJS");
         BigDecimal largeQuantity = this.getDecimalParameter(this.header.getWarehouse(), "DZCQJS");
 
-        if (this.configuration.getMode() == StagingareaAllocationMode.VOLUMETRIC) {
+        if (this.configuration.getAllocationMode() == StagingareaAllocationMode.VOLUMETRIC) {
             BigDecimal volume = this.header.getDetails().stream().map(detail -> detail.getFactQuantity().multiply(detail.getGoods().getSmallPackageVolume())).reduce(BigDecimal::multiply).get();
 
             //中药单据体积不能过大
@@ -189,7 +176,7 @@ public abstract class AbstractAllocator extends BusinessBase implements Allocato
             }
         }
 
-        if (this.configuration.getMode() == StagingareaAllocationMode.PIECEMEAL) {
+        if (this.configuration.getAllocationMode() == StagingareaAllocationMode.PIECEMEAL) {
             if (this.header.getEquivalentPieces().compareTo(smallQuantity) <= 0) {
                 this.stagingarea.setCategory(StagingareaCategory.MINIATURE);
                 this.quantity = this.header.getEquivalentPieces().divide(smallQuantity, RoundingMode.CEILING).intValue();

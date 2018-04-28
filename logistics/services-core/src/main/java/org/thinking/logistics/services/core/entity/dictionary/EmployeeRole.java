@@ -7,7 +7,7 @@ import javax.persistence.Entity;
 import javax.persistence.Table;
 
 @Entity
-@Table(schema = "lmis")
+@Table(schema = "wms")
 @Data
 @EqualsAndHashCode(callSuper = true)
 public class EmployeeRole extends Dictionary {

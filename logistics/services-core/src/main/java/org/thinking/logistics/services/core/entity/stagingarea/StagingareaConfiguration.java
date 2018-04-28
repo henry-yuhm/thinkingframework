@@ -11,7 +11,7 @@ import javax.persistence.*;
 import java.math.BigDecimal;
 
 @Entity
-@Table(schema = "lmis", uniqueConstraints = @UniqueConstraint(name = "uk_sga_cfg", columnNames = {"warehouse_id", "owner_id", "takegoodsMode"}))
+@Table(schema = "wms", uniqueConstraints = @UniqueConstraint(name = "uk_sga_cfg", columnNames = {"warehouse_id", "owner_id", "takegoodsMode"}))
 @Data
 @NoArgsConstructor
 public class StagingareaConfiguration {
@@ -29,7 +29,7 @@ public class StagingareaConfiguration {
     private TakegoodsMode takegoodsMode;//提货方式
 
     @Column(nullable = false)
-    private StagingareaAllocationMode mode;//分配方式
+    private StagingareaAllocationMode allocationMode;//分配方式
 
     @Column(nullable = false)
     private BigDecimal smallQuantity = BigDecimal.ZERO;//小订单件数

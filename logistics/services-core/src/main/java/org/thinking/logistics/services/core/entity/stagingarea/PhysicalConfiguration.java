@@ -10,10 +10,10 @@ import org.thinking.logistics.services.core.entity.Warehouse;
 import javax.persistence.*;
 
 @Entity
-@Table(schema = "lmis", uniqueConstraints = @UniqueConstraint(name = "uk_physical_sga_cfg", columnNames = {"warehouse_id", "owner_id", "billCategory"}))
+@Table(schema = "wms", uniqueConstraints = @UniqueConstraint(name = "uk_physical_sga_cfg", columnNames = {"warehouse_id", "owner_id", "billCategory"}))
 @Data
 @NoArgsConstructor
-public class PhysicalStagingareaConfiguration {
+public class PhysicalConfiguration {
     @Id
     @GeneratedValue
     private long id;
