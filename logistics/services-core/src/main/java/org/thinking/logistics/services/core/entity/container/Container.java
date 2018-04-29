@@ -8,7 +8,7 @@ import javax.persistence.*;
 @MappedSuperclass
 @Inheritance(strategy = InheritanceType.JOINED)
 @Data
-public class Container {
+public abstract class Container {
     @Id
     @GeneratedValue
     private long id;
