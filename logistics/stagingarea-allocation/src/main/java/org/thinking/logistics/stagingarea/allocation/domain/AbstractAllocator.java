@@ -88,13 +88,12 @@ public abstract class AbstractAllocator extends BusinessBase implements Allocato
 
     @Override
     public void acquirePhysicalConfiguration() throws Exception {
-        QStagingareaConfiguration configuration = QStagingareaConfiguration.stagingareaConfiguration;
         this.configuration = this.queryFactory
-            .selectFrom(configuration)
+            .selectFrom(QStagingareaConfiguration.stagingareaConfiguration)
             .where(
-                configuration.warehouse.eq(this.header.getWarehouse())
-                    .and(configuration.owner.eq(this.header.getOwner()))
-                    .and(configuration.takegoodsMode.eq(this.header.getTakegoodsMode())))
+                QStagingareaConfiguration.stagingareaConfiguration.warehouse.eq(this.header.getWarehouse()),
+                QStagingareaConfiguration.stagingareaConfiguration.owner.eq(this.header.getOwner()),
+                QStagingareaConfiguration.stagingareaConfiguration.takegoodsMode.eq(this.header.getTakegoodsMode()))
             .fetchOne();
         if (this.configuration == null) {
             throw CompositeException.getException("月台配置参数未设定", this.header, this.header.getOwner());
@@ -104,12 +103,11 @@ public abstract class AbstractAllocator extends BusinessBase implements Allocato
             throw CompositeException.getException("提货方式【" + this.header.getTakegoodsMode().name() + "】对应的月台件数未设定", this.header, this.header.getOwner());
         }
 
-        QPhysicalConfiguration cfg = QPhysicalConfiguration.physicalConfiguration;
-        PhysicalConfiguration physicalConfiguration = this.queryFactory.selectFrom(cfg)
+        PhysicalConfiguration physicalConfiguration = this.queryFactory.selectFrom(QPhysicalConfiguration.physicalConfiguration)
             .where(
-                cfg.warehouse.eq(this.header.getWarehouse())
-                    .and(cfg.owner.eq(this.header.getOwner()))
-                    .and(cfg.billCategory.eq(this.header.getCategory())))
+                QPhysicalConfiguration.physicalConfiguration.warehouse.eq(this.header.getWarehouse()),
+                QPhysicalConfiguration.physicalConfiguration.owner.eq(this.header.getOwner()),
+                QPhysicalConfiguration.physicalConfiguration.billCategory.eq(this.header.getCategory()))
             .fetchOne();
         if (physicalConfiguration == null) {
             throw CompositeException.getException("物理月台配置资料未设置单据对应的业主与类别", this.header, this.header.getOwner());
@@ -123,21 +121,20 @@ public abstract class AbstractAllocator extends BusinessBase implements Allocato
 
     @Override
     public void acquireVirtualConfiguration(Direction direction) throws Exception {
-        QVirtualConfiguration cfg = QVirtualConfiguration.virtualConfiguration;
-        VirtualConfiguration configuration = this.queryFactory.selectFrom(cfg)
+        VirtualConfiguration configuration = this.queryFactory.selectFrom(QVirtualConfiguration.virtualConfiguration)
             .where(
-                cfg.warehouse.eq(this.header.getWarehouse())
-                    .and(cfg.owner.isNull().or(cfg.owner.eq(this.header.getOwner())))
-                    .and(cfg.available.eq(true))
-                    .and(cfg.billCategory.isNull().or(cfg.billCategory.eq(this.header.getCategory())))
-                    .and(cfg.takegoodsMode.isNull().or(cfg.takegoodsMode.eq(this.header.getTakegoodsMode())))
-                    .and(cfg.saleType.isNull().or(cfg.saleType.eq(this.header.getSaleType())))
-                    .and(cfg.stagingareaCategory.isNull().or(cfg.stagingareaCategory.eq(this.stagingarea.getCategory())))
-                    .and(cfg.direction.isNull().or(cfg.direction.eq(direction))))
-            .orderBy(cfg.owner.when(this.header.getOwner()).then(0).otherwise(1).asc())
-            .orderBy(cfg.billCategory.desc())
-            .orderBy(cfg.takegoodsMode.desc())
-            .orderBy(cfg.direction.no.desc())
+                QVirtualConfiguration.virtualConfiguration.warehouse.eq(this.header.getWarehouse()),
+                QVirtualConfiguration.virtualConfiguration.owner.isNull().or(QVirtualConfiguration.virtualConfiguration.owner.eq(this.header.getOwner())),
+                QVirtualConfiguration.virtualConfiguration.available.eq(true),
+                QVirtualConfiguration.virtualConfiguration.billCategory.isNull().or(QVirtualConfiguration.virtualConfiguration.billCategory.eq(this.header.getCategory())),
+                QVirtualConfiguration.virtualConfiguration.takegoodsMode.isNull().or(QVirtualConfiguration.virtualConfiguration.takegoodsMode.eq(this.header.getTakegoodsMode())),
+                QVirtualConfiguration.virtualConfiguration.saleType.isNull().or(QVirtualConfiguration.virtualConfiguration.saleType.eq(this.header.getSaleType())),
+                QVirtualConfiguration.virtualConfiguration.stagingareaCategory.isNull().or(QVirtualConfiguration.virtualConfiguration.stagingareaCategory.eq(this.stagingarea.getCategory())),
+                QVirtualConfiguration.virtualConfiguration.direction.isNull().or(QVirtualConfiguration.virtualConfiguration.direction.eq(direction)))
+            .orderBy(QVirtualConfiguration.virtualConfiguration.owner.when(this.header.getOwner()).then(0).otherwise(1).asc())
+            .orderBy(QVirtualConfiguration.virtualConfiguration.billCategory.desc())
+            .orderBy(QVirtualConfiguration.virtualConfiguration.takegoodsMode.desc())
+            .orderBy(QVirtualConfiguration.virtualConfiguration.direction.no.desc())
             .fetchOne();
 
         if (configuration != null) {

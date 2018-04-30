@@ -9,7 +9,7 @@ import org.thinking.logistics.services.core.entity.*;
 import org.thinking.logistics.services.core.entity.inventory.Inventory;
 
 import javax.persistence.LockModeType;
-import java.util.LinkedList;
+import java.util.List;
 
 @Repository
 public interface InventoryRepository extends JpaRepository<Inventory, Long> {
@@ -22,7 +22,7 @@ public interface InventoryRepository extends JpaRepository<Inventory, Long> {
         "and i.batches = :batches " +
         "and i.transitionalQuantity > 0 " +
         "order by i.transitionalQuantity")
-    LinkedList<Inventory> acquireTransitionalInventory(Goods goods, Batches batches);
+    List<Inventory> acquireTransitionalInventory(Goods goods, Batches batches);
 
     @Lock(LockModeType.PESSIMISTIC_WRITE)
     @Query(value = "select i from Inventory i " +
@@ -31,8 +31,8 @@ public interface InventoryRepository extends JpaRepository<Inventory, Long> {
         "and i.inventoryState = :inventoryState " +
         "and i.location.area.storeCategory like :storeCategory " +
         "and i.location.area.storeNo like :storeNo " +
-        "and i.transitionalQuantity = 0 " +
-        "order by case when i.location.area.storeCategory = 'LTK' then (select p.count from PilerCommand p) else 1 end," +
-        "i.availableOutboundQuantity")
-    LinkedList<Inventory> acquireLocationInventory(Goods goods, Batches batches, InventoryState inventoryState, String storeCategory, String storeNo);
+        "and i.transitionalQuantity = 0 ")
+//        "order by case when i.location.area.storeCategory = 'LTK' then (select count(p) from PilerCommand p) else 1 end," +
+//        "i.availableOutboundQuantity")
+    List<Inventory> acquireLocationInventory(Goods goods, Batches batches, InventoryState inventoryState, String storeCategory, String storeNo);
 }

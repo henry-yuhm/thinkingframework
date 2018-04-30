@@ -24,6 +24,7 @@ public abstract class BusinessBase {
     protected Employee operator;//操作员
 
     @Resource
+    @PersistenceContext
     private EntityManager entityManager;
 
     @Resource

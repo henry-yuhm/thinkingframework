@@ -22,8 +22,8 @@ public interface OutboundConfigurationRepository extends JpaRepository<OutboundC
         "where cfg.warehouse = :warehouse " +
         "and cfg.owner = :owner " +
         "and cfg.packageType = :packageType " +
-        "and cfg.category = :category " +
+        "and cfg.billCategory = :billCategory " +
         "and cfg.saleType = :saleType " +
         "order by case when :quantity >= cfg.threshold then cfg.lowerOrder else cfg.upperOrder end")
-    LinkedList<OutboundConfiguration> acquireConfiguration(Warehouse warehouse, Owner owner, PackageType packageType, BillCategory category, SaleType saleType, BigDecimal quantity);
+    LinkedList<OutboundConfiguration> acquireConfiguration(Warehouse warehouse, Owner owner, PackageType packageType, BillCategory billCategory, SaleType saleType, BigDecimal quantity);
 }
