@@ -10,7 +10,7 @@ import java.util.LinkedHashSet;
 import java.util.Set;
 
 @Entity
-@Table(schema = "wms", uniqueConstraints = @UniqueConstraint(name = "uk_employee", columnNames = {"owner_id", "no"}))
+@Table(uniqueConstraints = @UniqueConstraint(name = "uk_employee", columnNames = {"owner_id", "no"}))
 @Data
 public class Employee {
     @Id

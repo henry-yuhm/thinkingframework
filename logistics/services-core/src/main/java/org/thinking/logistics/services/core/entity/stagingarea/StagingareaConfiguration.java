@@ -11,7 +11,7 @@ import javax.persistence.*;
 import java.math.BigDecimal;
 
 @Entity
-@Table(schema = "wms", uniqueConstraints = @UniqueConstraint(name = "uk_sga_cfg", columnNames = {"warehouse_id", "owner_id", "takegoodsMode"}))
+@Table(uniqueConstraints = @UniqueConstraint(name = "uk_sga_cfg", columnNames = {"warehouse_id", "owner_id", "takegoodsMode"}))
 @Data
 @NoArgsConstructor
 public class StagingareaConfiguration {

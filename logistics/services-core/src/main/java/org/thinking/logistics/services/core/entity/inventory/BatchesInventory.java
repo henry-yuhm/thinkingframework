@@ -9,7 +9,7 @@ import javax.persistence.*;
 import java.math.BigDecimal;
 
 @Entity
-@Table(schema = "wms", uniqueConstraints = @UniqueConstraint(name = "uk_batches_inventory", columnNames = {"goods_id", "batches_id", "type"}))
+@Table(uniqueConstraints = @UniqueConstraint(name = "uk_batches_inventory", columnNames = {"goods_id", "batches_id", "type"}))
 @Data
 public class BatchesInventory {
     @Id

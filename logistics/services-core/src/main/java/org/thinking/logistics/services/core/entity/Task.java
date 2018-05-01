@@ -1,19 +1,27 @@
-package org.thinking.logistics.services.core.entity.task;
+package org.thinking.logistics.services.core.entity;
 
 import lombok.Data;
-import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
 import org.thinking.logistics.services.core.entity.container.Totebox;
 import org.thinking.logistics.services.core.entity.table.RecheckBuffer;
 
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
 import java.sql.Date;
 
 @Entity
 @Data
-@EqualsAndHashCode(callSuper = true)
-public class RemainderTask extends Task {
+@NoArgsConstructor
+public class Task {
+    @Id
+    @GeneratedValue
+    private long id;
+
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    private Warehouse warehouse;//仓库
+
+    @Column(nullable = false)
+    private String no;//编号
+
     private String splittingBill;//拆分单
 
     @ManyToOne(fetch = FetchType.LAZY)
@@ -25,6 +33,12 @@ public class RemainderTask extends Task {
     private int batchNo;//任务批次号
 
     private String bufferNo;//暂存位编号
+
+    private String picker;//拣货员
+
+    private Date pickingStartTime;//拣货开始时间
+
+    private Date pickingCompleteTime;//拣货完成时间
 
     private String rechecker;//复核员
 

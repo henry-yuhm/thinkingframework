@@ -13,7 +13,7 @@ import org.thinking.logistics.services.core.entity.Warehouse;
 import javax.persistence.*;
 
 @Entity
-@Table(schema = "wms", uniqueConstraints = @UniqueConstraint(name = "uk_virtual_sga_cfg", columnNames = {"warehouse_id", "owner_id", "available", "billCategory", "takegoodsMode", "saleType", "stagingareaCategory", "direction_id"}))
+@Table(uniqueConstraints = @UniqueConstraint(name = "uk_virtual_sga_cfg", columnNames = {"warehouse_id", "owner_id", "available", "billCategory", "takegoodsMode", "saleType", "stagingareaCategory", "direction_id"}))
 @Data
 @NoArgsConstructor
 public class VirtualConfiguration {

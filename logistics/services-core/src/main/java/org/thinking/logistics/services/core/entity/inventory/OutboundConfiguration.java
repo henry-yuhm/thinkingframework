@@ -12,7 +12,7 @@ import javax.persistence.*;
 import java.math.BigDecimal;
 
 @Entity
-@Table(schema = "wms", uniqueConstraints = @UniqueConstraint(name = "uk_outbound_configuration", columnNames = {"warehouse_id", "owner_id", "packageType", "billCategory", "saleType", "storeCategory", "storeNo"}))
+@Table(uniqueConstraints = @UniqueConstraint(name = "uk_outbound_configuration", columnNames = {"warehouse_id", "owner_id", "packageType", "billCategory", "saleType", "storeCategory", "storeNo"}))
 @Data
 @NoArgsConstructor
 public class OutboundConfiguration {

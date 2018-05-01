@@ -11,9 +11,7 @@ import org.thinking.logistics.services.core.entity.Goods;
 import org.thinking.logistics.services.core.entity.bill.OutboundDetail;
 import org.thinking.logistics.services.core.entity.bill.OutboundHeader;
 import org.thinking.logistics.services.core.entity.command.OutboundCommand;
-import org.thinking.logistics.services.core.entity.command.RemainderCommand;
 import org.thinking.logistics.services.core.entity.command.ReplenishingCommand;
-import org.thinking.logistics.services.core.entity.command.WholepiecesCommand;
 import org.thinking.logistics.services.core.entity.inventory.BatchesInventory;
 import org.thinking.logistics.services.core.entity.inventory.Inventory;
 import org.thinking.logistics.services.core.entity.inventory.OutboundConfiguration;
@@ -465,7 +463,7 @@ public abstract class AbstractAllocator extends BusinessBase implements Allocato
 
     @Override
     public OutboundCommand acquireCommand(OutboundDetail detail, Inventory inventory, BigDecimal quantity) throws Exception {
-        OutboundCommand command = this.packageType == PackageType.WHOLEPIECES ? new WholepiecesCommand() : new RemainderCommand();
+        OutboundCommand command = new OutboundCommand();
 
         command.setWarehouse(this.header.getWarehouse());
         command.setPackageType(this.packageType);
@@ -502,10 +500,8 @@ public abstract class AbstractAllocator extends BusinessBase implements Allocato
         command.setFactQuantity(command.getCreationQuantity());
         command.setFactPieces(command.getCreationPieces());
         command.setFactRemainder(command.getCreationRemainder());
+        command.setPallet(inventory.getPallet());
         command.setPickingOrder("");
-        if (inventory.getPallet() != null) {
-            ((WholepiecesCommand) command).setPallet(inventory.getPallet());
-        }
 
         return command;
     }

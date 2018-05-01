@@ -8,7 +8,6 @@ import org.thinking.logistics.services.core.domain.support.CustomerType;
 import javax.persistence.*;
 
 @Entity
-@Table(schema = "wms")
 @Data
 //@EqualsAndHashCode(callSuper = true)
 public class Customer {

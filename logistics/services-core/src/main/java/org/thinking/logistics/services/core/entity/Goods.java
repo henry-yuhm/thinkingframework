@@ -13,7 +13,7 @@ import java.util.Date;
 import java.util.Optional;
 
 @Entity
-@Table(schema = "wms", uniqueConstraints = @UniqueConstraint(name = "uk_goods", columnNames = {"owner_id", "no"}))
+@Table(uniqueConstraints = @UniqueConstraint(name = "uk_goods", columnNames = {"owner_id", "no"}))
 @Data
 //@EqualsAndHashCode(callSuper = true)
 public class Goods {

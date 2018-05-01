@@ -6,19 +6,25 @@ import org.thinking.logistics.services.core.domain.support.AppendantSign;
 import org.thinking.logistics.services.core.domain.support.InventoryState;
 import org.thinking.logistics.services.core.entity.Batches;
 import org.thinking.logistics.services.core.entity.Location;
+import org.thinking.logistics.services.core.entity.Platform;
+import org.thinking.logistics.services.core.entity.Task;
+import org.thinking.logistics.services.core.entity.barcode.OutboundBarcode;
 import org.thinking.logistics.services.core.entity.bill.OutboundDetail;
 import org.thinking.logistics.services.core.entity.bill.OutboundHeader;
+import org.thinking.logistics.services.core.entity.container.Pallet;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
-@MappedSuperclass
-@Inheritance(strategy = InheritanceType.JOINED)
+@Entity
 @Data
 @EqualsAndHashCode(callSuper = true)
-public abstract class OutboundCommand extends Command {
+public class OutboundCommand extends Command {
+    @ManyToOne(fetch = FetchType.LAZY)
+    private OutboundCommand parent;//父指令
+
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     private OutboundHeader header;//单据抬头
 
@@ -40,7 +46,7 @@ public abstract class OutboundCommand extends Command {
     @Column(nullable = false, precision = 12, scale = 5)
     private BigDecimal creationQuantity = BigDecimal.ZERO;//创建数量
 
-    @Column(nullable = false)
+    @Column(nullable = false, precision = 12)
     private BigDecimal creationPieces = BigDecimal.ZERO;//创建件数
 
     @Column(nullable = false, precision = 12, scale = 5)
@@ -49,7 +55,7 @@ public abstract class OutboundCommand extends Command {
     @Column(nullable = false, precision = 12, scale = 5)
     private BigDecimal planQuantity = BigDecimal.ZERO;//计划数量
 
-    @Column(nullable = false)
+    @Column(nullable = false, precision = 12)
     private BigDecimal planPieces = BigDecimal.ZERO;//计划件数
 
     @Column(nullable = false, precision = 12, scale = 5)
@@ -58,17 +64,31 @@ public abstract class OutboundCommand extends Command {
     @Column(nullable = false, precision = 12, scale = 5)
     private BigDecimal factQuantity = BigDecimal.ZERO;//实际数量
 
-    @Column(nullable = false)
+    @Column(nullable = false, precision = 12)
     private BigDecimal factPieces = BigDecimal.ZERO;//实际件数
 
     @Column(nullable = false, precision = 12, scale = 5)
     private BigDecimal factRemainder = BigDecimal.ZERO;//实际余数
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    private Task task;//作业任务
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    private OutboundBarcode barcode;//作业条码
+
     @Column(nullable = false)
     private AppendantSign appendantSign = AppendantSign.ORIGINAL;//追加标识
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    private Pallet pallet;//托盘
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    private Platform platform;//站台
+
     @Column(nullable = false)
     private String pickingOrder = "0";//拣货顺序
+
+    private BigDecimal remainder = BigDecimal.ZERO;//余量
 
     @ManyToMany
     @JoinTable(joinColumns = @JoinColumn(name = "command_id"), inverseJoinColumns = @JoinColumn(name = "rep_command_id"))

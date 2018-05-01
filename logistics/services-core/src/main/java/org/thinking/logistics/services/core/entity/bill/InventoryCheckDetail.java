@@ -29,7 +29,7 @@ public class InventoryCheckDetail extends Detail {
     @Column(nullable = false, precision = 12, scale = 5)
     private BigDecimal quantity = BigDecimal.ZERO;//数量
 
-    @Column(nullable = false)
+    @Column(nullable = false, precision = 12)
     private BigDecimal pieces = BigDecimal.ZERO;//件数
 
     @Column(nullable = false, precision = 12, scale = 5)
