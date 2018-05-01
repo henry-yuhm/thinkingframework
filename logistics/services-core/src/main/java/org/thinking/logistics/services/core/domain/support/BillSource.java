@@ -2,11 +2,31 @@ package org.thinking.logistics.services.core.domain.support;
 
 //单据来源
 public enum BillSource {
-    ERP("ERP", 1),
-    WMS("WMS", 2),
-    TPL("TPL", 3),
-    TMS("TMS", 4);
+    ERP(1) {
+        @Override
+        public String toString() {
+            return "ERP";
+        }
+    },
+    WMS(2) {
+        @Override
+        public String toString() {
+            return "WMS";
+        }
+    },
+    TPL(3) {
+        @Override
+        public String toString() {
+            return "TPL";
+        }
+    },
+    TMS(4) {
+        @Override
+        public String toString() {
+            return "TMS";
+        }
+    };
 
-    BillSource(String name, int ordinal) {
+    BillSource(int ordinal) {
     }
 }

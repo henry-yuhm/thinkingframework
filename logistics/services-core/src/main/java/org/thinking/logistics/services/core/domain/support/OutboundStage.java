@@ -2,23 +2,103 @@ package org.thinking.logistics.services.core.domain.support;
 
 //出库阶段
 public enum OutboundStage {
-    CREATED("00", 0),//单据生成
-    INITIALIZED("C1", 11),//初始化
-    ARRANGED("D1", 21),//波次安排
-    RELEASED("D2", 22),//下发
-    STAGINGAREA_ALLOCATED("F1", 31),//月台分配
-    SUSPENDED("F2", 32),//单据挂起
-    RESEND("F3", 33),//单据补发
-    BATCH_ALLOCATED("F4", 34),//批号分配
-    BUNDLED("F5", 35),//打包
-    SPLIT("F6", 36),//拆分
-    TASK_READY("J1", 41),//任务准备
-    WORKING("J2", 42),//正在作业
-    TASK_COMPLETE("N3", 51),//任务完成
-    RECHECKING("W1", 61),//正在复核
-    RECHECK_COMPLETE("W2", 62),//复核完成
-    TERMINATED("ZZ", 99);//作业终止
+    CREATED(0) {
+        @Override
+        public String toString() {
+            return "单据生成";
+        }
+    },
+    INITIALIZED(11) {
+        @Override
+        public String toString() {
+            return "初始化完成";
+        }
+    },
+    ARRANGED(21) {
+        @Override
+        public String toString() {
+            return "波次已安排";
+        }
+    },
+    RELEASED(22) {
+        @Override
+        public String toString() {
+            return "已下发";
+        }
+    },
+    STAGINGAREA_ALLOCATED(31) {
+        @Override
+        public String toString() {
+            return "月台已分配";
+        }
+    },
+    SUSPENDED(32) {
+        @Override
+        public String toString() {
+            return "单据挂起";
+        }
+    },
+    RESEND(33) {
+        @Override
+        public String toString() {
+            return "单据补发";
+        }
+    },
+    BATCH_ALLOCATED(34) {
+        @Override
+        public String toString() {
+            return "批号已分配";
+        }
+    },
+    BUNDLED(35) {
+        @Override
+        public String toString() {
+            return "单据已打包";
+        }
+    },
+    SPLIT(36) {
+        @Override
+        public String toString() {
+            return "单据已拆分";
+        }
+    },
+    TASK_READY(41) {
+        @Override
+        public String toString() {
+            return "任务准备";
+        }
+    },
+    WORKING(42) {
+        @Override
+        public String toString() {
+            return "正在作业";
+        }
+    },
+    TASK_COMPLETE(51) {
+        @Override
+        public String toString() {
+            return "任务完成";
+        }
+    },
+    RECHECKING(61) {
+        @Override
+        public String toString() {
+            return "正在外复核";
+        }
+    },
+    RECHECK_COMPLETE(62) {
+        @Override
+        public String toString() {
+            return "外复核完成";
+        }
+    },
+    TERMINATED(99) {
+        @Override
+        public String toString() {
+            return "作业终止";
+        }
+    };
 
-    OutboundStage(String name, int ordinal) {
+    OutboundStage(int ordinal) {
     }
 }

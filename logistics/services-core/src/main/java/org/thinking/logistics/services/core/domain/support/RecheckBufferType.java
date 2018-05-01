@@ -2,9 +2,19 @@ package org.thinking.logistics.services.core.domain.support;
 
 //复核暂存位类型
 public enum RecheckBufferType {
-    NORMAL("1", 1),
-    APPENDANT("2", 2);
+    NORMAL(1) {
+        @Override
+        public String toString() {
+            return "普通";
+        }
+    },
+    APPENDANT(2) {
+        @Override
+        public String toString() {
+            return "追加";
+        }
+    };
 
-    RecheckBufferType(String name, int ordinal) {
+    RecheckBufferType(int ordinal) {
     }
 }

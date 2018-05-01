@@ -2,9 +2,19 @@ package org.thinking.logistics.services.core.domain.support;
 
 //存放状态
 public enum StorageState {
-    QUALIFICATION("1", 1),//合格
-    DISQUALIFICATION("2", 2);//不合格
+    QUALIFICATION(1) {
+        @Override
+        public String toString() {
+            return "合格";
+        }
+    },
+    DISQUALIFICATION(2) {
+        @Override
+        public String toString() {
+            return "不合格";
+        }
+    };
 
-    StorageState(String name, int ordinal) {
+    StorageState(int ordinal) {
     }
 }

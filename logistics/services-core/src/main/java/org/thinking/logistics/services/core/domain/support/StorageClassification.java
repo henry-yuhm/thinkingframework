@@ -2,9 +2,19 @@ package org.thinking.logistics.services.core.domain.support;
 
 //存储分类
 public enum StorageClassification {
-    ALL("1", 1),
-    REMAINDER_ONLY("2", 2);
+    ALL(1) {
+        @Override
+        public String toString() {
+            return "全部";
+        }
+    },
+    REMAINDER_ONLY(2) {
+        @Override
+        public String toString() {
+            return "纯零";
+        }
+    };
 
-    StorageClassification(String name, int ordinal) {
+    StorageClassification(int ordinal) {
     }
 }

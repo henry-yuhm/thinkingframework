@@ -2,10 +2,25 @@ package org.thinking.logistics.services.core.domain.support;
 
 //销售分类
 public enum SaleClassification {
-    A("A", 1),
-    B("B", 2),
-    C("C", 3);
+    A(1) {
+        @Override
+        public String toString() {
+            return "A级";
+        }
+    },
+    B(2) {
+        @Override
+        public String toString() {
+            return "B级";
+        }
+    },
+    C(3) {
+        @Override
+        public String toString() {
+            return "C级";
+        }
+    };
 
-    SaleClassification(String name, int ordinal) {
+    SaleClassification(int ordinal) {
     }
 }

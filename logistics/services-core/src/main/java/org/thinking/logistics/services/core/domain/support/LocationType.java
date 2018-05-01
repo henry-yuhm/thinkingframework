@@ -2,8 +2,13 @@ package org.thinking.logistics.services.core.domain.support;
 
 //货位类型
 public enum LocationType {
-    NORMAL("1", 1);
+    NORMAL(1) {
+        @Override
+        public String toString() {
+            return "正常";
+        }
+    };
 
-    LocationType(String name, int ordinal) {
+    LocationType(int ordinal) {
     }
 }

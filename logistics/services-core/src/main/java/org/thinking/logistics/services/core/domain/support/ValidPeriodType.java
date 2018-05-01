@@ -2,10 +2,25 @@ package org.thinking.logistics.services.core.domain.support;
 
 //效期类型
 public enum ValidPeriodType {
-    ALL("ALL", 0),
-    OLD("OLD", 1),
-    NEW("NEW", 2);
+    ALL(0) {
+        @Override
+        public String toString() {
+            return "全部";
+        }
+    },
+    OLD(1) {
+        @Override
+        public String toString() {
+            return "老批号";
+        }
+    },
+    NEW(2) {
+        @Override
+        public String toString() {
+            return "新批号";
+        }
+    };
 
-    ValidPeriodType(String name, int ordinal) {
+    ValidPeriodType(int ordinal) {
     }
 }

@@ -4,6 +4,6 @@ package org.thinking.logistics.services.core.domain.support;
 public enum ArrivalMode {
     ;
 
-    ArrivalMode(String name, int ordinal) {
+    ArrivalMode(int ordinal) {
     }
 }

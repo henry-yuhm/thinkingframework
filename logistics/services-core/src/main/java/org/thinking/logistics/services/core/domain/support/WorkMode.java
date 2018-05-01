@@ -2,13 +2,43 @@ package org.thinking.logistics.services.core.domain.support;
 
 //作业方式
 public enum WorkMode {
-    LABEL("1", 1),//标签作业
-    PAPER("2", 2),//纸单作业
-    PDA("3", 3),//PDA作业
-    DPS("4", 4),//DPS作业
-    TPC("5", 5),//平板作业
-    PILER("6", 6);//堆垛机作业
+    LABEL(1) {
+        @Override
+        public String toString() {
+            return "标签";
+        }
+    },
+    PAPER(2) {
+        @Override
+        public String toString() {
+            return "纸单";
+        }
+    },
+    PDA(3) {
+        @Override
+        public String toString() {
+            return "PDA";
+        }
+    },
+    DPS(4) {
+        @Override
+        public String toString() {
+            return "电子标签";
+        }
+    },
+    TPC(5) {
+        @Override
+        public String toString() {
+            return "平板";
+        }
+    },
+    PILER(6) {
+        @Override
+        public String toString() {
+            return "堆垛机";
+        }
+    };
 
-    WorkMode(String name, int ordinal) {
+    WorkMode(int ordinal) {
     }
 }
