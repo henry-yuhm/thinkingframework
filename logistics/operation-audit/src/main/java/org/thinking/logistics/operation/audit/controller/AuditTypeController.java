@@ -4,7 +4,7 @@ import com.querydsl.core.types.Predicate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.querydsl.binding.QuerydslPredicate;
 import org.springframework.web.bind.annotation.*;
-import org.thinking.logistics.operation.audit.entity.AuditType;
+import org.thinking.logistics.operation.audit.domain.AuditType;
 import org.thinking.logistics.operation.audit.service.AuditTypeService;
 
 import java.util.List;

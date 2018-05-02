@@ -3,7 +3,7 @@ package org.thinking.logistics.statemachine.dispatcher.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import org.thinking.logistics.statemachine.dispatcher.entity.Workflow;
+import org.thinking.logistics.statemachine.dispatcher.domain.Workflow;
 import org.thinking.logistics.statemachine.dispatcher.service.ModelService;
 
 import java.util.List;

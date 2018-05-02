@@ -4,12 +4,12 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Lock;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
+import org.thinking.logistics.services.core.domain.Owner;
+import org.thinking.logistics.services.core.domain.Warehouse;
+import org.thinking.logistics.services.core.domain.inventory.OutboundConfiguration;
 import org.thinking.logistics.services.core.domain.support.BillCategory;
 import org.thinking.logistics.services.core.domain.support.PackageType;
 import org.thinking.logistics.services.core.domain.support.SaleType;
-import org.thinking.logistics.services.core.entity.Owner;
-import org.thinking.logistics.services.core.entity.Warehouse;
-import org.thinking.logistics.services.core.entity.inventory.OutboundConfiguration;
 
 import javax.persistence.LockModeType;
 import java.math.BigDecimal;

@@ -2,10 +2,10 @@ package org.thinking.logistics.batches.allocation.domain;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import org.thinking.logistics.services.core.entity.bill.OutboundDetail;
-import org.thinking.logistics.services.core.entity.bill.OutboundHeader;
-import org.thinking.logistics.services.core.entity.command.OutboundCommand;
-import org.thinking.logistics.services.core.entity.inventory.Inventory;
+import org.thinking.logistics.services.core.domain.bill.OutboundDetail;
+import org.thinking.logistics.services.core.domain.bill.OutboundHeader;
+import org.thinking.logistics.services.core.domain.command.OutboundCommand;
+import org.thinking.logistics.services.core.domain.inventory.Inventory;
 
 import java.math.BigDecimal;
 

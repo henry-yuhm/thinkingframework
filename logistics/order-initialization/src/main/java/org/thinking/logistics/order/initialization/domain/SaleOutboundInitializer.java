@@ -2,13 +2,13 @@ package org.thinking.logistics.order.initialization.domain;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import org.thinking.logistics.services.core.domain.Address;
 import org.thinking.logistics.services.core.domain.CompositeException;
+import org.thinking.logistics.services.core.domain.bill.OutboundHeader;
 import org.thinking.logistics.services.core.domain.support.DispatcherType;
 import org.thinking.logistics.services.core.domain.support.OutboundPriority;
 import org.thinking.logistics.services.core.domain.support.SaleType;
 import org.thinking.logistics.services.core.domain.support.TakegoodsMode;
-import org.thinking.logistics.services.core.entity.Address;
-import org.thinking.logistics.services.core.entity.bill.OutboundHeader;
 import org.thinking.logistics.services.core.repository.AddressRepository;
 
 import javax.annotation.Resource;

@@ -4,7 +4,7 @@ import com.querydsl.core.types.Predicate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.querydsl.binding.QuerydslPredicate;
 import org.springframework.web.bind.annotation.*;
-import org.thinking.logistics.resource.dispatcher.entity.DeliveryList;
+import org.thinking.logistics.resource.dispatcher.domain.DeliveryList;
 import org.thinking.logistics.resource.dispatcher.service.DeliveryListService;
 
 import java.util.List;

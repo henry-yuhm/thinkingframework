@@ -2,9 +2,7 @@ package org.thinking.logistics.services.core.domain;
 
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.Data;
-import org.thinking.logistics.services.core.entity.EntityBase;
-import org.thinking.logistics.services.core.entity.Warehouse;
-import org.thinking.logistics.services.core.entity.employee.Employee;
+import org.thinking.logistics.services.core.domain.employee.Employee;
 import org.thinking.logistics.services.core.service.ParameterService;
 
 import javax.annotation.Resource;

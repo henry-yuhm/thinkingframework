@@ -13,12 +13,12 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.DigestUtils;
 import org.springframework.web.client.RestTemplate;
+import org.thinking.logistics.data.exchange.domain.PrescriptionHeader;
 import org.thinking.logistics.data.exchange.domain.Request;
 import org.thinking.logistics.data.exchange.domain.Response;
 import org.thinking.logistics.data.exchange.domain.Result;
 import org.thinking.logistics.data.exchange.domain.support.DownloadState;
 import org.thinking.logistics.data.exchange.domain.support.ResponseCode;
-import org.thinking.logistics.data.exchange.entity.PrescriptionHeader;
 import org.thinking.logistics.data.exchange.repository.PrescriptionRepository;
 import org.thinking.logistics.services.core.domain.CompositeException;
 

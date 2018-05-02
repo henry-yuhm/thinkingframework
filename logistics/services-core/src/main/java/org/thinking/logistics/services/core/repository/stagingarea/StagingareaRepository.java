@@ -4,13 +4,13 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Lock;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
+import org.thinking.logistics.services.core.domain.Direction;
+import org.thinking.logistics.services.core.domain.Owner;
+import org.thinking.logistics.services.core.domain.stagingarea.Stagingarea;
 import org.thinking.logistics.services.core.domain.support.BillType;
 import org.thinking.logistics.services.core.domain.support.StagingareaCategory;
 import org.thinking.logistics.services.core.domain.support.StagingareaType;
 import org.thinking.logistics.services.core.domain.support.TakegoodsMode;
-import org.thinking.logistics.services.core.entity.Direction;
-import org.thinking.logistics.services.core.entity.Owner;
-import org.thinking.logistics.services.core.entity.stagingarea.Stagingarea;
 
 import javax.persistence.LockModeType;
 import java.util.LinkedList;

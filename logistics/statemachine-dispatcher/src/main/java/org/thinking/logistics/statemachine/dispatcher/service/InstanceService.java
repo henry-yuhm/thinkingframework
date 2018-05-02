@@ -2,8 +2,8 @@ package org.thinking.logistics.statemachine.dispatcher.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.thinking.logistics.statemachine.dispatcher.entity.Monitor;
-import org.thinking.logistics.statemachine.dispatcher.entity.Workflow;
+import org.thinking.logistics.statemachine.dispatcher.domain.Monitor;
+import org.thinking.logistics.statemachine.dispatcher.domain.Workflow;
 import org.thinking.logistics.statemachine.dispatcher.repository.MonitorRepository;
 import org.thinking.logistics.statemachine.dispatcher.repository.WorkflowRepository;
 

@@ -4,10 +4,10 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import org.thinking.logistics.services.core.domain.BusinessBase;
 import org.thinking.logistics.services.core.domain.CompositeException;
+import org.thinking.logistics.services.core.domain.bill.OutboundDetail;
+import org.thinking.logistics.services.core.domain.bill.OutboundHeader;
 import org.thinking.logistics.services.core.domain.support.NotExistsEntityException;
 import org.thinking.logistics.services.core.domain.support.OutboundStage;
-import org.thinking.logistics.services.core.entity.bill.OutboundDetail;
-import org.thinking.logistics.services.core.entity.bill.OutboundHeader;
 import org.thinking.logistics.services.core.repository.bill.OutboundHeaderRepository;
 
 import javax.annotation.Resource;

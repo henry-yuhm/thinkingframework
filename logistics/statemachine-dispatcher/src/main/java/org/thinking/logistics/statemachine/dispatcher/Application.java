@@ -15,7 +15,7 @@ import org.thinkingframework.boot.web.mvc.AppWebMvcConfigurer;
 @EnableEurekaClient
 @EnableFeignClients
 @EnableHystrix
-@EntityScan(basePackages = "org.thinking.logistics.statemachine.dispatcher.entity")
+@EntityScan(basePackages = "org.thinking.logistics.statemachine.dispatcher.domain")
 public class Application extends AppWebMvcConfigurer {
     public static void main(String[] args) {
         SpringApplication.run(Application.class, args);

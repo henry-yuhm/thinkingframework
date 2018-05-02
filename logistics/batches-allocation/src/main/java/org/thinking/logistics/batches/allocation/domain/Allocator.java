@@ -1,10 +1,10 @@
 package org.thinking.logistics.batches.allocation.domain;
 
-import org.thinking.logistics.services.core.entity.Batches;
-import org.thinking.logistics.services.core.entity.Goods;
-import org.thinking.logistics.services.core.entity.bill.OutboundDetail;
-import org.thinking.logistics.services.core.entity.command.OutboundCommand;
-import org.thinking.logistics.services.core.entity.inventory.Inventory;
+import org.thinking.logistics.services.core.domain.Batches;
+import org.thinking.logistics.services.core.domain.Goods;
+import org.thinking.logistics.services.core.domain.bill.OutboundDetail;
+import org.thinking.logistics.services.core.domain.command.OutboundCommand;
+import org.thinking.logistics.services.core.domain.inventory.Inventory;
 
 import java.math.BigDecimal;
 

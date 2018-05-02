@@ -12,7 +12,7 @@ import org.thinkingframework.boot.web.mvc.AppWebMvcConfigurer;
 @EnableEurekaClient
 @EnableFeignClients
 @EnableHystrix
-@EntityScan(basePackages = {"org.thinking.logistics.core.entity", "org.thinking.logistics.inventory.entity"})
+@EntityScan(basePackages = {"org.thinking.logistics.core.domain", "org.thinking.logistics.inventory.domain"})
 public class Application extends AppWebMvcConfigurer {
     public static void main(String[] args) {
         SpringApplication.run(Application.class, args);

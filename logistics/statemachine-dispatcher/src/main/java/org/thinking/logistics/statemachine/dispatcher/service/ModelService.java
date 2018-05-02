@@ -8,8 +8,8 @@ import org.springframework.statemachine.data.jpa.JpaRepositoryState;
 import org.springframework.statemachine.data.jpa.JpaRepositoryTransition;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.thinking.logistics.statemachine.dispatcher.entity.Node;
-import org.thinking.logistics.statemachine.dispatcher.entity.Workflow;
+import org.thinking.logistics.statemachine.dispatcher.domain.Node;
+import org.thinking.logistics.statemachine.dispatcher.domain.Workflow;
 import org.thinking.logistics.statemachine.dispatcher.repository.*;
 
 import java.util.*;

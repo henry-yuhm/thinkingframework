@@ -4,8 +4,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.thinking.logistics.order.dispatcher.domain.*;
-import org.thinking.logistics.services.core.entity.bill.OutboundHeader;
-import org.thinking.logistics.services.core.entity.employee.Employee;
+import org.thinking.logistics.services.core.domain.bill.OutboundHeader;
+import org.thinking.logistics.services.core.domain.employee.Employee;
 import org.thinking.logistics.services.core.repository.bill.OutboundHeaderRepository;
 
 import java.util.List;

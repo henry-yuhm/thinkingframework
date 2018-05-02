@@ -5,7 +5,7 @@ import com.querydsl.core.types.Predicate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.querydsl.binding.QuerydslPredicate;
 import org.springframework.web.bind.annotation.*;
-import org.thinking.logistics.upgrade.service.entity.UpgradeConfig;
+import org.thinking.logistics.upgrade.service.domain.UpgradeConfig;
 import org.thinking.logistics.upgrade.service.service.UpgradeService;
 
 import java.util.List;

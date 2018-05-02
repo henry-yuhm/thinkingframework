@@ -3,9 +3,9 @@ package org.thinking.logistics.order.dispatcher.domain;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import org.thinking.logistics.services.core.domain.CompositeException;
+import org.thinking.logistics.services.core.domain.bill.OutboundHeader;
+import org.thinking.logistics.services.core.domain.employee.Employee;
 import org.thinking.logistics.services.core.domain.support.OutboundStage;
-import org.thinking.logistics.services.core.entity.bill.OutboundHeader;
-import org.thinking.logistics.services.core.entity.employee.Employee;
 
 @Data
 @EqualsAndHashCode(callSuper = true)

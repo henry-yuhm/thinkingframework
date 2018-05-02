@@ -3,8 +3,8 @@ package org.thinking.logistics.order.dispatcher.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.thinking.logistics.order.dispatcher.service.DispatcherService;
-import org.thinking.logistics.services.core.entity.bill.OutboundHeader;
-import org.thinking.logistics.services.core.entity.employee.Employee;
+import org.thinking.logistics.services.core.domain.bill.OutboundHeader;
+import org.thinking.logistics.services.core.domain.employee.Employee;
 
 import java.util.List;
 

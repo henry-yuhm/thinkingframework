@@ -4,7 +4,7 @@ import com.querydsl.core.types.Predicate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.thinking.logistics.operation.audit.entity.AuditData;
+import org.thinking.logistics.operation.audit.domain.AuditData;
 import org.thinking.logistics.operation.audit.repository.AuditDataRepository;
 import org.thinking.logistics.operation.audit.repository.AuditTypeRepository;
 

@@ -4,7 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import org.thinking.logistics.statemachine.dispatcher.entity.Monitor;
+import org.thinking.logistics.statemachine.dispatcher.domain.Monitor;
 import org.thinking.logistics.statemachine.dispatcher.service.MonitorService;
 
 import java.util.List;

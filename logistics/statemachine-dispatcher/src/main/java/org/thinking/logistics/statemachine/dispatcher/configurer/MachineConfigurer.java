@@ -38,7 +38,7 @@ import org.springframework.statemachine.support.StateMachineInterceptor;
 import org.springframework.statemachine.support.StateMachineInterceptorAdapter;
 import org.springframework.statemachine.transition.Transition;
 import org.springframework.web.client.RestTemplate;
-import org.thinking.logistics.statemachine.dispatcher.entity.Monitor;
+import org.thinking.logistics.statemachine.dispatcher.domain.Monitor;
 import org.thinking.logistics.statemachine.dispatcher.repository.*;
 
 import java.util.*;

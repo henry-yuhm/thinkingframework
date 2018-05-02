@@ -4,9 +4,9 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Lock;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
+import org.thinking.logistics.services.core.domain.*;
+import org.thinking.logistics.services.core.domain.inventory.Inventory;
 import org.thinking.logistics.services.core.domain.support.InventoryState;
-import org.thinking.logistics.services.core.entity.*;
-import org.thinking.logistics.services.core.entity.inventory.Inventory;
 
 import javax.persistence.LockModeType;
 import java.util.List;

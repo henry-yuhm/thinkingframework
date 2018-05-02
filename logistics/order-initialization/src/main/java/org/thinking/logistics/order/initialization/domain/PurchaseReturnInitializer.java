@@ -2,9 +2,9 @@ package org.thinking.logistics.order.initialization.domain;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import org.thinking.logistics.services.core.domain.bill.OutboundHeader;
 import org.thinking.logistics.services.core.domain.support.OutboundPriority;
 import org.thinking.logistics.services.core.domain.support.TakegoodsMode;
-import org.thinking.logistics.services.core.entity.bill.OutboundHeader;
 
 @Data
 @EqualsAndHashCode(callSuper = true)

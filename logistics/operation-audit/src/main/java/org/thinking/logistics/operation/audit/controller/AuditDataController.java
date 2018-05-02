@@ -5,7 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.querydsl.binding.QuerydslPredicate;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
-import org.thinking.logistics.operation.audit.entity.AuditData;
+import org.thinking.logistics.operation.audit.domain.AuditData;
 import org.thinking.logistics.operation.audit.service.AuditDataService;
 import org.thinking.logistics.services.core.domain.CompositeException;
 
