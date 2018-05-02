@@ -228,19 +228,15 @@
                             <configuration>
                                 <outputDirectory>target/generated-sources/java</outputDirectory>
                                 <processor>com.querydsl.apt.jpa.JPAAnnotationProcessor</processor>
-                                <options>
-                                    <querydsl.packageSuffix>.dsl</querydsl.packageSuffix>
-                                </options>
+                                <!--<options>-->
+                                <!--<querydsl.packageSuffix>org.thinking.logistics.services.core.domain.query</querydsl.packageSuffix>-->
+                                <!--</options>-->
+                                <compilerOptions>
+                                    <packageName>org.thinking.logistics.services.core.domain.query</packageName>
+                                </compilerOptions>
                             </configuration>
                         </execution>
                     </executions>
-                    <dependencies>
-                        <dependency>
-                            <groupId>com.querydsl</groupId>
-                            <artifactId>querydsl-apt</artifactId>
-                            <version>${querydsl.version}</version>
-                        </dependency>
-                    </dependencies>
                 </plugin>
             </plugins>
         </pluginManagement>
