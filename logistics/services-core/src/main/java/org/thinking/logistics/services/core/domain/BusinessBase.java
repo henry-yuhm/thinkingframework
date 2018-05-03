@@ -1,6 +1,5 @@
 package org.thinking.logistics.services.core.domain;
 
-import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.Data;
 import org.thinking.logistics.services.core.domain.employee.Employee;
 import org.thinking.logistics.services.core.service.ParameterService;
@@ -17,13 +16,7 @@ import java.util.regex.Pattern;
 
 @Data
 public abstract class BusinessBase {
-    protected JPAQueryFactory queryFactory;
-
-    protected Employee operator;//操作员
-
-    @Resource
-    @PersistenceContext
-    private EntityManager entityManager;
+    private Employee operator;//操作员
 
     @Resource
     private ParameterService parameterService;
@@ -33,49 +26,48 @@ public abstract class BusinessBase {
     }
 
     public BusinessBase(Employee operator) {
-        this.queryFactory = new JPAQueryFactory(this.entityManager);
         this.operator = operator;
     }
 
-    protected final String getStringParameter(String no) {
+    public final String getStringParameter(String no) {
         return this.getStringParameter(null, no);
     }
 
-    protected final String getStringParameter(Warehouse warehouse, String no) {
+    public final String getStringParameter(Warehouse warehouse, String no) {
         return this.parameterService.getValue(warehouse, no);
     }
 
-    protected final int getIntegerParameter(String no) {
+    public final int getIntegerParameter(String no) {
         return this.getIntegerParameter(null, no);
     }
 
-    protected final int getIntegerParameter(Warehouse warehouse, String no) {
+    public final int getIntegerParameter(Warehouse warehouse, String no) {
         return this.getDecimalParameter(warehouse, no).intValue();
     }
 
-    protected final BigDecimal getDecimalParameter(String no) {
+    public final BigDecimal getDecimalParameter(String no) {
         return this.getDecimalParameter(null, no);
     }
 
-    protected final BigDecimal getDecimalParameter(Warehouse warehouse, String no) {
+    public final BigDecimal getDecimalParameter(Warehouse warehouse, String no) {
         Pattern pattern = Pattern.compile("[0-9]*");
         String value = this.parameterService.getValue(warehouse, no);
         return pattern.matcher(value).matches() ? new BigDecimal(value) : new BigDecimal(-1);
     }
 
-    protected final Date getDateParameter(String no) {
+    public final Date getDateParameter(String no) {
         return this.getDateParameter(null, no);
     }
 
-    protected final Date getDateParameter(Warehouse warehouse, String no) {
+    public final Date getDateParameter(Warehouse warehouse, String no) {
         return Date.valueOf(this.getStringParameter(warehouse, no));
     }
 
-    protected final boolean isEnable(String no) {
+    public final boolean isEnable(String no) {
         return this.isEnable(null, no);
     }
 
-    protected final boolean isEnable(Warehouse warehouse, String no) {
+    public final boolean isEnable(Warehouse warehouse, String no) {
         return Boolean.parseBoolean(this.getStringParameter(warehouse, no));
     }
 

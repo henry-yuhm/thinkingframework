@@ -16,7 +16,7 @@ import java.math.BigDecimal;
 @Data
 @EqualsAndHashCode(callSuper = true)
 public abstract class AbstractInitializer extends BusinessBase implements Initializer {
-    protected OutboundHeader header;
+    private OutboundHeader header;
 
     @Resource
     private OutboundHeaderRepository headerRepository;

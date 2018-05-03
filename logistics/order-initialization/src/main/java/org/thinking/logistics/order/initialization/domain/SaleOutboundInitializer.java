@@ -2,14 +2,13 @@ package org.thinking.logistics.order.initialization.domain;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import org.thinking.logistics.services.core.domain.Address;
 import org.thinking.logistics.services.core.domain.CompositeException;
 import org.thinking.logistics.services.core.domain.bill.OutboundHeader;
 import org.thinking.logistics.services.core.domain.support.DispatcherType;
 import org.thinking.logistics.services.core.domain.support.OutboundPriority;
 import org.thinking.logistics.services.core.domain.support.SaleType;
 import org.thinking.logistics.services.core.domain.support.TakegoodsMode;
-import org.thinking.logistics.services.core.repository.AddressRepository;
+import org.thinking.logistics.services.core.service.AddressService;
 
 import javax.annotation.Resource;
 import java.sql.Date;
@@ -19,7 +18,7 @@ import java.time.LocalDate;
 @EqualsAndHashCode(callSuper = true)
 public class SaleOutboundInitializer extends AbstractInitializer {
     @Resource
-    private AddressRepository addressRepository;
+    private AddressService addressService;
 
     public SaleOutboundInitializer(OutboundHeader header) {
         super(header);
@@ -62,17 +61,7 @@ public class SaleOutboundInitializer extends AbstractInitializer {
         //endregion
 
         //region 配送地址
-        Address address = this.addressRepository.findByCustomer(this.header.getCustomer());
-
-        if (address == null) {
-            throw CompositeException.getException("未配置默认配送地址", this.header, this.header.getOwner(), this.header.getCustomer());
-        }
-
-        if (address.getDirection() == null) {
-            throw CompositeException.getException("默认配送地址未配置配送方向", this.header, this.header.getOwner(), this.header.getCustomer());
-        }
-
-        this.header.setAddress(address);
+        this.header.setAddress(this.addressService.findOne(this.header.getCustomer()));
         //endregion
 
         //region 三方业主自动打单

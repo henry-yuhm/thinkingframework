@@ -4,17 +4,20 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import org.thinking.logistics.services.core.domain.CompositeException;
 import org.thinking.logistics.services.core.domain.Customer;
-import org.thinking.logistics.services.core.service.EntityService;
+import org.thinking.logistics.services.core.domain.dsl.QCustomer;
+import org.thinking.logistics.services.core.service.CustomerService;
 
 import javax.annotation.Resource;
 
 @Data
 @EqualsAndHashCode(callSuper = true)
 public class CustomerReceiver extends AbstractReceiver {
+    private final QCustomer qCustomer = QCustomer.customer;
+
     private final Customer customer;
 
     @Resource
-    private EntityService<Customer, Long> service;
+    private CustomerService service;
 
     public CustomerReceiver(Customer customer) {
         this.customer = customer;
@@ -31,6 +34,14 @@ public class CustomerReceiver extends AbstractReceiver {
 
     @Override
     public void save() throws Exception {
-        this.service.save(this.customer);
+        Customer customer = this.service.findOne(this.customer.getOwner(), this.customer.getNo());
+
+        if (customer == null) {
+            this.service.save(this.customer);
+        } else {
+            customer.setMnemonicCode(this.customer.getMnemonicCode());
+
+            this.service.save(customer);
+        }
     }
 }

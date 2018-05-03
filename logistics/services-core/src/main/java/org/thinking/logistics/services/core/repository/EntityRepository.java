@@ -15,4 +15,6 @@ public interface EntityRepository<E, ID> {
     E save(E entity);
 
     List<E> saveAll(List<E> entities);
+
+    E getOne();
 }

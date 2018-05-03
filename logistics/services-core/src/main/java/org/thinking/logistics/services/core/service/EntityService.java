@@ -1,20 +1,38 @@
 package org.thinking.logistics.services.core.service;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import com.querydsl.core.types.Predicate;
+import com.querydsl.core.types.dsl.EntityPathBase;
+import com.querydsl.jpa.impl.JPAQueryFactory;
+import lombok.Data;
 import org.springframework.data.domain.Example;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.stereotype.Service;
 import org.thinking.logistics.services.core.repository.EntityRepository;
 
+import javax.annotation.Resource;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
-@Service
-public class EntityService<E, ID> implements EntityRepository<E, ID> {
+@Data
+public abstract class EntityService<Q extends EntityPathBase<E>, E, ID> implements EntityRepository<E, ID> {
+    private final Set<Predicate> predicates = new LinkedHashSet<>();
+
+    private JPAQueryFactory queryFactory;
+
+    private Q path;
+
+    @Resource
+    @PersistenceContext
+    private EntityManager entityManager;
+
+    @Resource
     private JpaRepository<E, ID> repository;
 
-    @Autowired
     public EntityService(JpaRepository<E, ID> repository) {
+        this.queryFactory = new JPAQueryFactory(this.entityManager);
         this.repository = repository;
     }
 
@@ -36,5 +54,12 @@ public class EntityService<E, ID> implements EntityRepository<E, ID> {
     @Override
     public List<E> saveAll(List<E> entities) {
         return this.repository.saveAll(entities);
+    }
+
+    @Override
+    public E getOne() {
+        return this.queryFactory.selectFrom(this.path)
+            .where((Predicate[]) this.predicates.toArray())
+            .fetchOne();
     }
 }

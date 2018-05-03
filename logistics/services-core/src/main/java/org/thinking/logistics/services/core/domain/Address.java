@@ -20,7 +20,7 @@ public class Address {
     @ManyToOne(fetch = FetchType.LAZY)
     private Route route;//路线
 
-    private String address;//地址
+    private String description;//地址
 
     private int loadingOrder = 0;//装车顺序
 

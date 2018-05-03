@@ -17,9 +17,9 @@ import java.util.List;
 @Data
 @EqualsAndHashCode(callSuper = true)
 public abstract class AbstractDispatcher extends BusinessBase implements Dispatcher {
-    protected OutboundHeader header;
+    private OutboundHeader header;
 
-    protected List<OutboundHeader> headers;
+    private List<OutboundHeader> headers;
 
     @Resource
     private OutboundHeaderRepository headerRepository;
@@ -50,7 +50,7 @@ public abstract class AbstractDispatcher extends BusinessBase implements Dispatc
 
         this.headers.forEach(header -> {
             header.setStage(OutboundStage.ARRANGED);
-            header.setDispatchers(this.operator);
+            header.setDispatchers(this.getOperator());
             header.setDispatcherTime(Date.valueOf(LocalDate.now()));
         });
 
@@ -100,7 +100,7 @@ public abstract class AbstractDispatcher extends BusinessBase implements Dispatc
     @Override
     public void releaseOrder() throws Exception {
         this.header.setStage(this.header.getStage() == OutboundStage.SUSPENDED ? OutboundStage.RESEND : OutboundStage.RELEASED);
-        this.header.setDispatchers(this.operator);
+        this.header.setDispatchers(this.getOperator());
         this.header.setDispatcherTime(Date.valueOf(LocalDate.now()));
         this.header.setReleaseTime(Date.valueOf(LocalDate.now()));
 

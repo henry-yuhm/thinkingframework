@@ -229,14 +229,37 @@
                                 <outputDirectory>target/generated-sources/java</outputDirectory>
                                 <processor>com.querydsl.apt.jpa.JPAAnnotationProcessor</processor>
                                 <!--<options>-->
-                                <!--<querydsl.packageSuffix>org.thinking.logistics.services.core.domain.query</querydsl.packageSuffix>-->
+                                <!--<querydsl.packageSuffix>org.thinking.logistics.services.core.domain.queryFactory</querydsl.packageSuffix>-->
                                 <!--</options>-->
-                                <compilerOptions>
-                                    <packageName>org.thinking.logistics.services.core.domain.query</packageName>
-                                </compilerOptions>
                             </configuration>
                         </execution>
                     </executions>
+                </plugin>
+
+                <plugin>
+                    <groupId>com.querydsl</groupId>
+                    <artifactId>querydsl-maven-plugin</artifactId>
+                    <version>${querydsl.version}</version>
+                    <executions>
+                        <execution>
+                            <goals>
+                                <goal>export</goal>
+                            </goals>
+                        </execution>
+                    </executions>
+                    <configuration>
+                        <!--<jdbcDriver>org.apache.derby.jdbc.EmbeddedDriver</jdbcDriver>-->
+                        <!--<jdbcUrl>jdbc:derby:target/demoDB;create=true</jdbcUrl>-->
+                        <packageName>org.thinking.logistics.services.core.domain.query</packageName>
+                        <targetFolder>${project.basedir}/target/generated-sources/java</targetFolder>
+                    </configuration>
+                    <!--<dependencies>-->
+                    <!--<dependency>-->
+                    <!--<groupId>org.apache.derby</groupId>-->
+                    <!--<artifactId>derby</artifactId>-->
+                    <!--<version>${derby.version}</version>-->
+                    <!--</dependency>-->
+                    <!--</dependencies>-->
                 </plugin>
             </plugins>
         </pluginManagement>

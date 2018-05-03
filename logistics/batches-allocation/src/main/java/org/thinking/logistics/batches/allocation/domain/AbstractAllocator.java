@@ -30,27 +30,27 @@ import java.util.*;
 @Data
 @EqualsAndHashCode(callSuper = true)
 public abstract class AbstractAllocator extends BusinessBase implements Allocator {
-    protected final OutboundHeader header;
+    private final OutboundHeader header;
 
-    protected final boolean remainder2Wholepieces;
+    private final boolean remainder2Wholepieces;
 
-    protected final boolean newBatches;
+    private final boolean newBatches;
 
-    protected PackageType packageType;
+    private PackageType packageType;
 
-    protected BigDecimal allocationQuantity = BigDecimal.ZERO;
+    private BigDecimal allocationQuantity = BigDecimal.ZERO;
 
-    protected ValidPeriodType validPeriodType;
+    private ValidPeriodType validPeriodType;
 
-    protected int batchesNumber = 0;
+    private int batchesNumber = 0;
 
-    protected Map<Batches, BigDecimal> batches = new LinkedHashMap<>();
+    private Map<Batches, BigDecimal> batches = new LinkedHashMap<>();
 
-    protected List<BatchesInventory> batchesInventories = new LinkedList<>();
+    private List<BatchesInventory> batchesInventories = new LinkedList<>();
 
-    protected List<Inventory> inventories = new LinkedList<>();
+    private List<Inventory> inventories = new LinkedList<>();
 
-    protected List<OutboundCommand> commands = new LinkedList<>();
+    private List<OutboundCommand> commands = new LinkedList<>();
 
     @Resource
     private OutboundHeaderRepository headerRepository;
