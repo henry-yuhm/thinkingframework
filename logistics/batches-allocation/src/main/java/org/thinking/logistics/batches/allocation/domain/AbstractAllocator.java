@@ -70,7 +70,7 @@ public abstract class AbstractAllocator extends BusinessBase implements Allocato
     @Resource
     private ReplenishingCommandRepository replenishingCommandRepository;
 
-    public AbstractAllocator(OutboundHeader header) {
+    public AbstractAllocator(OutboundHeader header) throws Exception {
         this.header = header;
         this.remainder2Wholepieces = this.isEnable(this.header.getWarehouse(), "ZJBZCLH");
         this.newBatches = this.isEnable(this.header.getWarehouse(), this.packageType == PackageType.WHOLEPIECES ? "ZJWYQCXPH" : "LHWYQCXPH");

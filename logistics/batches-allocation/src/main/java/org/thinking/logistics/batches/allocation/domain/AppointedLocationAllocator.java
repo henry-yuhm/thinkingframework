@@ -8,7 +8,7 @@ import org.thinking.logistics.services.core.domain.bill.OutboundHeader;
 @Data
 @EqualsAndHashCode(callSuper = true)
 public class AppointedLocationAllocator extends AbstractAllocator {
-    public AppointedLocationAllocator(OutboundHeader header) {
+    public AppointedLocationAllocator(OutboundHeader header) throws Exception {
         super(header);
     }
 

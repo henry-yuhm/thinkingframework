@@ -9,11 +9,11 @@ spring:
   datasource:
     # JDBC 配置
     type: com.alibaba.druid.pool.DruidDataSource
-    url: jdbc:oracle:thin:@10.61.9.20:1521:LMIS
-    username: lmis
-    password: lmiscqnet
+    url: jdbc:oracle:thin:@10.211.55.3:1521:WMS
+    username: exwms
+    password: exwms
     druid:
-#      oracle: true
+      oracle: true
       # 连接池配置
       name: druidPool
       default-auto-commit: false
@@ -35,20 +35,16 @@ spring:
       min-evictable-idle-time-millis: 1800000
       max-evictable-idle-time-millis: 7200000
       remove-abandoned-timeout: 1800
-      filters: stat,log4j,wall
       # 监控配置
       web-stat-filter:
         exclusions: /public/*,*.js,*.css,/druid*,*.jsp,*.swf
       stat-view-servlet:
         login-username: druid
         login-password: druid
-      aop-patterns: org.thinking.logistics.service.*
+      aop-patterns: org.thinking.logistics.resource.dispatcher.*
       use-oracle-implicit-cache: true
       access-to-underlying-connection-allowed: true
       connection-properties: druid.stat.mergeSql=true;druid.stat.slowSqlMillis=5000
-      filter:
-        log4j:
-          enabled: true
   jpa:
     database: oracle
     show-sql: true
@@ -56,8 +52,10 @@ spring:
       hibernate:
         dialect: org.hibernate.dialect.Oracle12cDialect
     hibernate:
+      ddl-auto: update
       naming:
         implicit-strategy: org.springframework.boot.orm.jpa.hibernate.SpringImplicitNamingStrategy
+        physical-strategy: org.springframework.boot.orm.jpa.hibernate.SpringPhysicalNamingStrategy
 server:
   port: 8821
 eureka:
@@ -70,6 +68,12 @@ eureka:
       defaultZone: http://peer1:8761/eureka,http://peer2:8762/eureka
     healthcheck:
       enabled: true
+ribbon:
+  eager-load:
+    enabled: true
+logging:
+  level:
+    org.thinking.logistics.resource.dispatcher.*: DEBUG
 ---
 spring:
   profiles: dev

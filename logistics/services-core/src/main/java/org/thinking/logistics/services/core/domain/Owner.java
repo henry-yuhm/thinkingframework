@@ -30,10 +30,8 @@ public class Owner {
     @Column(nullable = false)
     private boolean thirdpart;//第三方
 
-//    @Override
-//    public void verify(Owner probe) throws Exception {
-//        if (Optional.ofNullable(probe.getNo()).get().isEmpty()) {
-//            throw CompositeException.getException("业主编号不能为空");
-//        }
-//    }
+    @Override
+    public String toString() {
+        return "业主【" + this.no + "】【" + this.name + "】";
+    }
 }

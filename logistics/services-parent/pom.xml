@@ -30,7 +30,6 @@
         <module>../statemachine-dispatcher</module>
         <module>../task-bundle</module>
         <module>../task-grouping</module>
-        <module>../upgrade-service</module>
     </modules>
 
 </project>

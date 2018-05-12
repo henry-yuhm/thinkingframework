@@ -96,9 +96,9 @@ public abstract class AbstractAllocator extends BusinessBase implements Allocato
 
     @Override
     public void acquirePhysicalConfiguration() throws Exception {
-        this.configuration = this.stagingareaConfigurationService.findOne(this.header);
+        this.configuration = this.stagingareaConfigurationService.acquire(this.header, true);
 
-        this.stagingarea.setType(this.physicalConfigurationService.findOne(this.header).getStagingareaType());
+        this.stagingarea.setType(this.physicalConfigurationService.acquire(this.header, true).getStagingareaType());
     }
 
     @Override
@@ -108,7 +108,7 @@ public abstract class AbstractAllocator extends BusinessBase implements Allocato
 
     @Override
     public void acquireVirtualConfiguration(Direction direction) throws Exception {
-        VirtualConfiguration configuration = this.virtualConfigurationService.findOne(this.header, this.stagingarea.getCategory(), direction);
+        VirtualConfiguration configuration = this.virtualConfigurationService.acquire(this.header, this.stagingarea.getCategory(), direction);
 
         if (configuration != null) {
             this.stagingarea = configuration.getStagingarea();

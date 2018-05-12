@@ -14,9 +14,9 @@ public class AppointedLocationDispatcher extends AbstractDispatcher {
 
     @Override
     public void releaseOrder() throws Exception {
-        this.header.isResended();
+        this.getHeader().isResended();
 
-        this.header.setWave("0000000006");
+        this.getHeader().setWave("0000000006");
 
         super.releaseOrder();
     }

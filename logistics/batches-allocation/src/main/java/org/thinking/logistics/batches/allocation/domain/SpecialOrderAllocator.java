@@ -8,7 +8,7 @@ import org.thinking.logistics.services.core.domain.bill.OutboundHeader;
 @Data
 @EqualsAndHashCode(callSuper = true)
 public class SpecialOrderAllocator extends AbstractAllocator {
-    public SpecialOrderAllocator(OutboundHeader header) {
+    public SpecialOrderAllocator(OutboundHeader header) throws Exception {
         super(header);
     }
 

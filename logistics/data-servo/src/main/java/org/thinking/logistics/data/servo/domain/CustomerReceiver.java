@@ -4,7 +4,7 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import org.thinking.logistics.services.core.domain.CompositeException;
 import org.thinking.logistics.services.core.domain.Customer;
-import org.thinking.logistics.services.core.domain.dsl.QCustomer;
+import org.thinking.logistics.services.core.domain.QCustomer;
 import org.thinking.logistics.services.core.service.CustomerService;
 
 import javax.annotation.Resource;
@@ -34,14 +34,6 @@ public class CustomerReceiver extends AbstractReceiver {
 
     @Override
     public void save() throws Exception {
-        Customer customer = this.service.findOne(this.customer.getOwner(), this.customer.getNo());
-
-        if (customer == null) {
-            this.service.save(this.customer);
-        } else {
-            customer.setMnemonicCode(this.customer.getMnemonicCode());
-
-            this.service.save(customer);
-        }
+        this.service.save(this.customer, false);
     }
 }

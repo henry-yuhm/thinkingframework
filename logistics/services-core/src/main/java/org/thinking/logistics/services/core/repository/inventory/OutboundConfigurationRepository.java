@@ -1,6 +1,5 @@
 package org.thinking.logistics.services.core.repository.inventory;
 
-import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Lock;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
@@ -10,13 +9,14 @@ import org.thinking.logistics.services.core.domain.inventory.OutboundConfigurati
 import org.thinking.logistics.services.core.domain.support.BillCategory;
 import org.thinking.logistics.services.core.domain.support.PackageType;
 import org.thinking.logistics.services.core.domain.support.SaleType;
+import org.thinking.logistics.services.core.repository.DomainRepository;
 
 import javax.persistence.LockModeType;
 import java.math.BigDecimal;
 import java.util.LinkedList;
 
 @Repository
-public interface OutboundConfigurationRepository extends JpaRepository<OutboundConfiguration, Long> {
+public interface OutboundConfigurationRepository extends DomainRepository<OutboundConfiguration, Long> {
     @Lock(LockModeType.PESSIMISTIC_WRITE)
     @Query(value = "select cfg from OutboundConfiguration cfg " +
         "where cfg.warehouse = :warehouse " +

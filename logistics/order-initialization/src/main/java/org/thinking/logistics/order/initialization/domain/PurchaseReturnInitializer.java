@@ -15,9 +15,9 @@ public class PurchaseReturnInitializer extends AbstractInitializer {
 
     @Override
     public void save() throws Exception {
-        this.header.setPriority(OutboundPriority.PURCHASE_RETURN);
-        this.header.setTakegoodsMode(TakegoodsMode.NONE);
-        this.header.setTakegoodsModeSwitch(TakegoodsMode.NONE);
+        this.getHeader().setPriority(OutboundPriority.PURCHASE_RETURN);
+        this.getHeader().setTakegoodsMode(TakegoodsMode.NONE);
+        this.getHeader().setTakegoodsModeSwitch(TakegoodsMode.NONE);
 
         super.save();
     }

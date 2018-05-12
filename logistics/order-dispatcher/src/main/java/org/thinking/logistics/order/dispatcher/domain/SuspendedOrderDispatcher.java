@@ -14,7 +14,7 @@ public class SuspendedOrderDispatcher extends AbstractDispatcher {
 
     @Override
     public void releaseOrder() throws Exception {
-        this.header.isResended();
+        this.getHeader().isResended();
 
         //region 骨科寄售校验
         //endregion

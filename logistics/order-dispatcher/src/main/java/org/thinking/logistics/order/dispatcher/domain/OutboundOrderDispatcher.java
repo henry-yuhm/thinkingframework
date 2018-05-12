@@ -22,7 +22,7 @@ public class OutboundOrderDispatcher extends AbstractDispatcher {
 
     @Override
     public void releaseWave() throws Exception {
-        if (this.headers.stream().anyMatch(header -> header.getStage().compareTo(OutboundStage.RELEASED) >= 0)) {
+        if (this.getHeaders().stream().anyMatch(header -> header.getStage().compareTo(OutboundStage.RELEASED) >= 0)) {
             throw CompositeException.getException("波次已经下发");
         }
 

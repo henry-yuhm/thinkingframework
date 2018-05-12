@@ -14,7 +14,7 @@ import java.math.BigDecimal;
 public class AppendantCommandAllocator extends AbstractAllocator {
     private OutboundCommand command;
 
-    public AppendantCommandAllocator(OutboundHeader header, OutboundCommand command) {
+    public AppendantCommandAllocator(OutboundHeader header, OutboundCommand command) throws Exception {
         super(header);
         this.command = command;
     }

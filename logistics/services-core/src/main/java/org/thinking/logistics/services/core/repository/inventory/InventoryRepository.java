@@ -1,18 +1,18 @@
 package org.thinking.logistics.services.core.repository.inventory;
 
-import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Lock;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 import org.thinking.logistics.services.core.domain.*;
 import org.thinking.logistics.services.core.domain.inventory.Inventory;
 import org.thinking.logistics.services.core.domain.support.InventoryState;
+import org.thinking.logistics.services.core.repository.DomainRepository;
 
 import javax.persistence.LockModeType;
 import java.util.List;
 
 @Repository
-public interface InventoryRepository extends JpaRepository<Inventory, Long> {
+public interface InventoryRepository extends DomainRepository<Inventory, Long> {
     @Lock(LockModeType.PESSIMISTIC_WRITE)
     Inventory findByWarehouseAndOwnerAndGoodsAndBatchesAndLocationAndInventoryState(Warehouse warehouse, Owner owner, Goods goods, Batches batches, Location location, InventoryState inventoryState);
 

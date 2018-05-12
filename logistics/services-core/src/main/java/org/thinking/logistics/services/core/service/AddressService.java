@@ -1,40 +1,45 @@
 package org.thinking.logistics.services.core.service;
 
-import org.springframework.data.jpa.repository.JpaRepository;
+import com.querydsl.jpa.impl.JPAQuery;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.thinking.logistics.services.core.domain.Address;
 import org.thinking.logistics.services.core.domain.CompositeException;
 import org.thinking.logistics.services.core.domain.Customer;
-import org.thinking.logistics.services.core.domain.dsl.QAddress;
+import org.thinking.logistics.services.core.domain.QAddress;
+import org.thinking.logistics.services.core.repository.DomainRepository;
 
-import java.util.List;
+import javax.persistence.EntityManager;
 
 @Service
-public class AddressService extends EntityService<QAddress, Address, Long> {
-    public AddressService(JpaRepository<Address, Long> repository) {
-        super(repository);
-        this.setProbe(QAddress.address);
+public class AddressService extends DomainService<QAddress, Address, Long> {
+    @Autowired
+    public AddressService(EntityManager entityManager, DomainRepository<Address, Long> repository) {
+        super(entityManager, repository, QAddress.address);
     }
 
-    public final Address findOne(Customer customer) throws Exception {
-        List<Address> addresses = this.getQueryFactory().selectFrom(this.getProbe())
+    public final Address acquire(Customer customer, boolean verifiable) throws Exception {
+        JPAQuery<Address> query = this.getJpaQueryFactory().selectFrom(this.getPath())
             .where(
-                this.getProbe().customer.eq(customer),
-                this.getProbe().defaults.isTrue())
-            .fetch();
+                this.getPath().customer.eq(customer),
+                this.getPath().defaults.isTrue());
 
-        if (addresses == null || addresses.size() == 0) {
-            throw CompositeException.getException("未配置默认配送地址", customer);
-        }
-
-        if (addresses.size() > 1) {
+        if (query.fetchCount() > 1) {
             throw CompositeException.getException("不能配置多个默认配送地址", customer);
         }
 
-        if (addresses.get(0).getDirection() == null) {
-            throw CompositeException.getException("默认配送地址未配置配送方向", customer);
+        Address address = query.fetchOne();
+
+        if (verifiable) {
+            if (address == null) {
+                throw CompositeException.getException("未配置默认配送地址", customer);
+            }
+
+            if (address.getDirection() == null) {
+                throw CompositeException.getException("默认配送地址未配置配送方向", customer);
+            }
         }
 
-        return addresses.get(0);
+        return address;
     }
 }

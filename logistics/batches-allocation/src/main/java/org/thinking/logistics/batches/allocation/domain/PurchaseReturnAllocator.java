@@ -8,7 +8,7 @@ import org.thinking.logistics.services.core.domain.bill.OutboundHeader;
 @Data
 @EqualsAndHashCode(callSuper = true)
 public class PurchaseReturnAllocator extends AbstractAllocator {
-    public PurchaseReturnAllocator(OutboundHeader header) {
+    public PurchaseReturnAllocator(OutboundHeader header) throws Exception {
         super(header);
     }
 

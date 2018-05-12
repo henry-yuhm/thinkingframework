@@ -16,8 +16,8 @@ public class PurchaseReturnAllocator extends AbstractAllocator {
     public void acquireAvailableArea() throws Exception {
         super.acquireAvailableArea();
 
-        if (this.stagingareas.size() == 0) {
-            throw CompositeException.getException("需【" + this.quantity + "】个、类型【" + this.stagingarea.getType().name() + "】", this.header, this.header.getOwner());
+        if (this.getStagingareas().size() == 0) {
+            throw CompositeException.getException("需【" + this.getQuantity() + "】个、类型【" + this.getStagingarea().getType().name() + "】", this.getHeader(), this.getHeader().getOwner());
         }
     }
 }

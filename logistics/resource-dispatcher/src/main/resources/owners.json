@@ -1,0 +1,210 @@
+[
+  {
+    "no": "0E0",
+    "name": "黑龙江九州通医药有限公司",
+    "mnemonicCode": "HLJJZTYYYXGS",
+    "inventoryUpper": 0,
+    "serviceHotline": "400-655-8896",
+    "thirdpart": false
+  },
+  {
+    "no": "A01",
+    "name": "山东丹红制药有限公司",
+    "mnemonicCode": "SDDHZYYXGS",
+    "inventoryUpper": 0,
+    "serviceHotline": "",
+    "thirdpart": true
+  },
+  {
+    "no": "B01",
+    "name": "哈尔滨九州通医药有限公司",
+    "mnemonicCode": "HEBJZTYYYXGS",
+    "inventoryUpper": 0,
+    "serviceHotline": "",
+    "thirdpart": true
+  },
+  {
+    "no": "C01",
+    "name": "扬子江集团江苏扬子江医药经营有限公司",
+    "mnemonicCode": "YZJJTJSYZJYYJYYXGS",
+    "inventoryUpper": 0,
+    "serviceHotline": "",
+    "thirdpart": true
+  },
+  {
+    "no": "CC1",
+    "name": "长春欣盛医药有限公司",
+    "mnemonicCode": "CCXSYYYXGS",
+    "inventoryUpper": 0,
+    "serviceHotline": "",
+    "thirdpart": true
+  },
+  {
+    "no": "D01",
+    "name": "黑龙江多多健康医药有限公司",
+    "mnemonicCode": "HLJDDJKYYYXGS",
+    "inventoryUpper": 0,
+    "serviceHotline": "",
+    "thirdpart": true
+  },
+  {
+    "no": "E01",
+    "name": "天津天士力医药商业有限公司",
+    "mnemonicCode": "TJTSLYYSYYXGS",
+    "inventoryUpper": 0,
+    "serviceHotline": "",
+    "thirdpart": true
+  },
+  {
+    "no": "FLQ",
+    "name": "黑龙江九州通医疗器械有限公司",
+    "mnemonicCode": "HLJJZTYLQXYXGS",
+    "inventoryUpper": 0,
+    "serviceHotline": "",
+    "thirdpart": true
+  },
+  {
+    "no": "G01",
+    "name": "哈尔滨格瑞特医药有限公司",
+    "mnemonicCode": "HEBGRTYYYXGS",
+    "inventoryUpper": 0,
+    "serviceHotline": "",
+    "thirdpart": true
+  },
+  {
+    "no": "H01",
+    "name": "哈尔滨药品经销有限责任公司",
+    "mnemonicCode": "HEBYPJXZRYXGS",
+    "inventoryUpper": 0,
+    "serviceHotline": "",
+    "thirdpart": true
+  },
+  {
+    "no": "HEB",
+    "name": "哈尔滨九州通医药有限公司",
+    "mnemonicCode": "HEBJZTYYYXGS",
+    "inventoryUpper": 0,
+    "serviceHotline": "",
+    "thirdpart": true
+  },
+  {
+    "no": "HF",
+    "name": "通用业主",
+    "mnemonicCode": "TYYZ",
+    "inventoryUpper": 0,
+    "serviceHotline": "",
+    "thirdpart": false
+  },
+  {
+    "no": "I01",
+    "name": "仲景宛西制药股份有限公司",
+    "mnemonicCode": "GJWXZYGFYXGS",
+    "inventoryUpper": 0,
+    "serviceHotline": "",
+    "thirdpart": true
+  },
+  {
+    "no": "J01",
+    "name": "哈尔滨济生新特医药经销有限公司",
+    "mnemonicCode": "HEBJSXTYYJXYXGS",
+    "inventoryUpper": 0,
+    "serviceHotline": "",
+    "thirdpart": true
+  },
+  {
+    "no": "K01",
+    "name": "浙江丰安生物制药有限公司",
+    "mnemonicCode": "ZJFASWZYYXGS",
+    "inventoryUpper": 0,
+    "serviceHotline": "",
+    "thirdpart": true
+  },
+  {
+    "no": "L01",
+    "name": "黑龙江海王银海医药有限公司",
+    "mnemonicCode": "HLJHWYHYYYXGS",
+    "inventoryUpper": 0,
+    "serviceHotline": "",
+    "thirdpart": true
+  },
+  {
+    "no": "M01",
+    "name": "黑龙江省群冠医药有限公司",
+    "mnemonicCode": "HLJSQGYYXGS",
+    "inventoryUpper": 0,
+    "serviceHotline": "",
+    "thirdpart": true
+  },
+  {
+    "no": "N01",
+    "name": "黑龙江省圣鲁医药有限公司",
+    "mnemonicCode": "HLJSSLYYYXGS",
+    "inventoryUpper": 0,
+    "serviceHotline": "",
+    "thirdpart": true
+  },
+  {
+    "no": "P01",
+    "name": "黑龙江三元阳普医药有限公司",
+    "mnemonicCode": "HLJSYYPYYYYGS",
+    "inventoryUpper": 0,
+    "serviceHotline": "",
+    "thirdpart": true
+  },
+  {
+    "no": "Q01",
+    "name": "黑龙江省康祺医药有限公司",
+    "mnemonicCode": "HLJKQYYYXGS",
+    "inventoryUpper": 0,
+    "serviceHotline": "",
+    "thirdpart": true
+  },
+  {
+    "no": "R01",
+    "name": "黑龙江丰盛医药有限公司",
+    "mnemonicCode": "HLJFSYYYXZRGS",
+    "inventoryUpper": 0,
+    "serviceHotline": "",
+    "thirdpart": true
+  },
+  {
+    "no": "S01",
+    "name": "神威药业",
+    "mnemonicCode": "SWYY",
+    "inventoryUpper": 0,
+    "serviceHotline": "",
+    "thirdpart": true
+  },
+  {
+    "no": "W01",
+    "name": "黑龙江海王戍康医药有限公司",
+    "mnemonicCode": "HLJHWSKYYYYGS",
+    "inventoryUpper": 0,
+    "serviceHotline": "",
+    "thirdpart": true
+  },
+  {
+    "no": "X01",
+    "name": "哈尔滨鑫盛莱医药有限公司",
+    "mnemonicCode": "HEBXSLYYYXGS",
+    "inventoryUpper": 0,
+    "serviceHotline": "",
+    "thirdpart": true
+  },
+  {
+    "no": "Y01",
+    "name": "哈尔滨药控医药有限公司",
+    "mnemonicCode": "HEBYKYYYXGS",
+    "inventoryUpper": 0,
+    "serviceHotline": "",
+    "thirdpart": true
+  },
+  {
+    "no": "Z01",
+    "name": "贵州健兴药业有限公司",
+    "mnemonicCode": "GZJXYXYYGS",
+    "inventoryUpper": 0,
+    "serviceHotline": "",
+    "thirdpart": true
+  }
+]
