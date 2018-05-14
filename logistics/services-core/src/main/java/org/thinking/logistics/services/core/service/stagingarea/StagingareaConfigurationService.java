@@ -3,7 +3,7 @@ package org.thinking.logistics.services.core.service.stagingarea;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.thinking.logistics.services.core.domain.CompositeException;
-import org.thinking.logistics.services.core.domain.bill.OutboundHeader;
+import org.thinking.logistics.services.core.domain.documents.OutboundOrderHeader;
 import org.thinking.logistics.services.core.domain.stagingarea.QStagingareaConfiguration;
 import org.thinking.logistics.services.core.domain.stagingarea.StagingareaConfiguration;
 import org.thinking.logistics.services.core.repository.DomainRepository;
@@ -19,8 +19,8 @@ public class StagingareaConfigurationService extends DomainService<QStagingareaC
         super(entityManager, repository, QStagingareaConfiguration.stagingareaConfiguration);
     }
 
-    public final StagingareaConfiguration acquire(OutboundHeader header, boolean verifiable) throws Exception {
-        StagingareaConfiguration configuration = this.getJpaQueryFactory().selectFrom(this.getPath())
+    public final StagingareaConfiguration acquire(OutboundOrderHeader header, boolean verifiable) throws Exception {
+        StagingareaConfiguration configuration = this.getQueryFactory().selectFrom(this.getPath())
             .where(
                 this.getPath().warehouse.eq(header.getWarehouse()),
                 this.getPath().owner.eq(header.getOwner()),

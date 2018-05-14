@@ -66,10 +66,10 @@ public class Inventory {
     @ManyToOne(fetch = FetchType.LAZY)
     private Pallet pallet;//托盘
 
-    @Transient
+    //    @Transient
     private BigDecimal availableOutboundQuantity;//可用出库数量
 
-    @Transient
+    //    @Transient
     private BigDecimal physicalOutboundQuantity;//物理出库数量
 
     @Transient

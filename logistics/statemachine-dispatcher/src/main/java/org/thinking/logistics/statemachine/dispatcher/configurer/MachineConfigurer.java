@@ -141,7 +141,7 @@ public class MachineConfigurer extends StateMachineConfigurerAdapter<String, Str
     public StateMachineModelFactory<String, String> stateMachineModelFactory() {
         RepositoryStateMachineModelFactory factory = new RepositoryStateMachineModelFactory(this.stateRepository, this.transitionRepository);
 
-        //        jpaQueryFactory.setStateMachineComponentResolver(this.stateMachineComponentResolver());
+        //        queryFactory.setStateMachineComponentResolver(this.stateMachineComponentResolver());
 
         this.actions().values().forEach(action -> {
             if (!(Optional.ofNullable(action.getName()).orElse("")).isEmpty()) {

@@ -2,13 +2,13 @@ package org.thinking.logistics.order.dispatcher.domain;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import org.thinking.logistics.services.core.domain.bill.OutboundHeader;
+import org.thinking.logistics.services.core.domain.documents.OutboundOrderHeader;
 import org.thinking.logistics.services.core.domain.employee.Employee;
 
 @Data
 @EqualsAndHashCode(callSuper = true)
 public class SpecialOrderDispatcher extends AbstractDispatcher {
-    public SpecialOrderDispatcher(Employee operator, OutboundHeader header) {
+    public SpecialOrderDispatcher(Employee operator, OutboundOrderHeader header) {
         super(operator, header);
     }
 

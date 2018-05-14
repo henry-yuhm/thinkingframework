@@ -3,14 +3,14 @@ package org.thinking.logistics.order.dispatcher.domain;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import org.thinking.logistics.services.core.domain.CompositeException;
-import org.thinking.logistics.services.core.domain.bill.OutboundHeader;
+import org.thinking.logistics.services.core.domain.documents.OutboundOrderHeader;
 import org.thinking.logistics.services.core.domain.employee.Employee;
 import org.thinking.logistics.services.core.domain.support.OutboundStage;
 
 @Data
 @EqualsAndHashCode(callSuper = true)
 public class InsertedOrderDispatcher extends AbstractDispatcher {
-    public InsertedOrderDispatcher(Employee operator, OutboundHeader header) {
+    public InsertedOrderDispatcher(Employee operator, OutboundOrderHeader header) {
         super(operator, header);
     }
 

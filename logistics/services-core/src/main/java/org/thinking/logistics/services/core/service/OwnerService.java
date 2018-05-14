@@ -9,6 +9,7 @@ import org.thinking.logistics.services.core.domain.QOwner;
 import org.thinking.logistics.services.core.repository.DomainRepository;
 
 import javax.persistence.EntityManager;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
 
@@ -20,7 +21,7 @@ public class OwnerService extends DomainService<QOwner, Owner, Long> {
     }
 
     public final Owner acquire(String no, boolean verifiable) throws Exception {
-        Owner owner = this.getJpaQueryFactory().selectFrom(this.getPath())
+        Owner owner = this.getQueryFactory().selectFrom(this.getPath())
             .where(this.getPath().no.eq(no))
             .fetchOne();
 
@@ -38,7 +39,7 @@ public class OwnerService extends DomainService<QOwner, Owner, Long> {
         Optional.of(own.getNo()).orElseThrow(() -> CompositeException.getException("编号不能为空"));
         Optional.of(own.getName()).orElseThrow(() -> CompositeException.getException("名称不能为空"));
 
-        Owner owner = this.getJpaQueryFactory().selectFrom(this.getPath())
+        Owner owner = this.getQueryFactory().selectFrom(this.getPath())
             .where(this.getPath().no.eq(own.getNo()))
             .fetchOne();
 
@@ -60,8 +61,13 @@ public class OwnerService extends DomainService<QOwner, Owner, Long> {
     }
 
     @Transactional(rollbackFor = Exception.class)
-    public List<Owner> saveAll(List<Owner> owners) {
-        return null;
-//        return super.saveAll(owners);
+    public List<Owner> saveAll(List<Owner> owns) throws Exception {
+        List<Owner> owners = new LinkedList<>();
+
+        for (Owner owner : owns) {
+            owners.add(this.save(owner));
+        }
+
+        return owners;
     }
 }

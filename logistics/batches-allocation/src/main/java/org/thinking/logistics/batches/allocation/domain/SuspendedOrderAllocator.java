@@ -2,18 +2,18 @@ package org.thinking.logistics.batches.allocation.domain;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import org.thinking.logistics.services.core.domain.bill.OutboundDetail;
-import org.thinking.logistics.services.core.domain.bill.OutboundHeader;
+import org.thinking.logistics.services.core.domain.documents.OutboundOrderDetail;
+import org.thinking.logistics.services.core.domain.documents.OutboundOrderHeader;
 
 @Data
 @EqualsAndHashCode(callSuper = true)
 public class SuspendedOrderAllocator extends AbstractAllocator {
-    public SuspendedOrderAllocator(OutboundHeader header) throws Exception {
+    public SuspendedOrderAllocator(OutboundOrderHeader header) throws Exception {
         super(header);
     }
 
     @Override
-    public void setDetail(OutboundDetail detail) throws Exception {
+    public void setDetail(OutboundOrderDetail detail) throws Exception {
         super.setDetail(detail);
     }
 

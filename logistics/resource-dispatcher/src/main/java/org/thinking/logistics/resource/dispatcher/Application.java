@@ -15,9 +15,9 @@ import org.thinkingframework.boot.web.mvc.AppWebMvcConfigurer;
 @EnableEurekaClient
 @EnableFeignClients
 @EnableHystrix
-@EntityScan(basePackages = {"org.thinking.logistics.services.core.domain", "org.thinking.logistics.resource.dispatcher.domain"})
-@EnableJpaRepositories(basePackages = {"org.thinking.logistics.services.core.repository", "org.thinking.logistics.resource.dispatcher.repository"})
-@ComponentScan(basePackages = {"org.thinking.logistics.services.core", "org.thinking.logistics.resource.dispatcher"})
+@EntityScan(basePackages = "org.thinking.logistics.services.core.domain")
+@EnableJpaRepositories(basePackages = "org.thinking.logistics.services.core.repository")
+@ComponentScan(basePackages = "org.thinking.logistics.services.core.service")
 @Slf4j
 public class Application extends AppWebMvcConfigurer {
     public static void main(String[] args) {

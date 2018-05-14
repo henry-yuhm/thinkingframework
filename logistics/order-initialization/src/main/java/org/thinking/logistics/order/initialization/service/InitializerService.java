@@ -6,22 +6,22 @@ import org.springframework.transaction.annotation.Transactional;
 import org.thinking.logistics.order.initialization.domain.Initializer;
 import org.thinking.logistics.order.initialization.domain.PurchaseReturnInitializer;
 import org.thinking.logistics.order.initialization.domain.SaleOutboundInitializer;
-import org.thinking.logistics.services.core.domain.bill.OutboundHeader;
+import org.thinking.logistics.services.core.domain.documents.OutboundOrderHeader;
 import org.thinking.logistics.services.core.domain.support.SaleType;
-import org.thinking.logistics.services.core.repository.bill.OutboundHeaderRepository;
+import org.thinking.logistics.services.core.service.documents.OutboundOrderService;
 
 @Service
 public class InitializerService {
-    private OutboundHeaderRepository headerRepository;
+    private OutboundOrderService orderService;
 
     @Autowired
-    public InitializerService(OutboundHeaderRepository headerRepository) {
-        this.headerRepository = headerRepository;
+    public InitializerService(OutboundOrderService orderService) {
+        this.orderService = orderService;
     }
 
     @Transactional(rollbackFor = Exception.class)
     public void initialize(long id) throws Exception {
-        OutboundHeader header = this.headerRepository.getOne(id);
+        OutboundOrderHeader header = this.orderService.acquire(id, true);
 
         Initializer initializer = header.getSaleType() == SaleType.PURCHASE_RETURN ? new PurchaseReturnInitializer(header) : new SaleOutboundInitializer(header);
 

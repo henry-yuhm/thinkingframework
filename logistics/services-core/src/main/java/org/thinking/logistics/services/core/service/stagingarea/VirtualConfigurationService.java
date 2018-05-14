@@ -3,7 +3,7 @@ package org.thinking.logistics.services.core.service.stagingarea;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.thinking.logistics.services.core.domain.Direction;
-import org.thinking.logistics.services.core.domain.bill.OutboundHeader;
+import org.thinking.logistics.services.core.domain.documents.OutboundOrderHeader;
 import org.thinking.logistics.services.core.domain.stagingarea.QVirtualConfiguration;
 import org.thinking.logistics.services.core.domain.stagingarea.VirtualConfiguration;
 import org.thinking.logistics.services.core.domain.support.StagingareaCategory;
@@ -19,8 +19,8 @@ public class VirtualConfigurationService extends DomainService<QVirtualConfigura
         super(entityManager, repository, QVirtualConfiguration.virtualConfiguration);
     }
 
-    public final VirtualConfiguration acquire(OutboundHeader header, StagingareaCategory stagingareaCategory, Direction direction) throws Exception {
-        VirtualConfiguration configuration = this.getJpaQueryFactory().selectFrom(this.getPath())
+    public final VirtualConfiguration acquire(OutboundOrderHeader header, StagingareaCategory stagingareaCategory, Direction direction) throws Exception {
+        VirtualConfiguration configuration = this.getQueryFactory().selectFrom(this.getPath())
             .where(
                 this.getPath().warehouse.eq(header.getWarehouse()),
                 this.getPath().owner.isNull().or(this.getPath().owner.eq(header.getOwner())),

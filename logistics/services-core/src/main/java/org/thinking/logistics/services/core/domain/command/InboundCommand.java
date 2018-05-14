@@ -2,8 +2,8 @@ package org.thinking.logistics.services.core.domain.command;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import org.thinking.logistics.services.core.domain.bill.InboundDetail;
-import org.thinking.logistics.services.core.domain.bill.InboundHeader;
+import org.thinking.logistics.services.core.domain.documents.InboundOrderDetail;
+import org.thinking.logistics.services.core.domain.documents.InboundOrderHeader;
 
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -17,8 +17,8 @@ public class InboundCommand extends Command {
     private InboundCommand parent;//父指令
 
     @ManyToOne(fetch = FetchType.LAZY)
-    private InboundHeader header;//单据抬头
+    private InboundOrderHeader header;//单据抬头
 
     @ManyToOne(fetch = FetchType.LAZY)
-    private InboundDetail detail;//单据明细
+    private InboundOrderDetail detail;//单据明细
 }

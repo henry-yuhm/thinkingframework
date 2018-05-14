@@ -3,12 +3,12 @@ package org.thinking.logistics.stagingarea.allocation.domain;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import org.thinking.logistics.services.core.domain.CompositeException;
-import org.thinking.logistics.services.core.domain.bill.OutboundHeader;
+import org.thinking.logistics.services.core.domain.documents.OutboundOrderHeader;
 
 @Data
 @EqualsAndHashCode(callSuper = true)
 public class PurchaseReturnAllocator extends AbstractAllocator {
-    public PurchaseReturnAllocator(OutboundHeader header) {
+    public PurchaseReturnAllocator(OutboundOrderHeader header) {
         super(header);
     }
 

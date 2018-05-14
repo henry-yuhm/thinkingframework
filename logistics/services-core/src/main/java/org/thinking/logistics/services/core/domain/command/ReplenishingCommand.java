@@ -3,9 +3,9 @@ package org.thinking.logistics.services.core.domain.command;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import org.thinking.logistics.services.core.domain.Batches;
-import org.thinking.logistics.services.core.domain.bill.ReplenishingDetail;
-import org.thinking.logistics.services.core.domain.bill.ReplenishingHeader;
 import org.thinking.logistics.services.core.domain.container.Pallet;
+import org.thinking.logistics.services.core.domain.documents.ReplenishingDocumentsDetail;
+import org.thinking.logistics.services.core.domain.documents.ReplenishingDocumentsHeader;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -18,10 +18,10 @@ import java.math.BigDecimal;
 @EqualsAndHashCode(callSuper = true)
 public class ReplenishingCommand extends TransitionCommand {
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    private ReplenishingHeader header;//单据抬头
+    private ReplenishingDocumentsHeader header;//单据抬头
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    private ReplenishingDetail detail;//单据明细
+    private ReplenishingDocumentsDetail detail;//单据明细
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     private Batches batches;//批号

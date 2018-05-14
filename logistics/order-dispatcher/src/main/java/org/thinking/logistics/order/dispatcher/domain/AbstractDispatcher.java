@@ -4,10 +4,10 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import org.thinking.logistics.services.core.domain.BusinessBase;
 import org.thinking.logistics.services.core.domain.CompositeException;
-import org.thinking.logistics.services.core.domain.bill.OutboundHeader;
+import org.thinking.logistics.services.core.domain.documents.OutboundOrderHeader;
 import org.thinking.logistics.services.core.domain.employee.Employee;
 import org.thinking.logistics.services.core.domain.support.OutboundStage;
-import org.thinking.logistics.services.core.repository.bill.OutboundHeaderRepository;
+import org.thinking.logistics.services.core.service.documents.OutboundOrderService;
 
 import javax.annotation.Resource;
 import java.sql.Date;
@@ -17,19 +17,19 @@ import java.util.List;
 @Data
 @EqualsAndHashCode(callSuper = true)
 public abstract class AbstractDispatcher extends BusinessBase implements Dispatcher {
-    private OutboundHeader header;
+    private OutboundOrderHeader header;
 
-    private List<OutboundHeader> headers;
+    private List<OutboundOrderHeader> headers;
 
     @Resource
-    private OutboundHeaderRepository headerRepository;
+    private OutboundOrderService orderService;
 
-    public AbstractDispatcher(Employee operator, OutboundHeader header) {
+    public AbstractDispatcher(Employee operator, OutboundOrderHeader header) {
         super(operator);
         this.header = header;
     }
 
-    public AbstractDispatcher(Employee operator, List<OutboundHeader> headers) {
+    public AbstractDispatcher(Employee operator, List<OutboundOrderHeader> headers) {
         super(operator);
         this.headers = headers;
     }
@@ -54,7 +54,7 @@ public abstract class AbstractDispatcher extends BusinessBase implements Dispatc
             header.setDispatcherTime(Date.valueOf(LocalDate.now()));
         });
 
-        this.headerRepository.saveAll(this.headers);
+        this.orderService.getRepository().saveAll(this.headers);
     }
 
     @Override
@@ -70,7 +70,7 @@ public abstract class AbstractDispatcher extends BusinessBase implements Dispatc
             header.setDispatcherTime(null);
         });
 
-        this.headerRepository.saveAll(this.headers);
+        this.orderService.getRepository().saveAll(this.headers);
     }
 
     @Override
@@ -84,7 +84,7 @@ public abstract class AbstractDispatcher extends BusinessBase implements Dispatc
         this.header.setDispatchers(null);
         this.header.setDispatcherTime(null);
 
-        this.headerRepository.save(this.header);
+        this.orderService.getRepository().save(this.header);
     }
 
     @Override
@@ -94,7 +94,7 @@ public abstract class AbstractDispatcher extends BusinessBase implements Dispatc
             header.setReleaseTime(Date.valueOf(LocalDate.now()));
         });
 
-        this.headerRepository.saveAll(this.headers);
+        this.orderService.getRepository().saveAll(this.headers);
     }
 
     @Override
@@ -104,6 +104,6 @@ public abstract class AbstractDispatcher extends BusinessBase implements Dispatc
         this.header.setDispatcherTime(Date.valueOf(LocalDate.now()));
         this.header.setReleaseTime(Date.valueOf(LocalDate.now()));
 
-        this.headerRepository.save(this.header);
+        this.orderService.getRepository().save(this.header);
     }
 }

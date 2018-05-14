@@ -4,11 +4,11 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import org.thinking.logistics.services.core.domain.BusinessBase;
 import org.thinking.logistics.services.core.domain.CompositeException;
-import org.thinking.logistics.services.core.domain.bill.OutboundDetail;
-import org.thinking.logistics.services.core.domain.bill.OutboundHeader;
+import org.thinking.logistics.services.core.domain.documents.OutboundOrderDetail;
+import org.thinking.logistics.services.core.domain.documents.OutboundOrderHeader;
 import org.thinking.logistics.services.core.domain.support.NotExistsEntityException;
 import org.thinking.logistics.services.core.domain.support.OutboundStage;
-import org.thinking.logistics.services.core.repository.bill.OutboundHeaderRepository;
+import org.thinking.logistics.services.core.service.documents.OutboundOrderService;
 
 import javax.annotation.Resource;
 import java.math.BigDecimal;
@@ -16,12 +16,12 @@ import java.math.BigDecimal;
 @Data
 @EqualsAndHashCode(callSuper = true)
 public abstract class AbstractInitializer extends BusinessBase implements Initializer {
-    private OutboundHeader header;
+    private OutboundOrderHeader header;
 
     @Resource
-    private OutboundHeaderRepository headerRepository;
+    private OutboundOrderService orderService;
 
-    public AbstractInitializer(OutboundHeader header) {
+    public AbstractInitializer(OutboundOrderHeader header) {
         this.header = header;
     }
 
@@ -41,7 +41,7 @@ public abstract class AbstractInitializer extends BusinessBase implements Initia
             throw CompositeException.getException(NotExistsEntityException.DETAIL.name(), this.header, this.header.getOwner());
         }
 
-        for (OutboundDetail detail : this.header.getDetails()) {
+        for (OutboundOrderDetail detail : this.header.getDetails()) {
             if (detail.getGoods() == null) {
                 throw CompositeException.getException(NotExistsEntityException.GOODS.name(), this.header, this.header.getOwner());
             } else {
@@ -63,7 +63,7 @@ public abstract class AbstractInitializer extends BusinessBase implements Initia
     @Override
     public void save() throws Exception {
         this.header.setStage(OutboundStage.INITIALIZED);
-        this.headerRepository.save(this.header);
+        this.orderService.getRepository().save(this.header);
     }
 
     @Override

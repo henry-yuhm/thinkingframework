@@ -2,9 +2,9 @@ package org.thinking.logistics.batches.allocation.domain;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import org.thinking.logistics.services.core.domain.bill.OutboundDetail;
-import org.thinking.logistics.services.core.domain.bill.OutboundHeader;
 import org.thinking.logistics.services.core.domain.command.OutboundCommand;
+import org.thinking.logistics.services.core.domain.documents.OutboundOrderDetail;
+import org.thinking.logistics.services.core.domain.documents.OutboundOrderHeader;
 import org.thinking.logistics.services.core.domain.inventory.Inventory;
 
 import java.math.BigDecimal;
@@ -14,23 +14,23 @@ import java.math.BigDecimal;
 public class AppendantCommandAllocator extends AbstractAllocator {
     private OutboundCommand command;
 
-    public AppendantCommandAllocator(OutboundHeader header, OutboundCommand command) throws Exception {
+    public AppendantCommandAllocator(OutboundOrderHeader header, OutboundCommand command) throws Exception {
         super(header);
         this.command = command;
     }
 
     @Override
-    public void initialize(OutboundDetail detail) throws Exception {
+    public void initialize(OutboundOrderDetail detail) throws Exception {
         super.initialize(detail);
     }
 
     @Override
-    public void setDetail(OutboundDetail detail) throws Exception {
+    public void setDetail(OutboundOrderDetail detail) throws Exception {
         super.setDetail(detail);
     }
 
     @Override
-    public OutboundCommand acquireCommand(OutboundDetail detail, Inventory inventory, BigDecimal quantity) throws Exception {
+    public OutboundCommand acquireCommand(OutboundOrderDetail detail, Inventory inventory, BigDecimal quantity) throws Exception {
         return super.acquireCommand(detail, inventory, quantity);
     }
 

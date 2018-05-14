@@ -7,9 +7,9 @@ import org.thinking.logistics.services.core.domain.Location;
 import org.thinking.logistics.services.core.domain.Platform;
 import org.thinking.logistics.services.core.domain.Task;
 import org.thinking.logistics.services.core.domain.barcode.OutboundBarcode;
-import org.thinking.logistics.services.core.domain.bill.OutboundDetail;
-import org.thinking.logistics.services.core.domain.bill.OutboundHeader;
 import org.thinking.logistics.services.core.domain.container.Pallet;
+import org.thinking.logistics.services.core.domain.documents.OutboundOrderDetail;
+import org.thinking.logistics.services.core.domain.documents.OutboundOrderHeader;
 import org.thinking.logistics.services.core.domain.support.AppendantSign;
 import org.thinking.logistics.services.core.domain.support.InventoryState;
 
@@ -26,10 +26,10 @@ public class OutboundCommand extends Command {
     private OutboundCommand parent;//父指令
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    private OutboundHeader header;//单据抬头
+    private OutboundOrderHeader header;//单据抬头
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    private OutboundDetail detail;//单据明细
+    private OutboundOrderDetail detail;//单据明细
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     private Batches batches;//批号

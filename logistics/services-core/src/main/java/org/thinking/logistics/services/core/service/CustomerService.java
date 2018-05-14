@@ -18,7 +18,7 @@ public class CustomerService extends DomainService<QCustomer, Customer, Long> {
     }
 
     public final Customer acquire(Owner owner, String no, boolean verifiable) throws Exception {
-        Customer customer = this.getJpaQueryFactory().selectFrom(this.getPath())
+        Customer customer = this.getQueryFactory().selectFrom(this.getPath())
             .where(
                 this.getPath().owner.eq(owner),
                 this.getPath().no.eq(no))

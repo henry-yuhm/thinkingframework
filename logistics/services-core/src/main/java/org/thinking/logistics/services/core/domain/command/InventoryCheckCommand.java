@@ -3,9 +3,9 @@ package org.thinking.logistics.services.core.domain.command;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import org.thinking.logistics.services.core.domain.Batches;
-import org.thinking.logistics.services.core.domain.bill.InventoryCheckDetail;
-import org.thinking.logistics.services.core.domain.bill.InventoryCheckHeader;
 import org.thinking.logistics.services.core.domain.container.Pallet;
+import org.thinking.logistics.services.core.domain.documents.InventoryDocumentsDetail;
+import org.thinking.logistics.services.core.domain.documents.InventoryDocumentsHeader;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -18,10 +18,10 @@ import java.math.BigDecimal;
 @EqualsAndHashCode(callSuper = true)
 public class InventoryCheckCommand extends TransitionCommand {
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    private InventoryCheckHeader header;//单据抬头
+    private InventoryDocumentsHeader header;//单据抬头
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    private InventoryCheckDetail detail;//单据明细
+    private InventoryDocumentsDetail detail;//单据明细
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     private Batches sourceBatches;//源批号

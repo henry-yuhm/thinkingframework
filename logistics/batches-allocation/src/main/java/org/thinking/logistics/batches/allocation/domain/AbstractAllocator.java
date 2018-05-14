@@ -2,25 +2,24 @@ package org.thinking.logistics.batches.allocation.domain;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import org.springframework.data.domain.Example;
 import org.thinking.logistics.services.core.domain.Batches;
 import org.thinking.logistics.services.core.domain.BusinessBase;
 import org.thinking.logistics.services.core.domain.CompositeException;
 import org.thinking.logistics.services.core.domain.Goods;
-import org.thinking.logistics.services.core.domain.bill.OutboundDetail;
-import org.thinking.logistics.services.core.domain.bill.OutboundHeader;
 import org.thinking.logistics.services.core.domain.command.OutboundCommand;
 import org.thinking.logistics.services.core.domain.command.ReplenishingCommand;
+import org.thinking.logistics.services.core.domain.documents.OutboundOrderDetail;
+import org.thinking.logistics.services.core.domain.documents.OutboundOrderHeader;
 import org.thinking.logistics.services.core.domain.inventory.BatchesInventory;
 import org.thinking.logistics.services.core.domain.inventory.Inventory;
 import org.thinking.logistics.services.core.domain.inventory.OutboundConfiguration;
 import org.thinking.logistics.services.core.domain.support.*;
-import org.thinking.logistics.services.core.repository.bill.OutboundHeaderRepository;
-import org.thinking.logistics.services.core.repository.command.OutboundCommandRepository;
-import org.thinking.logistics.services.core.repository.command.ReplenishingCommandRepository;
-import org.thinking.logistics.services.core.repository.inventory.BatchesInventoryRepository;
-import org.thinking.logistics.services.core.repository.inventory.InventoryRepository;
-import org.thinking.logistics.services.core.repository.inventory.OutboundConfigurationRepository;
+import org.thinking.logistics.services.core.service.command.OutboundCommandService;
+import org.thinking.logistics.services.core.service.command.ReplenishingCommandService;
+import org.thinking.logistics.services.core.service.documents.OutboundOrderService;
+import org.thinking.logistics.services.core.service.inventory.BatchesInventoryService;
+import org.thinking.logistics.services.core.service.inventory.InventoryService;
+import org.thinking.logistics.services.core.service.inventory.OutboundConfigurationService;
 
 import javax.annotation.Resource;
 import java.math.BigDecimal;
@@ -30,7 +29,7 @@ import java.util.*;
 @Data
 @EqualsAndHashCode(callSuper = true)
 public abstract class AbstractAllocator extends BusinessBase implements Allocator {
-    private final OutboundHeader header;
+    private final OutboundOrderHeader header;
 
     private final boolean remainder2Wholepieces;
 
@@ -53,24 +52,24 @@ public abstract class AbstractAllocator extends BusinessBase implements Allocato
     private List<OutboundCommand> commands = new LinkedList<>();
 
     @Resource
-    private OutboundHeaderRepository headerRepository;
+    private OutboundOrderService orderService;
 
     @Resource
-    private BatchesInventoryRepository batchesInventoryRepository;
+    private BatchesInventoryService batchesInventoryService;
 
     @Resource
-    private OutboundConfigurationRepository configurationRepository;
+    private OutboundConfigurationService outboundConfigurationService;
 
     @Resource
-    private InventoryRepository inventoryRepository;
+    private InventoryService inventoryService;
 
     @Resource
-    private OutboundCommandRepository commandRepository;
+    private OutboundCommandService commandService;
 
     @Resource
-    private ReplenishingCommandRepository replenishingCommandRepository;
+    private ReplenishingCommandService replenishingCommandService;
 
-    public AbstractAllocator(OutboundHeader header) throws Exception {
+    public AbstractAllocator(OutboundOrderHeader header) throws Exception {
         this.header = header;
         this.remainder2Wholepieces = this.isEnable(this.header.getWarehouse(), "ZJBZCLH");
         this.newBatches = this.isEnable(this.header.getWarehouse(), this.packageType == PackageType.WHOLEPIECES ? "ZJWYQCXPH" : "LHWYQCXPH");
@@ -88,7 +87,7 @@ public abstract class AbstractAllocator extends BusinessBase implements Allocato
     }
 
     @Override
-    public void initialize(OutboundDetail detail) throws Exception {
+    public void initialize(OutboundOrderDetail detail) throws Exception {
         detail.setWholepiecesQuantity(detail.getFactQuantity().subtract(detail.getFactRemainder()));
         detail.setRemainderQuantity(detail.getFactRemainder());
 
@@ -102,7 +101,7 @@ public abstract class AbstractAllocator extends BusinessBase implements Allocato
     }
 
     @Override
-    public void acquireBatchesInventory(OutboundDetail detail) throws Exception {
+    public void acquireBatchesInventory(OutboundOrderDetail detail) throws Exception {
         if (detail.getRequest() == null) {
             this.validPeriodType = ValidPeriodType.ALL;
             this.batchesNumber = 0;
@@ -132,16 +131,7 @@ public abstract class AbstractAllocator extends BusinessBase implements Allocato
         }
 
         //region 批号库存
-        BatchesInventory probe = new BatchesInventory();
-        probe.setGoods(detail.getGoods());
-        if (this.batchesNumber == 0) {
-            probe.setBatches(detail.getBatches());
-        }
-        if (this.validPeriodType.compareTo(ValidPeriodType.ALL) == 0) {
-            probe.setType(this.validPeriodType);
-        }
-
-        this.batchesInventories = this.batchesInventoryRepository.findAll(Example.of(probe));
+        this.batchesInventories = this.batchesInventoryService.acquire(detail.getGoods(), this.batchesNumber == 0 ? detail.getBatches() : null, this.validPeriodType);
         //endregion
     }
 
@@ -327,13 +317,13 @@ public abstract class AbstractAllocator extends BusinessBase implements Allocato
     }
 
     @Override
-    public void acquireLocation(OutboundDetail detail) throws Exception {
+    public void acquireLocation(OutboundOrderDetail detail) throws Exception {
         if (this.batches.size() == 0) {
             return;
         }
 
         //region 出库配置
-        List<OutboundConfiguration> configurations = this.configurationRepository.acquireConfiguration(this.header.getWarehouse(), this.header.getOwner(), this.packageType, this.header.getCategory(), this.header.getSaleType(), packageType == PackageType.WHOLEPIECES ? detail.getGoods().getPieces(detail.getWholepiecesQuantity()) : detail.getGoods().getRemainder(detail.getRemainderQuantity()));
+        List<OutboundConfiguration> configurations = this.outboundConfigurationService.acquireConfiguration(this.packageType, this.header, detail);
         if (configurations.size() == 0) {
             throw CompositeException.getException("批号库房出库顺序未设置", this.header, this.header.getOwner());
         }
@@ -366,7 +356,7 @@ public abstract class AbstractAllocator extends BusinessBase implements Allocato
             for (OutboundConfiguration configuration : configurations) {
                 if (configuration.getStoreNo().equalsIgnoreCase("LTK")) {
                     //立体库在途库存
-                    inventories = this.inventoryRepository.acquireTransitionalInventory(detail.getGoods(), batches);
+                    inventories = this.inventoryService.acquire(detail.getWarehouse(), detail.getGoods(), batches);
 
                     for (Inventory inventory : inventories) {
                         inventory.setAvailableOutboundQuantity(inventory.getTransitionalQuantity());
@@ -383,7 +373,7 @@ public abstract class AbstractAllocator extends BusinessBase implements Allocato
                     break;
                 }
 
-                inventories = this.inventoryRepository.acquireLocationInventory(detail.getGoods(), batches, detail.getInventoryState(), configuration.getStoreCategory(), configuration.getStoreNo());
+                inventories = this.inventoryService.acquire(detail.getWarehouse(), detail.getGoods(), batches, detail.getInventoryState(), configuration.getStoreCategory(), configuration.getStoreNo(), this.batches.get(batches));
 
                 if (inventories == null || inventories.size() == 0) {
                     continue;
@@ -423,8 +413,8 @@ public abstract class AbstractAllocator extends BusinessBase implements Allocato
     }
 
     @Override
-    public void appointLocation(OutboundDetail detail) throws Exception {
-        Inventory inventory = this.inventoryRepository.findByWarehouseAndOwnerAndGoodsAndBatchesAndLocationAndInventoryState(this.header.getWarehouse(), this.header.getOwner(), detail.getGoods(), detail.getBatches(), detail.getLocation(), detail.getInventoryState());
+    public void appointLocation(OutboundOrderDetail detail) throws Exception {
+        Inventory inventory = this.inventoryService.acquire(this.header.getWarehouse(), this.header.getOwner(), detail.getGoods(), detail.getBatches(), detail.getLocation(), detail.getInventoryState());
 
         if (this.packageType == PackageType.REMAINDER &&
             detail.getGoods().getSplittingGranularity() == SplittingGranularity.MEDIUM_PACKAGE &&
@@ -458,11 +448,11 @@ public abstract class AbstractAllocator extends BusinessBase implements Allocato
     }
 
     @Override
-    public void setDetail(OutboundDetail detail) throws Exception {
+    public void setDetail(OutboundOrderDetail detail) throws Exception {
     }
 
     @Override
-    public OutboundCommand acquireCommand(OutboundDetail detail, Inventory inventory, BigDecimal quantity) throws Exception {
+    public OutboundCommand acquireCommand(OutboundOrderDetail detail, Inventory inventory, BigDecimal quantity) throws Exception {
         OutboundCommand command = new OutboundCommand();
 
         command.setWarehouse(this.header.getWarehouse());
@@ -512,7 +502,7 @@ public abstract class AbstractAllocator extends BusinessBase implements Allocato
     }
 
     @Override
-    public void generateCommands(boolean directly, OutboundDetail detail) throws Exception {
+    public void generateCommands(OutboundOrderDetail detail, boolean directly) throws Exception {
         if (this.inventories.size() == 0) {
             return;
         }
@@ -540,7 +530,7 @@ public abstract class AbstractAllocator extends BusinessBase implements Allocato
             if (replenishedQuantity.compareTo(BigDecimal.ZERO) > 0) {
                 directQuantity = BigDecimal.ZERO;
 
-                List<ReplenishingCommand> replenishingCommands = this.replenishingCommandRepository.acquireReplenishedCommands(inventory.getGoods(), inventory.getBatches(), inventory.getLocation());
+                List<ReplenishingCommand> replenishingCommands = this.replenishingCommandService.acquire(inventory.getWarehouse(), inventory.getGoods(), inventory.getBatches(), inventory.getLocation());
                 for (ReplenishingCommand replenishingCommand : replenishingCommands) {
                     if (replenishedQuantity.compareTo(BigDecimal.ZERO) == 0) {
                         break;
@@ -583,13 +573,13 @@ public abstract class AbstractAllocator extends BusinessBase implements Allocato
                     throw CompositeException.getException("批号指令生成错误，没有找到可用的补货在途数量", this.header, this.header.getOwner(), detail.getGoods());
                 }
 
-                this.replenishingCommandRepository.saveAll(replenishingCommands);
+                this.replenishingCommandService.getRepository().saveAll(replenishingCommands);
             }
 
             this.charge(inventory);
         }
 
-        this.commandRepository.saveAll(this.commands);
+        this.commandService.getRepository().saveAll(this.commands);
     }
 
     @Override
