@@ -4,19 +4,34 @@ import lombok.Data;
 import org.thinking.logistics.services.core.domain.*;
 import org.thinking.logistics.services.core.domain.container.Pallet;
 import org.thinking.logistics.services.core.domain.support.InventoryState;
+import org.thinking.logistics.services.core.domain.support.LedgerCategory;
+import org.thinking.logistics.services.core.domain.support.LedgerSummary;
+import org.thinking.logistics.services.core.domain.support.LedgerType;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
+import java.sql.Date;
+import java.time.LocalDate;
 
-@Entity
+@MappedSuperclass
+@Inheritance(strategy = InheritanceType.JOINED)
 @Data
-public class Inventory {
+public abstract class Ledger {
     @Id
     @GeneratedValue
     private long id;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     private Warehouse warehouse;//仓库
+
+    @Column(nullable = false)
+    private LedgerSummary summary;//账页摘要
+
+    @Column(nullable = false)
+    private LedgerType type;//账页类型
+
+    @Column(nullable = false)
+    private LedgerCategory category;//账页类别
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     private Owner owner;//业主
@@ -33,14 +48,11 @@ public class Inventory {
     @Column(nullable = false)
     private InventoryState inventoryState;//库存状态
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    private Pallet pallet;//托盘
+
     @Column(nullable = false, precision = 12, scale = 5)
     private BigDecimal quantity = BigDecimal.ZERO;//数量
-
-    @Column(nullable = false, precision = 12, scale = 5)
-    private BigDecimal pieces = BigDecimal.ZERO;//件数
-
-    @Column(nullable = false, precision = 12, scale = 5)
-    private BigDecimal remainder = BigDecimal.ZERO;//余数
 
     @Column(nullable = false, precision = 12, scale = 5)
     private BigDecimal inboundQuantity = BigDecimal.ZERO;//入库数量
@@ -63,38 +75,15 @@ public class Inventory {
     @Column(nullable = false, precision = 12, scale = 5)
     private BigDecimal transitionalQuantity = BigDecimal.ZERO;//在途数量
 
-    @Column(nullable = false)
-    private boolean locking = false;//锁定
-
     @Column(nullable = false, precision = 12, scale = 5)
     private BigDecimal lockingQuantity = BigDecimal.ZERO;//锁定数量
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    private Pallet pallet;//托盘
+    @Column(nullable = false, precision = 12, scale = 5)
+    private BigDecimal balance = BigDecimal.ZERO;//结存
 
-    //    @Transient
-    private BigDecimal availableOutboundQuantity;//可用出库数量
+    @Column(nullable = false, precision = 12, scale = 5)
+    private BigDecimal grossBalance = BigDecimal.ZERO;//总结存
 
-    //    @Transient
-    private BigDecimal physicalOutboundQuantity;//物理出库数量
-
-    @Transient
-    private BigDecimal availableGrossQuantity;//可用总数量
-
-    @Transient
-    private BigDecimal availableQuantity;//可用数量
-
-    @Transient
-    private BigDecimal availableObtainQuantity;//可用索取数量
-
-    @Transient
-    private BigDecimal availableReplenishingQuantity;//可用补货数量
-
-    public BigDecimal getAvailableOutboundQuantity() {
-        return quantity.subtract(outboundQuantity).subtract(replenishedFromQuantity).add(replenishedToQuantity).subtract(lockingQuantity);
-    }
-
-    public BigDecimal getPhysicalOutboundQuantity() {
-        return quantity.subtract(outboundQuantity).subtract(lockingQuantity).max(BigDecimal.ZERO);
-    }
+    @Column(nullable = false)
+    private Date creationTime = Date.valueOf(LocalDate.now());//创建时间
 }

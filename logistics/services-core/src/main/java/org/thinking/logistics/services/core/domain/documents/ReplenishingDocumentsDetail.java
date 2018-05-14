@@ -26,13 +26,13 @@ public class ReplenishingDocumentsDetail extends Detail {
     @Column(nullable = false, precision = 12, scale = 5)
     private BigDecimal planQuantity = BigDecimal.ZERO;//计划数量
 
-    @Column(nullable = false, precision = 12)
+    @Column(nullable = false, precision = 12, scale = 5)
     private BigDecimal planPieces = BigDecimal.ZERO;//计划件数
 
     @Column(nullable = false, precision = 12, scale = 5)
     private BigDecimal factQuantity = BigDecimal.ZERO;//实际数量
 
-    @Column(nullable = false, precision = 12)
+    @Column(nullable = false, precision = 12, scale = 5)
     private BigDecimal factPieces = BigDecimal.ZERO;//实际件数
 
     @ManyToOne(fetch = FetchType.LAZY)

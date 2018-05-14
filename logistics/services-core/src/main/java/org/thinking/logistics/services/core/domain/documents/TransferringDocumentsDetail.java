@@ -35,7 +35,7 @@ public class TransferringDocumentsDetail extends Detail {
     @Column(nullable = false, precision = 12, scale = 5)
     private BigDecimal quantity = BigDecimal.ZERO;//数量
 
-    @Column(nullable = false, precision = 12)
+    @Column(nullable = false, precision = 12, scale = 5)
     private BigDecimal pieces = BigDecimal.ZERO;//件数
 
     @Column(nullable = false, precision = 12, scale = 5)

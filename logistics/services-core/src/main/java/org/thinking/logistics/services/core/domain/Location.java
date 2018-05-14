@@ -37,19 +37,19 @@ public class Location {
 
     private String shortno = x + y + z;//短编号
 
-    @Column(nullable = false, precision = 12, scale = 2)
+    @Column(nullable = false, precision = 9, scale = 2)
     private BigDecimal length;//长
 
-    @Column(nullable = false, precision = 12, scale = 2)
+    @Column(nullable = false, precision = 9, scale = 2)
     private BigDecimal width;//宽
 
-    @Column(nullable = false, precision = 12, scale = 2)
+    @Column(nullable = false, precision = 9, scale = 2)
     private BigDecimal height;//高
 
-    @Column(nullable = false, precision = 12, scale = 2)
+    @Column(nullable = false, precision = 9, scale = 2)
     private BigDecimal volume;//体积
 
-    @Column(nullable = false, precision = 12, scale = 2)
+    @Column(nullable = false, precision = 9, scale = 2)
     private BigDecimal occupationVolume;//占用体积
 
     @Column(nullable = false)

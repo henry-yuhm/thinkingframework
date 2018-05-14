@@ -19,6 +19,7 @@ import org.thinking.logistics.services.core.service.command.ReplenishingCommandS
 import org.thinking.logistics.services.core.service.documents.OutboundOrderService;
 import org.thinking.logistics.services.core.service.inventory.BatchesInventoryService;
 import org.thinking.logistics.services.core.service.inventory.InventoryService;
+import org.thinking.logistics.services.core.service.inventory.LedgerService;
 import org.thinking.logistics.services.core.service.inventory.OutboundConfigurationService;
 
 import javax.annotation.Resource;
@@ -62,6 +63,9 @@ public abstract class AbstractAllocator extends BusinessBase implements Allocato
 
     @Resource
     private InventoryService inventoryService;
+
+    @Resource
+    private LedgerService ledgerService;
 
     @Resource
     private OutboundCommandService commandService;
@@ -414,7 +418,7 @@ public abstract class AbstractAllocator extends BusinessBase implements Allocato
 
     @Override
     public void appointLocation(OutboundOrderDetail detail) throws Exception {
-        Inventory inventory = this.inventoryService.acquire(this.header.getWarehouse(), this.header.getOwner(), detail.getGoods(), detail.getBatches(), detail.getLocation(), detail.getInventoryState());
+        Inventory inventory = this.inventoryService.acquire(this.header.getWarehouse(), detail.getGoods(), detail.getBatches(), detail.getLocation(), detail.getInventoryState());
 
         if (this.packageType == PackageType.REMAINDER &&
             detail.getGoods().getSplittingGranularity() == SplittingGranularity.MEDIUM_PACKAGE &&
@@ -498,7 +502,15 @@ public abstract class AbstractAllocator extends BusinessBase implements Allocato
 
     @Override
     public void charge(Inventory inventory) throws Exception {
+        this.ledgerService.save(inventory, LedgerSummary.OUTBOUND_RELEASING_PREALLOCATION, LedgerType.PREALLOCATION, LedgerCategory.OUTBOUND, this.header, inventory.getAvailableOutboundQuantity());
 
+        if (inventory.getLocation().isAutomatic()) {
+            if (inventory.getTransitionalQuantity().compareTo(BigDecimal.ZERO) > 0) {
+                this.ledgerService.save(inventory, LedgerSummary.OUTBOUND_MINUS_TRANSITION, LedgerType.IN_TRANSITION, LedgerCategory.IN_TRANSITION, this.header, inventory.getAvailableOutboundQuantity().negate());
+            } else if (inventory.getAvailableQuantity().subtract(inventory.getAvailableOutboundQuantity()).compareTo(BigDecimal.ZERO) > 0) {
+                this.ledgerService.save(inventory, LedgerSummary.OUTBOUND_PLUS_TRANSITION, LedgerType.IN_TRANSITION, LedgerCategory.IN_TRANSITION, this.header, inventory.getAvailableQuantity().subtract(inventory.getAvailableOutboundQuantity()));
+            }
+        }
     }
 
     @Override

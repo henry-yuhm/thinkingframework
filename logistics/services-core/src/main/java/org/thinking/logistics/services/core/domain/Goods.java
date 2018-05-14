@@ -43,13 +43,13 @@ public class Goods {
     @Column(nullable = false)
     private String producingArea;//产地
 
-    @Column(nullable = false)
+    @Column(nullable = false, precision = 12, scale = 5)
     private BigDecimal largePackageQuantity;//大包装数量
 
-    @Column(nullable = false)
+    @Column(nullable = false, precision = 12, scale = 5)
     private BigDecimal mediumPackageQuantity;//中包装数量
 
-    @Column(nullable = false)
+    @Column(nullable = false, precision = 12, scale = 5)
     private BigDecimal smallPackageQuantity;//小包装数量
 
     @Column(nullable = false)
@@ -81,28 +81,28 @@ public class Goods {
     @Column(nullable = false)
     private SaleClassification remainderClassification;//零货分类
 
-    @Column(nullable = false)
+    @Column(nullable = false, precision = 9, scale = 2)
     private BigDecimal length;//长
 
-    @Column(nullable = false)
+    @Column(nullable = false, precision = 9, scale = 2)
     private BigDecimal width;//宽
 
-    @Column(nullable = false)
+    @Column(nullable = false, precision = 9, scale = 2)
     private BigDecimal height;//高
 
-    @Column(nullable = false)
+    @Column(nullable = false, precision = 9, scale = 2)
     private BigDecimal largePackageVolume;//大包装体积
 
-    @Column(nullable = false)
+    @Column(nullable = false, precision = 9, scale = 2)
     private BigDecimal mediumPackageVolume;//中包装体积
 
-    @Column(nullable = false)
+    @Column(nullable = false, precision = 9, scale = 2)
     private BigDecimal smallPackageVolume;//小包装体积
 
-    @Column(nullable = false)
+    @Column(nullable = false, precision = 9, scale = 2)
     private BigDecimal goodsWeight;//商品重量
 
-    @Column(nullable = false)
+    @Column(nullable = false, precision = 9, scale = 2)
     private BigDecimal packageWeight;//包装重量
 
     @Column(nullable = false)
@@ -114,18 +114,11 @@ public class Goods {
     @Column(nullable = false)
     private String storageRequest;//存储要求
 
+    @Column(precision = 12, scale = 5)
     private BigDecimal tcmOutboundQuantity;//中药大件数量
 
-//    @Override
-//    public void verify(Goods probe) throws Exception {
-//        if (!Optional.ofNullable(probe.getOwner()).isPresent()) {
-//            throw CompositeException.getException("商品业主不能为空");
-//        }
-//
-//        if (Optional.ofNullable(probe.getNo()).get().isEmpty()) {
-//            throw CompositeException.getException("商品编号不能为空");
-//        }
-//    }
+    @Column(nullable = false, precision = 9, scale = 2)
+    private BigDecimal volumeRatio = BigDecimal.valueOf(2L, 2);//体积系数
 
     public final BigDecimal getPieces(BigDecimal quantity) {
         if (Optional.of(this.largePackageQuantity).orElse(BigDecimal.ZERO) == BigDecimal.ZERO) {

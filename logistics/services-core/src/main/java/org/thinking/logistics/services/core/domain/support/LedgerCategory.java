@@ -1,56 +1,62 @@
 package org.thinking.logistics.services.core.domain.support;
 
-//记账类别
-public enum ChargingCategory {
-    CHARGING(0) {
-        @Override
-        public String toString() {
-            return "记账";
-        }
-    },
+//账页类别
+public enum LedgerCategory {
     INBOUND(1) {
         @Override
         public String toString() {
-            return "入库预占";
+            return "入库";
         }
     },
     OUTBOUND(2) {
         @Override
         public String toString() {
-            return "出库预扣";
+            return "出库";
         }
     },
-    REPLENISH_FROM(3) {
+    REPLENISHED_FROM(3) {
         @Override
         public String toString() {
-            return "补货预占";
+            return "补出";
         }
     },
-    REPLENISH_TO(4) {
+    REPLENISHED_TO(4) {
         @Override
         public String toString() {
-            return "补货预扣";
+            return "补入";
         }
     },
-    IN_TRANSITION(5) {
+    TRANSFERRED_FROM(5) {
+        @Override
+        public String toString() {
+            return "移出";
+        }
+    },
+    TRANSFERRED_TO(6) {
+        @Override
+        public String toString() {
+            return "移入";
+        }
+    },
+    IN_TRANSITION(7) {
         @Override
         public String toString() {
             return "在途";
         }
     },
-    LOCKING(6) {
+    LOCKING(8) {
         @Override
         public String toString() {
             return "锁定";
         }
     },
-    UNLOCKING(7) {
+    UNLOCKING(9) {
         @Override
         public String toString() {
             return "解锁";
         }
     };
 
-    ChargingCategory(int ordinal) {
+    LedgerCategory(int ordinal) {
     }
 }
