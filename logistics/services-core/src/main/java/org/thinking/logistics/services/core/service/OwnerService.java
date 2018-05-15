@@ -21,7 +21,7 @@ public class OwnerService extends DomainService<QOwner, Owner, Long> {
     }
 
     public final Owner acquire(String no, boolean verifiable) throws Exception {
-        Owner owner = this.getQueryFactory().selectFrom(this.getPath())
+        Owner owner = this.getFactory().selectFrom(this.getPath())
             .where(this.getPath().no.eq(no))
             .fetchOne();
 
@@ -39,7 +39,7 @@ public class OwnerService extends DomainService<QOwner, Owner, Long> {
         Optional.of(own.getNo()).orElseThrow(() -> CompositeException.getException("编号不能为空"));
         Optional.of(own.getName()).orElseThrow(() -> CompositeException.getException("名称不能为空"));
 
-        Owner owner = this.getQueryFactory().selectFrom(this.getPath())
+        Owner owner = this.getFactory().selectFrom(this.getPath())
             .where(this.getPath().no.eq(own.getNo()))
             .fetchOne();
 

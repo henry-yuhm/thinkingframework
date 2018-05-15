@@ -9,14 +9,14 @@ import javax.persistence.EntityManager;
 
 @Data
 public abstract class DomainService<P extends EntityPath<E>, E, ID> {
-    private JPAQueryFactory queryFactory;
+    private JPAQueryFactory factory;
 
     private DomainRepository<E, ID> repository;
 
     private P path;
 
     public DomainService(EntityManager entityManager, DomainRepository<E, ID> repository, P path) {
-        this.queryFactory = new JPAQueryFactory(entityManager);
+        this.factory = new JPAQueryFactory(entityManager);
         this.repository = repository;
         this.path = path;
     }

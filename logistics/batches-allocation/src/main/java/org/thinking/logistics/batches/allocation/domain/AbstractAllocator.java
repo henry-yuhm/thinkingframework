@@ -1,5 +1,6 @@
 package org.thinking.logistics.batches.allocation.domain;
 
+import com.querydsl.core.Tuple;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import org.thinking.logistics.services.core.domain.Batches;
@@ -7,9 +8,9 @@ import org.thinking.logistics.services.core.domain.BusinessBase;
 import org.thinking.logistics.services.core.domain.CompositeException;
 import org.thinking.logistics.services.core.domain.Goods;
 import org.thinking.logistics.services.core.domain.command.OutboundCommand;
+import org.thinking.logistics.services.core.domain.command.QOutboundCommand;
 import org.thinking.logistics.services.core.domain.command.ReplenishingCommand;
-import org.thinking.logistics.services.core.domain.documents.OutboundOrderDetail;
-import org.thinking.logistics.services.core.domain.documents.OutboundOrderHeader;
+import org.thinking.logistics.services.core.domain.documents.*;
 import org.thinking.logistics.services.core.domain.inventory.BatchesInventory;
 import org.thinking.logistics.services.core.domain.inventory.Inventory;
 import org.thinking.logistics.services.core.domain.inventory.OutboundConfiguration;
@@ -17,7 +18,7 @@ import org.thinking.logistics.services.core.domain.inventory.OutboundOrderLedger
 import org.thinking.logistics.services.core.domain.support.*;
 import org.thinking.logistics.services.core.service.command.OutboundCommandService;
 import org.thinking.logistics.services.core.service.command.ReplenishingCommandService;
-import org.thinking.logistics.services.core.service.documents.InverseDocumentsService;
+import org.thinking.logistics.services.core.service.documents.InverseOrderService;
 import org.thinking.logistics.services.core.service.documents.OutboundOrderService;
 import org.thinking.logistics.services.core.service.inventory.BatchesInventoryService;
 import org.thinking.logistics.services.core.service.inventory.InventoryService;
@@ -76,7 +77,7 @@ public abstract class AbstractAllocator extends BusinessBase implements Allocato
     private ReplenishingCommandService replenishingCommandService;
 
     @Resource
-    private InverseDocumentsService documentsService;
+    private InverseOrderService inverseOrderService;
 
     public AbstractAllocator(OutboundOrderHeader header) throws Exception {
         this.header = header;
@@ -601,7 +602,54 @@ public abstract class AbstractAllocator extends BusinessBase implements Allocato
 
     @Override
     public void check() throws Exception {
+        StringBuilder message = new StringBuilder();
+        QOutboundOrderHeader header = QOutboundOrderHeader.outboundOrderHeader;
+        QOutboundOrderDetail detail = QOutboundOrderDetail.outboundOrderDetail;
+        QOutboundCommand command = QOutboundCommand.outboundCommand;
+        QInverseOrderDetail inverseDetail = QInverseOrderDetail.inverseOrderDetail;
 
+        List<Tuple> tuples = this.orderService.getFactory().selectFrom(header)
+            .innerJoin(header.details, detail)
+            .where(
+                header.eq(this.header),
+                detail.original.isTrue()
+            )
+            .select(detail.goods, detail.planQuantity.subtract(detail.lessnessQuantity).sum())
+            .groupBy(detail.goods)
+            .orderBy(detail.goods.id.asc())
+            .fetch();
+
+        for (Tuple tuple : tuples) {
+            Goods goods = Optional.ofNullable(tuple.get(0, Goods.class)).orElse(new Goods());
+            BigDecimal orderQuantity = Optional.ofNullable(tuple.get(1, BigDecimal.class)).orElse(BigDecimal.ZERO);
+
+            BigDecimal commandQuantity = Optional.ofNullable(this.commandService.getFactory().selectFrom(command)
+                .where(
+                    command.header.eq(this.header),
+                    command.goods.eq(goods),
+                    command.commandType.in(CommandType.SALE_OUTBOUND, CommandType.PURCHASE_RETURN, CommandType.GIFT_OUTBOUND)
+                )
+                .select(command.creationQuantity.sum())
+                .fetchOne()
+            ).orElse(BigDecimal.ZERO);
+
+            BigDecimal inverseQuantity = Optional.ofNullable(this.inverseOrderService.getFactory().selectFrom(inverseDetail)
+                .where(
+                    inverseDetail.header.eq(this.header),
+                    inverseDetail.goods.eq(goods)
+                )
+                .select(inverseDetail.quantity.sum())
+                .fetchOne()
+            ).orElse(BigDecimal.ZERO);
+
+            if (orderQuantity.compareTo(commandQuantity.add(inverseQuantity)) != 0) {
+                message.append(goods.toString() + "批号分配数据异常，订单数量【" + orderQuantity + "】、指令数量【" + commandQuantity + "】、冲红数量【" + inverseQuantity + "】，差异数量为【" + orderQuantity.subtract(commandQuantity).subtract(inverseQuantity) + "】");
+            }
+        }
+
+        if (message.length() > 0) {
+            throw CompositeException.getException(message.toString(), this.header, this.header.getOwner());
+        }
     }
 
     @Override

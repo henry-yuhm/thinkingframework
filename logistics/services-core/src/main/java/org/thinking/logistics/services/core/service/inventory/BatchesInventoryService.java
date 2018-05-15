@@ -30,7 +30,7 @@ public class BatchesInventoryService extends DomainService<QBatchesInventory, Ba
     }
 
     public final List<BatchesInventory> acquire(Goods goods, Batches batches, ValidPeriodType validPeriodType) {
-        return this.getQueryFactory().selectFrom(this.getPath())
+        return this.getFactory().selectFrom(this.getPath())
             .where(
                 this.getPath().goods.eq(goods),
                 batches == null ? this.getPath().batches.isNotNull() : this.getPath().batches.eq(batches),

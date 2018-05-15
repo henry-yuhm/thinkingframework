@@ -19,7 +19,7 @@ public class StagingareaService extends DomainService<QStagingarea, Stagingarea,
     }
 
     public final List<String> acquireAvailableArea(Stagingarea stagingarea) {
-        return this.getQueryFactory().selectFrom(this.getPath())
+        return this.getFactory().selectFrom(this.getPath())
             .select(this.getPath().no)
             .where(
                 this.getPath().type.eq(stagingarea.getType()),
@@ -36,7 +36,7 @@ public class StagingareaService extends DomainService<QStagingarea, Stagingarea,
     }
 
     public final List<Stagingarea> acquireAvailableArea(String from, String to, Stagingarea stagingarea) {
-        return this.getQueryFactory().selectFrom(this.getPath())
+        return this.getFactory().selectFrom(this.getPath())
             .where(
                 this.getPath().no.goe(from),
                 this.getPath().no.loe(to),

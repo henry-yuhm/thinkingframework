@@ -19,7 +19,7 @@ public class AddressService extends DomainService<QAddress, Address, Long> {
     }
 
     public final Address acquire(Customer customer, boolean verifiable) throws Exception {
-        JPAQuery<Address> query = this.getQueryFactory().selectFrom(this.getPath())
+        JPAQuery<Address> query = this.getFactory().selectFrom(this.getPath())
             .where(
                 this.getPath().customer.eq(customer),
                 this.getPath().defaults.isTrue());

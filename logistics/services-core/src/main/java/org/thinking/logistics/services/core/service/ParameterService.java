@@ -27,7 +27,7 @@ public class ParameterService extends DomainService<QParameter, Parameter, Long>
             Parameter parameter = this.parameters.get(no);
 
             if (parameter == null) {
-                parameter = this.getQueryFactory().selectFrom(this.getPath())
+                parameter = this.getFactory().selectFrom(this.getPath())
                     .where(this.getPath().no.eq(no))
                     .fetchOne();
 

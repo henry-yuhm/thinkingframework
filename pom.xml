@@ -14,9 +14,9 @@
         <java.version>1.8</java.version>
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
-        <spring.boot.dependencies.version>2.0.1.RELEASE</spring.boot.dependencies.version>
+        <spring.boot.dependencies.version>2.0.2.RELEASE</spring.boot.dependencies.version>
         <spring.cloud.dependencies.version>Finchley.RC1</spring.cloud.dependencies.version>
-        <spring.platform.version>Cairo-RELEASE</spring.platform.version>
+        <spring.platform.version>Cairo-SR1</spring.platform.version>
         <spring.statemachine.version>2.0.1.RELEASE</spring.statemachine.version>
         <druid.version>1.1.9</druid.version>
         <querydsl.version>4.2.1</querydsl.version>
@@ -249,14 +249,6 @@
 
     <repositories>
         <repository>
-            <id>spring-milestones</id>
-            <name>Spring Milestones</name>
-            <url>http://repo.spring.io/milestone</url>
-            <snapshots>
-                <enabled>false</enabled>
-            </snapshots>
-        </repository>
-        <repository>
             <id>central</id>
             <name>Central Repository</name>
             <url>https://repo.maven.apache.org/maven2</url>
@@ -291,6 +283,14 @@
                 <enabled>true</enabled>
                 <updatePolicy>always</updatePolicy>
             </releases>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+        </repository>
+        <repository>
+            <id>spring-milestones</id>
+            <name>Spring Milestones</name>
+            <url>http://repo.spring.io/milestone</url>
             <snapshots>
                 <enabled>false</enabled>
             </snapshots>
@@ -299,10 +299,6 @@
 
     <pluginRepositories>
         <pluginRepository>
-            <id>spring-milestones</id>
-            <url>http://repo.spring.io/milestone</url>
-        </pluginRepository>
-        <pluginRepository>
             <id>central</id>
             <name>Central Repository</name>
             <url>https://repo.maven.apache.org/maven2</url>
@@ -340,6 +336,10 @@
             <snapshots>
                 <enabled>false</enabled>
             </snapshots>
+        </pluginRepository>
+        <pluginRepository>
+            <id>spring-milestones</id>
+            <url>http://repo.spring.io/milestone</url>
         </pluginRepository>
     </pluginRepositories>
 

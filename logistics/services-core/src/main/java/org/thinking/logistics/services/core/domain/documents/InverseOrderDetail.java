@@ -15,7 +15,7 @@ import java.time.LocalDate;
 @Entity
 @Data
 @EqualsAndHashCode(callSuper = true)
-public class InverseDocumentsDetail extends Detail {
+public class InverseOrderDetail extends Detail {
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     private OutboundOrderHeader header;//单据抬头
 

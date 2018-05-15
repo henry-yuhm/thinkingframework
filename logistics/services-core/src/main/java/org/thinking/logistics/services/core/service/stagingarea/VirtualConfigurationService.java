@@ -20,7 +20,7 @@ public class VirtualConfigurationService extends DomainService<QVirtualConfigura
     }
 
     public final VirtualConfiguration acquire(OutboundOrderHeader header, StagingareaCategory stagingareaCategory, Direction direction) throws Exception {
-        VirtualConfiguration configuration = this.getQueryFactory().selectFrom(this.getPath())
+        VirtualConfiguration configuration = this.getFactory().selectFrom(this.getPath())
             .where(
                 this.getPath().warehouse.eq(header.getWarehouse()),
                 this.getPath().owner.isNull().or(this.getPath().owner.eq(header.getOwner())),

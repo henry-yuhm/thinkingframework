@@ -21,7 +21,7 @@ public class OutboundOrderService extends DomainService<QOutboundOrderHeader, Ou
     }
 
     public final OutboundOrderHeader acquire(long id, boolean verifiable) throws Exception {
-        OutboundOrderHeader header = this.getQueryFactory().selectFrom(this.getPath())
+        OutboundOrderHeader header = this.getFactory().selectFrom(this.getPath())
             .where(this.getPath().id.eq(id))
             .fetchOne();
 
@@ -35,7 +35,7 @@ public class OutboundOrderService extends DomainService<QOutboundOrderHeader, Ou
     }
 
     public final OutboundOrderHeader acquire(Owner owner, String no, boolean verifiable) throws Exception {
-        OutboundOrderHeader header = this.getQueryFactory().selectFrom(this.getPath())
+        OutboundOrderHeader header = this.getFactory().selectFrom(this.getPath())
             .where(
                 this.getPath().owner.eq(owner),
                 this.getPath().no.eq(no)
@@ -52,7 +52,7 @@ public class OutboundOrderService extends DomainService<QOutboundOrderHeader, Ou
     }
 
     public final List<OutboundOrderHeader> acquire(Warehouse warehouse, String wave, boolean verifiable) throws Exception {
-        List<OutboundOrderHeader> headers = this.getQueryFactory().selectFrom(this.getPath())
+        List<OutboundOrderHeader> headers = this.getFactory().selectFrom(this.getPath())
             .where(
                 this.getPath().warehouse.eq(warehouse),
                 this.getPath().wave.eq(wave)

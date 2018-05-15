@@ -21,7 +21,7 @@ public class OutboundConfigurationService extends DomainService<QOutboundConfigu
     }
 
     public final List<OutboundConfiguration> acquireConfiguration(PackageType packageType, OutboundOrderHeader header, OutboundOrderDetail detail) {
-        return this.getQueryFactory().selectFrom(this.getPath())
+        return this.getFactory().selectFrom(this.getPath())
             .where(
                 this.getPath().warehouse.eq(header.getWarehouse()),
                 this.getPath().owner.eq(header.getOwner()),

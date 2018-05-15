@@ -20,7 +20,7 @@ public class StagingareaConfigurationService extends DomainService<QStagingareaC
     }
 
     public final StagingareaConfiguration acquire(OutboundOrderHeader header, boolean verifiable) throws Exception {
-        StagingareaConfiguration configuration = this.getQueryFactory().selectFrom(this.getPath())
+        StagingareaConfiguration configuration = this.getFactory().selectFrom(this.getPath())
             .where(
                 this.getPath().warehouse.eq(header.getWarehouse()),
                 this.getPath().owner.eq(header.getOwner()),

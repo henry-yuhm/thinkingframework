@@ -23,7 +23,7 @@ public class ReplenishingCommandService extends DomainService<QReplenishingComma
     }
 
     public final List<ReplenishingCommand> acquire(Warehouse warehouse, Goods goods, Batches batches, Location location) {
-        return this.getQueryFactory().selectFrom(this.getPath())
+        return this.getFactory().selectFrom(this.getPath())
             .where(
                 this.getPath().warehouse.eq(warehouse),
                 this.getPath().goods.eq(goods),

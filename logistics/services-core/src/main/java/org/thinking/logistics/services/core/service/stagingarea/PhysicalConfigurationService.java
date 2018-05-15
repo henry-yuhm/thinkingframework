@@ -19,7 +19,7 @@ public class PhysicalConfigurationService extends DomainService<QPhysicalConfigu
     }
 
     public final PhysicalConfiguration acquire(OutboundOrderHeader header, boolean verifiable) throws Exception {
-        PhysicalConfiguration configuration = this.getQueryFactory().selectFrom(this.getPath())
+        PhysicalConfiguration configuration = this.getFactory().selectFrom(this.getPath())
             .where(
                 this.getPath().warehouse.eq(header.getWarehouse()),
                 this.getPath().owner.eq(header.getOwner()),

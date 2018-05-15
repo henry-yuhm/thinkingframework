@@ -43,7 +43,7 @@ public class InventoryService extends DomainService<QInventory, Inventory, Long>
     }
 
     public final Inventory acquire(Warehouse warehouse, Goods goods, Batches batches, Location location, InventoryState inventoryState) {
-        return this.getQueryFactory().selectFrom(this.getPath())
+        return this.getFactory().selectFrom(this.getPath())
             .where(
                 this.getPath().warehouse.eq(warehouse),
                 this.getPath().goods.eq(goods),
@@ -102,7 +102,7 @@ public class InventoryService extends DomainService<QInventory, Inventory, Long>
             .then(this.getPath().transitionalQuantity)
             .otherwise(BigDecimal.ZERO);
 
-        return this.getQueryFactory().selectFrom(this.getPath())
+        return this.getFactory().selectFrom(this.getPath())
             .where(
                 this.getPath().warehouse.eq(warehouse),
                 this.getPath().goods.eq(goods),
@@ -150,7 +150,7 @@ public class InventoryService extends DomainService<QInventory, Inventory, Long>
     }
 
     public final List<Inventory> acquire(Warehouse warehouse, Goods goods, Batches batches) {
-        return this.getQueryFactory().selectFrom(this.getPath())
+        return this.getFactory().selectFrom(this.getPath())
             .where(
                 this.getPath().warehouse.eq(warehouse),
                 this.getPath().goods.eq(goods),
@@ -162,7 +162,7 @@ public class InventoryService extends DomainService<QInventory, Inventory, Long>
     }
 
     public final List<Inventory> acquire(Warehouse warehouse, Goods goods, Batches batches, InventoryState inventoryState, String storeCategory, String storeNo, BigDecimal quantity) {
-        return this.getQueryFactory().selectFrom(this.getPath())
+        return this.getFactory().selectFrom(this.getPath())
             .where(
                 this.getPath().warehouse.eq(warehouse),
                 this.getPath().goods.eq(goods),
@@ -185,7 +185,7 @@ public class InventoryService extends DomainService<QInventory, Inventory, Long>
     }
 
     public final BigDecimal acquire(Warehouse warehouse, Goods goods) {
-        return this.getQueryFactory().selectFrom(this.getPath())
+        return this.getFactory().selectFrom(this.getPath())
             .where(
                 this.getPath().warehouse.eq(warehouse),
                 this.getPath().goods.eq(goods)
@@ -245,7 +245,7 @@ public class InventoryService extends DomainService<QInventory, Inventory, Long>
         //endregion
 
         //region 计算当前货位上的占用体积
-        BigDecimal occupationVolume = this.getQueryFactory().selectFrom(this.getPath())
+        BigDecimal occupationVolume = this.getFactory().selectFrom(this.getPath())
             .where(this.getPath().location.eq(inventory.getLocation()))
             .select(((this.getPath().quantity
                     .add(this.getPath().inboundQuantity)
@@ -273,7 +273,7 @@ public class InventoryService extends DomainService<QInventory, Inventory, Long>
         //endregion
 
         //region 更新库存
-        JPAUpdateClause update = this.getQueryFactory().update(this.getPath())
+        JPAUpdateClause update = this.getFactory().update(this.getPath())
             .where(this.getPath().id.eq(inventory.getId()));
 
         if (type == LedgerType.PREALLOCATION) {
@@ -331,7 +331,7 @@ public class InventoryService extends DomainService<QInventory, Inventory, Long>
         //endregion
 
         //region 无效库存清理
-        if (this.getQueryFactory().delete(this.getPath())
+        if (this.getFactory().delete(this.getPath())
             .where(
                 this.getPath().warehouse.eq(inventory.getWarehouse()),
                 this.getPath().owner.eq(inventory.getOwner()),
