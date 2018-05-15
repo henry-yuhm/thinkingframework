@@ -3,6 +3,7 @@ package org.thinking.logistics.services.core.domain.inventory;
 import lombok.Data;
 import org.thinking.logistics.services.core.domain.*;
 import org.thinking.logistics.services.core.domain.container.Pallet;
+import org.thinking.logistics.services.core.domain.documents.Header;
 import org.thinking.logistics.services.core.domain.support.InventoryState;
 import org.thinking.logistics.services.core.domain.support.LedgerCategory;
 import org.thinking.logistics.services.core.domain.support.LedgerSummary;
@@ -86,4 +87,6 @@ public abstract class Ledger {
 
     @Column(nullable = false)
     private Date creationTime = Date.valueOf(LocalDate.now());//创建时间
+
+    public abstract void setHeader(Header header);
 }

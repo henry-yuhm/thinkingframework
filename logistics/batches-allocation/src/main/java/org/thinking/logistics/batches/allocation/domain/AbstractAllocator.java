@@ -13,9 +13,11 @@ import org.thinking.logistics.services.core.domain.documents.OutboundOrderHeader
 import org.thinking.logistics.services.core.domain.inventory.BatchesInventory;
 import org.thinking.logistics.services.core.domain.inventory.Inventory;
 import org.thinking.logistics.services.core.domain.inventory.OutboundConfiguration;
+import org.thinking.logistics.services.core.domain.inventory.OutboundOrderLedger;
 import org.thinking.logistics.services.core.domain.support.*;
 import org.thinking.logistics.services.core.service.command.OutboundCommandService;
 import org.thinking.logistics.services.core.service.command.ReplenishingCommandService;
+import org.thinking.logistics.services.core.service.documents.InverseDocumentsService;
 import org.thinking.logistics.services.core.service.documents.OutboundOrderService;
 import org.thinking.logistics.services.core.service.inventory.BatchesInventoryService;
 import org.thinking.logistics.services.core.service.inventory.InventoryService;
@@ -65,13 +67,16 @@ public abstract class AbstractAllocator extends BusinessBase implements Allocato
     private InventoryService inventoryService;
 
     @Resource
-    private LedgerService ledgerService;
+    private LedgerService<OutboundOrderLedger, OutboundOrderHeader> ledgerService;
 
     @Resource
     private OutboundCommandService commandService;
 
     @Resource
     private ReplenishingCommandService replenishingCommandService;
+
+    @Resource
+    private InverseDocumentsService documentsService;
 
     public AbstractAllocator(OutboundOrderHeader header) throws Exception {
         this.header = header;
@@ -502,13 +507,13 @@ public abstract class AbstractAllocator extends BusinessBase implements Allocato
 
     @Override
     public void charge(Inventory inventory) throws Exception {
-        this.ledgerService.save(inventory, LedgerSummary.OUTBOUND_RELEASING_PREALLOCATION, LedgerType.PREALLOCATION, LedgerCategory.OUTBOUND, this.header, inventory.getAvailableOutboundQuantity());
+        this.ledgerService.save(new OutboundOrderLedger(), inventory, LedgerSummary.OUTBOUND_RELEASING_PREALLOCATION, LedgerType.PREALLOCATION, LedgerCategory.OUTBOUND, this.header, inventory.getAvailableOutboundQuantity());
 
         if (inventory.getLocation().isAutomatic()) {
             if (inventory.getTransitionalQuantity().compareTo(BigDecimal.ZERO) > 0) {
-                this.ledgerService.save(inventory, LedgerSummary.OUTBOUND_MINUS_TRANSITION, LedgerType.IN_TRANSITION, LedgerCategory.IN_TRANSITION, this.header, inventory.getAvailableOutboundQuantity().negate());
+                this.ledgerService.save(new OutboundOrderLedger(), inventory, LedgerSummary.OUTBOUND_MINUS_TRANSITION, LedgerType.IN_TRANSITION, LedgerCategory.IN_TRANSITION, this.header, inventory.getAvailableOutboundQuantity().negate());
             } else if (inventory.getAvailableQuantity().subtract(inventory.getAvailableOutboundQuantity()).compareTo(BigDecimal.ZERO) > 0) {
-                this.ledgerService.save(inventory, LedgerSummary.OUTBOUND_PLUS_TRANSITION, LedgerType.IN_TRANSITION, LedgerCategory.IN_TRANSITION, this.header, inventory.getAvailableQuantity().subtract(inventory.getAvailableOutboundQuantity()));
+                this.ledgerService.save(new OutboundOrderLedger(), inventory, LedgerSummary.OUTBOUND_PLUS_TRANSITION, LedgerType.IN_TRANSITION, LedgerCategory.IN_TRANSITION, this.header, inventory.getAvailableQuantity().subtract(inventory.getAvailableOutboundQuantity()));
             }
         }
     }
