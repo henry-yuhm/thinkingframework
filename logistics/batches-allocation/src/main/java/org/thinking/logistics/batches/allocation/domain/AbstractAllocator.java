@@ -512,9 +512,9 @@ public abstract class AbstractAllocator extends BusinessBase implements Allocato
 
         if (inventory.getLocation().isAutomatic()) {
             if (inventory.getTransitionalQuantity().compareTo(BigDecimal.ZERO) > 0) {
-                this.ledgerService.save(new OutboundOrderLedger(), inventory, LedgerSummary.OUTBOUND_MINUS_TRANSITION, LedgerType.IN_TRANSITION, LedgerCategory.IN_TRANSITION, this.header, inventory.getAvailableOutboundQuantity().negate());
+                this.ledgerService.save(new OutboundOrderLedger(), inventory, LedgerSummary.OUTBOUND_MINUS_TRANSITION, LedgerType.TRANSITION, LedgerCategory.TRANSITION, this.header, inventory.getAvailableOutboundQuantity().negate());
             } else if (inventory.getAvailableQuantity().subtract(inventory.getAvailableOutboundQuantity()).compareTo(BigDecimal.ZERO) > 0) {
-                this.ledgerService.save(new OutboundOrderLedger(), inventory, LedgerSummary.OUTBOUND_PLUS_TRANSITION, LedgerType.IN_TRANSITION, LedgerCategory.IN_TRANSITION, this.header, inventory.getAvailableQuantity().subtract(inventory.getAvailableOutboundQuantity()));
+                this.ledgerService.save(new OutboundOrderLedger(), inventory, LedgerSummary.OUTBOUND_PLUS_TRANSITION, LedgerType.TRANSITION, LedgerCategory.TRANSITION, this.header, inventory.getAvailableQuantity().subtract(inventory.getAvailableOutboundQuantity()));
             }
         }
     }
@@ -654,6 +654,16 @@ public abstract class AbstractAllocator extends BusinessBase implements Allocato
 
     @Override
     public void save() {
+        if (this.header.getStage() == OutboundStage.RESEND) {
+            this.header.setStage(OutboundStage.BATCHES_ALLOCATED);
+        } else {
+            if (this.header.getDetails().stream().noneMatch(detail -> detail.isOriginal() && detail.getLessnessQuantity().compareTo(BigDecimal.ZERO) > 0)) {
+                this.header.setStage(OutboundStage.BATCHES_ALLOCATED);
+            } else {
+                this.header.setStage(OutboundStage.SUSPENDED);
+            }
+        }
 
+        this.orderService.getRepository().save(this.header);
     }
 }

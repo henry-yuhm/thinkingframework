@@ -14,7 +14,7 @@ public class ReplenishingDocumentsHeader extends Header {
     @Column(nullable = false)
     private boolean complete = false;//完成
 
-    @ManyToMany
+    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH})
     @JoinTable(joinColumns = @JoinColumn(name = "header_id"), inverseJoinColumns = @JoinColumn(name = "detail_id"))
     private Set<ReplenishingDocumentsDetail> details = new LinkedHashSet<>();//单据明细
 }

@@ -129,7 +129,7 @@ public class OutboundOrderHeader extends Header {
     @Column(nullable = false)
     private BigDecimal equivalentPieces = BigDecimal.ZERO;//折合件数
 
-    @ManyToMany
+    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH})
     @JoinTable(joinColumns = @JoinColumn(name = "header_id"), inverseJoinColumns = @JoinColumn(name = "detail_id"))
     private Set<OutboundOrderDetail> details = new LinkedHashSet<>();//单据明细
 

@@ -23,6 +23,7 @@
         <module>../order-activation</module>
         <module>../order-dispatcher</module>
         <module>../order-initialization</module>
+        <module>../order-inversion</module>
         <module>../replenishment-dispatcher</module>
         <module>../resource-dispatcher</module>
         <module>../services-core</module>

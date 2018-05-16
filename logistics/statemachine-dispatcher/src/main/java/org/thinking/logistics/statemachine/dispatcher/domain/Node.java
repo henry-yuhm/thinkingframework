@@ -24,6 +24,6 @@ public class Node {
     @Embedded
     private Style style;
 
-    @OneToOne(fetch = FetchType.EAGER)
+    @OneToOne
     private JpaRepositoryState state;
 }

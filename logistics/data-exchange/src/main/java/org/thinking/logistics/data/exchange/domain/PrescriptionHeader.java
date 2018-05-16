@@ -126,7 +126,7 @@ public class PrescriptionHeader implements EntityBase {
     @JSONField(name = "Memo")
     private String memo;//备注
 
-    @ManyToMany
+    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH})
     @JoinTable(joinColumns = @JoinColumn(name = "header_id"), inverseJoinColumns = @JoinColumn(name = "detail_id"))
     private Set<PrescriptionDetail> details = new LinkedHashSet<>();//单据明细
 }

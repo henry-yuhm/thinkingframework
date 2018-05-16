@@ -14,7 +14,7 @@ public enum LedgerType {
             return "记账";
         }
     },
-    IN_TRANSITION(3) {
+    TRANSITION(3) {
         @Override
         public String toString() {
             return "在途";

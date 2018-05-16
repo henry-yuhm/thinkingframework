@@ -42,11 +42,11 @@ public class Employee {
     @OneToOne(fetch = FetchType.LAZY)
     private DeviceAuthority authority;//设备权限
 
-    @OneToMany
+    @OneToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH})
     @JoinTable(joinColumns = @JoinColumn(name = "employee_id"), inverseJoinColumns = @JoinColumn(name = "authentication_id"))
     private Set<DeviceAuthentication> authentications = new LinkedHashSet<>();//设备认证
 
-    @OneToMany
+    @OneToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH})
     @JoinTable(joinColumns = @JoinColumn(name = "employee_id"), inverseJoinColumns = @JoinColumn(name = "owner_id"))
     private Set<Owner> owners = new LinkedHashSet<>();//业主
 }

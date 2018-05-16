@@ -27,7 +27,7 @@ public class Parameter {
     @Column(nullable = false)
     private String sign;//标识
 
-    @OneToMany
+    @OneToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH})
     @JoinTable(joinColumns = @JoinColumn(name = "parameter_id"), inverseJoinColumns = @JoinColumn(name = "range_id"))
     private Set<ParameterRange> ranges = new LinkedHashSet<>();//值域
 

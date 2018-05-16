@@ -44,7 +44,7 @@ public enum OutboundStage {
             return "单据补发";
         }
     },
-    BATCH_ALLOCATED(34) {
+    BATCHES_ALLOCATED(34) {
         @Override
         public String toString() {
             return "批号已分配";

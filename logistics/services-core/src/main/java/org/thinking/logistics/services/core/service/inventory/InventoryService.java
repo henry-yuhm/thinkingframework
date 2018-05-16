@@ -226,7 +226,7 @@ public class InventoryService extends DomainService<QInventory, Inventory, Long>
             inventory.setRemainder(inventory.getGoods().getRemainder(inventory.getQuantity()));
         }
 
-        if (type == LedgerType.IN_TRANSITION) {
+        if (type == LedgerType.TRANSITION) {
             inventory.setTransitionalQuantity(inventory.getTransitionalQuantity().add(quantity));
         }
 
@@ -306,7 +306,7 @@ public class InventoryService extends DomainService<QInventory, Inventory, Long>
                 .set(this.getPath().remainder, inventory.getRemainder());
         }
 
-        if (type == LedgerType.IN_TRANSITION) {
+        if (type == LedgerType.TRANSITION) {
             update = update.set(this.getPath().transitionalQuantity, inventory.getTransitionalQuantity());
         }
 

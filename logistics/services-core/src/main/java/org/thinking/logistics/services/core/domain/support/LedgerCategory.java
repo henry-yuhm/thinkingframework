@@ -38,7 +38,7 @@ public enum LedgerCategory {
             return "移入";
         }
     },
-    IN_TRANSITION(7) {
+    TRANSITION(7) {
         @Override
         public String toString() {
             return "在途";
