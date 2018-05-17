@@ -6,18 +6,25 @@ import org.thinking.logistics.services.core.domain.CompositeException;
 import org.thinking.logistics.services.core.domain.Owner;
 import org.thinking.logistics.services.core.domain.Warehouse;
 import org.thinking.logistics.services.core.domain.documents.OutboundOrderHeader;
+import org.thinking.logistics.services.core.domain.documents.QInverseOrderDetail;
+import org.thinking.logistics.services.core.domain.documents.QOutboundOrderDetail;
 import org.thinking.logistics.services.core.domain.documents.QOutboundOrderHeader;
 import org.thinking.logistics.services.core.repository.DomainRepository;
 import org.thinking.logistics.services.core.service.DomainService;
 
 import javax.persistence.EntityManager;
+import java.math.BigDecimal;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class OutboundOrderService extends DomainService<QOutboundOrderHeader, OutboundOrderHeader, Long> {
+    private final InverseOrderService inverseOrderService;
+
     @Autowired
-    public OutboundOrderService(EntityManager entityManager, DomainRepository<OutboundOrderHeader, Long> repository) {
+    public OutboundOrderService(EntityManager entityManager, DomainRepository<OutboundOrderHeader, Long> repository, InverseOrderService inverseOrderService) {
         super(entityManager, repository, QOutboundOrderHeader.outboundOrderHeader);
+        this.inverseOrderService = inverseOrderService;
     }
 
     public final OutboundOrderHeader acquire(long id, boolean verifiable) throws Exception {
@@ -66,5 +73,27 @@ public class OutboundOrderService extends DomainService<QOutboundOrderHeader, Ou
         }
 
         return headers;
+    }
+
+    public final boolean isInversed(OutboundOrderHeader header) {
+        QOutboundOrderDetail detail = QOutboundOrderDetail.outboundOrderDetail;
+        BigDecimal orderQuantity = Optional.ofNullable(this.getFactory().selectFrom(this.getPath())
+            .innerJoin(this.getPath().details, detail)
+            .where(
+                this.getPath().eq(header),
+                detail.original.isTrue()
+            )
+            .select(detail.planQuantity.sum())
+            .fetchOne()
+        ).orElse(BigDecimal.ZERO);
+
+        QInverseOrderDetail inverseDetail = QInverseOrderDetail.inverseOrderDetail;
+        BigDecimal inverseQuantity = Optional.ofNullable(this.inverseOrderService.getFactory().selectFrom(inverseDetail)
+            .where(inverseDetail.header.eq(header))
+            .select(inverseDetail.quantity.sum())
+            .fetchOne()
+        ).orElse(BigDecimal.ZERO);
+
+        return orderQuantity.compareTo(inverseQuantity) == 0;
     }
 }

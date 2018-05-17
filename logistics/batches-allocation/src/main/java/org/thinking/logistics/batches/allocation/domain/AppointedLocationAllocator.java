@@ -2,8 +2,10 @@ package org.thinking.logistics.batches.allocation.domain;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import org.thinking.logistics.order.inversion.domain.SaleOutboundInverser;
 import org.thinking.logistics.services.core.domain.documents.OutboundOrderDetail;
 import org.thinking.logistics.services.core.domain.documents.OutboundOrderHeader;
+import org.thinking.logistics.services.core.domain.support.InverseStage;
 import org.thinking.logistics.services.core.domain.support.PackageType;
 
 import java.math.BigDecimal;
@@ -86,6 +88,7 @@ public class AppointedLocationAllocator extends AbstractAllocator {
         this.save();
 
         //冲红
+        new SaleOutboundInverser(this.getHeader().getDispatchers(), this.getHeader(), InverseStage.DISPATCHING).inverse();
 
         //校验指令
         this.verify();

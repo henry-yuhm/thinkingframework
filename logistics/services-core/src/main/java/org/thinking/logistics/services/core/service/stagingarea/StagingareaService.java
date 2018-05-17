@@ -2,8 +2,12 @@ package org.thinking.logistics.services.core.service.stagingarea;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import org.thinking.logistics.services.core.domain.CompositeException;
+import org.thinking.logistics.services.core.domain.documents.OutboundOrderHeader;
 import org.thinking.logistics.services.core.domain.stagingarea.QStagingarea;
 import org.thinking.logistics.services.core.domain.stagingarea.Stagingarea;
+import org.thinking.logistics.services.core.domain.support.OutboundStage;
 import org.thinking.logistics.services.core.repository.DomainRepository;
 import org.thinking.logistics.services.core.service.DomainService;
 
@@ -51,5 +55,24 @@ public class StagingareaService extends DomainService<QStagingarea, Stagingarea,
             .orderBy(this.getPath().no.asc())
             .setLockMode(LockModeType.PESSIMISTIC_WRITE)
             .fetch();
+    }
+
+    @Transactional(rollbackFor = Exception.class)
+    public void cleanup(final OutboundOrderHeader header) throws Exception {
+        if (header.getStage().compareTo(OutboundStage.RECHECK_COMPLETE) < 0 && !header.isInversed()) {
+            throw CompositeException.getException("单据任务未完成，不能清空月台", header, header.getOwner());
+        }
+
+        List<Stagingarea> stagingareas = this.getFactory().selectFrom(this.getPath())
+            .where(
+                this.getPath().warehouse.eq(header.getWarehouse()),
+                this.getPath().no.goe(header.getSourceStagingarea().getNo()),
+                this.getPath().no.loe(header.getTargetStagingarea().getNo())
+            )
+            .fetch();
+
+        stagingareas.forEach(stagingarea -> stagingarea.setAvailable(true));
+
+        this.getRepository().saveAll(stagingareas);
     }
 }

@@ -182,6 +182,11 @@
                 <artifactId>services-core</artifactId>
                 <version>${logistics.dependencies.version}</version>
             </dependency>
+            <dependency>
+                <groupId>org.thinking.logistics</groupId>
+                <artifactId>order-inversion</artifactId>
+                <version>${logistics.dependencies.version}</version>
+            </dependency>
             <!--logistics-->
         </dependencies>
     </dependencyManagement>

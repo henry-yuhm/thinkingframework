@@ -2,6 +2,7 @@ package org.thinking.logistics.services.core.domain.documents;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import org.thinking.logistics.services.core.domain.employee.Employee;
 import org.thinking.logistics.services.core.domain.support.InverseStage;
 
 import javax.persistence.Column;
@@ -32,7 +33,7 @@ public class InverseOrderDetail extends Detail {
     private BigDecimal remainder = BigDecimal.ZERO;//余数
 
     @Column(nullable = false)
-    private String operator;//操作员
+    private Employee operator;//操作员
 
     @Column(nullable = false)
     private Date operationTime = Date.valueOf(LocalDate.now());//操作时间
@@ -40,7 +41,7 @@ public class InverseOrderDetail extends Detail {
     @Column(nullable = false)
     private InverseStage stage;//冲红阶段
 
-    private String auditor;//审核员
+    private Employee auditor;//审核员
 
     private Date auditTime;//审核时间
 

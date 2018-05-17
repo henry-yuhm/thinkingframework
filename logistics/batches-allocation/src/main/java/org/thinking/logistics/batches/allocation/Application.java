@@ -16,7 +16,7 @@ import org.thinkingframework.boot.web.mvc.AppWebMvcConfigurer;
 @EnableHystrix
 @EntityScan(basePackages = "org.thinking.logistics.services.core.domain")
 @EnableJpaRepositories(basePackages = "org.thinking.logistics.services.core.repository")
-@ComponentScan(basePackages = "org.thinking.logistics.services.core.service")
+@ComponentScan(basePackages = {"org.thinking.logistics.services.core.service", "org.thinking.logistics.order.inversion.domain"})
 public class Application extends AppWebMvcConfigurer {
     public static void main(String[] args) {
         SpringApplication.run(Application.class, args);

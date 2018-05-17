@@ -84,7 +84,7 @@ public class OutboundOrderHeader extends Header {
     private boolean inversed = false;//整单冲红
 
     @Column(nullable = false)
-    private boolean auditing = false;//冲红审核
+    private boolean audited = false;//冲红审核
 
     @Column(nullable = false)
     private boolean uploaded = false;//上传
