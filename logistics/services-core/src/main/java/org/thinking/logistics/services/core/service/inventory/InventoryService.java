@@ -222,8 +222,6 @@ public class InventoryService extends DomainService<QInventory, Inventory, Long>
 
         if (type == LedgerType.CHARGING) {
             inventory.setQuantity(inventory.getQuantity().add(quantity));
-            inventory.setPieces(inventory.getGoods().getPieces(inventory.getQuantity()));
-            inventory.setRemainder(inventory.getGoods().getRemainder(inventory.getQuantity()));
         }
 
         if (type == LedgerType.TRANSITION) {

@@ -25,11 +25,6 @@ public class AppendantCommandAllocator extends AbstractAllocator {
     }
 
     @Override
-    public void setDetail(OutboundOrderDetail detail) throws Exception {
-        super.setDetail(detail);
-    }
-
-    @Override
     public OutboundCommand acquireCommand(OutboundOrderDetail detail, Inventory inventory, BigDecimal quantity) throws Exception {
         return super.acquireCommand(detail, inventory, quantity);
     }

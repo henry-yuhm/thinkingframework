@@ -1,7 +1,9 @@
 package org.thinking.logistics.services.core.domain.documents;
 
+import lombok.AccessLevel;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.Setter;
 import org.thinking.logistics.services.core.domain.employee.Employee;
 import org.thinking.logistics.services.core.domain.support.InverseStage;
 
@@ -27,9 +29,11 @@ public class InverseOrderDetail extends Detail {
     private BigDecimal quantity = BigDecimal.ZERO;//数量
 
     @Column(nullable = false, precision = 12, scale = 5)
+    @Setter(value = AccessLevel.NONE)
     private BigDecimal pieces = BigDecimal.ZERO;//件数
 
     @Column(nullable = false, precision = 12, scale = 5)
+    @Setter(value = AccessLevel.NONE)
     private BigDecimal remainder = BigDecimal.ZERO;//余数
 
     @Column(nullable = false)
@@ -46,4 +50,12 @@ public class InverseOrderDetail extends Detail {
     private Date auditTime;//审核时间
 
     private String reasons;//原因
+
+    public BigDecimal getPieces() {
+        return getGoods().getPieces(quantity);
+    }
+
+    public BigDecimal getRemainder() {
+        return getGoods().getRemainder(quantity);
+    }
 }

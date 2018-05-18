@@ -4,10 +4,7 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import org.thinking.logistics.services.core.domain.CompositeException;
 import org.thinking.logistics.services.core.domain.documents.OutboundOrderHeader;
-import org.thinking.logistics.services.core.domain.support.DispatcherType;
-import org.thinking.logistics.services.core.domain.support.OutboundPriority;
-import org.thinking.logistics.services.core.domain.support.SaleType;
-import org.thinking.logistics.services.core.domain.support.TakegoodsMode;
+import org.thinking.logistics.services.core.domain.support.*;
 import org.thinking.logistics.services.core.service.AddressService;
 
 import javax.annotation.Resource;
@@ -66,10 +63,10 @@ public class SaleOutboundInitializer extends AbstractInitializer {
 
         //region 三方业主自动打单
         if (this.getHeader().getOwner().isThirdpart() && !this.isEnable(this.getHeader().getWarehouse(), "TPL_PRINTBILL")) {
-            this.getHeader().setRecheckbillPrintSign("Y");
+            this.getHeader().setRecheckbillPrintSign(PrintSign.CONFIRMATION);
             this.getHeader().setRecheckbillPrintClerk(this.getOperator());
             this.getHeader().setRecheckbillPrintTime(Date.valueOf(LocalDate.now()));
-            this.getHeader().setReportbillPrintSign("Y");
+            this.getHeader().setReportbillPrintSign(PrintSign.CONFIRMATION);
             this.getHeader().setReportbillPrintClerk(this.getOperator());
             this.getHeader().setReportbillPrintTime(Date.valueOf(LocalDate.now()));
         }

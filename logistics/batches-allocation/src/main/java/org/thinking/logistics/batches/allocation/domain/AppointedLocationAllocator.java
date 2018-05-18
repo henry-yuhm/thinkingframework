@@ -22,16 +22,6 @@ public class AppointedLocationAllocator extends AbstractAllocator {
     }
 
     @Override
-    public void setDetail(OutboundOrderDetail detail) throws Exception {
-        detail.setFactQuantity(Optional.ofNullable(this.getHeader().getDetails().stream().filter(d -> d.getParent() == detail && !d.isOriginal()).map(OutboundOrderDetail::getFactQuantity).reduce(BigDecimal.ZERO, BigDecimal::add)).orElse(BigDecimal.ZERO));
-        detail.setFactPieces(detail.getGoods().getPieces(detail.getFactQuantity()));
-        detail.setFactRemainder(detail.getGoods().getRemainder(detail.getFactQuantity()));
-        detail.setWholepiecesQuantity(BigDecimal.ZERO);
-        detail.setRemainderQuantity(BigDecimal.ZERO);
-        detail.setLessnessQuantity(BigDecimal.ZERO);
-    }
-
-    @Override
     public void allocate() throws Exception {
         //校验单据
         this.verify();
@@ -56,11 +46,9 @@ public class AppointedLocationAllocator extends AbstractAllocator {
 
                     this.appointLocation(unoriginalDetail);
 
-                    this.generateCommands(unoriginalDetail, true);
+                    this.generateCommands(unoriginalDetail, false);
 
                     unoriginalDetail.setFactQuantity(unoriginalDetail.getFactQuantity().subtract(this.getAllocationQuantity()));
-                    unoriginalDetail.setFactPieces(unoriginalDetail.getGoods().getPieces(unoriginalDetail.getFactQuantity()));
-                    unoriginalDetail.setFactRemainder(unoriginalDetail.getGoods().getRemainder(unoriginalDetail.getFactQuantity()));
                     unoriginalDetail.setWholepiecesQuantity(BigDecimal.ZERO);
                 }
 
@@ -72,17 +60,19 @@ public class AppointedLocationAllocator extends AbstractAllocator {
 
                     this.appointLocation(unoriginalDetail);
 
-                    this.generateCommands(unoriginalDetail, true);
+                    this.generateCommands(unoriginalDetail, false);
 
                     unoriginalDetail.setFactQuantity(unoriginalDetail.getFactQuantity().subtract(this.getAllocationQuantity()));
-                    unoriginalDetail.setFactPieces(unoriginalDetail.getGoods().getPieces(unoriginalDetail.getFactQuantity()));
-                    unoriginalDetail.setFactRemainder(unoriginalDetail.getGoods().getRemainder(unoriginalDetail.getFactQuantity()));
                     unoriginalDetail.setRemainderQuantity(BigDecimal.ZERO);
                 }
             }
 
-            //更新原始行
-            this.setDetail(originalDetail);
+            //region 更新原始行
+            originalDetail.setFactQuantity(Optional.ofNullable(this.getHeader().getDetails().stream().filter(d -> d.getParent() == originalDetail && !d.isOriginal()).map(OutboundOrderDetail::getFactQuantity).reduce(BigDecimal.ZERO, BigDecimal::add)).orElse(BigDecimal.ZERO));
+            originalDetail.setWholepiecesQuantity(BigDecimal.ZERO);
+            originalDetail.setRemainderQuantity(BigDecimal.ZERO);
+            originalDetail.setLessnessQuantity(BigDecimal.ZERO);
+            //endregion
         }
 
         this.save();

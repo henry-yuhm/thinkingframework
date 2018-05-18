@@ -1,7 +1,9 @@
 package org.thinking.logistics.services.core.domain.command;
 
+import lombok.AccessLevel;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.Setter;
 import org.thinking.logistics.services.core.domain.Batches;
 import org.thinking.logistics.services.core.domain.container.Pallet;
 import org.thinking.logistics.services.core.domain.documents.InventoryDocumentsDetail;
@@ -39,17 +41,37 @@ public class InventoryCheckCommand extends TransitionCommand {
     private BigDecimal inventoryQuantity = BigDecimal.ZERO;//库存数量
 
     @Column(nullable = false, precision = 12, scale = 5)
+    @Setter(value = AccessLevel.NONE)
     private BigDecimal inventoryPieces = BigDecimal.ZERO;//库存件数
 
     @Column(nullable = false, precision = 12, scale = 5)
+    @Setter(value = AccessLevel.NONE)
     private BigDecimal inventoryRemainder = BigDecimal.ZERO;//库存余数
 
     @Column(nullable = false, precision = 12, scale = 5)
     private BigDecimal factQuantity = BigDecimal.ZERO;//实际数量
 
     @Column(nullable = false, precision = 12, scale = 5)
+    @Setter(value = AccessLevel.NONE)
     private BigDecimal factPieces = BigDecimal.ZERO;//实际件数
 
     @Column(nullable = false, precision = 12, scale = 5)
+    @Setter(value = AccessLevel.NONE)
     private BigDecimal factRemainder = BigDecimal.ZERO;//实际余数
+
+    public BigDecimal getInventoryPieces() {
+        return getGoods().getPieces(inventoryQuantity);
+    }
+
+    public BigDecimal getInventoryRemainder() {
+        return getGoods().getRemainder(inventoryQuantity);
+    }
+
+    public BigDecimal getFactPieces() {
+        return getGoods().getPieces(factQuantity);
+    }
+
+    public BigDecimal getFactRemainder() {
+        return getGoods().getRemainder(factQuantity);
+    }
 }

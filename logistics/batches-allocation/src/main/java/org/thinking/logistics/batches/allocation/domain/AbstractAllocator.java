@@ -458,10 +458,6 @@ public abstract class AbstractAllocator extends BusinessBase implements Allocato
     }
 
     @Override
-    public void setDetail(OutboundOrderDetail detail) throws Exception {
-    }
-
-    @Override
     public OutboundCommand acquireCommand(OutboundOrderDetail detail, Inventory inventory, BigDecimal quantity) throws Exception {
         OutboundCommand command = new OutboundCommand();
 
@@ -492,14 +488,8 @@ public abstract class AbstractAllocator extends BusinessBase implements Allocato
         command.setLocation(inventory.getLocation());
         command.setInventoryState(inventory.getInventoryState());
         command.setCreationQuantity(quantity);
-        command.setCreationPieces(inventory.getGoods().getPieces(quantity));
-        command.setCreationRemainder(inventory.getGoods().getRemainder(quantity));
         command.setPlanQuantity(command.getCreationQuantity());
-        command.setPlanPieces(command.getCreationPieces());
-        command.setPlanRemainder(command.getCreationRemainder());
         command.setFactQuantity(command.getCreationQuantity());
-        command.setFactPieces(command.getCreationPieces());
-        command.setFactRemainder(command.getCreationRemainder());
         command.setPallet(inventory.getPallet());
         command.setPickingOrder("");
 
@@ -574,14 +564,8 @@ public abstract class AbstractAllocator extends BusinessBase implements Allocato
                     } else {
                         outboundCommand = optionalCommand.get();
                         outboundCommand.setCreationQuantity(outboundCommand.getCreationQuantity().add(directQuantity));
-                        outboundCommand.setCreationPieces(outboundCommand.getGoods().getPieces(outboundCommand.getCreationQuantity()));
-                        outboundCommand.setCreationRemainder(outboundCommand.getGoods().getRemainder(outboundCommand.getCreationQuantity()));
                         outboundCommand.setPlanQuantity(outboundCommand.getCreationQuantity());
-                        outboundCommand.setPlanPieces(outboundCommand.getCreationPieces());
-                        outboundCommand.setPlanRemainder(outboundCommand.getCreationRemainder());
                         outboundCommand.setFactQuantity(outboundCommand.getCreationQuantity());
-                        outboundCommand.setFactPieces(outboundCommand.getCreationPieces());
-                        outboundCommand.setFactRemainder(outboundCommand.getCreationRemainder());
                         outboundCommand.getCommands().add(replenishingCommand);
                     }
                     //endregion

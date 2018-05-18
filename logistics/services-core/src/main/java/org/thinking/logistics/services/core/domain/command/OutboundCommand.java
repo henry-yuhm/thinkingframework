@@ -1,7 +1,9 @@
 package org.thinking.logistics.services.core.domain.command;
 
+import lombok.AccessLevel;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.Setter;
 import org.thinking.logistics.services.core.domain.Batches;
 import org.thinking.logistics.services.core.domain.Location;
 import org.thinking.logistics.services.core.domain.Platform;
@@ -47,27 +49,33 @@ public class OutboundCommand extends Command {
     private BigDecimal creationQuantity = BigDecimal.ZERO;//创建数量
 
     @Column(nullable = false, precision = 12, scale = 5)
+    @Setter(value = AccessLevel.NONE)
     private BigDecimal creationPieces = BigDecimal.ZERO;//创建件数
 
     @Column(nullable = false, precision = 12, scale = 5)
+    @Setter(value = AccessLevel.NONE)
     private BigDecimal creationRemainder = BigDecimal.ZERO;//创建余数
 
     @Column(nullable = false, precision = 12, scale = 5)
     private BigDecimal planQuantity = BigDecimal.ZERO;//计划数量
 
     @Column(nullable = false, precision = 12, scale = 5)
+    @Setter(value = AccessLevel.NONE)
     private BigDecimal planPieces = BigDecimal.ZERO;//计划件数
 
     @Column(nullable = false, precision = 12, scale = 5)
+    @Setter(value = AccessLevel.NONE)
     private BigDecimal planRemainder = BigDecimal.ZERO;//计划余数
 
     @Column(nullable = false, precision = 12, scale = 5)
     private BigDecimal factQuantity = BigDecimal.ZERO;//实际数量
 
     @Column(nullable = false, precision = 12, scale = 5)
+    @Setter(value = AccessLevel.NONE)
     private BigDecimal factPieces = BigDecimal.ZERO;//实际件数
 
     @Column(nullable = false, precision = 12, scale = 5)
+    @Setter(value = AccessLevel.NONE)
     private BigDecimal factRemainder = BigDecimal.ZERO;//实际余数
 
     @ManyToOne(fetch = FetchType.LAZY)
@@ -93,4 +101,28 @@ public class OutboundCommand extends Command {
     @ManyToMany
     @JoinTable(joinColumns = @JoinColumn(name = "command_id"), inverseJoinColumns = @JoinColumn(name = "rep_command_id"))
     private Set<ReplenishingCommand> commands = new LinkedHashSet<>();//补货指令
+
+    public BigDecimal getCreationPieces() {
+        return getGoods().getPieces(creationQuantity);
+    }
+
+    public BigDecimal getCreationRemainder() {
+        return getGoods().getRemainder(creationQuantity);
+    }
+
+    public BigDecimal getPlanPieces() {
+        return getGoods().getPieces(planQuantity);
+    }
+
+    public BigDecimal getPlanRemainder() {
+        return getGoods().getRemainder(planQuantity);
+    }
+
+    public BigDecimal getFactPieces() {
+        return getGoods().getPieces(factQuantity);
+    }
+
+    public BigDecimal getFactRemainder() {
+        return getGoods().getRemainder(factQuantity);
+    }
 }

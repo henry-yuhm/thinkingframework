@@ -3,6 +3,7 @@ package org.thinking.logistics.services.core.domain;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.thinking.logistics.services.core.domain.container.Totebox;
+import org.thinking.logistics.services.core.domain.employee.Employee;
 import org.thinking.logistics.services.core.domain.table.RecheckBuffer;
 
 import javax.persistence.*;
@@ -34,13 +35,13 @@ public class Task {
 
     private String bufferNo;//暂存位编号
 
-    private String picker;//拣货员
+    private Employee picker;//拣货员
 
     private Date pickingStartTime;//拣货开始时间
 
     private Date pickingCompleteTime;//拣货完成时间
 
-    private String rechecker;//复核员
+    private Employee rechecker;//复核员
 
     private Date recheckStartTime;//复核开始时间
 

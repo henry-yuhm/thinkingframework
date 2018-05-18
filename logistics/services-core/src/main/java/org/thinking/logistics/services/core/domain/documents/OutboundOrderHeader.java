@@ -102,7 +102,7 @@ public class OutboundOrderHeader extends Header {
     private Date recheckCompleteTime;//复核结束时间
 
     @Column(nullable = false)
-    private String recheckbillPrintSign = "N";//复核单打印标识
+    private PrintSign recheckbillPrintSign = PrintSign.NONE;//复核单打印标识
 
     @ManyToOne(fetch = FetchType.LAZY)
     private Employee recheckbillPrintClerk;//复核单打印员
@@ -110,7 +110,7 @@ public class OutboundOrderHeader extends Header {
     private Date recheckbillPrintTime;//复核单打印时间
 
     @Column(nullable = false)
-    private String reportbillPrintSign = "N";//报告单打印标识
+    private PrintSign reportbillPrintSign = PrintSign.NONE;//报告单打印标识
 
     @ManyToOne(fetch = FetchType.LAZY)
     private Employee reportbillPrintClerk;//报告单打印员

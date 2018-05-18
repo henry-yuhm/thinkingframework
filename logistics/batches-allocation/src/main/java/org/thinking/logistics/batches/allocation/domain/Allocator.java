@@ -25,8 +25,6 @@ public interface Allocator {
 
     void addInventory(Inventory inventory, BigDecimal quantity) throws Exception;
 
-    void setDetail(OutboundOrderDetail detail) throws Exception;
-
     OutboundCommand acquireCommand(OutboundOrderDetail detail, Inventory inventory, BigDecimal quantity) throws Exception;
 
     void charge(Inventory inventory) throws Exception;

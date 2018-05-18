@@ -1,6 +1,8 @@
 package org.thinking.logistics.services.core.domain.inventory;
 
+import lombok.AccessLevel;
 import lombok.Data;
+import lombok.Setter;
 import org.thinking.logistics.services.core.domain.*;
 import org.thinking.logistics.services.core.domain.container.Pallet;
 import org.thinking.logistics.services.core.domain.support.InventoryState;
@@ -37,9 +39,11 @@ public class Inventory {
     private BigDecimal quantity = BigDecimal.ZERO;//数量
 
     @Column(nullable = false, precision = 12, scale = 5)
+    @Setter(value = AccessLevel.NONE)
     private BigDecimal pieces = BigDecimal.ZERO;//件数
 
     @Column(nullable = false, precision = 12, scale = 5)
+    @Setter(value = AccessLevel.NONE)
     private BigDecimal remainder = BigDecimal.ZERO;//余数
 
     @Column(nullable = false, precision = 12, scale = 5)
@@ -89,6 +93,14 @@ public class Inventory {
 
     @Transient
     private BigDecimal availableReplenishingQuantity;//可用补货数量
+
+    public BigDecimal getPieces() {
+        return goods.getPieces(quantity);
+    }
+
+    public BigDecimal getRemainder() {
+        return goods.getRemainder(quantity);
+    }
 
     public BigDecimal getAvailableOutboundQuantity() {
         return quantity.subtract(outboundQuantity).subtract(replenishedFromQuantity).add(replenishedToQuantity).subtract(lockingQuantity);

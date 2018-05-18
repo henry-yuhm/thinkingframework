@@ -75,9 +75,6 @@ public abstract class AbstractInverser extends BusinessBase implements Inverser 
         } else if (this.stage == InverseStage.SUSPENDING) {
             inverseOrderDetail.setQuantity(detail.getLessnessQuantity());
         }
-
-        inverseOrderDetail.setPieces(detail.getGoods().getPieces(inverseOrderDetail.getQuantity()));
-        inverseOrderDetail.setRemainder(detail.getGoods().getRemainder(inverseOrderDetail.getQuantity()));
     }
 
     @Override
