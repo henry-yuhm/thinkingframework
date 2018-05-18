@@ -48,7 +48,7 @@ public class SaleOutboundAllocator extends AbstractAllocator {
 
                 this.acquireLocation(detail);
 
-                this.generateCommands(detail, true);
+                this.generateCommands(detail, false);
 
                 detail.setWholepiecesQuantity(this.getAllocationQuantity());
             }
@@ -71,7 +71,7 @@ public class SaleOutboundAllocator extends AbstractAllocator {
 
                 this.acquireLocation(detail);
 
-                this.generateCommands(detail, true);
+                this.generateCommands(detail, false);
 
                 detail.setRemainderQuantity(this.getAllocationQuantity());
             }
