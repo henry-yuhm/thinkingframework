@@ -22,7 +22,7 @@
         <module>../operation-audit</module>
         <module>../order-activation</module>
         <module>../order-dispatcher</module>
-        <module>../order-initialization</module>
+        <module>../order-initializer</module>
         <module>../order-inversion</module>
         <module>../replenishment-dispatcher</module>
         <module>../resource-dispatcher</module>

@@ -35,12 +35,14 @@ public class Task {
 
     private String bufferNo;//暂存位编号
 
+    @ManyToOne(fetch = FetchType.LAZY)
     private Employee picker;//拣货员
 
     private Date pickingStartTime;//拣货开始时间
 
     private Date pickingCompleteTime;//拣货完成时间
 
+    @ManyToOne(fetch = FetchType.LAZY)
     private Employee rechecker;//复核员
 
     private Date recheckStartTime;//复核开始时间

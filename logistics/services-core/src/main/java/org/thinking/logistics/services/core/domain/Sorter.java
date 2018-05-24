@@ -9,7 +9,7 @@ import java.util.LinkedHashMap;
 
 @Entity
 @Data
-public class SorterSlide {
+public class Sorter {
     @Id
     @GeneratedValue
     private long id;

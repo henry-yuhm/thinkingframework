@@ -18,7 +18,7 @@ import java.math.BigDecimal;
 @Entity
 @Data
 @EqualsAndHashCode(callSuper = true)
-public class InventoryCheckCommand extends TransitionCommand {
+public class InventoryCommand extends TransitionCommand {
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     private InventoryDocumentsHeader header;//单据抬头
 

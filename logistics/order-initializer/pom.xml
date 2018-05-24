@@ -10,7 +10,7 @@
         <relativePath>../services-parent</relativePath>
     </parent>
 
-    <artifactId>order-initialization</artifactId>
+    <artifactId>order-initializer</artifactId>
     <packaging>jar</packaging>
 
     <dependencies>

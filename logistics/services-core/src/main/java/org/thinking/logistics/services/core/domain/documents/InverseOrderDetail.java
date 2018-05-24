@@ -36,7 +36,7 @@ public class InverseOrderDetail extends Detail {
     @Setter(value = AccessLevel.NONE)
     private BigDecimal remainder = BigDecimal.ZERO;//余数
 
-    @Column(nullable = false)
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
     private Employee operator;//操作员
 
     @Column(nullable = false)
@@ -45,6 +45,7 @@ public class InverseOrderDetail extends Detail {
     @Column(nullable = false)
     private InverseStage stage;//冲红阶段
 
+    @ManyToOne(fetch = FetchType.LAZY)
     private Employee auditor;//审核员
 
     private Date auditTime;//审核时间

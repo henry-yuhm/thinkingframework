@@ -2,16 +2,14 @@ package org.thinking.logistics.services.core.domain;
 
 import lombok.Data;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
 @Data
 public class Owner {
     @Id
-    @GeneratedValue
+    @TableGenerator(name = "ownerIdGen", table = "ownerIdGen", schema = "wms", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.TABLE, generator = "ownerIdGen")
     private long id;
 
     @Column(unique = true, nullable = false, length = 50)

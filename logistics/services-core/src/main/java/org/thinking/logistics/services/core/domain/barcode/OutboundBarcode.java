@@ -3,7 +3,7 @@ package org.thinking.logistics.services.core.domain.barcode;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
-import org.thinking.logistics.services.core.domain.SorterSlide;
+import org.thinking.logistics.services.core.domain.Sorter;
 import org.thinking.logistics.services.core.domain.command.OutboundCommand;
 import org.thinking.logistics.services.core.domain.support.GroupageType;
 
@@ -20,7 +20,7 @@ public class OutboundBarcode extends TaskBarcode {
     private boolean available = true;//可用
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    private SorterSlide slide;//分拣滑道
+    private Sorter sorter;//分拣机
 
     @Column(nullable = false)
     private boolean gathered = false;//集货

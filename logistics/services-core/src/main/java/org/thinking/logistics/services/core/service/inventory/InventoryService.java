@@ -16,9 +16,9 @@ import org.thinking.logistics.services.core.domain.inventory.Inventory;
 import org.thinking.logistics.services.core.domain.inventory.QInventory;
 import org.thinking.logistics.services.core.domain.support.*;
 import org.thinking.logistics.services.core.repository.DomainRepository;
-import org.thinking.logistics.services.core.service.ContainerService;
 import org.thinking.logistics.services.core.service.DomainService;
 import org.thinking.logistics.services.core.service.LocationService;
+import org.thinking.logistics.services.core.service.container.PalletService;
 
 import javax.persistence.EntityManager;
 import javax.persistence.LockModeType;
@@ -33,13 +33,13 @@ import java.util.stream.Collectors;
 public class InventoryService extends DomainService<QInventory, Inventory, Long> {
     private LocationService locationService;
 
-    private ContainerService containerService;
+    private PalletService palletService;
 
     @Autowired
-    public InventoryService(EntityManager entityManager, DomainRepository<Inventory, Long> repository, LocationService locationService, ContainerService containerService) {
+    public InventoryService(EntityManager entityManager, DomainRepository<Inventory, Long> repository, LocationService locationService, PalletService palletService) {
         super(entityManager, repository, QInventory.inventory);
         this.locationService = locationService;
-        this.containerService = containerService;
+        this.palletService = palletService;
     }
 
     public final Inventory acquire(Warehouse warehouse, Goods goods, Batches batches, Location location, InventoryState inventoryState) {
@@ -323,7 +323,7 @@ public class InventoryService extends DomainService<QInventory, Inventory, Long>
 
             if (inventory.getPallet() != null) {
                 inventory.getPallet().setAvailable(false);
-                this.containerService.getRepository().save(inventory.getPallet());
+                this.palletService.getRepository().save(inventory.getPallet());
             }
         }
         //endregion
@@ -350,7 +350,7 @@ public class InventoryService extends DomainService<QInventory, Inventory, Long>
             .execute() > 0) {
             if (inventory.getPallet() != null) {
                 inventory.getPallet().setAvailable(true);
-                this.containerService.getRepository().save(inventory.getPallet());
+                this.palletService.getRepository().save(inventory.getPallet());
             }
         }
         //endregion

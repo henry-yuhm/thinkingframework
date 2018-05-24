@@ -22,42 +22,42 @@ public class ParameterService extends DomainService<QParameter, Parameter, Long>
         super(entityManager, repository, QParameter.parameter);
     }
 
-    private Parameter acquire(String no, boolean verifiable) throws Exception {
+    private Parameter acquire(String name, boolean verifiable) throws Exception {
         synchronized (this.parameters) {
-            Parameter parameter = this.parameters.get(no);
+            Parameter parameter = this.parameters.get(name);
 
             if (parameter == null) {
                 parameter = this.getFactory().selectFrom(this.getPath())
-                    .where(this.getPath().no.eq(no))
+                    .where(this.getPath().name.eq(name))
                     .fetchOne();
 
                 if (verifiable) {
                     if (parameter == null) {
-                        throw CompositeException.getException("无此编号【" + no + "】的参数定义");
+                        throw CompositeException.getException("无此名称【" + name + "】的参数定义");
                     }
                 }
 
-                this.parameters.put(no, parameter);
+                this.parameters.put(name, parameter);
             }
 
             return parameter;
         }
     }
 
-    public final String getValue(String no) throws Exception {
-        return this.getValue(no, false);
+    public final String getValue(String name) throws Exception {
+        return this.getValue(name, false);
     }
 
-    public final String getValue(Warehouse warehouse, String no) throws Exception {
-        return this.getValue(warehouse, no, false);
+    public final String getValue(Warehouse warehouse, String name) throws Exception {
+        return this.getValue(warehouse, name, false);
     }
 
-    public final String getValue(String no, boolean verifiable) throws Exception {
-        return this.getValue(null, no, verifiable);
+    public final String getValue(String name, boolean verifiable) throws Exception {
+        return this.getValue(null, name, verifiable);
     }
 
-    public final String getValue(Warehouse warehouse, String no, boolean verifiable) throws Exception {
-        Parameter parameter = this.acquire(no, verifiable);
+    public final String getValue(Warehouse warehouse, String name, boolean verifiable) throws Exception {
+        Parameter parameter = this.acquire(name, verifiable);
 
         return warehouse == null ? parameter.getValue() : (Optional.of(parameter.getRanges().stream().filter(r -> r.getWarehouse().equalsIgnoreCase(warehouse.getName())).findFirst().get().getValue()).orElse(parameter.getValue()));
     }

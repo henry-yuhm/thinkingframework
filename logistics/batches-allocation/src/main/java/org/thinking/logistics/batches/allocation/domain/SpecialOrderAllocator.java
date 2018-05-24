@@ -83,6 +83,7 @@ public class SpecialOrderAllocator extends AbstractAllocator {
             for (OutboundOrderDetail unoriginalDetail : unoriginalDetails) {
                 if (unoriginalDetail.getWholepiecesQuantity().compareTo(BigDecimal.ZERO) > 0) {
                     this.getInventories().clear();
+                    this.getCommands().clear();
 
                     this.setPackageType(PackageType.WHOLEPIECES);
                     this.setAllocationQuantity(unoriginalDetail.getWholepiecesQuantity());
@@ -96,6 +97,7 @@ public class SpecialOrderAllocator extends AbstractAllocator {
 
                 if (unoriginalDetail.getRemainderQuantity().compareTo(BigDecimal.ZERO) > 0) {
                     this.getInventories().clear();
+                    this.getCommands().clear();
 
                     this.setPackageType(PackageType.REMAINDER);
                     this.setAllocationQuantity(unoriginalDetail.getRemainderQuantity());

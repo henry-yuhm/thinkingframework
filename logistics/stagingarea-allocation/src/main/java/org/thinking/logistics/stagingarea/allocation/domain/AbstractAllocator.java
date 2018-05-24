@@ -117,21 +117,21 @@ public abstract class AbstractAllocator extends BusinessBase implements Allocato
 
     @Override
     public void acquireCategory() throws Exception {
-        BigDecimal standardPieceVolume = this.getDecimalParameter(this.header.getWarehouse(), "BZJTJ");
+        BigDecimal standardPieceVolume = this.getDecimalParameter(this.header.getWarehouse(), "标准件体积");
         if (standardPieceVolume.toString().isEmpty()) {
             throw CompositeException.getException("标准件体积参数未设定", this.header, this.header.getOwner());
         }
 
-        BigDecimal smallQuantity = this.getDecimalParameter(this.header.getWarehouse(), "XZCQJS");
-        BigDecimal mediumQuantity = this.getDecimalParameter(this.header.getWarehouse(), "ZZCQJS");
-        BigDecimal largeQuantity = this.getDecimalParameter(this.header.getWarehouse(), "DZCQJS");
+        BigDecimal smallQuantity = this.getDecimalParameter(this.header.getWarehouse(), "小型月台暂存区件数");
+        BigDecimal mediumQuantity = this.getDecimalParameter(this.header.getWarehouse(), "中型月台暂存区件数");
+        BigDecimal largeQuantity = this.getDecimalParameter(this.header.getWarehouse(), "大型月台暂存区件数");
 
         if (this.configuration.getAllocationMode() == StagingareaAllocationMode.VOLUMETRIC) {
             BigDecimal volume = this.header.getDetails().stream().map(detail -> detail.getFactQuantity().multiply(detail.getGoods().getSmallPackageVolume())).reduce(BigDecimal::multiply).get();
 
             //中药单据体积不能过大
             if (this.header.getCategory() == BillCategory.TRADITIONAL_CHINESE_MEDICINE) {
-                volume = volume.min(standardPieceVolume.multiply(this.getDecimalParameter(this.header.getWarehouse(), "ZYZCQLIMIT")).multiply(mediumQuantity));
+                volume = volume.min(standardPieceVolume.multiply(this.getDecimalParameter(this.header.getWarehouse(), "中药月台标准件数上限")).multiply(mediumQuantity));
             }
 
             if (volume.divide(standardPieceVolume, RoundingMode.CEILING).compareTo(smallQuantity) <= 0) {

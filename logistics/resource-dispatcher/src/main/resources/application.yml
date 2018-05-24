@@ -9,9 +9,9 @@ spring:
   datasource:
     # JDBC 配置
     type: com.alibaba.druid.pool.DruidDataSource
-    url: jdbc:oracle:thin:@10.211.55.3:1521:WMS
-    username: exwms
-    password: exwms
+    url: jdbc:oracle:thin:@10.211.55.3:1523:THINKING
+    username: wms
+    password: wms
     druid:
       oracle: true
       # 连接池配置

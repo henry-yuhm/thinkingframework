@@ -224,6 +224,7 @@
                                 <processor>com.querydsl.apt.jpa.JPAAnnotationProcessor</processor>
                                 <!--<options>-->
                                 <!--<querydsl.packageSuffix>.dsl</querydsl.packageSuffix>-->
+                                <!--<querydsl.includedPackages>org.thinking.logistics.services.core.*</querydsl.includedPackages>-->
                                 <!--</options>-->
                             </configuration>
                         </execution>
@@ -236,17 +237,16 @@
                 <!--<version>${querydsl.version}</version>-->
                 <!--<executions>-->
                 <!--<execution>-->
+                <!--<phase>generate-sources</phase>-->
                 <!--<goals>-->
-                <!--<goal>export</goal>-->
+                <!--<goal>jpa-export</goal>-->
                 <!--</goals>-->
+                <!--<configuration>-->
+                <!--&lt;!&ndash;<packageName>org.thinking.logistics.services.core.domain</packageName>&ndash;&gt;-->
+                <!--<targetFolder>target/generated-sources</targetFolder>-->
+                <!--</configuration>-->
                 <!--</execution>-->
                 <!--</executions>-->
-                <!--<configuration>-->
-                <!--<jdbcDriver>com.oracle.jdbc.OracleDriver</jdbcDriver>-->
-                <!--<jdbcUrl>jdbc:oracle:thin:@10.211.55.3:1521:WMS</jdbcUrl>-->
-                <!--<packages>org.thinking.logistics.services.core.domain.query</packages>-->
-                <!--<targetFolder>target/generated-sources/java</targetFolder>-->
-                <!--</configuration>-->
                 <!--</plugin>-->
             </plugins>
         </pluginManagement>

@@ -51,6 +51,7 @@ public class PurchaseReturnAllocator extends AbstractAllocator {
 
                 if (unoriginalDetail.getWholepiecesQuantity().compareTo(BigDecimal.ZERO) > 0) {
                     this.getInventories().clear();
+                    this.getCommands().clear();
 
                     this.setPackageType(PackageType.WHOLEPIECES);
                     this.setAllocationQuantity(unoriginalDetail.getWholepiecesQuantity());
@@ -65,6 +66,7 @@ public class PurchaseReturnAllocator extends AbstractAllocator {
 
                 if (unoriginalDetail.getRemainderQuantity().compareTo(BigDecimal.ZERO) > 0) {
                     this.getInventories().clear();
+                    this.getCommands().clear();
 
                     this.setPackageType(PackageType.REMAINDER);
                     this.setAllocationQuantity(unoriginalDetail.getRemainderQuantity());

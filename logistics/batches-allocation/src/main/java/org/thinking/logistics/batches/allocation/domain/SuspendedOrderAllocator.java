@@ -41,6 +41,7 @@ public class SuspendedOrderAllocator extends AbstractAllocator {
                     this.getBatches().clear();
                     this.getBatchesInventories().clear();
                     this.getInventories().clear();
+                    this.getCommands().clear();
 
                     this.setPackageType(PackageType.WHOLEPIECES);
                     this.setAllocationQuantity(unoriginalDetail.getWholepiecesQuantity());
@@ -59,6 +60,7 @@ public class SuspendedOrderAllocator extends AbstractAllocator {
                     this.getBatches().clear();
                     this.getBatchesInventories().clear();
                     this.getInventories().clear();
+                    this.getCommands().clear();
 
                     this.setPackageType(PackageType.REMAINDER);
                     this.setAllocationQuantity(unoriginalDetail.getRemainderQuantity());

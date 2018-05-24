@@ -38,7 +38,7 @@ public abstract class AbstractDispatcher extends BusinessBase implements Dispatc
     public void arrangeWave() throws Exception {
         //region 系统截单时间处理
         Date currentTime = Date.valueOf(LocalDate.now());
-        Date trimTime = this.getDateParameter(this.header.getWarehouse(), "JD_TIME");
+        Date trimTime = this.getDateParameter(this.header.getWarehouse(), "截单时间");
         if (currentTime.after(trimTime)) {
             throw CompositeException.getException("当前时间大于系统截单时间【" + trimTime.toString() + "】，不允许再安排波次");
         }

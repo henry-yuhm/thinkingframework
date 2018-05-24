@@ -81,8 +81,8 @@ public abstract class AbstractAllocator extends BusinessBase implements Allocato
 
     public AbstractAllocator(OutboundOrderHeader header) throws Exception {
         this.header = header;
-        this.remainder2Wholepieces = this.isEnable(this.header.getWarehouse(), "ZJBZCLH");
-        this.newBatches = this.isEnable(this.header.getWarehouse(), this.packageType == PackageType.WHOLEPIECES ? "ZJWYQCXPH" : "LHWYQCXPH");
+        this.remainder2Wholepieces = this.isEnable(this.header.getWarehouse(), "整件不足出零货");
+        this.newBatches = this.isEnable(this.header.getWarehouse(), this.packageType == PackageType.WHOLEPIECES ? "整件无要求出新批号" : "零货无要求出新批号");
     }
 
     @Override
@@ -92,7 +92,7 @@ public abstract class AbstractAllocator extends BusinessBase implements Allocato
         }
 
         if (this.header.getStage().compareTo(OutboundStage.STAGINGAREA_ALLOCATED) < 0 && (this.header.getSaleType().compareTo(SaleType.INVENTORY_SORTINGOUT) == 0 && this.header.getSaleType().compareTo(SaleType.EMERGENCY_OUTBOUND) == 0)) {
-            throw CompositeException.getException("单据作业状态【" + this.header.getStage().name() + "】不满足批号分配要求，请检查", this.header, this.header.getOwner());
+            throw CompositeException.getException("单据出库阶段【" + this.header.getStage().toString() + "】不满足批号分配要求，请检查", this.header, this.header.getOwner());
         }
     }
 
@@ -340,7 +340,7 @@ public abstract class AbstractAllocator extends BusinessBase implements Allocato
         //endregion
 
         //中药根据参数重定义特殊库房出库顺序
-        if (this.header.getCategory() == BillCategory.TRADITIONAL_CHINESE_MEDICINE && this.isEnable(this.header.getWarehouse(), "ZYDJCLBHCK") && detail.getFactQuantity().compareTo(detail.getGoods().getTcmOutboundQuantity()) >= 0) {
+        if (this.header.getCategory() == BillCategory.TRADITIONAL_CHINESE_MEDICINE && this.isEnable(this.header.getWarehouse(), "中药大单从储备库出库") && detail.getFactQuantity().compareTo(detail.getGoods().getTcmOutboundQuantity()) >= 0) {
             int pos1 = configurations.indexOf(configurations.stream().filter(cfg -> cfg.getStoreNo().equalsIgnoreCase("LBK")).findAny().get());
             int pos2 = configurations.indexOf(configurations.stream().filter(cfg -> cfg.getStoreNo().equalsIgnoreCase("ZYL")).findAny().get());
             if (pos1 >= 0) {

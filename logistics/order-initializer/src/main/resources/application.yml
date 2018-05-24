@@ -1,6 +1,6 @@
 spring:
   application:
-    name: order-initialization
+    name: order-initializer
   aop:
     proxy-target-class: true
   cloud:
@@ -12,9 +12,9 @@ spring:
   datasource:
     # JDBC 配置
     type: com.alibaba.druid.pool.DruidDataSource
-    url: jdbc:oracle:thin:@10.211.55.3:1521:WMS
-    username: exwms
-    password: exwms
+    url: jdbc:oracle:thin:@10.211.55.3:1523:THINKING
+    username: wms
+    password: wms
 #    url: jdbc:mysql://10.3.87.202:3306/ua
 #    username: ua
 #    password: ua
@@ -45,7 +45,7 @@ spring:
       stat-view-servlet:
         login-username: druid
         login-password: druid
-      aop-patterns: org.thinking.logistics.order.initialization.*
+      aop-patterns: org.thinking.logistics.order.initializer.*
 #      use-oracle-implicit-cache: true
       access-to-underlying-connection-allowed: true
       connection-properties: druid.stat.mergeSql=true;druid.stat.slowSqlMillis=5000
@@ -79,7 +79,7 @@ ribbon:
     enabled: true
 #logging:
 #  level:
-#    org.thinking.logistics.order.initialization.*: DEBUG
+#    org.thinking.logistics.order.initializer.*: DEBUG
 ---
 spring:
   profiles: dev

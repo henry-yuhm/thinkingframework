@@ -15,10 +15,7 @@ public class Parameter {
     @GeneratedValue
     private long id;
 
-    @Column(unique = true, nullable = false, length = 50)
-    private String no;//编号
-
-    @Column(nullable = false)
+    @Column(unique = true, nullable = false, length = 100)
     private String name;//名称
 
     @Column(nullable = false)
