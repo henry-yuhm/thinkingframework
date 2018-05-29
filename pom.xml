@@ -14,9 +14,9 @@
         <java.version>1.8</java.version>
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
+        <spring.platform.version>Cairo-SR1</spring.platform.version>
         <spring.boot.dependencies.version>2.0.2.RELEASE</spring.boot.dependencies.version>
         <spring.cloud.dependencies.version>Finchley.RC1</spring.cloud.dependencies.version>
-        <spring.platform.version>Cairo-SR1</spring.platform.version>
         <spring.statemachine.version>2.0.1.RELEASE</spring.statemachine.version>
         <druid.version>1.1.9</druid.version>
         <querydsl.version>4.2.1</querydsl.version>
@@ -33,6 +33,16 @@
 
     <dependencyManagement>
         <dependencies>
+            <!--springPlatform-->
+            <dependency>
+                <groupId>io.spring.platform</groupId>
+                <artifactId>platform-bom</artifactId>
+                <version>${spring.platform.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+            <!--springPlatform-->
+
             <!--springBoot-->
             <dependency>
                 <groupId>org.springframework.boot</groupId>
@@ -52,16 +62,6 @@
                 <scope>import</scope>
             </dependency>
             <!--springCloud-->
-
-            <!--springPlatform-->
-            <dependency>
-                <groupId>io.spring.platform</groupId>
-                <artifactId>platform-bom</artifactId>
-                <version>${spring.platform.version}</version>
-                <type>pom</type>
-                <scope>import</scope>
-            </dependency>
-            <!--springPlatform-->
 
             <!--springStateMachine-->
             <dependency>
@@ -120,6 +120,22 @@
                 <artifactId>fastjson</artifactId>
                 <version>${fastjson.version}</version>
             </dependency>
+            <!--dataAccess-->
+
+            <!--log-->
+            <dependency>
+                <groupId>org.slf4j</groupId>
+                <artifactId>slf4j-log4j12</artifactId>
+                <version>1.8.0-beta2</version>
+            </dependency>
+            <!--log-->
+
+            <!--utility-->
+            <dependency>
+                <groupId>org.projectlombok</groupId>
+                <artifactId>lombok</artifactId>
+                <version>${lombok.version}</version>
+            </dependency>
             <dependency>
                 <groupId>io.springfox</groupId>
                 <artifactId>springfox-swagger2</artifactId>
@@ -129,14 +145,6 @@
                 <groupId>io.springfox</groupId>
                 <artifactId>springfox-swagger-ui</artifactId>
                 <version>${springfox.swagger.version}</version>
-            </dependency>
-            <!--dataAccess-->
-
-            <!--lombok-->
-            <dependency>
-                <groupId>org.projectlombok</groupId>
-                <artifactId>lombok</artifactId>
-                <version>${lombok.version}</version>
             </dependency>
             <!--lombok-->
 

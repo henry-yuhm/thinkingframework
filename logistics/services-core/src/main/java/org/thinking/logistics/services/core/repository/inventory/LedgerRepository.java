@@ -5,5 +5,5 @@ import org.thinking.logistics.services.core.domain.inventory.Ledger;
 import org.thinking.logistics.services.core.repository.DomainRepository;
 
 @Repository
-public interface LedgerRepository<L extends Ledger> extends DomainRepository<L, Long> {
+public interface LedgerRepository extends DomainRepository<Ledger, Long> {
 }

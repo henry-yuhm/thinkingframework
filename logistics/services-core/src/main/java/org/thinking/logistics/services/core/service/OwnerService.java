@@ -46,11 +46,11 @@ public class OwnerService extends DomainService<QOwner, Owner, Long> {
         if (owner == null) {
             owner = own;
         } else {
-            if (!Optional.ofNullable(own.getMnemonicCode()).isPresent()) {
+            if (Optional.ofNullable(own.getMnemonicCode()).isPresent()) {
                 owner.setMnemonicCode(own.getMnemonicCode());
             }
 
-            if (!Optional.ofNullable(own.getInventoryUpper()).isPresent()) {
+            if (Optional.ofNullable(own.getInventoryUpper()).isPresent()) {
                 owner.setInventoryUpper(own.getInventoryUpper());
             }
 

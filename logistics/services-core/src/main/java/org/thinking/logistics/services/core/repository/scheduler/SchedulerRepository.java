@@ -5,5 +5,5 @@ import org.thinking.logistics.services.core.domain.scheduler.Scheduler;
 import org.thinking.logistics.services.core.repository.DomainRepository;
 
 @Repository
-public interface SchedulerRepository<S extends Scheduler> extends DomainRepository<S, Long> {
+public interface SchedulerRepository extends DomainRepository<Scheduler, Long> {
 }
