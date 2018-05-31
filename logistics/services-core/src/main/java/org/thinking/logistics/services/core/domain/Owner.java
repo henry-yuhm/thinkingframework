@@ -3,6 +3,7 @@ package org.thinking.logistics.services.core.domain;
 import lombok.Data;
 
 import javax.persistence.*;
+import java.math.BigDecimal;
 
 @Entity
 @Data
@@ -20,8 +21,8 @@ public class Owner {
 
     private String mnemonicCode;//助记码
 
-    @Column(nullable = false)
-    private String inventoryUpper;//库存上限
+    @Column(nullable = false, precision = 12, scale = 5)
+    private BigDecimal inventoryUpper = BigDecimal.ZERO;//库存上限
 
     private String serviceHotline;//服务热线
 

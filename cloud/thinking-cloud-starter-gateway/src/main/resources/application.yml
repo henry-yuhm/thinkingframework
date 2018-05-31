@@ -28,9 +28,12 @@ zuul:
   host:
     connect-timeout-millis: 1800000
     socket-timeout-millis: 1800000
+  ribbon-isolation-strategy: semaphore
+  semaphore:
+    max-semaphores: 1000
   sensitive-headers: Content-Type:application/json
-  thread-pool:
-    use-separate-thread-pools: true
+#  thread-pool:
+#    use-separate-thread-pools: true
 ---
 spring:
   profiles: dev
