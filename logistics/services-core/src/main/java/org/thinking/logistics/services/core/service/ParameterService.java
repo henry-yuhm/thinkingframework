@@ -3,7 +3,7 @@ package org.thinking.logistics.services.core.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.thinking.logistics.services.core.domain.CompositeException;
-import org.thinking.logistics.services.core.domain.Warehouse;
+import org.thinking.logistics.services.core.domain.core.Warehouse;
 import org.thinking.logistics.services.core.domain.parameter.Parameter;
 import org.thinking.logistics.services.core.domain.parameter.QParameter;
 import org.thinking.logistics.services.core.repository.DomainRepository;

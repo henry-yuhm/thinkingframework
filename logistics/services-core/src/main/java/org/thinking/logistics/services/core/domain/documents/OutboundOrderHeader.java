@@ -2,9 +2,9 @@ package org.thinking.logistics.services.core.domain.documents;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import org.thinking.logistics.services.core.domain.Address;
 import org.thinking.logistics.services.core.domain.CompositeException;
-import org.thinking.logistics.services.core.domain.Customer;
+import org.thinking.logistics.services.core.domain.core.Address;
+import org.thinking.logistics.services.core.domain.core.Customer;
 import org.thinking.logistics.services.core.domain.employee.Employee;
 import org.thinking.logistics.services.core.domain.stagingarea.Stagingarea;
 import org.thinking.logistics.services.core.domain.support.*;
@@ -84,7 +84,7 @@ public class OutboundOrderHeader extends Header {
     private boolean inversed = false;//整单冲红
 
     @Column(nullable = false)
-    private boolean audited = false;//冲红审核
+    private boolean approved = false;//冲红审核
 
     @Column(nullable = false)
     private boolean uploaded = false;//上传

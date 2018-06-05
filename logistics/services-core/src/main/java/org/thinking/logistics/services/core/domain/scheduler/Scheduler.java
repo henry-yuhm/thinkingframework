@@ -1,20 +1,22 @@
 package org.thinking.logistics.services.core.domain.scheduler;
 
 import lombok.Data;
-import org.thinking.logistics.services.core.domain.Warehouse;
+import lombok.EqualsAndHashCode;
+import org.thinking.logistics.services.core.domain.BaseDomainEntity;
+import org.thinking.logistics.services.core.domain.core.Warehouse;
 import org.thinking.logistics.services.core.domain.support.SchedulerType;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.FetchType;
+import javax.persistence.ManyToOne;
+import javax.persistence.MappedSuperclass;
 import java.sql.Date;
 import java.time.LocalDate;
 
 @MappedSuperclass
 @Data
-public abstract class Scheduler {
-    @Id
-    @GeneratedValue
-    private long id;
-
+@EqualsAndHashCode(callSuper = true)
+public abstract class Scheduler extends BaseDomainEntity {
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     private Warehouse warehouse;//仓库
 

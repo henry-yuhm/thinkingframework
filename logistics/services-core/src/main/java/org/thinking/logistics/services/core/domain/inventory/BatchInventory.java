@@ -1,26 +1,25 @@
 package org.thinking.logistics.services.core.domain.inventory;
 
 import lombok.Data;
-import org.thinking.logistics.services.core.domain.Batches;
-import org.thinking.logistics.services.core.domain.Goods;
+import lombok.EqualsAndHashCode;
+import org.thinking.logistics.services.core.domain.BaseDomainEntity;
+import org.thinking.logistics.services.core.domain.core.Batch;
+import org.thinking.logistics.services.core.domain.core.Goods;
 import org.thinking.logistics.services.core.domain.support.ValidPeriodType;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
 
 @Entity
-@Table(uniqueConstraints = @UniqueConstraint(name = "uk_batches_inventory", columnNames = {"goods_id", "batches_id", "type"}))
+@Table(uniqueConstraints = @UniqueConstraint(name = "uk_batch_inventory", columnNames = {"goods_id", "batch_id", "type"}))
 @Data
-public class BatchesInventory {
-    @Id
-    @GeneratedValue
-    private long id;
-
+@EqualsAndHashCode(callSuper = true)
+public class BatchInventory extends BaseDomainEntity {
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     private Goods goods;//商品
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    private Batches batches;//批号
+    private Batch batch;//批号
 
     @Column(nullable = false)
     private ValidPeriodType type;//效期类型

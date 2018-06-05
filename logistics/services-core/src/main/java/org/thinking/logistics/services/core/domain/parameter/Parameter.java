@@ -1,7 +1,9 @@
 package org.thinking.logistics.services.core.domain.parameter;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import org.thinking.logistics.services.core.domain.BaseDomainEntity;
 
 import javax.persistence.*;
 import java.util.LinkedHashSet;
@@ -9,12 +11,9 @@ import java.util.Set;
 
 @Entity
 @Data
+@EqualsAndHashCode(callSuper = true)
 @NoArgsConstructor
-public class Parameter {
-    @Id
-    @GeneratedValue
-    private long id;
-
+public class Parameter extends BaseDomainEntity {
     @Column(unique = true, nullable = false, length = 100)
     private String name;//名称
 

@@ -1,7 +1,7 @@
 package org.thinking.logistics.services.core.domain.support;
 
-//批号要求
-public enum BatchesRequest {
+//批次要求
+public enum BatchRequest {
     SINGLE(1) {
         @Override
         public String toString() {
@@ -33,6 +33,6 @@ public enum BatchesRequest {
         }
     };
 
-    BatchesRequest(int ordinal) {
+    BatchRequest(int ordinal) {
     }
 }

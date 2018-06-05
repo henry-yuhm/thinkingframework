@@ -1,7 +1,9 @@
 package org.thinking.logistics.services.core.domain.employee;
 
 import lombok.Data;
-import org.thinking.logistics.services.core.domain.Owner;
+import lombok.EqualsAndHashCode;
+import org.thinking.logistics.services.core.domain.BaseDomainEntity;
+import org.thinking.logistics.services.core.domain.core.Owner;
 import org.thinking.logistics.services.core.domain.dictionary.EmployeePost;
 import org.thinking.logistics.services.core.domain.dictionary.EmployeeRole;
 
@@ -12,11 +14,8 @@ import java.util.Set;
 @Entity
 @Table(uniqueConstraints = @UniqueConstraint(name = "uk_employee", columnNames = {"owner_id", "no"}))
 @Data
-public class Employee {
-    @Id
-    @GeneratedValue
-    private long id;
-
+@EqualsAndHashCode(callSuper = true)
+public class Employee extends BaseDomainEntity {
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     private Owner owner;//业主
 

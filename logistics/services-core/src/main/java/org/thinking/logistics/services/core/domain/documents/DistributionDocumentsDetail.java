@@ -1,15 +1,13 @@
 package org.thinking.logistics.services.core.domain.documents;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
+import org.thinking.logistics.services.core.domain.BaseDomainEntity;
 
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
 
 @Entity
 @Data
-public class DistributionDocumentsDetail {
-    @Id
-    @GeneratedValue
-    private long id;
+@EqualsAndHashCode(callSuper = true)
+public class DistributionDocumentsDetail extends BaseDomainEntity {
 }

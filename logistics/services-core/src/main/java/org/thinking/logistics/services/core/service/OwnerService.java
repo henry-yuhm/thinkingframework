@@ -4,8 +4,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.thinking.logistics.services.core.domain.CompositeException;
-import org.thinking.logistics.services.core.domain.Owner;
-import org.thinking.logistics.services.core.domain.QOwner;
+import org.thinking.logistics.services.core.domain.core.Owner;
+import org.thinking.logistics.services.core.domain.core.QOwner;
 import org.thinking.logistics.services.core.repository.DomainRepository;
 
 import javax.persistence.EntityManager;

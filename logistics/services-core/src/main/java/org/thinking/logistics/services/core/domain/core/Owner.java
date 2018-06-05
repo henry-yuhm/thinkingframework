@@ -1,18 +1,17 @@
-package org.thinking.logistics.services.core.domain;
+package org.thinking.logistics.services.core.domain.core;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
+import org.thinking.logistics.services.core.domain.BaseDomainEntity;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
 import java.math.BigDecimal;
 
 @Entity
 @Data
-public class Owner {
-    @Id
-    @TableGenerator(name = "ownerIdGen", table = "ownerIdGen", schema = "wms", allocationSize = 1)
-    @GeneratedValue(strategy = GenerationType.TABLE, generator = "ownerIdGen")
-    private long id;
-
+@EqualsAndHashCode(callSuper = true)
+public class Owner extends BaseDomainEntity {
     @Column(unique = true, nullable = false, length = 50)
     private String no;//编号
 

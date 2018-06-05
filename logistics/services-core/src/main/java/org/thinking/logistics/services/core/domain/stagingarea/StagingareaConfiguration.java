@@ -1,9 +1,11 @@
 package org.thinking.logistics.services.core.domain.stagingarea;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
-import org.thinking.logistics.services.core.domain.Owner;
-import org.thinking.logistics.services.core.domain.Warehouse;
+import org.thinking.logistics.services.core.domain.BaseDomainEntity;
+import org.thinking.logistics.services.core.domain.core.Owner;
+import org.thinking.logistics.services.core.domain.core.Warehouse;
 import org.thinking.logistics.services.core.domain.support.StagingareaAllocationMode;
 import org.thinking.logistics.services.core.domain.support.TakegoodsMode;
 
@@ -13,12 +15,9 @@ import java.math.BigDecimal;
 @Entity
 @Table(uniqueConstraints = @UniqueConstraint(name = "uk_sga_cfg", columnNames = {"warehouse_id", "owner_id", "takegoodsMode"}))
 @Data
+@EqualsAndHashCode(callSuper = true)
 @NoArgsConstructor
-public class StagingareaConfiguration {
-    @Id
-    @GeneratedValue
-    private long id;
-
+public class StagingareaConfiguration extends BaseDomainEntity {
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     private Warehouse warehouse;//仓库
 

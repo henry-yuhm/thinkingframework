@@ -1,8 +1,10 @@
 package org.thinking.logistics.services.core.domain.documents;
 
 import lombok.Data;
-import org.thinking.logistics.services.core.domain.Owner;
-import org.thinking.logistics.services.core.domain.Warehouse;
+import lombok.EqualsAndHashCode;
+import org.thinking.logistics.services.core.domain.BaseDomainEntity;
+import org.thinking.logistics.services.core.domain.core.Owner;
+import org.thinking.logistics.services.core.domain.core.Warehouse;
 import org.thinking.logistics.services.core.domain.employee.Employee;
 import org.thinking.logistics.services.core.domain.support.BillCategory;
 import org.thinking.logistics.services.core.domain.support.BillSource;
@@ -16,11 +18,8 @@ import java.util.Set;
 @MappedSuperclass
 @Inheritance(strategy = InheritanceType.JOINED)
 @Data
-public abstract class Header {
-    @Id
-    @GeneratedValue
-    private long id;
-
+@EqualsAndHashCode(callSuper = true)
+public abstract class Header extends BaseDomainEntity {
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     private Warehouse warehouse;//仓库
 

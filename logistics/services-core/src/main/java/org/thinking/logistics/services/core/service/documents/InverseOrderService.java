@@ -2,7 +2,7 @@ package org.thinking.logistics.services.core.service.documents;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.thinking.logistics.services.core.domain.Warehouse;
+import org.thinking.logistics.services.core.domain.core.Warehouse;
 import org.thinking.logistics.services.core.domain.documents.InverseOrderDetail;
 import org.thinking.logistics.services.core.domain.documents.OutboundOrderDetail;
 import org.thinking.logistics.services.core.domain.documents.QInverseOrderDetail;

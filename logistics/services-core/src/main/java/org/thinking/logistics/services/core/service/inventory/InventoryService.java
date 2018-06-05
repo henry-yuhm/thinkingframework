@@ -7,11 +7,11 @@ import com.querydsl.jpa.impl.JPAUpdateClause;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.thinking.logistics.services.core.domain.Batches;
-import org.thinking.logistics.services.core.domain.Goods;
-import org.thinking.logistics.services.core.domain.Location;
-import org.thinking.logistics.services.core.domain.Warehouse;
 import org.thinking.logistics.services.core.domain.command.QPilerCommand;
+import org.thinking.logistics.services.core.domain.core.Batch;
+import org.thinking.logistics.services.core.domain.core.Goods;
+import org.thinking.logistics.services.core.domain.core.Location;
+import org.thinking.logistics.services.core.domain.core.Warehouse;
 import org.thinking.logistics.services.core.domain.inventory.Inventory;
 import org.thinking.logistics.services.core.domain.inventory.QInventory;
 import org.thinking.logistics.services.core.domain.support.*;
@@ -42,12 +42,12 @@ public class InventoryService extends DomainService<QInventory, Inventory, Long>
         this.palletService = palletService;
     }
 
-    public final Inventory acquire(Warehouse warehouse, Goods goods, Batches batches, Location location, InventoryState inventoryState) {
+    public final Inventory acquire(Warehouse warehouse, Goods goods, Batch batch, Location location, InventoryState inventoryState) {
         return this.getFactory().selectFrom(this.getPath())
             .where(
                 this.getPath().warehouse.eq(warehouse),
                 this.getPath().goods.eq(goods),
-                this.getPath().batches.eq(batches),
+                this.getPath().batch.eq(batch),
                 this.getPath().location.eq(location),
                 this.getPath().inventoryState.eq(inventoryState)
             )
@@ -55,7 +55,7 @@ public class InventoryService extends DomainService<QInventory, Inventory, Long>
             .fetchOne();
     }
 
-    public final Object acquire(Warehouse warehouse, Goods goods, Batches batches, int batchesNumber, ValidPeriodType validPeriodType) {
+    public final Object acquire(Warehouse warehouse, Goods goods, Batch batch, int batchNumber, ValidPeriodType validPeriodType) {
         EnumExpression<ValidPeriodType> type = this.getPath()
             .when(JPAExpressions.selectFrom(this.getPath())
                 .where(this.getPath().location.type.eq(LocationType.NORMAL)))
@@ -106,11 +106,11 @@ public class InventoryService extends DomainService<QInventory, Inventory, Long>
             .where(
                 this.getPath().warehouse.eq(warehouse),
                 this.getPath().goods.eq(goods),
-                batchesNumber == 0 ? this.getPath().batches.eq(batches) : this.getPath().batches.isNotNull()
+                batchNumber == 0 ? this.getPath().batch.eq(batch) : this.getPath().batch.isNotNull()
             )
             .select(
                 this.getPath().goods,
-                this.getPath().batches,
+                this.getPath().batch,
                 type,
                 availableInventory.sum(),
                 palletInventory.sum(),
@@ -120,7 +120,7 @@ public class InventoryService extends DomainService<QInventory, Inventory, Long>
             )
             .groupBy(
                 this.getPath().goods,
-                this.getPath().batches,
+                this.getPath().batch,
                 type
             )
             .having(
@@ -129,15 +129,15 @@ public class InventoryService extends DomainService<QInventory, Inventory, Long>
             )
             .orderBy(
                 type.asc(),
-                this.getPath().batches.productionDate.asc(),
-                this.getPath().batches.id.asc()
+                this.getPath().batch.productionDate.asc(),
+                this.getPath().batch.id.asc()
             )
             .fetch()
             .stream()
             .map(tuple -> {
                 Map<String, Object> map = new LinkedHashMap<>();
                 map.put("goods", tuple.get(this.getPath().goods));
-                map.put("batches", tuple.get(this.getPath().batches));
+                map.put("batch", tuple.get(this.getPath().batch));
                 map.put("type", tuple.get(type));
                 map.put("availableInventory", tuple.get(availableInventory.sum()));
                 map.put("palletInventory", tuple.get(palletInventory.sum()));
@@ -149,24 +149,24 @@ public class InventoryService extends DomainService<QInventory, Inventory, Long>
             .collect(Collectors.toList());
     }
 
-    public final List<Inventory> acquire(Warehouse warehouse, Goods goods, Batches batches) {
+    public final List<Inventory> acquire(Warehouse warehouse, Goods goods, Batch batch) {
         return this.getFactory().selectFrom(this.getPath())
             .where(
                 this.getPath().warehouse.eq(warehouse),
                 this.getPath().goods.eq(goods),
-                this.getPath().batches.eq(batches),
+                this.getPath().batch.eq(batch),
                 this.getPath().transitionalQuantity.gt(0))
             .orderBy(this.getPath().transitionalQuantity.asc())
             .setLockMode(LockModeType.PESSIMISTIC_WRITE)
             .fetch();
     }
 
-    public final List<Inventory> acquire(Warehouse warehouse, Goods goods, Batches batches, InventoryState inventoryState, String storeCategory, String storeNo, BigDecimal quantity) {
+    public final List<Inventory> acquire(Warehouse warehouse, Goods goods, Batch batch, InventoryState inventoryState, String storeCategory, String storeNo, BigDecimal quantity) {
         return this.getFactory().selectFrom(this.getPath())
             .where(
                 this.getPath().warehouse.eq(warehouse),
                 this.getPath().goods.eq(goods),
-                this.getPath().batches.eq(batches),
+                this.getPath().batch.eq(batch),
                 this.getPath().inventoryState.eq(inventoryState),
                 this.getPath().location.area.storeCategory.eq(storeCategory),
                 this.getPath().location.area.storeNo.eq(storeNo),
@@ -334,7 +334,7 @@ public class InventoryService extends DomainService<QInventory, Inventory, Long>
                 this.getPath().warehouse.eq(inventory.getWarehouse()),
                 this.getPath().owner.eq(inventory.getOwner()),
                 this.getPath().goods.eq(inventory.getGoods()),
-                this.getPath().batches.eq(inventory.getBatches()),
+                this.getPath().batch.eq(inventory.getBatch()),
                 this.getPath().location.eq(inventory.getLocation()),
                 this.getPath().inventoryState.eq(inventory.getInventoryState()),
                 this.getPath().quantity.eq(BigDecimal.ZERO),

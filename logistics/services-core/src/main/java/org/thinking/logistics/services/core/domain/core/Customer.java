@@ -1,20 +1,21 @@
-package org.thinking.logistics.services.core.domain;
+package org.thinking.logistics.services.core.domain.core;
 
 import lombok.Data;
-import org.thinking.logistics.services.core.domain.support.BatchesRequest;
+import lombok.EqualsAndHashCode;
+import org.thinking.logistics.services.core.domain.BaseDomainEntity;
+import org.thinking.logistics.services.core.domain.support.BatchRequest;
 import org.thinking.logistics.services.core.domain.support.CustomerClassification;
 import org.thinking.logistics.services.core.domain.support.CustomerType;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.ManyToOne;
 
 @Entity
 @Data
-//@EqualsAndHashCode(callSuper = true)
-public class Customer {
-    @Id
-    @GeneratedValue
-    private long id;
-
+@EqualsAndHashCode(callSuper = true)
+public class Customer extends BaseDomainEntity {
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     private Owner owner;//业主
 
@@ -47,7 +48,7 @@ public class Customer {
 
     private String seat;//所在地
 
-    private BatchesRequest batchesRequest;//批号要求
+    private BatchRequest batchRequest;//批号要求
 
     private CustomerClassification classification;//分类
 
@@ -56,15 +57,4 @@ public class Customer {
     private String district;//地区
 
     private String businessman;//业务员
-
-//    @Override
-//    public void verify(Customer probe) throws Exception {
-//        if (!Optional.ofNullable(probe.getOwner()).isPresent()) {
-//            throw CompositeException.getException("客户业主不能为空");
-//        }
-//
-//        if (Optional.ofNullable(probe.getNo()).get().isEmpty()) {
-//            throw CompositeException.getException("客户编号不能为空");
-//        }
-//    }
 }

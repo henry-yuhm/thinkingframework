@@ -1,6 +1,8 @@
-package org.thinking.logistics.services.core.domain;
+package org.thinking.logistics.services.core.domain.core;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
+import org.thinking.logistics.services.core.domain.BaseDomainEntity;
 import org.thinking.logistics.services.core.domain.dictionary.GoodsCategory;
 import org.thinking.logistics.services.core.domain.support.SaleClassification;
 import org.thinking.logistics.services.core.domain.support.SplittingGranularity;
@@ -15,12 +17,8 @@ import java.util.Optional;
 @Entity
 @Table(uniqueConstraints = @UniqueConstraint(name = "uk_goods", columnNames = {"owner_id", "no"}))
 @Data
-//@EqualsAndHashCode(callSuper = true)
-public class Goods {
-    @Id
-    @GeneratedValue
-    private long id;
-
+@EqualsAndHashCode(callSuper = true)
+public class Goods extends BaseDomainEntity {
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     private Owner owner;//业主
 

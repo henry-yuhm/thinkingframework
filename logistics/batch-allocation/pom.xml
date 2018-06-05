@@ -10,7 +10,7 @@
         <relativePath>../services-parent</relativePath>
     </parent>
 
-    <artifactId>batches-allocation</artifactId>
+    <artifactId>batch-allocation</artifactId>
     <packaging>jar</packaging>
 
     <dependencies>

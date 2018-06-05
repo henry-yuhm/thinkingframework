@@ -2,7 +2,7 @@ package org.thinking.logistics.services.core.service.stagingarea;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.thinking.logistics.services.core.domain.Direction;
+import org.thinking.logistics.services.core.domain.core.Direction;
 import org.thinking.logistics.services.core.domain.documents.OutboundOrderHeader;
 import org.thinking.logistics.services.core.domain.stagingarea.QVirtualConfiguration;
 import org.thinking.logistics.services.core.domain.stagingarea.VirtualConfiguration;

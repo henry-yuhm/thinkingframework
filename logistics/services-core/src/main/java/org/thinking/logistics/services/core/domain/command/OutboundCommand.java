@@ -4,12 +4,12 @@ import lombok.AccessLevel;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.Setter;
-import org.thinking.logistics.services.core.domain.Batches;
-import org.thinking.logistics.services.core.domain.Location;
-import org.thinking.logistics.services.core.domain.Platform;
-import org.thinking.logistics.services.core.domain.Task;
 import org.thinking.logistics.services.core.domain.barcode.OutboundBarcode;
 import org.thinking.logistics.services.core.domain.container.Pallet;
+import org.thinking.logistics.services.core.domain.core.Batch;
+import org.thinking.logistics.services.core.domain.core.Location;
+import org.thinking.logistics.services.core.domain.core.Platform;
+import org.thinking.logistics.services.core.domain.core.Task;
 import org.thinking.logistics.services.core.domain.documents.OutboundOrderDetail;
 import org.thinking.logistics.services.core.domain.documents.OutboundOrderHeader;
 import org.thinking.logistics.services.core.domain.support.AppendantSign;
@@ -34,7 +34,7 @@ public class OutboundCommand extends Command {
     private OutboundOrderDetail detail;//单据明细
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    private Batches batches;//批号
+    private Batch batch;//批号
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     private Location location;//货位

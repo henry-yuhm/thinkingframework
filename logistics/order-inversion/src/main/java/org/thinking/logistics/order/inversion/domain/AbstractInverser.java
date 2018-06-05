@@ -56,7 +56,7 @@ public abstract class AbstractInverser extends BusinessBase implements Inverser 
 
             inverseOrderDetail.setWarehouse(detail.getWarehouse());
             inverseOrderDetail.setGoods(detail.getGoods());
-            inverseOrderDetail.setBatches(detail.getBatches());
+            inverseOrderDetail.setBatch(detail.getBatch());
             inverseOrderDetail.setHeader(this.header);
             inverseOrderDetail.setDetail(detail);
             inverseOrderDetail.setOperator(this.getOperator());
@@ -79,7 +79,7 @@ public abstract class AbstractInverser extends BusinessBase implements Inverser 
 
     @Override
     public void audit(List<InverseOrderDetail> details) throws Exception {
-        if (this.header.isAudited()) {
+        if (this.header.isApproved()) {
             throw CompositeException.getException("单据已冲红审核，不能重复审核", this.getOperator(), this.header, this.header.getOwner());
         }
 
@@ -94,7 +94,7 @@ public abstract class AbstractInverser extends BusinessBase implements Inverser 
             this.stagingareaService.cleanup(this.header);
         }
 
-        this.header.setAudited(true);
+        this.header.setApproved(true);
         this.orderService.getRepository().save(this.header);
 
         details.forEach(detail -> {

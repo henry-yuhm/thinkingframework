@@ -1,9 +1,11 @@
 package org.thinking.logistics.services.core.domain.inventory;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
-import org.thinking.logistics.services.core.domain.Owner;
-import org.thinking.logistics.services.core.domain.Warehouse;
+import org.thinking.logistics.services.core.domain.BaseDomainEntity;
+import org.thinking.logistics.services.core.domain.core.Owner;
+import org.thinking.logistics.services.core.domain.core.Warehouse;
 import org.thinking.logistics.services.core.domain.support.BillCategory;
 import org.thinking.logistics.services.core.domain.support.PackageType;
 import org.thinking.logistics.services.core.domain.support.SaleType;
@@ -14,12 +16,9 @@ import java.math.BigDecimal;
 @Entity
 @Table(uniqueConstraints = @UniqueConstraint(name = "uk_outbound_configuration", columnNames = {"warehouse_id", "owner_id", "packageType", "billCategory", "saleType", "storeCategory", "storeNo"}))
 @Data
+@EqualsAndHashCode(callSuper = true)
 @NoArgsConstructor
-public class OutboundConfiguration {
-    @Id
-    @GeneratedValue
-    private long id;
-
+public class OutboundConfiguration extends BaseDomainEntity {
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     private Warehouse warehouse;//仓库
 

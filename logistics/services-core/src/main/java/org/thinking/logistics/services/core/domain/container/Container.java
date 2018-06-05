@@ -1,18 +1,17 @@
 package org.thinking.logistics.services.core.domain.container;
 
 import lombok.Data;
-import org.thinking.logistics.services.core.domain.Warehouse;
+import lombok.EqualsAndHashCode;
+import org.thinking.logistics.services.core.domain.BaseDomainEntity;
+import org.thinking.logistics.services.core.domain.core.Warehouse;
 
 import javax.persistence.*;
 
 @MappedSuperclass
 @Inheritance(strategy = InheritanceType.JOINED)
 @Data
-public abstract class Container {
-    @Id
-    @GeneratedValue
-    private long id;
-
+@EqualsAndHashCode(callSuper = true)
+public abstract class Container extends BaseDomainEntity {
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     private Warehouse warehouse;//仓库
 

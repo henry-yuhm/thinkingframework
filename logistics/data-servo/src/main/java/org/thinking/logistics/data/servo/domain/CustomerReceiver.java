@@ -3,8 +3,8 @@ package org.thinking.logistics.data.servo.domain;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import org.thinking.logistics.services.core.domain.CompositeException;
-import org.thinking.logistics.services.core.domain.Customer;
-import org.thinking.logistics.services.core.domain.QCustomer;
+import org.thinking.logistics.services.core.domain.core.Customer;
+import org.thinking.logistics.services.core.domain.core.QCustomer;
 import org.thinking.logistics.services.core.service.CustomerService;
 
 import javax.annotation.Resource;

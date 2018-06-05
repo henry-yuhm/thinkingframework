@@ -1,8 +1,10 @@
 package org.thinking.logistics.services.core.domain.command;
 
 import lombok.Data;
-import org.thinking.logistics.services.core.domain.Goods;
-import org.thinking.logistics.services.core.domain.Warehouse;
+import lombok.EqualsAndHashCode;
+import org.thinking.logistics.services.core.domain.BaseDomainEntity;
+import org.thinking.logistics.services.core.domain.core.Goods;
+import org.thinking.logistics.services.core.domain.core.Warehouse;
 import org.thinking.logistics.services.core.domain.support.*;
 
 import javax.persistence.*;
@@ -12,11 +14,8 @@ import java.time.LocalDate;
 @MappedSuperclass
 @Inheritance(strategy = InheritanceType.JOINED)
 @Data
-public abstract class Command {
-    @Id
-    @GeneratedValue
-    private long id;
-
+@EqualsAndHashCode(callSuper = true)
+public abstract class Command extends BaseDomainEntity {
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     private Warehouse warehouse;//仓库
 

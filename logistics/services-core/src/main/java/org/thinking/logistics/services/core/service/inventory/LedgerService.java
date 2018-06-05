@@ -37,7 +37,7 @@ public class LedgerService<L extends Ledger, H extends Header> extends DomainSer
         ledger.setHeader(header);
         ledger.setOwner(inventory.getOwner());
         ledger.setGoods(inventory.getGoods());
-        ledger.setBatches(inventory.getBatches());
+        ledger.setBatch(inventory.getBatch());
         ledger.setLocation(inventory.getLocation());
         ledger.setInventoryState(inventory.getInventoryState());
         ledger.setPallet(inventory.getPallet());

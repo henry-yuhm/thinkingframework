@@ -1,8 +1,10 @@
 package org.thinking.logistics.services.core.domain.inventory;
 
 import lombok.Data;
-import org.thinking.logistics.services.core.domain.*;
+import lombok.EqualsAndHashCode;
+import org.thinking.logistics.services.core.domain.BaseDomainEntity;
 import org.thinking.logistics.services.core.domain.container.Pallet;
+import org.thinking.logistics.services.core.domain.core.*;
 import org.thinking.logistics.services.core.domain.documents.Header;
 import org.thinking.logistics.services.core.domain.support.InventoryState;
 import org.thinking.logistics.services.core.domain.support.LedgerCategory;
@@ -17,11 +19,8 @@ import java.time.LocalDate;
 @MappedSuperclass
 @Inheritance(strategy = InheritanceType.JOINED)
 @Data
-public abstract class Ledger {
-    @Id
-    @GeneratedValue
-    private long id;
-
+@EqualsAndHashCode(callSuper = true)
+public abstract class Ledger extends BaseDomainEntity {
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     private Warehouse warehouse;//仓库
 
@@ -41,7 +40,7 @@ public abstract class Ledger {
     private Goods goods;//商品
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    private Batches batches;//批号
+    private Batch batch;//批号
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     private Location location;//货位

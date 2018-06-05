@@ -3,8 +3,8 @@ package org.thinking.logistics.services.core.domain.barcode;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
-import org.thinking.logistics.services.core.domain.Sorter;
 import org.thinking.logistics.services.core.domain.command.OutboundCommand;
+import org.thinking.logistics.services.core.domain.core.Sorter;
 import org.thinking.logistics.services.core.domain.support.GroupageType;
 
 import javax.persistence.*;

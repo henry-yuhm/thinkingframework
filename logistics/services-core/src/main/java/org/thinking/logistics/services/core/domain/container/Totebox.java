@@ -2,7 +2,7 @@ package org.thinking.logistics.services.core.domain.container;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import org.thinking.logistics.services.core.domain.Task;
+import org.thinking.logistics.services.core.domain.core.Task;
 
 import javax.persistence.Entity;
 import javax.persistence.FetchType;

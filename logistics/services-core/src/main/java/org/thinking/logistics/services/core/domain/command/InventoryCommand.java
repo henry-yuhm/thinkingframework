@@ -4,8 +4,8 @@ import lombok.AccessLevel;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.Setter;
-import org.thinking.logistics.services.core.domain.Batches;
 import org.thinking.logistics.services.core.domain.container.Pallet;
+import org.thinking.logistics.services.core.domain.core.Batch;
 import org.thinking.logistics.services.core.domain.documents.InventoryDocumentsDetail;
 import org.thinking.logistics.services.core.domain.documents.InventoryDocumentsHeader;
 
@@ -26,10 +26,10 @@ public class InventoryCommand extends TransitionCommand {
     private InventoryDocumentsDetail detail;//单据明细
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    private Batches sourceBatches;//源批号
+    private Batch sourceBatch;//源批号
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    private Batches targetBatches;//目标批号
+    private Batch targetBatch;//目标批号
 
     @ManyToOne(fetch = FetchType.LAZY)
     private Pallet sourcePallet;//源托盘

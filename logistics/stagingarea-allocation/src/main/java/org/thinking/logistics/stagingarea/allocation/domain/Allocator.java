@@ -1,6 +1,6 @@
 package org.thinking.logistics.stagingarea.allocation.domain;
 
-import org.thinking.logistics.services.core.domain.Direction;
+import org.thinking.logistics.services.core.domain.core.Direction;
 
 public interface Allocator {
     void verify() throws Exception;

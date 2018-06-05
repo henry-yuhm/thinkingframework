@@ -2,7 +2,7 @@ package org.thinking.logistics.services.core.domain.documents;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import org.thinking.logistics.services.core.domain.Customer;
+import org.thinking.logistics.services.core.domain.core.Customer;
 import org.thinking.logistics.services.core.domain.support.InboundType;
 
 import javax.persistence.*;

@@ -4,8 +4,8 @@ import lombok.AccessLevel;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.Setter;
-import org.thinking.logistics.services.core.domain.Location;
 import org.thinking.logistics.services.core.domain.container.Pallet;
+import org.thinking.logistics.services.core.domain.core.Location;
 import org.thinking.logistics.services.core.domain.support.InventoryState;
 import org.thinking.logistics.services.core.domain.support.TransferringReason;
 
@@ -39,7 +39,7 @@ public class InventoryDocumentsDetail extends Detail {
     @Setter(value = AccessLevel.NONE)
     private BigDecimal remainder = BigDecimal.ZERO;//余数
 
-    private String auditor;//审核员
+    private String approver;//审核员
 
     private TransferringReason reason;//移库原因
 

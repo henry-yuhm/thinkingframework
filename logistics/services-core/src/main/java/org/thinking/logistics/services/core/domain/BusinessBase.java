@@ -1,6 +1,7 @@
 package org.thinking.logistics.services.core.domain;
 
 import lombok.Data;
+import org.thinking.logistics.services.core.domain.core.Warehouse;
 import org.thinking.logistics.services.core.domain.employee.Employee;
 import org.thinking.logistics.services.core.service.ParameterService;
 

@@ -1,10 +1,12 @@
 package org.thinking.logistics.services.core.domain.stagingarea;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
-import org.thinking.logistics.services.core.domain.Direction;
-import org.thinking.logistics.services.core.domain.Owner;
-import org.thinking.logistics.services.core.domain.Warehouse;
+import org.thinking.logistics.services.core.domain.BaseDomainEntity;
+import org.thinking.logistics.services.core.domain.core.Direction;
+import org.thinking.logistics.services.core.domain.core.Owner;
+import org.thinking.logistics.services.core.domain.core.Warehouse;
 import org.thinking.logistics.services.core.domain.support.BillType;
 import org.thinking.logistics.services.core.domain.support.StagingareaCategory;
 import org.thinking.logistics.services.core.domain.support.StagingareaType;
@@ -16,12 +18,9 @@ import java.util.Set;
 
 @Entity
 @Data
+@EqualsAndHashCode(callSuper = true)
 @NoArgsConstructor
-public class Stagingarea {
-    @Id
-    @GeneratedValue
-    private long id;
-
+public class Stagingarea extends BaseDomainEntity {
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     private Warehouse warehouse;//仓库
 
