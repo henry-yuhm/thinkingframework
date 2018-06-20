@@ -3,8 +3,8 @@ package org.thinking.logistics.services.core.domain.documents;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import org.thinking.logistics.services.core.domain.BaseDomainEntity;
-import org.thinking.logistics.services.core.domain.core.Batch;
 import org.thinking.logistics.services.core.domain.core.Goods;
+import org.thinking.logistics.services.core.domain.core.Lot;
 import org.thinking.logistics.services.core.domain.core.Warehouse;
 
 import javax.persistence.*;
@@ -21,5 +21,5 @@ public abstract class Detail extends BaseDomainEntity {
     private Goods goods;//商品
 
     @ManyToOne(fetch = FetchType.LAZY)
-    private Batch batch;//批号
+    private Lot lot;//批号
 }

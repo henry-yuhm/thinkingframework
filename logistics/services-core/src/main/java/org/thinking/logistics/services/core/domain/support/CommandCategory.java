@@ -62,7 +62,7 @@ public enum CommandCategory {
             return "赠品出库";
         }
     },
-    BATCH_ADJUST(12) {
+    LOT_ADJUST(12) {
         @Override
         public String toString() {
             return "批号调整";

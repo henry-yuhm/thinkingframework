@@ -8,7 +8,7 @@ public enum StorageType {
             return "单品规";
         }
     },
-    SINGLE_BATCH(2) {
+    SINGLE_LOT(2) {
         @Override
         public String toString() {
             return "单批号";

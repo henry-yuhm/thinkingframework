@@ -15,10 +15,10 @@
     <packaging>pom</packaging>
 
     <modules>
-        <module>../batch-allocation</module>
         <module>../data-exchange</module>
         <module>../data-servo</module>
         <module>../inventory-dispatcher</module>
+        <module>../lot-allocation</module>
         <module>../operation-audit</module>
         <module>../order-activation</module>
         <module>../order-dispatcher</module>

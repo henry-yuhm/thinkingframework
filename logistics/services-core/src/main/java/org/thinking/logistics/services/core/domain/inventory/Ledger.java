@@ -40,7 +40,7 @@ public abstract class Ledger extends BaseDomainEntity {
     private Goods goods;//商品
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    private Batch batch;//批号
+    private Lot lot;//批号
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     private Location location;//货位

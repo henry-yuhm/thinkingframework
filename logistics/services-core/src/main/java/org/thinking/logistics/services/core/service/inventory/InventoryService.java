@@ -8,9 +8,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.thinking.logistics.services.core.domain.command.QPilerCommand;
-import org.thinking.logistics.services.core.domain.core.Batch;
 import org.thinking.logistics.services.core.domain.core.Goods;
 import org.thinking.logistics.services.core.domain.core.Location;
+import org.thinking.logistics.services.core.domain.core.Lot;
 import org.thinking.logistics.services.core.domain.core.Warehouse;
 import org.thinking.logistics.services.core.domain.inventory.Inventory;
 import org.thinking.logistics.services.core.domain.inventory.QInventory;
@@ -42,12 +42,12 @@ public class InventoryService extends DomainService<QInventory, Inventory, Long>
         this.palletService = palletService;
     }
 
-    public final Inventory acquire(Warehouse warehouse, Goods goods, Batch batch, Location location, InventoryState inventoryState) {
+    public final Inventory acquire(Warehouse warehouse, Goods goods, Lot lot, Location location, InventoryState inventoryState) {
         return this.getFactory().selectFrom(this.getPath())
             .where(
                 this.getPath().warehouse.eq(warehouse),
                 this.getPath().goods.eq(goods),
-                this.getPath().batch.eq(batch),
+                this.getPath().lot.eq(lot),
                 this.getPath().location.eq(location),
                 this.getPath().inventoryState.eq(inventoryState)
             )
@@ -55,7 +55,7 @@ public class InventoryService extends DomainService<QInventory, Inventory, Long>
             .fetchOne();
     }
 
-    public final Object acquire(Warehouse warehouse, Goods goods, Batch batch, int batchNumber, ValidPeriodType validPeriodType) {
+    public final Object acquire(Warehouse warehouse, Goods goods, Lot lot, int lotNumbers, ValidPeriodType validPeriodType) {
         EnumExpression<ValidPeriodType> type = this.getPath()
             .when(JPAExpressions.selectFrom(this.getPath())
                 .where(this.getPath().location.type.eq(LocationType.NORMAL)))
@@ -106,11 +106,11 @@ public class InventoryService extends DomainService<QInventory, Inventory, Long>
             .where(
                 this.getPath().warehouse.eq(warehouse),
                 this.getPath().goods.eq(goods),
-                batchNumber == 0 ? this.getPath().batch.eq(batch) : this.getPath().batch.isNotNull()
+                lotNumbers == 0 ? this.getPath().lot.eq(lot) : this.getPath().lot.isNotNull()
             )
             .select(
                 this.getPath().goods,
-                this.getPath().batch,
+                this.getPath().lot,
                 type,
                 availableInventory.sum(),
                 palletInventory.sum(),
@@ -120,7 +120,7 @@ public class InventoryService extends DomainService<QInventory, Inventory, Long>
             )
             .groupBy(
                 this.getPath().goods,
-                this.getPath().batch,
+                this.getPath().lot,
                 type
             )
             .having(
@@ -129,15 +129,15 @@ public class InventoryService extends DomainService<QInventory, Inventory, Long>
             )
             .orderBy(
                 type.asc(),
-                this.getPath().batch.productionDate.asc(),
-                this.getPath().batch.id.asc()
+                this.getPath().lot.productionDate.asc(),
+                this.getPath().lot.id.asc()
             )
             .fetch()
             .stream()
             .map(tuple -> {
                 Map<String, Object> map = new LinkedHashMap<>();
                 map.put("goods", tuple.get(this.getPath().goods));
-                map.put("batch", tuple.get(this.getPath().batch));
+                map.put("lot", tuple.get(this.getPath().lot));
                 map.put("type", tuple.get(type));
                 map.put("availableInventory", tuple.get(availableInventory.sum()));
                 map.put("palletInventory", tuple.get(palletInventory.sum()));
@@ -149,24 +149,24 @@ public class InventoryService extends DomainService<QInventory, Inventory, Long>
             .collect(Collectors.toList());
     }
 
-    public final List<Inventory> acquire(Warehouse warehouse, Goods goods, Batch batch) {
+    public final List<Inventory> acquire(Warehouse warehouse, Goods goods, Lot lot) {
         return this.getFactory().selectFrom(this.getPath())
             .where(
                 this.getPath().warehouse.eq(warehouse),
                 this.getPath().goods.eq(goods),
-                this.getPath().batch.eq(batch),
+                this.getPath().lot.eq(lot),
                 this.getPath().transitionalQuantity.gt(0))
             .orderBy(this.getPath().transitionalQuantity.asc())
             .setLockMode(LockModeType.PESSIMISTIC_WRITE)
             .fetch();
     }
 
-    public final List<Inventory> acquire(Warehouse warehouse, Goods goods, Batch batch, InventoryState inventoryState, String storeCategory, String storeNo, BigDecimal quantity) {
+    public final List<Inventory> acquire(Warehouse warehouse, Goods goods, Lot lot, InventoryState inventoryState, String storeCategory, String storeNo, BigDecimal quantity) {
         return this.getFactory().selectFrom(this.getPath())
             .where(
                 this.getPath().warehouse.eq(warehouse),
                 this.getPath().goods.eq(goods),
-                this.getPath().batch.eq(batch),
+                this.getPath().lot.eq(lot),
                 this.getPath().inventoryState.eq(inventoryState),
                 this.getPath().location.area.storeCategory.eq(storeCategory),
                 this.getPath().location.area.storeNo.eq(storeNo),
@@ -334,7 +334,7 @@ public class InventoryService extends DomainService<QInventory, Inventory, Long>
                 this.getPath().warehouse.eq(inventory.getWarehouse()),
                 this.getPath().owner.eq(inventory.getOwner()),
                 this.getPath().goods.eq(inventory.getGoods()),
-                this.getPath().batch.eq(inventory.getBatch()),
+                this.getPath().lot.eq(inventory.getLot()),
                 this.getPath().location.eq(inventory.getLocation()),
                 this.getPath().inventoryState.eq(inventory.getInventoryState()),
                 this.getPath().quantity.eq(BigDecimal.ZERO),

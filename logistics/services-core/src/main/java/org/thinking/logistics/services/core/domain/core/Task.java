@@ -33,7 +33,7 @@ public class Task extends BaseDomainEntity {
     @ManyToOne(fetch = FetchType.LAZY)
     private RecheckBuffer buffer;//复核暂存位
 
-    private int batchNo;//任务批次号
+    private int groupNo;//任务组
 
     private String bufferNo;//暂存位编号
 

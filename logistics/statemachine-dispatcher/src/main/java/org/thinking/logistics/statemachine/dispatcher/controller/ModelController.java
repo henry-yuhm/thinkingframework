@@ -32,9 +32,4 @@ public class ModelController {
     public void save(@RequestBody Workflow workflow) throws Exception {
         this.service.save(workflow);
     }
-
-    @DeleteMapping("/deleteAll")
-    public void deleteAll() {
-        this.service.deleteAll();
-    }
 }

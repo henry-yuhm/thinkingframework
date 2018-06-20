@@ -168,9 +168,4 @@ public class ModelService {
 
         this.machineService.register(workflow.getId());
     }
-
-    @Transactional(rollbackFor = Exception.class)
-    public void deleteAll() {
-        this.workflowRepository.deleteAllInBatch();
-    }
 }

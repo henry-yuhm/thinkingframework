@@ -5,8 +5,8 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.Setter;
 import org.thinking.logistics.services.core.domain.core.Location;
-import org.thinking.logistics.services.core.domain.support.BatchRequest;
 import org.thinking.logistics.services.core.domain.support.InventoryState;
+import org.thinking.logistics.services.core.domain.support.LotRequest;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -33,7 +33,7 @@ public class OutboundOrderDetail extends Detail {
     @Column(nullable = false)
     private InventoryState inventoryState = InventoryState.QUALIFICATION;//库存状态
 
-    private BatchRequest request;//批号要求
+    private LotRequest request;//批号要求
 
     @Column(nullable = false, precision = 12, scale = 5)
     private BigDecimal planQuantity = BigDecimal.ZERO;//计划数量

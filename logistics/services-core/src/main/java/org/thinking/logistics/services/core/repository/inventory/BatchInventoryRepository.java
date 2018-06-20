@@ -1,9 +1,0 @@
-package org.thinking.logistics.services.core.repository.inventory;
-
-import org.springframework.stereotype.Repository;
-import org.thinking.logistics.services.core.domain.inventory.BatchInventory;
-import org.thinking.logistics.services.core.repository.DomainRepository;
-
-@Repository
-public interface BatchInventoryRepository extends DomainRepository<BatchInventory, Long> {
-}

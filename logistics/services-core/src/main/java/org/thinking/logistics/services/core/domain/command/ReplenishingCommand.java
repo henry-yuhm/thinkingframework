@@ -3,7 +3,7 @@ package org.thinking.logistics.services.core.domain.command;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import org.thinking.logistics.services.core.domain.container.Pallet;
-import org.thinking.logistics.services.core.domain.core.Batch;
+import org.thinking.logistics.services.core.domain.core.Lot;
 import org.thinking.logistics.services.core.domain.documents.ReplenishingDocumentsDetail;
 import org.thinking.logistics.services.core.domain.documents.ReplenishingDocumentsHeader;
 
@@ -24,7 +24,7 @@ public class ReplenishingCommand extends TransitionCommand {
     private ReplenishingDocumentsDetail detail;//单据明细
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    private Batch batch;//批号
+    private Lot lot;//批号
 
     @ManyToOne(fetch = FetchType.LAZY)
     private Pallet pallet;//托盘

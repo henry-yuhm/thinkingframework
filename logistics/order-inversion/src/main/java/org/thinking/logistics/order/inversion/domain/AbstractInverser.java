@@ -56,7 +56,7 @@ public abstract class AbstractInverser extends BusinessBase implements Inverser 
 
             inverseOrderDetail.setWarehouse(detail.getWarehouse());
             inverseOrderDetail.setGoods(detail.getGoods());
-            inverseOrderDetail.setBatch(detail.getBatch());
+            inverseOrderDetail.setLot(detail.getLot());
             inverseOrderDetail.setHeader(this.header);
             inverseOrderDetail.setDetail(detail);
             inverseOrderDetail.setOperator(this.getOperator());

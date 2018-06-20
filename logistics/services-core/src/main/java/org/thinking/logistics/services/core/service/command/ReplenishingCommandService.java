@@ -3,9 +3,9 @@ package org.thinking.logistics.services.core.service.command;
 import org.springframework.stereotype.Service;
 import org.thinking.logistics.services.core.domain.command.QReplenishingCommand;
 import org.thinking.logistics.services.core.domain.command.ReplenishingCommand;
-import org.thinking.logistics.services.core.domain.core.Batch;
 import org.thinking.logistics.services.core.domain.core.Goods;
 import org.thinking.logistics.services.core.domain.core.Location;
+import org.thinking.logistics.services.core.domain.core.Lot;
 import org.thinking.logistics.services.core.domain.core.Warehouse;
 import org.thinking.logistics.services.core.domain.support.CommandStage;
 import org.thinking.logistics.services.core.domain.support.CommandType;
@@ -22,12 +22,12 @@ public class ReplenishingCommandService extends DomainService<QReplenishingComma
         super(entityManager, repository, QReplenishingCommand.replenishingCommand);
     }
 
-    public final List<ReplenishingCommand> acquire(Warehouse warehouse, Goods goods, Batch batch, Location location) {
+    public final List<ReplenishingCommand> acquire(Warehouse warehouse, Goods goods, Lot lot, Location location) {
         return this.getFactory().selectFrom(this.getPath())
             .where(
                 this.getPath().warehouse.eq(warehouse),
                 this.getPath().goods.eq(goods),
-                this.getPath().batch.eq(batch),
+                this.getPath().lot.eq(lot),
                 this.getPath().targetLocation.eq(location),
                 this.getPath().commandType.eq(CommandType.REPLENISHING),
                 this.getPath().stage.lt(CommandStage.TERMINATED),

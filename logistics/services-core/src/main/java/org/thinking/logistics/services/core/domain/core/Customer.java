@@ -3,9 +3,9 @@ package org.thinking.logistics.services.core.domain.core;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import org.thinking.logistics.services.core.domain.BaseDomainEntity;
-import org.thinking.logistics.services.core.domain.support.BatchRequest;
 import org.thinking.logistics.services.core.domain.support.CustomerClassification;
 import org.thinking.logistics.services.core.domain.support.CustomerType;
+import org.thinking.logistics.services.core.domain.support.LotRequest;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -48,7 +48,7 @@ public class Customer extends BaseDomainEntity {
 
     private String seat;//所在地
 
-    private BatchRequest batchRequest;//批号要求
+    private LotRequest lotRequest;//批号要求
 
     private CustomerClassification classification;//分类
 
