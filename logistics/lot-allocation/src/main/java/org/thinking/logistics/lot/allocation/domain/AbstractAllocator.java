@@ -7,19 +7,19 @@ import org.thinking.logistics.services.core.domain.BusinessBase;
 import org.thinking.logistics.services.core.domain.CompositeException;
 import org.thinking.logistics.services.core.domain.command.OutboundCommand;
 import org.thinking.logistics.services.core.domain.command.QOutboundCommand;
-import org.thinking.logistics.services.core.domain.command.ReplenishingCommand;
-import org.thinking.logistics.services.core.domain.core.Goods;
+import org.thinking.logistics.services.core.domain.command.ReplenishmentCommand;
+import org.thinking.logistics.services.core.domain.core.Item;
 import org.thinking.logistics.services.core.domain.core.Lot;
-import org.thinking.logistics.services.core.domain.documents.*;
+import org.thinking.logistics.services.core.domain.document.*;
 import org.thinking.logistics.services.core.domain.inventory.Inventory;
 import org.thinking.logistics.services.core.domain.inventory.LotInventory;
 import org.thinking.logistics.services.core.domain.inventory.OutboundConfiguration;
-import org.thinking.logistics.services.core.domain.inventory.OutboundOrderLedger;
+import org.thinking.logistics.services.core.domain.inventory.ShipmentOrderLedger;
 import org.thinking.logistics.services.core.domain.support.*;
 import org.thinking.logistics.services.core.service.command.OutboundCommandService;
-import org.thinking.logistics.services.core.service.command.ReplenishingCommandService;
-import org.thinking.logistics.services.core.service.documents.InverseOrderService;
-import org.thinking.logistics.services.core.service.documents.OutboundOrderService;
+import org.thinking.logistics.services.core.service.command.ReplenishmentCommandService;
+import org.thinking.logistics.services.core.service.document.InverseOrderService;
+import org.thinking.logistics.services.core.service.document.ShipmentOrderService;
 import org.thinking.logistics.services.core.service.inventory.InventoryService;
 import org.thinking.logistics.services.core.service.inventory.LedgerService;
 import org.thinking.logistics.services.core.service.inventory.LotInventoryService;
@@ -33,7 +33,7 @@ import java.util.*;
 @Data
 @EqualsAndHashCode(callSuper = true)
 public abstract class AbstractAllocator extends BusinessBase implements Allocator {
-    private final OutboundOrderHeader header;
+    private final ShipmentOrderHeader header;
 
     private final boolean remainder2Wholepieces;
 
@@ -56,7 +56,7 @@ public abstract class AbstractAllocator extends BusinessBase implements Allocato
     private List<OutboundCommand> commands = new LinkedList<>();
 
     @Resource
-    private OutboundOrderService orderService;
+    private ShipmentOrderService orderService;
 
     @Resource
     private LotInventoryService lotInventoryService;
@@ -68,18 +68,18 @@ public abstract class AbstractAllocator extends BusinessBase implements Allocato
     private InventoryService inventoryService;
 
     @Resource
-    private LedgerService<OutboundOrderLedger, OutboundOrderHeader> ledgerService;
+    private LedgerService<ShipmentOrderLedger, ShipmentOrderHeader> ledgerService;
 
     @Resource
     private OutboundCommandService commandService;
 
     @Resource
-    private ReplenishingCommandService replenishingCommandService;
+    private ReplenishmentCommandService replenishmentCommandService;
 
     @Resource
     private InverseOrderService inverseOrderService;
 
-    public AbstractAllocator(OutboundOrderHeader header) throws Exception {
+    public AbstractAllocator(ShipmentOrderHeader header) throws Exception {
         this.header = header;
         this.remainder2Wholepieces = this.isEnable(this.header.getWarehouse(), "整件不足出零货");
         this.newLot = this.isEnable(this.header.getWarehouse(), this.packageType == PackageType.WHOLEPIECES ? "整件无要求出新批号" : "零货无要求出新批号");
@@ -97,7 +97,7 @@ public abstract class AbstractAllocator extends BusinessBase implements Allocato
     }
 
     @Override
-    public void initialize(OutboundOrderDetail detail) throws Exception {
+    public void initialize(ShipmentOrderDetail detail) throws Exception {
         detail.setWholepiecesQuantity(detail.getFactQuantity().subtract(detail.getFactRemainder()));
         detail.setRemainderQuantity(detail.getFactRemainder());
 
@@ -111,7 +111,7 @@ public abstract class AbstractAllocator extends BusinessBase implements Allocato
     }
 
     @Override
-    public void acquireLotInventory(OutboundOrderDetail detail) throws Exception {
+    public void acquireLotInventory(ShipmentOrderDetail detail) throws Exception {
         if (detail.getRequest() == null) {
             this.validPeriodType = ValidPeriodType.ALL;
             this.lotNumbers = 0;
@@ -141,7 +141,7 @@ public abstract class AbstractAllocator extends BusinessBase implements Allocato
         }
 
         //region 批号库存
-        this.lotInventories = this.lotInventoryService.acquire(detail.getGoods(), this.lotNumbers == 0 ? detail.getLot() : null, this.validPeriodType);
+        this.lotInventories = this.lotInventoryService.acquire(detail.getItem(), this.lotNumbers == 0 ? detail.getLot() : null, this.validPeriodType);
         //endregion
     }
 
@@ -200,7 +200,7 @@ public abstract class AbstractAllocator extends BusinessBase implements Allocato
                     outboundQuantity = this.allocationQuantity;
 
                     if (replenishing) {
-                        this.replenish(first.getGoods(), first.getLot(), this.allocationQuantity.subtract(first.getRemainderInventory()));
+                        this.replenish(first.getItem(), first.getLot(), this.allocationQuantity.subtract(first.getRemainderInventory()));
                     }
 
                     this.allocationQuantity = BigDecimal.ZERO;
@@ -235,7 +235,7 @@ public abstract class AbstractAllocator extends BusinessBase implements Allocato
                         if (firstLotInventory.compareTo(this.allocationQuantity) >= 0) {
                             outboundQuantity = this.allocationQuantity;
 
-                            this.replenish(first.getGoods(), first.getLot(), this.allocationQuantity.subtract(first.getRemainderInventory()));
+                            this.replenish(first.getItem(), first.getLot(), this.allocationQuantity.subtract(first.getRemainderInventory()));
 
                             this.allocationQuantity = BigDecimal.ZERO;
 
@@ -271,7 +271,7 @@ public abstract class AbstractAllocator extends BusinessBase implements Allocato
                                 outboundQuantity = this.allocationQuantity;
 
                                 if (replenishing) {
-                                    this.replenish(first.getGoods(), first.getLot(), this.allocationQuantity.subtract(first.getRemainderInventory()));
+                                    this.replenish(first.getItem(), first.getLot(), this.allocationQuantity.subtract(first.getRemainderInventory()));
                                 }
 
                                 this.allocationQuantity = BigDecimal.ZERO;
@@ -286,7 +286,7 @@ public abstract class AbstractAllocator extends BusinessBase implements Allocato
                                     this.lots.put(second.getLot(), this.allocationQuantity.subtract(first.getRemainderInventory()));
 
                                     //次老批号补货
-                                    this.replenish(second.getGoods(), second.getLot(), this.allocationQuantity.subtract(first.getRemainderInventory()).subtract(second.getRemainderInventory()));
+                                    this.replenish(second.getItem(), second.getLot(), this.allocationQuantity.subtract(first.getRemainderInventory()).subtract(second.getRemainderInventory()));
 
                                     this.allocationQuantity = BigDecimal.ZERO;
                                 } else {
@@ -322,12 +322,12 @@ public abstract class AbstractAllocator extends BusinessBase implements Allocato
     }
 
     @Override
-    public void replenish(Goods goods, Lot lot, BigDecimal quantity) throws Exception {
+    public void replenish(Item item, Lot lot, BigDecimal quantity) throws Exception {
 
     }
 
     @Override
-    public void acquireLocation(OutboundOrderDetail detail) throws Exception {
+    public void acquireLocation(ShipmentOrderDetail detail) throws Exception {
         if (this.lots.size() == 0) {
             return;
         }
@@ -340,7 +340,7 @@ public abstract class AbstractAllocator extends BusinessBase implements Allocato
         //endregion
 
         //中药根据参数重定义特殊库房出库顺序
-        if (this.header.getCategory() == BillCategory.TRADITIONAL_CHINESE_MEDICINE && this.isEnable(this.header.getWarehouse(), "中药大单从储备库出库") && detail.getFactQuantity().compareTo(detail.getGoods().getTcmOutboundQuantity()) >= 0) {
+        if (this.header.getCategory() == BillCategory.TRADITIONAL_CHINESE_MEDICINE && this.isEnable(this.header.getWarehouse(), "中药大单从储备库出库") && detail.getFactQuantity().compareTo(detail.getItem().getTcmOutboundQuantity()) >= 0) {
             int pos1 = configurations.indexOf(configurations.stream().filter(cfg -> cfg.getStoreNo().equalsIgnoreCase("LBK")).findAny().get());
             int pos2 = configurations.indexOf(configurations.stream().filter(cfg -> cfg.getStoreNo().equalsIgnoreCase("ZYL")).findAny().get());
             if (pos1 >= 0) {
@@ -366,7 +366,7 @@ public abstract class AbstractAllocator extends BusinessBase implements Allocato
             for (OutboundConfiguration configuration : configurations) {
                 if (configuration.getStoreNo().equalsIgnoreCase("LTK")) {
                     //立体库在途库存
-                    inventories = this.inventoryService.acquire(detail.getWarehouse(), detail.getGoods(), lot);
+                    inventories = this.inventoryService.acquire(detail.getWarehouse(), detail.getItem(), lot);
 
                     for (Inventory inventory : inventories) {
                         inventory.setAvailableOutboundQuantity(inventory.getTransitionalQuantity());
@@ -383,7 +383,7 @@ public abstract class AbstractAllocator extends BusinessBase implements Allocato
                     break;
                 }
 
-                inventories = this.inventoryService.acquire(detail.getWarehouse(), detail.getGoods(), lot, detail.getInventoryState(), configuration.getStoreCategory(), configuration.getStoreNo(), this.lots.get(lot));
+                inventories = this.inventoryService.acquire(detail.getWarehouse(), detail.getItem(), lot, detail.getInventoryState(), configuration.getStoreCategory(), configuration.getStoreNo(), this.lots.get(lot));
 
                 if (inventories == null || inventories.size() == 0) {
                     continue;
@@ -392,7 +392,7 @@ public abstract class AbstractAllocator extends BusinessBase implements Allocato
                 for (Inventory inventory : inventories) {
                     if (inventory.getAvailableOutboundQuantity().compareTo(BigDecimal.ZERO) > 0) {
                         if (this.packageType == PackageType.WHOLEPIECES) {
-                            if (detail.getGoods().getPieces(inventory.getAvailableOutboundQuantity()).compareTo(BigDecimal.ZERO) == 0) {
+                            if (detail.getItem().getPieces(inventory.getAvailableOutboundQuantity()).compareTo(BigDecimal.ZERO) == 0) {
                                 continue;
                             }
                         }
@@ -418,19 +418,19 @@ public abstract class AbstractAllocator extends BusinessBase implements Allocato
 
         //批号库存满足，货位库存不满足报错
         if (lotQuantity.compareTo(BigDecimal.ZERO) > 0 && locationQuantity.compareTo(lotQuantity) < 0) {
-            throw CompositeException.getException("货位分配失败，货位总出库数量【" + locationQuantity + "】小于批号总出库数量【" + lotQuantity + "】", this.header, this.header.getOwner(), detail.getGoods());
+            throw CompositeException.getException("货位分配失败，货位总出库数量【" + locationQuantity + "】小于批号总出库数量【" + lotQuantity + "】", this.header, this.header.getOwner(), detail.getItem());
         }
     }
 
     @Override
-    public void appointLocation(OutboundOrderDetail detail) throws Exception {
-        Inventory inventory = this.inventoryService.acquire(this.header.getWarehouse(), detail.getGoods(), detail.getLot(), detail.getLocation(), detail.getInventoryState());
+    public void appointLocation(ShipmentOrderDetail detail) throws Exception {
+        Inventory inventory = this.inventoryService.acquire(this.header.getWarehouse(), detail.getItem(), detail.getLot(), detail.getLocation(), detail.getInventoryState());
 
         if (this.packageType == PackageType.REMAINDER &&
-            detail.getGoods().getSplittingGranularity() == SplittingGranularity.MEDIUM_PACKAGE &&
+            detail.getItem().getSplittingGranularity() == SplittingGranularity.MEDIUM_PACKAGE &&
             !inventory.getLocation().getArea().getStoreNo().equalsIgnoreCase("NHK") &&
             !inventory.getLocation().getArea().getStoreNo().equalsIgnoreCase("THK")) {
-            inventory.setAvailableOutboundQuantity(inventory.getAvailableOutboundQuantity().divide(detail.getGoods().getMediumPackageQuantity(), RoundingMode.FLOOR).multiply(detail.getGoods().getMediumPackageQuantity()));
+            inventory.setAvailableOutboundQuantity(inventory.getAvailableOutboundQuantity().divide(detail.getItem().getMediumPackageQuantity(), RoundingMode.FLOOR).multiply(detail.getItem().getMediumPackageQuantity()));
         }
 
         if (inventory.getAvailableOutboundQuantity().compareTo(BigDecimal.ZERO) == 0) {
@@ -458,7 +458,7 @@ public abstract class AbstractAllocator extends BusinessBase implements Allocato
     }
 
     @Override
-    public OutboundCommand acquireCommand(OutboundOrderDetail detail, Inventory inventory, BigDecimal quantity) throws Exception {
+    public OutboundCommand acquireCommand(ShipmentOrderDetail detail, Inventory inventory, BigDecimal quantity) throws Exception {
         OutboundCommand command = new OutboundCommand();
 
         command.setWarehouse(this.header.getWarehouse());
@@ -474,16 +474,16 @@ public abstract class AbstractAllocator extends BusinessBase implements Allocato
             command.setCommandCategory(CommandCategory.PURCHASE_RETURN);
         } else if (this.header.getCategory() == BillCategory.GIFT) {
             command.setCommandCategory(CommandCategory.GIFT_OUTBOUND);
-        } else if (this.header.getTakegoodsModeSwitch() == TakegoodsMode.GREEN_CHANNEL) {
+        } else if (this.header.getPickupModeSwitch() == PickupMode.GREEN_CHANNEL) {
             command.setCommandCategory(CommandCategory.GREEN_CHANNEL);
-        } else if (this.header.getTakegoodsModeSwitch() == TakegoodsMode.SELF_SERVICE || this.header.getTakegoodsModeSwitch() == TakegoodsMode.SELF_SERVICE_STOCKUP) {
+        } else if (this.header.getPickupModeSwitch() == PickupMode.SELF_SERVICE || this.header.getPickupModeSwitch() == PickupMode.SELF_SERVICE_STOCKUP) {
             command.setCommandCategory(CommandCategory.SELF_SERVICE_OUTBOUND);
         } else {
             command.setCommandCategory(CommandCategory.NORMAL_OUTBOUND);
         }
         command.setHeader(this.header);
         command.setDetail(detail);
-        command.setGoods(inventory.getGoods());
+        command.setItem(inventory.getItem());
         command.setLot(inventory.getLot());
         command.setLocation(inventory.getLocation());
         command.setInventoryState(inventory.getInventoryState());
@@ -498,19 +498,19 @@ public abstract class AbstractAllocator extends BusinessBase implements Allocato
 
     @Override
     public void charge(Inventory inventory) throws Exception {
-        this.ledgerService.save(new OutboundOrderLedger(), inventory, LedgerSummary.OUTBOUND_RELEASING_PREALLOCATION, LedgerType.PREALLOCATION, LedgerCategory.OUTBOUND, this.header, inventory.getAvailableOutboundQuantity());
+        this.ledgerService.save(new ShipmentOrderLedger(), inventory, LedgerSummary.OUTBOUND_RELEASING_PREALLOCATION, LedgerType.PREALLOCATION, LedgerCategory.OUTBOUND, this.header, inventory.getAvailableOutboundQuantity());
 
         if (inventory.getLocation().isAutomatic()) {
             if (inventory.getTransitionalQuantity().compareTo(BigDecimal.ZERO) > 0) {
-                this.ledgerService.save(new OutboundOrderLedger(), inventory, LedgerSummary.OUTBOUND_MINUS_TRANSITION, LedgerType.TRANSITION, LedgerCategory.TRANSITION, this.header, inventory.getAvailableOutboundQuantity().negate());
+                this.ledgerService.save(new ShipmentOrderLedger(), inventory, LedgerSummary.OUTBOUND_MINUS_TRANSITION, LedgerType.TRANSITION, LedgerCategory.TRANSITION, this.header, inventory.getAvailableOutboundQuantity().negate());
             } else if (inventory.getAvailableQuantity().subtract(inventory.getAvailableOutboundQuantity()).compareTo(BigDecimal.ZERO) > 0) {
-                this.ledgerService.save(new OutboundOrderLedger(), inventory, LedgerSummary.OUTBOUND_PLUS_TRANSITION, LedgerType.TRANSITION, LedgerCategory.TRANSITION, this.header, inventory.getAvailableQuantity().subtract(inventory.getAvailableOutboundQuantity()));
+                this.ledgerService.save(new ShipmentOrderLedger(), inventory, LedgerSummary.OUTBOUND_PLUS_TRANSITION, LedgerType.TRANSITION, LedgerCategory.TRANSITION, this.header, inventory.getAvailableQuantity().subtract(inventory.getAvailableOutboundQuantity()));
             }
         }
     }
 
     @Override
-    public void generateCommands(OutboundOrderDetail detail, boolean directly) throws Exception {
+    public void generateCommands(ShipmentOrderDetail detail, boolean directly) throws Exception {
         if (this.inventories.size() == 0) {
             return;
         }
@@ -538,44 +538,44 @@ public abstract class AbstractAllocator extends BusinessBase implements Allocato
             if (replenishedQuantity.compareTo(BigDecimal.ZERO) > 0) {
                 directQuantity = BigDecimal.ZERO;
 
-                List<ReplenishingCommand> replenishingCommands = this.replenishingCommandService.acquire(inventory.getWarehouse(), inventory.getGoods(), inventory.getLot(), inventory.getLocation());
-                for (ReplenishingCommand replenishingCommand : replenishingCommands) {
+                List<ReplenishmentCommand> replenishmentCommands = this.replenishmentCommandService.acquire(inventory.getWarehouse(), inventory.getItem(), inventory.getLot(), inventory.getLocation());
+                for (ReplenishmentCommand replenishmentCommand : replenishmentCommands) {
                     if (replenishedQuantity.compareTo(BigDecimal.ZERO) == 0) {
                         break;
                     }
 
-                    if (replenishingCommand.getAvailableQuantity().compareTo(replenishedQuantity) >= 0) {
+                    if (replenishmentCommand.getAvailableQuantity().compareTo(replenishedQuantity) >= 0) {
                         directQuantity = replenishedQuantity;
                         replenishedQuantity = BigDecimal.ZERO;
                     } else {
-                        directQuantity = replenishingCommand.getAvailableQuantity();
+                        directQuantity = replenishmentCommand.getAvailableQuantity();
                         replenishedQuantity = replenishedQuantity.subtract(directQuantity);
                     }
 
-                    replenishingCommand.setAvailableQuantity(replenishingCommand.getAvailableQuantity().subtract(directQuantity));
+                    replenishmentCommand.setAvailableQuantity(replenishmentCommand.getAvailableQuantity().subtract(directQuantity));
 
                     //region 同商品同批号同货位零货要累加数量
-                    Optional<OutboundCommand> optionalCommand = this.commands.stream().filter(cmd -> cmd.getGoods() == inventory.getGoods() && cmd.getLot() == inventory.getLot() && cmd.getLocation() == inventory.getLocation() && cmd.getPackageType() == PackageType.REMAINDER && this.packageType == PackageType.REMAINDER).findAny();
+                    Optional<OutboundCommand> optionalCommand = this.commands.stream().filter(cmd -> cmd.getItem() == inventory.getItem() && cmd.getLot() == inventory.getLot() && cmd.getLocation() == inventory.getLocation() && cmd.getPackageType() == PackageType.REMAINDER && this.packageType == PackageType.REMAINDER).findAny();
                     OutboundCommand outboundCommand;
                     if (optionalCommand == null) {
                         outboundCommand = this.acquireCommand(detail, inventory, directQuantity);
-                        outboundCommand.getCommands().add(replenishingCommand);
+                        outboundCommand.getCommands().add(replenishmentCommand);
                         this.commands.add(outboundCommand);
                     } else {
                         outboundCommand = optionalCommand.get();
                         outboundCommand.setCreationQuantity(outboundCommand.getCreationQuantity().add(directQuantity));
                         outboundCommand.setPlanQuantity(outboundCommand.getCreationQuantity());
                         outboundCommand.setFactQuantity(outboundCommand.getCreationQuantity());
-                        outboundCommand.getCommands().add(replenishingCommand);
+                        outboundCommand.getCommands().add(replenishmentCommand);
                     }
                     //endregion
                 }
 
                 if (replenishedQuantity.compareTo(BigDecimal.ZERO) > 0) {
-                    throw CompositeException.getException("批号指令生成错误，没有找到可用的补货在途数量", this.header, this.header.getOwner(), detail.getGoods());
+                    throw CompositeException.getException("批号指令生成错误，没有找到可用的补货在途数量", this.header, this.header.getOwner(), detail.getItem());
                 }
 
-                this.replenishingCommandService.getRepository().saveAll(replenishingCommands);
+                this.replenishmentCommandService.getRepository().saveAll(replenishmentCommands);
             }
 
             this.charge(inventory);
@@ -587,8 +587,8 @@ public abstract class AbstractAllocator extends BusinessBase implements Allocato
     @Override
     public void check() throws Exception {
         StringBuilder message = new StringBuilder();
-        QOutboundOrderHeader header = QOutboundOrderHeader.outboundOrderHeader;
-        QOutboundOrderDetail detail = QOutboundOrderDetail.outboundOrderDetail;
+        QShipmentOrderHeader header = QShipmentOrderHeader.shipmentOrderHeader;
+        QShipmentOrderDetail detail = QShipmentOrderDetail.shipmentOrderDetail;
         QOutboundCommand command = QOutboundCommand.outboundCommand;
         QInverseOrderDetail inverseDetail = QInverseOrderDetail.inverseOrderDetail;
 
@@ -598,19 +598,19 @@ public abstract class AbstractAllocator extends BusinessBase implements Allocato
                 header.eq(this.header),
                 detail.original.isTrue()
             )
-            .select(detail.goods, detail.planQuantity.subtract(detail.lessnessQuantity).sum())
-            .groupBy(detail.goods)
-            .orderBy(detail.goods.id.asc())
+            .select(detail.item, detail.planQuantity.subtract(detail.lessnessQuantity).sum())
+            .groupBy(detail.item)
+            .orderBy(detail.item.id.asc())
             .fetch();
 
         for (Tuple tuple : tuples) {
-            Goods goods = Optional.ofNullable(tuple.get(0, Goods.class)).orElse(new Goods());
+            Item item = Optional.ofNullable(tuple.get(0, Item.class)).orElse(new Item());
             BigDecimal orderQuantity = Optional.ofNullable(tuple.get(1, BigDecimal.class)).orElse(BigDecimal.ZERO);
 
             BigDecimal commandQuantity = Optional.ofNullable(this.commandService.getFactory().selectFrom(command)
                 .where(
                     command.header.eq(this.header),
-                    command.goods.eq(goods),
+                    command.item.eq(item),
                     command.commandType.in(CommandType.SALE_OUTBOUND, CommandType.PURCHASE_RETURN, CommandType.GIFT_OUTBOUND)
                 )
                 .select(command.creationQuantity.sum())
@@ -620,14 +620,14 @@ public abstract class AbstractAllocator extends BusinessBase implements Allocato
             BigDecimal inverseQuantity = Optional.ofNullable(this.inverseOrderService.getFactory().selectFrom(inverseDetail)
                 .where(
                     inverseDetail.header.eq(this.header),
-                    inverseDetail.goods.eq(goods)
+                    inverseDetail.item.eq(item)
                 )
                 .select(inverseDetail.quantity.sum())
                 .fetchOne()
             ).orElse(BigDecimal.ZERO);
 
             if (orderQuantity.compareTo(commandQuantity.add(inverseQuantity)) != 0) {
-                message.append(goods.toString() + "批号分配数据异常，订单数量【" + orderQuantity + "】、指令数量【" + commandQuantity + "】、冲红数量【" + inverseQuantity + "】，差异数量为【" + orderQuantity.subtract(commandQuantity).subtract(inverseQuantity) + "】");
+                message.append(item.toString() + "批号分配数据异常，订单数量【" + orderQuantity + "】、指令数量【" + commandQuantity + "】、冲红数量【" + inverseQuantity + "】，差异数量为【" + orderQuantity.subtract(commandQuantity).subtract(inverseQuantity) + "】");
             }
         }
 

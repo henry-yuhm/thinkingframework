@@ -26,13 +26,13 @@ public enum BillType {
             return "销售退回";
         }
     },
-    INITIATIVE_REPLENISHING(21) {
+    INITIATIVE_REPLENISHMENT(21) {
         @Override
         public String toString() {
             return "主动补货";
         }
     },
-    EMERGENCY_REPLENISHING(22) {
+    EMERGENCY_REPLENISHMENT(22) {
         @Override
         public String toString() {
             return "紧急补货";

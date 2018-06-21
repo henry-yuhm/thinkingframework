@@ -2,7 +2,7 @@ package org.thinking.logistics.services.core.service.inventory;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.thinking.logistics.services.core.domain.core.Goods;
+import org.thinking.logistics.services.core.domain.core.Item;
 import org.thinking.logistics.services.core.domain.core.Lot;
 import org.thinking.logistics.services.core.domain.inventory.LotInventory;
 import org.thinking.logistics.services.core.domain.inventory.QLotInventory;
@@ -21,18 +21,18 @@ public class LotInventoryService extends DomainService<QLotInventory, LotInvento
         super(entityManager, repository, QLotInventory.lotInventory);
     }
 
-    public final List<LotInventory> acquire(Goods goods) {
-        return this.acquire(goods, null, ValidPeriodType.ALL);
+    public final List<LotInventory> acquire(Item item) {
+        return this.acquire(item, null, ValidPeriodType.ALL);
     }
 
-    public final List<LotInventory> acquire(Goods goods, Lot lot) {
-        return this.acquire(goods, lot, ValidPeriodType.ALL);
+    public final List<LotInventory> acquire(Item item, Lot lot) {
+        return this.acquire(item, lot, ValidPeriodType.ALL);
     }
 
-    public final List<LotInventory> acquire(Goods goods, Lot lot, ValidPeriodType validPeriodType) {
+    public final List<LotInventory> acquire(Item item, Lot lot, ValidPeriodType validPeriodType) {
         return this.getFactory().selectFrom(this.getPath())
             .where(
-                this.getPath().goods.eq(goods),
+                this.getPath().item.eq(item),
                 lot == null ? this.getPath().lot.isNotNull() : this.getPath().lot.eq(lot),
                 validPeriodType == ValidPeriodType.ALL ? this.getPath().type.isNotNull() : this.getPath().type.eq(validPeriodType)
             )

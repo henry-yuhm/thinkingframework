@@ -4,7 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.thinking.logistics.services.core.domain.CompositeException;
-import org.thinking.logistics.services.core.domain.documents.OutboundOrderHeader;
+import org.thinking.logistics.services.core.domain.document.ShipmentOrderHeader;
 import org.thinking.logistics.services.core.domain.stagingarea.QStagingarea;
 import org.thinking.logistics.services.core.domain.stagingarea.Stagingarea;
 import org.thinking.logistics.services.core.domain.support.OutboundStage;
@@ -31,7 +31,7 @@ public class StagingareaService extends DomainService<QStagingarea, Stagingarea,
                 this.getPath().locking.isFalse(),
                 this.getPath().available.isTrue(),
                 this.getPath().billType.eq(stagingarea.getBillType()),
-                this.getPath().takegoodsMode.eq(stagingarea.getTakegoodsMode()),
+                this.getPath().pickupMode.eq(stagingarea.getPickupMode()),
                 this.getPath().owners.contains(stagingarea.getOwners().stream().findAny().get()),
                 this.getPath().direction.eq(stagingarea.getDirection()))
             .orderBy(this.getPath().no.asc())
@@ -49,7 +49,7 @@ public class StagingareaService extends DomainService<QStagingarea, Stagingarea,
                 this.getPath().locking.isFalse(),
                 this.getPath().available.isTrue(),
                 this.getPath().billType.eq(stagingarea.getBillType()),
-                this.getPath().takegoodsMode.eq(stagingarea.getTakegoodsMode()),
+                this.getPath().pickupMode.eq(stagingarea.getPickupMode()),
                 this.getPath().owners.contains(stagingarea.getOwners().stream().findAny().get()),
                 this.getPath().direction.eq(stagingarea.getDirection()))
             .orderBy(this.getPath().no.asc())
@@ -58,7 +58,7 @@ public class StagingareaService extends DomainService<QStagingarea, Stagingarea,
     }
 
     @Transactional(rollbackFor = Exception.class)
-    public void cleanup(final OutboundOrderHeader header) throws Exception {
+    public void cleanup(final ShipmentOrderHeader header) throws Exception {
         if (header.getStage().compareTo(OutboundStage.RECHECK_COMPLETE) < 0 && !header.isInversed()) {
             throw CompositeException.getException("单据任务未完成，不能清空月台", header, header.getOwner());
         }

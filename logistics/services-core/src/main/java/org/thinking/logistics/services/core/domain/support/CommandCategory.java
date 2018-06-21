@@ -32,13 +32,13 @@ public enum CommandCategory {
             return "普通出库";
         }
     },
-    PASSIVITY_REPLENISHING(6) {
+    PASSIVITY_REPLENISHMENT(6) {
         @Override
         public String toString() {
             return "被动补货";
         }
     },
-    INITIATIVE_REPLENISHING(7) {
+    INITIATIVE_REPLENISHMENT(7) {
         @Override
         public String toString() {
             return "主动补货";

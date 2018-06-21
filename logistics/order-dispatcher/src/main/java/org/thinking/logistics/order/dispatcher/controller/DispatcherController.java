@@ -3,7 +3,7 @@ package org.thinking.logistics.order.dispatcher.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.thinking.logistics.order.dispatcher.service.DispatcherService;
-import org.thinking.logistics.services.core.domain.documents.OutboundOrderHeader;
+import org.thinking.logistics.services.core.domain.document.ShipmentOrderHeader;
 import org.thinking.logistics.services.core.domain.employee.Employee;
 
 import java.util.List;
@@ -19,7 +19,7 @@ public class DispatcherController {
     }
 
     @PutMapping("/arrangeWave")
-    public void arrangeWave(@RequestParam Employee employee, @RequestBody List<OutboundOrderHeader> headers) throws Exception {
+    public void arrangeWave(@RequestParam Employee employee, @RequestBody List<ShipmentOrderHeader> headers) throws Exception {
         this.service.arrangeWave(employee, headers);
     }
 

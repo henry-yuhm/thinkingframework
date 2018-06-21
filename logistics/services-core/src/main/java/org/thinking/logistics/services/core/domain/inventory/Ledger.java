@@ -5,7 +5,7 @@ import lombok.EqualsAndHashCode;
 import org.thinking.logistics.services.core.domain.BaseDomainEntity;
 import org.thinking.logistics.services.core.domain.container.Pallet;
 import org.thinking.logistics.services.core.domain.core.*;
-import org.thinking.logistics.services.core.domain.documents.Header;
+import org.thinking.logistics.services.core.domain.document.Header;
 import org.thinking.logistics.services.core.domain.support.InventoryState;
 import org.thinking.logistics.services.core.domain.support.LedgerCategory;
 import org.thinking.logistics.services.core.domain.support.LedgerSummary;
@@ -37,7 +37,7 @@ public abstract class Ledger extends BaseDomainEntity {
     private Owner owner;//业主
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    private Goods goods;//商品
+    private Item item;//商品
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     private Lot lot;//批号

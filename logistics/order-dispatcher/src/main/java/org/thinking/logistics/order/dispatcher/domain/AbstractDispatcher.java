@@ -4,10 +4,10 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import org.thinking.logistics.services.core.domain.BusinessBase;
 import org.thinking.logistics.services.core.domain.CompositeException;
-import org.thinking.logistics.services.core.domain.documents.OutboundOrderHeader;
+import org.thinking.logistics.services.core.domain.document.ShipmentOrderHeader;
 import org.thinking.logistics.services.core.domain.employee.Employee;
 import org.thinking.logistics.services.core.domain.support.OutboundStage;
-import org.thinking.logistics.services.core.service.documents.OutboundOrderService;
+import org.thinking.logistics.services.core.service.document.ShipmentOrderService;
 
 import javax.annotation.Resource;
 import java.sql.Date;
@@ -17,19 +17,19 @@ import java.util.List;
 @Data
 @EqualsAndHashCode(callSuper = true)
 public abstract class AbstractDispatcher extends BusinessBase implements Dispatcher {
-    private OutboundOrderHeader header;
+    private ShipmentOrderHeader header;
 
-    private List<OutboundOrderHeader> headers;
+    private List<ShipmentOrderHeader> headers;
 
     @Resource
-    private OutboundOrderService orderService;
+    private ShipmentOrderService orderService;
 
-    public AbstractDispatcher(Employee operator, OutboundOrderHeader header) {
+    public AbstractDispatcher(Employee operator, ShipmentOrderHeader header) {
         super(operator);
         this.header = header;
     }
 
-    public AbstractDispatcher(Employee operator, List<OutboundOrderHeader> headers) {
+    public AbstractDispatcher(Employee operator, List<ShipmentOrderHeader> headers) {
         super(operator);
         this.headers = headers;
     }

@@ -3,8 +3,8 @@ package org.thinking.logistics.lot.allocation.domain;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import org.thinking.logistics.order.inversion.domain.SaleOutboundInverser;
-import org.thinking.logistics.services.core.domain.documents.OutboundOrderDetail;
-import org.thinking.logistics.services.core.domain.documents.OutboundOrderHeader;
+import org.thinking.logistics.services.core.domain.document.ShipmentOrderDetail;
+import org.thinking.logistics.services.core.domain.document.ShipmentOrderHeader;
 import org.thinking.logistics.services.core.domain.support.InverseStage;
 import org.thinking.logistics.services.core.domain.support.PackageType;
 import org.thinking.logistics.services.core.domain.support.StorageClassification;
@@ -18,7 +18,7 @@ import java.util.stream.Collectors;
 @Data
 @EqualsAndHashCode(callSuper = true)
 public class SuspendedOrderAllocator extends AbstractAllocator {
-    public SuspendedOrderAllocator(OutboundOrderHeader header) throws Exception {
+    public SuspendedOrderAllocator(ShipmentOrderHeader header) throws Exception {
         super(header);
     }
 
@@ -28,15 +28,15 @@ public class SuspendedOrderAllocator extends AbstractAllocator {
         this.verify();
 
         //获取原始行数据
-        List<OutboundOrderDetail> originalDetails = this.getHeader().getDetails().stream().filter(OutboundOrderDetail::isOriginal).sorted(Comparator.comparing(OutboundOrderDetail::getId)).collect(Collectors.toList());
+        List<ShipmentOrderDetail> originalDetails = this.getHeader().getDetails().stream().filter(ShipmentOrderDetail::isOriginal).sorted(Comparator.comparing(ShipmentOrderDetail::getId)).collect(Collectors.toList());
 
         //按原始行循环
-        for (OutboundOrderDetail originalDetail : originalDetails) {
+        for (ShipmentOrderDetail originalDetail : originalDetails) {
             //获取补发行数据
-            List<OutboundOrderDetail> unoriginalDetails = this.getHeader().getDetails().stream().filter(d -> d.getParent() == originalDetail && !d.isOriginal()).sorted(Comparator.comparing(OutboundOrderDetail::getId)).collect(Collectors.toList());
+            List<ShipmentOrderDetail> unoriginalDetails = this.getHeader().getDetails().stream().filter(d -> d.getParent() == originalDetail && !d.isOriginal()).sorted(Comparator.comparing(ShipmentOrderDetail::getId)).collect(Collectors.toList());
 
             //分配批号
-            for (OutboundOrderDetail unoriginalDetail : unoriginalDetails) {
+            for (ShipmentOrderDetail unoriginalDetail : unoriginalDetails) {
                 if (unoriginalDetail.getWholepiecesQuantity().compareTo(BigDecimal.ZERO) > 0) {
                     this.getLots().clear();
                     this.getLotInventories().clear();
@@ -68,7 +68,7 @@ public class SuspendedOrderAllocator extends AbstractAllocator {
                     this.acquireLotInventory(unoriginalDetail);
                     this.acquireLot(false);
 
-                    if (this.getAllocationQuantity().compareTo(BigDecimal.ZERO) > 0 && unoriginalDetail.getGoods().getStorageClassification() == StorageClassification.ALL) {
+                    if (this.getAllocationQuantity().compareTo(BigDecimal.ZERO) > 0 && unoriginalDetail.getItem().getStorageClassification() == StorageClassification.ALL) {
                         this.setAllocationQuantity(unoriginalDetail.getRemainderQuantity());
                         this.acquireLot(true);
                     }
@@ -82,7 +82,7 @@ public class SuspendedOrderAllocator extends AbstractAllocator {
             }
 
             //region 更新原始行
-            originalDetail.setFactQuantity(Optional.ofNullable(this.getHeader().getDetails().stream().filter(d -> d.getParent() == originalDetail && !d.isOriginal()).map(OutboundOrderDetail::getFactQuantity).reduce(BigDecimal.ZERO, BigDecimal::add)).orElse(BigDecimal.ZERO));
+            originalDetail.setFactQuantity(Optional.ofNullable(this.getHeader().getDetails().stream().filter(d -> d.getParent() == originalDetail && !d.isOriginal()).map(ShipmentOrderDetail::getFactQuantity).reduce(BigDecimal.ZERO, BigDecimal::add)).orElse(BigDecimal.ZERO));
             originalDetail.setWholepiecesQuantity(BigDecimal.ZERO);
             originalDetail.setRemainderQuantity(BigDecimal.ZERO);
             originalDetail.setLessnessQuantity(BigDecimal.ZERO);

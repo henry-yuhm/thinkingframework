@@ -14,7 +14,7 @@ public enum BarcodeType {
             return "出库";
         }
     },
-    REPLENISHING(3) {
+    REPLENISHMENT(3) {
         @Override
         public String toString() {
             return "补货";

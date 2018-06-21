@@ -26,7 +26,7 @@ public enum CommandType {
             return "销售退回";
         }
     },
-    REPLENISHING(5) {
+    REPLENISHMENT(5) {
         @Override
         public String toString() {
             return "补货";

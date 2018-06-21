@@ -18,7 +18,7 @@ public class Lot extends BaseDomainEntity {
     private Owner owner;//业主
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    private Goods goods;//商品
+    private Item item;//商品
 
     @Column(nullable = false)
     private String no;//编码

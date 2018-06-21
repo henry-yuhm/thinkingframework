@@ -3,7 +3,7 @@ package org.thinking.logistics.services.core.domain.command;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import org.thinking.logistics.services.core.domain.BaseDomainEntity;
-import org.thinking.logistics.services.core.domain.core.Goods;
+import org.thinking.logistics.services.core.domain.core.Item;
 import org.thinking.logistics.services.core.domain.core.Warehouse;
 import org.thinking.logistics.services.core.domain.support.*;
 
@@ -20,7 +20,7 @@ public abstract class Command extends BaseDomainEntity {
     private Warehouse warehouse;//仓库
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    private Goods goods;//商品
+    private Item item;//商品
 
     @Column(nullable = false)
     private PackageType packageType;//包装类型

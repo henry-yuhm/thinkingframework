@@ -3,7 +3,7 @@ package org.thinking.logistics.services.core.service.inventory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.thinking.logistics.services.core.domain.documents.Header;
+import org.thinking.logistics.services.core.domain.document.Header;
 import org.thinking.logistics.services.core.domain.inventory.Inventory;
 import org.thinking.logistics.services.core.domain.inventory.Ledger;
 import org.thinking.logistics.services.core.domain.inventory.QLedger;
@@ -36,7 +36,7 @@ public class LedgerService<L extends Ledger, H extends Header> extends DomainSer
         ledger.setCategory(category);
         ledger.setHeader(header);
         ledger.setOwner(inventory.getOwner());
-        ledger.setGoods(inventory.getGoods());
+        ledger.setItem(inventory.getItem());
         ledger.setLot(inventory.getLot());
         ledger.setLocation(inventory.getLocation());
         ledger.setInventoryState(inventory.getInventoryState());
@@ -51,7 +51,7 @@ public class LedgerService<L extends Ledger, H extends Header> extends DomainSer
         ledger.setTransitionalQuantity(inventory.getTransitionalQuantity());
         ledger.setLockingQuantity(inventory.getLockingQuantity());
         ledger.setBalance(inventory.getQuantity());
-        ledger.setGrossBalance(this.inventoryService.acquire(inventory.getWarehouse(), inventory.getGoods()));
+        ledger.setGrossBalance(this.inventoryService.acquire(inventory.getWarehouse(), inventory.getItem()));
 
         this.getRepository().save(ledger);
     }

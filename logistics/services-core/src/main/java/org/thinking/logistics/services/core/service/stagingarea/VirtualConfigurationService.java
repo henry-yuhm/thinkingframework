@@ -3,7 +3,7 @@ package org.thinking.logistics.services.core.service.stagingarea;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.thinking.logistics.services.core.domain.core.Direction;
-import org.thinking.logistics.services.core.domain.documents.OutboundOrderHeader;
+import org.thinking.logistics.services.core.domain.document.ShipmentOrderHeader;
 import org.thinking.logistics.services.core.domain.stagingarea.QVirtualConfiguration;
 import org.thinking.logistics.services.core.domain.stagingarea.VirtualConfiguration;
 import org.thinking.logistics.services.core.domain.support.StagingareaCategory;
@@ -19,21 +19,21 @@ public class VirtualConfigurationService extends DomainService<QVirtualConfigura
         super(entityManager, repository, QVirtualConfiguration.virtualConfiguration);
     }
 
-    public final VirtualConfiguration acquire(OutboundOrderHeader header, StagingareaCategory stagingareaCategory, Direction direction) throws Exception {
+    public final VirtualConfiguration acquire(ShipmentOrderHeader header, StagingareaCategory stagingareaCategory, Direction direction) throws Exception {
         VirtualConfiguration configuration = this.getFactory().selectFrom(this.getPath())
             .where(
                 this.getPath().warehouse.eq(header.getWarehouse()),
                 this.getPath().owner.isNull().or(this.getPath().owner.eq(header.getOwner())),
                 this.getPath().available.eq(true),
                 this.getPath().billCategory.isNull().or(this.getPath().billCategory.eq(header.getCategory())),
-                this.getPath().takegoodsMode.isNull().or(this.getPath().takegoodsMode.eq(header.getTakegoodsMode())),
+                this.getPath().pickupMode.isNull().or(this.getPath().pickupMode.eq(header.getPickupMode())),
                 this.getPath().saleType.isNull().or(this.getPath().saleType.eq(header.getSaleType())),
                 this.getPath().stagingareaCategory.isNull().or(this.getPath().stagingareaCategory.eq(stagingareaCategory)),
                 this.getPath().direction.isNull().or(this.getPath().direction.eq(direction)))
             .orderBy(
                 this.getPath().owner.when(header.getOwner()).then(0).otherwise(1).asc(),
                 this.getPath().billCategory.desc(),
-                this.getPath().takegoodsMode.desc(),
+                this.getPath().pickupMode.desc(),
                 this.getPath().direction.no.desc())
             .fetchFirst();
 

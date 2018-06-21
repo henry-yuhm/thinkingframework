@@ -5,13 +5,13 @@ import lombok.EqualsAndHashCode;
 import org.thinking.logistics.services.core.domain.BusinessBase;
 import org.thinking.logistics.services.core.domain.CompositeException;
 import org.thinking.logistics.services.core.domain.core.Direction;
-import org.thinking.logistics.services.core.domain.documents.OutboundOrderDetail;
-import org.thinking.logistics.services.core.domain.documents.OutboundOrderHeader;
+import org.thinking.logistics.services.core.domain.document.ShipmentOrderDetail;
+import org.thinking.logistics.services.core.domain.document.ShipmentOrderHeader;
 import org.thinking.logistics.services.core.domain.stagingarea.Stagingarea;
 import org.thinking.logistics.services.core.domain.stagingarea.StagingareaConfiguration;
 import org.thinking.logistics.services.core.domain.stagingarea.VirtualConfiguration;
 import org.thinking.logistics.services.core.domain.support.*;
-import org.thinking.logistics.services.core.service.documents.OutboundOrderService;
+import org.thinking.logistics.services.core.service.document.ShipmentOrderService;
 import org.thinking.logistics.services.core.service.stagingarea.PhysicalConfigurationService;
 import org.thinking.logistics.services.core.service.stagingarea.StagingareaConfigurationService;
 import org.thinking.logistics.services.core.service.stagingarea.StagingareaService;
@@ -27,7 +27,7 @@ import java.util.Optional;
 @Data
 @EqualsAndHashCode(callSuper = true)
 public abstract class AbstractAllocator extends BusinessBase implements Allocator {
-    private OutboundOrderHeader header;
+    private ShipmentOrderHeader header;
 
     private StagingareaConfiguration configuration;
 
@@ -40,7 +40,7 @@ public abstract class AbstractAllocator extends BusinessBase implements Allocato
     private int quantity = 0;
 
     @Resource
-    private OutboundOrderService orderService;
+    private ShipmentOrderService orderService;
 
     @Resource
     private StagingareaService stagingareaService;
@@ -54,11 +54,11 @@ public abstract class AbstractAllocator extends BusinessBase implements Allocato
     @Resource
     private VirtualConfigurationService virtualConfigurationService;
 
-    AbstractAllocator(OutboundOrderHeader header) {
+    AbstractAllocator(ShipmentOrderHeader header) {
         this(header, false);
     }
 
-    AbstractAllocator(OutboundOrderHeader header, boolean trial) {
+    AbstractAllocator(ShipmentOrderHeader header, boolean trial) {
         this.header = header;
         this.trial = trial;
     }
@@ -81,15 +81,15 @@ public abstract class AbstractAllocator extends BusinessBase implements Allocato
             throw CompositeException.getException("月台已经分配", this.header, this.header.getOwner());
         }
 
-        for (OutboundOrderDetail detail : this.header.getDetails()) {
+        for (ShipmentOrderDetail detail : this.header.getDetails()) {
             //校验包装数
-            if (Optional.of(detail.getGoods().getLargePackageQuantity()).orElse(BigDecimal.ZERO).compareTo(BigDecimal.ZERO) == 0) {
-                throw CompositeException.getException("商品大包装数未设定", this.header, this.header.getOwner(), detail.getGoods());
+            if (Optional.of(detail.getItem().getLargePackageQuantity()).orElse(BigDecimal.ZERO).compareTo(BigDecimal.ZERO) == 0) {
+                throw CompositeException.getException("商品大包装数未设定", this.header, this.header.getOwner(), detail.getItem());
             }
 
             //校验长宽高
-            if (Optional.of(detail.getGoods().getLargePackageVolume()).orElse(BigDecimal.ZERO).compareTo(BigDecimal.ZERO) == 0) {
-                throw CompositeException.getException("商品长宽高未设定", this.header, this.header.getOwner(), detail.getGoods());
+            if (Optional.of(detail.getItem().getLargePackageVolume()).orElse(BigDecimal.ZERO).compareTo(BigDecimal.ZERO) == 0) {
+                throw CompositeException.getException("商品长宽高未设定", this.header, this.header.getOwner(), detail.getItem());
             }
         }
     }
@@ -127,7 +127,7 @@ public abstract class AbstractAllocator extends BusinessBase implements Allocato
         BigDecimal largeQuantity = this.getDecimalParameter(this.header.getWarehouse(), "大型月台暂存区件数");
 
         if (this.configuration.getAllocationMode() == StagingareaAllocationMode.VOLUMETRIC) {
-            BigDecimal volume = this.header.getDetails().stream().map(detail -> detail.getFactQuantity().multiply(detail.getGoods().getSmallPackageVolume())).reduce(BigDecimal::multiply).get();
+            BigDecimal volume = this.header.getDetails().stream().map(detail -> detail.getFactQuantity().multiply(detail.getItem().getSmallPackageVolume())).reduce(BigDecimal::multiply).get();
 
             //中药单据体积不能过大
             if (this.header.getCategory() == BillCategory.TRADITIONAL_CHINESE_MEDICINE) {
@@ -164,7 +164,7 @@ public abstract class AbstractAllocator extends BusinessBase implements Allocato
     public void acquireAvailableArea() throws Exception {
         if (this.stagingarea.getType() == StagingareaType.NORMAL) {
             this.stagingarea.setBillType(this.header.getType());
-            this.stagingarea.setTakegoodsMode(this.header.getTakegoodsMode() == TakegoodsMode.GREEN_CHANNEL ? TakegoodsMode.SELF_SERVICE : this.header.getTakegoodsMode());
+            this.stagingarea.setPickupMode(this.header.getPickupMode() == PickupMode.GREEN_CHANNEL ? PickupMode.SELF_SERVICE : this.header.getPickupMode());
             this.stagingarea.setDirection(this.header.getAddress().getDirection());
 
             List<String> numbers = this.stagingareaService.acquireAvailableArea(this.stagingarea);

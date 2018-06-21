@@ -8,7 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.thinking.logistics.services.core.domain.command.QPilerCommand;
-import org.thinking.logistics.services.core.domain.core.Goods;
+import org.thinking.logistics.services.core.domain.core.Item;
 import org.thinking.logistics.services.core.domain.core.Location;
 import org.thinking.logistics.services.core.domain.core.Lot;
 import org.thinking.logistics.services.core.domain.core.Warehouse;
@@ -42,11 +42,11 @@ public class InventoryService extends DomainService<QInventory, Inventory, Long>
         this.palletService = palletService;
     }
 
-    public final Inventory acquire(Warehouse warehouse, Goods goods, Lot lot, Location location, InventoryState inventoryState) {
+    public final Inventory acquire(Warehouse warehouse, Item item, Lot lot, Location location, InventoryState inventoryState) {
         return this.getFactory().selectFrom(this.getPath())
             .where(
                 this.getPath().warehouse.eq(warehouse),
-                this.getPath().goods.eq(goods),
+                this.getPath().item.eq(item),
                 this.getPath().lot.eq(lot),
                 this.getPath().location.eq(location),
                 this.getPath().inventoryState.eq(inventoryState)
@@ -55,7 +55,7 @@ public class InventoryService extends DomainService<QInventory, Inventory, Long>
             .fetchOne();
     }
 
-    public final Object acquire(Warehouse warehouse, Goods goods, Lot lot, int lotNumbers, ValidPeriodType validPeriodType) {
+    public final Object acquire(Warehouse warehouse, Item item, Lot lot, int lotNumbers, ValidPeriodType validPeriodType) {
         EnumExpression<ValidPeriodType> type = this.getPath()
             .when(JPAExpressions.selectFrom(this.getPath())
                 .where(this.getPath().location.type.eq(LocationType.NORMAL)))
@@ -66,8 +66,8 @@ public class InventoryService extends DomainService<QInventory, Inventory, Long>
             .when(JPAExpressions.selectFrom(this.getPath())
                 .where(
                     this.getPath().location.packageType.eq(PackageType.REMAINDER),
-                    this.getPath().goods.splittingGranularity.eq(SplittingGranularity.MEDIUM_PACKAGE)))
-            .then(this.getPath().availableOutboundQuantity.divide(this.getPath().goods.mediumPackageQuantity).floor().multiply(this.getPath().goods.mediumPackageQuantity))
+                    this.getPath().item.splittingGranularity.eq(SplittingGranularity.MEDIUM_PACKAGE)))
+            .then(this.getPath().availableOutboundQuantity.divide(this.getPath().item.mediumPackageQuantity).floor().multiply(this.getPath().item.mediumPackageQuantity))
             .otherwise(this.getPath().availableOutboundQuantity);
 
         NumberExpression<BigDecimal> palletInventory = this.getPath()
@@ -90,8 +90,8 @@ public class InventoryService extends DomainService<QInventory, Inventory, Long>
             .when(JPAExpressions.selectFrom(this.getPath())
                 .where(
                     this.getPath().location.packageType.eq(PackageType.REMAINDER),
-                    this.getPath().goods.splittingGranularity.eq(SplittingGranularity.MEDIUM_PACKAGE)))
-            .then(this.getPath().availableOutboundQuantity.divide(this.getPath().goods.mediumPackageQuantity).floor().multiply(this.getPath().goods.mediumPackageQuantity))
+                    this.getPath().item.splittingGranularity.eq(SplittingGranularity.MEDIUM_PACKAGE)))
+            .then(this.getPath().availableOutboundQuantity.divide(this.getPath().item.mediumPackageQuantity).floor().multiply(this.getPath().item.mediumPackageQuantity))
             .otherwise(this.getPath().availableOutboundQuantity);
 
         NumberExpression<BigDecimal> intransitInventory = this.getPath()
@@ -105,11 +105,11 @@ public class InventoryService extends DomainService<QInventory, Inventory, Long>
         return this.getFactory().selectFrom(this.getPath())
             .where(
                 this.getPath().warehouse.eq(warehouse),
-                this.getPath().goods.eq(goods),
+                this.getPath().item.eq(item),
                 lotNumbers == 0 ? this.getPath().lot.eq(lot) : this.getPath().lot.isNotNull()
             )
             .select(
-                this.getPath().goods,
+                this.getPath().item,
                 this.getPath().lot,
                 type,
                 availableInventory.sum(),
@@ -119,7 +119,7 @@ public class InventoryService extends DomainService<QInventory, Inventory, Long>
                 intransitInventory.sum()
             )
             .groupBy(
-                this.getPath().goods,
+                this.getPath().item,
                 this.getPath().lot,
                 type
             )
@@ -136,7 +136,7 @@ public class InventoryService extends DomainService<QInventory, Inventory, Long>
             .stream()
             .map(tuple -> {
                 Map<String, Object> map = new LinkedHashMap<>();
-                map.put("goods", tuple.get(this.getPath().goods));
+                map.put("item", tuple.get(this.getPath().item));
                 map.put("lot", tuple.get(this.getPath().lot));
                 map.put("type", tuple.get(type));
                 map.put("availableInventory", tuple.get(availableInventory.sum()));
@@ -149,11 +149,11 @@ public class InventoryService extends DomainService<QInventory, Inventory, Long>
             .collect(Collectors.toList());
     }
 
-    public final List<Inventory> acquire(Warehouse warehouse, Goods goods, Lot lot) {
+    public final List<Inventory> acquire(Warehouse warehouse, Item item, Lot lot) {
         return this.getFactory().selectFrom(this.getPath())
             .where(
                 this.getPath().warehouse.eq(warehouse),
-                this.getPath().goods.eq(goods),
+                this.getPath().item.eq(item),
                 this.getPath().lot.eq(lot),
                 this.getPath().transitionalQuantity.gt(0))
             .orderBy(this.getPath().transitionalQuantity.asc())
@@ -161,11 +161,11 @@ public class InventoryService extends DomainService<QInventory, Inventory, Long>
             .fetch();
     }
 
-    public final List<Inventory> acquire(Warehouse warehouse, Goods goods, Lot lot, InventoryState inventoryState, String storeCategory, String storeNo, BigDecimal quantity) {
+    public final List<Inventory> acquire(Warehouse warehouse, Item item, Lot lot, InventoryState inventoryState, String storeCategory, String storeNo, BigDecimal quantity) {
         return this.getFactory().selectFrom(this.getPath())
             .where(
                 this.getPath().warehouse.eq(warehouse),
-                this.getPath().goods.eq(goods),
+                this.getPath().item.eq(item),
                 this.getPath().lot.eq(lot),
                 this.getPath().inventoryState.eq(inventoryState),
                 this.getPath().location.area.storeCategory.eq(storeCategory),
@@ -184,11 +184,11 @@ public class InventoryService extends DomainService<QInventory, Inventory, Long>
             .fetch();
     }
 
-    public final BigDecimal acquire(Warehouse warehouse, Goods goods) {
+    public final BigDecimal acquire(Warehouse warehouse, Item item) {
         return this.getFactory().selectFrom(this.getPath())
             .where(
                 this.getPath().warehouse.eq(warehouse),
-                this.getPath().goods.eq(goods)
+                this.getPath().item.eq(item)
             )
             .select(this.getPath().quantity.sum())
             .fetchOne();
@@ -250,21 +250,21 @@ public class InventoryService extends DomainService<QInventory, Inventory, Long>
                     .add(this.getPath().replenishedToQuantity)
                     .add(this.getPath().transferredToQuantity)
                 )
-                    .multiply(this.getPath().goods.smallPackageVolume)
-                    .multiply(this.getPath().goods.volumeRatio)
+                .multiply(this.getPath().item.smallPackageVolume)
+                .multiply(this.getPath().item.volumeRatio)
                 )
                     .sum()
             )
             .fetchOne();
 
-        inventory.getLocation().setOccupationVolume(inventory.getLocation().getOccupationVolume().add(quantity.multiply(inventory.getGoods().getSmallPackageVolume()).multiply(inventory.getGoods().getVolumeRatio())));
+        inventory.getLocation().setOccupationVolume(inventory.getLocation().getOccupationVolume().add(quantity.multiply(inventory.getItem().getSmallPackageVolume()).multiply(inventory.getItem().getVolumeRatio())));
 
         if (inventory.getLocation().getOccupationVolume().compareTo(BigDecimal.ZERO) < 0) {
             inventory.getLocation().setOccupationVolume(BigDecimal.ZERO);
         }
 
         if (inventory.getLocation().getRackType() == RackType.FLUENCY) {
-            inventory.getLocation().setOccupationVolume(inventory.getLocation().getOccupationVolume().divide(inventory.getGoods().getSmallPackageVolume(), RoundingMode.CEILING).multiply(inventory.getGoods().getSmallPackageVolume()).multiply(inventory.getGoods().getVolumeRatio()));
+            inventory.getLocation().setOccupationVolume(inventory.getLocation().getOccupationVolume().divide(inventory.getItem().getSmallPackageVolume(), RoundingMode.CEILING).multiply(inventory.getItem().getSmallPackageVolume()).multiply(inventory.getItem().getVolumeRatio()));
         }
 
         this.locationService.getRepository().save(inventory.getLocation());
@@ -333,7 +333,7 @@ public class InventoryService extends DomainService<QInventory, Inventory, Long>
             .where(
                 this.getPath().warehouse.eq(inventory.getWarehouse()),
                 this.getPath().owner.eq(inventory.getOwner()),
-                this.getPath().goods.eq(inventory.getGoods()),
+                this.getPath().item.eq(inventory.getItem()),
                 this.getPath().lot.eq(inventory.getLot()),
                 this.getPath().location.eq(inventory.getLocation()),
                 this.getPath().inventoryState.eq(inventory.getInventoryState()),

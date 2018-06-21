@@ -14,25 +14,25 @@ public enum CommandStage {
             return "可以作业";
         }
     },
-    REPLENISHING_DOWNSHELF_OBTAIN(21) {
+    REPLENISHMENT_DOWNSHELF_OBTAIN(21) {
         @Override
         public String toString() {
             return "补货下架索取";
         }
     },
-    REPLENISHING_DOWNSHELF_CONFIRM(22) {
+    REPLENISHMENT_DOWNSHELF_CONFIRM(22) {
         @Override
         public String toString() {
             return "补货下架确认";
         }
     },
-    REPLENISHING_UPSHELF_OBTAIN(23) {
+    REPLENISHMENT_UPSHELF_OBTAIN(23) {
         @Override
         public String toString() {
             return "补货上架索取";
         }
     },
-    REPLENISHING_UPSHELF_CONFIRM(24) {
+    REPLENISHMENT_UPSHELF_CONFIRM(24) {
         @Override
         public String toString() {
             return "补货上架确认";
@@ -68,7 +68,7 @@ public enum CommandStage {
             return "内复核任务索取";
         }
     },
-    INNER_RECHECK_GOODSOBTAIN(36) {
+    INNER_RECHECK_ITEMOBTAIN(36) {
         @Override
         public String toString() {
             return "内复核商品索取";

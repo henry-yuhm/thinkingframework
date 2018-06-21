@@ -50,7 +50,7 @@ public enum OutboundPriority {
             return "自提转配送";
         }
     },
-    PASSIVITY_REPLENISHING(35) {
+    PASSIVITY_REPLENISHMENT(35) {
         @Override
         public String toString() {
             return "被动补货";
@@ -86,7 +86,7 @@ public enum OutboundPriority {
             return "连锁";
         }
     },
-    INITIATIVE_REPLENISHING(65) {
+    INITIATIVE_REPLENISHMENT(65) {
         @Override
         public String toString() {
             return "主动补货";

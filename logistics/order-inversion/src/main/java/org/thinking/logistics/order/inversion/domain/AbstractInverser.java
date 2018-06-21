@@ -4,14 +4,14 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import org.thinking.logistics.services.core.domain.BusinessBase;
 import org.thinking.logistics.services.core.domain.CompositeException;
-import org.thinking.logistics.services.core.domain.documents.InverseOrderDetail;
-import org.thinking.logistics.services.core.domain.documents.OutboundOrderDetail;
-import org.thinking.logistics.services.core.domain.documents.OutboundOrderHeader;
+import org.thinking.logistics.services.core.domain.document.InverseOrderDetail;
+import org.thinking.logistics.services.core.domain.document.ShipmentOrderDetail;
+import org.thinking.logistics.services.core.domain.document.ShipmentOrderHeader;
 import org.thinking.logistics.services.core.domain.employee.Employee;
 import org.thinking.logistics.services.core.domain.support.InverseStage;
 import org.thinking.logistics.services.core.domain.support.OutboundStage;
-import org.thinking.logistics.services.core.service.documents.InverseOrderService;
-import org.thinking.logistics.services.core.service.documents.OutboundOrderService;
+import org.thinking.logistics.services.core.service.document.InverseOrderService;
+import org.thinking.logistics.services.core.service.document.ShipmentOrderService;
 import org.thinking.logistics.services.core.service.stagingarea.StagingareaService;
 
 import javax.annotation.Resource;
@@ -23,12 +23,12 @@ import java.util.List;
 @Data
 @EqualsAndHashCode(callSuper = true)
 public abstract class AbstractInverser extends BusinessBase implements Inverser {
-    private OutboundOrderHeader header;
+    private ShipmentOrderHeader header;
 
     private InverseStage stage;
 
     @Resource
-    private OutboundOrderService orderService;
+    private ShipmentOrderService orderService;
 
     @Resource
     private InverseOrderService inverseOrderService;
@@ -36,14 +36,14 @@ public abstract class AbstractInverser extends BusinessBase implements Inverser 
     @Resource
     private StagingareaService stagingareaService;
 
-    public AbstractInverser(Employee operator, OutboundOrderHeader header, InverseStage stage) {
+    public AbstractInverser(Employee operator, ShipmentOrderHeader header, InverseStage stage) {
         super(operator);
         this.header = header;
         this.stage = stage;
     }
 
     @Override
-    public void inverse(OutboundOrderDetail detail) {
+    public void inverse(ShipmentOrderDetail detail) {
         InverseOrderDetail inverseOrderDetail = this.inverseOrderService.acquire(detail.getWarehouse(), detail, this.stage);
 
         if (inverseOrderDetail == null) {
@@ -55,7 +55,7 @@ public abstract class AbstractInverser extends BusinessBase implements Inverser 
             }
 
             inverseOrderDetail.setWarehouse(detail.getWarehouse());
-            inverseOrderDetail.setGoods(detail.getGoods());
+            inverseOrderDetail.setItem(detail.getItem());
             inverseOrderDetail.setLot(detail.getLot());
             inverseOrderDetail.setHeader(this.header);
             inverseOrderDetail.setDetail(detail);
@@ -69,7 +69,7 @@ public abstract class AbstractInverser extends BusinessBase implements Inverser 
     }
 
     @Override
-    public void calculateQuantity(InverseOrderDetail inverseOrderDetail, OutboundOrderDetail detail) {
+    public void calculateQuantity(InverseOrderDetail inverseOrderDetail, ShipmentOrderDetail detail) {
         if (this.stage == InverseStage.DISPATCHING || this.stage == InverseStage.EXECUTING) {
             inverseOrderDetail.setQuantity(detail.getPlanQuantity().subtract(detail.getFactQuantity()));
         } else if (this.stage == InverseStage.SUSPENDING) {

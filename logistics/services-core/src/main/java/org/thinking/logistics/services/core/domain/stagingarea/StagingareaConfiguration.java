@@ -6,14 +6,14 @@ import lombok.NoArgsConstructor;
 import org.thinking.logistics.services.core.domain.BaseDomainEntity;
 import org.thinking.logistics.services.core.domain.core.Owner;
 import org.thinking.logistics.services.core.domain.core.Warehouse;
+import org.thinking.logistics.services.core.domain.support.PickupMode;
 import org.thinking.logistics.services.core.domain.support.StagingareaAllocationMode;
-import org.thinking.logistics.services.core.domain.support.TakegoodsMode;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
 
 @Entity
-@Table(uniqueConstraints = @UniqueConstraint(name = "uk_sga_cfg", columnNames = {"warehouse_id", "owner_id", "takegoodsMode"}))
+@Table(uniqueConstraints = @UniqueConstraint(name = "uk_sga_cfg", columnNames = {"warehouse_id", "owner_id", "pickupMode"}))
 @Data
 @EqualsAndHashCode(callSuper = true)
 @NoArgsConstructor
@@ -25,7 +25,7 @@ public class StagingareaConfiguration extends BaseDomainEntity {
     private Owner owner;//业主
 
     @Column(nullable = false)
-    private TakegoodsMode takegoodsMode;//提货方式
+    private PickupMode pickupMode;//提货方式
 
     @Column(nullable = false)
     private StagingareaAllocationMode allocationMode;//分配方式

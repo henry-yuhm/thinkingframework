@@ -2,8 +2,8 @@ package org.thinking.logistics.order.inversion.domain;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import org.thinking.logistics.services.core.domain.documents.OutboundOrderDetail;
-import org.thinking.logistics.services.core.domain.documents.OutboundOrderHeader;
+import org.thinking.logistics.services.core.domain.document.ShipmentOrderDetail;
+import org.thinking.logistics.services.core.domain.document.ShipmentOrderHeader;
 import org.thinking.logistics.services.core.domain.employee.Employee;
 import org.thinking.logistics.services.core.domain.support.InverseStage;
 import org.thinking.logistics.services.core.domain.support.OutboundStage;
@@ -16,13 +16,13 @@ import java.util.stream.Collectors;
 @Data
 @EqualsAndHashCode(callSuper = true)
 public class PurchaseReturnInverser extends AbstractInverser {
-    public PurchaseReturnInverser(Employee operator, OutboundOrderHeader header, InverseStage stage) {
+    public PurchaseReturnInverser(Employee operator, ShipmentOrderHeader header, InverseStage stage) {
         super(operator, header, stage);
     }
 
     @Override
     public void inverse() {
-        List<OutboundOrderDetail> details = this.getHeader().getDetails()
+        List<ShipmentOrderDetail> details = this.getHeader().getDetails()
             .stream()
             .filter(detail -> detail.getPlanQuantity().compareTo(detail.getFactQuantity()) != 0)
             .collect(Collectors.toList());

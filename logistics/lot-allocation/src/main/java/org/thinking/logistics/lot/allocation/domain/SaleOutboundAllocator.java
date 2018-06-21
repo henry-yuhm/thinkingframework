@@ -3,8 +3,8 @@ package org.thinking.logistics.lot.allocation.domain;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import org.thinking.logistics.services.core.domain.CompositeException;
-import org.thinking.logistics.services.core.domain.documents.OutboundOrderDetail;
-import org.thinking.logistics.services.core.domain.documents.OutboundOrderHeader;
+import org.thinking.logistics.services.core.domain.document.ShipmentOrderDetail;
+import org.thinking.logistics.services.core.domain.document.ShipmentOrderHeader;
 import org.thinking.logistics.services.core.domain.support.PackageType;
 import org.thinking.logistics.services.core.domain.support.StorageClassification;
 
@@ -16,7 +16,7 @@ import java.util.stream.Collectors;
 @Data
 @EqualsAndHashCode(callSuper = true)
 public class SaleOutboundAllocator extends AbstractAllocator {
-    public SaleOutboundAllocator(OutboundOrderHeader header) throws Exception {
+    public SaleOutboundAllocator(ShipmentOrderHeader header) throws Exception {
         super(header);
     }
 
@@ -26,13 +26,13 @@ public class SaleOutboundAllocator extends AbstractAllocator {
         this.verify();
 
         //获取原始行数据
-        List<OutboundOrderDetail> details = this.getHeader().getDetails().stream().filter(OutboundOrderDetail::isOriginal).sorted(Comparator.comparing(OutboundOrderDetail::getId)).collect(Collectors.toList());
+        List<ShipmentOrderDetail> details = this.getHeader().getDetails().stream().filter(ShipmentOrderDetail::isOriginal).sorted(Comparator.comparing(ShipmentOrderDetail::getId)).collect(Collectors.toList());
         if (details == null || details.size() == 0) {
             throw CompositeException.getException("单据无明细，不能分配批号", this.getHeader(), this.getHeader().getOwner());
         }
 
         //分配批号
-        for (OutboundOrderDetail detail : details) {
+        for (ShipmentOrderDetail detail : details) {
             this.initialize(detail);
 
             if (detail.getWholepiecesQuantity().compareTo(BigDecimal.ZERO) > 0) {
@@ -66,7 +66,7 @@ public class SaleOutboundAllocator extends AbstractAllocator {
                 this.acquireLotInventory(detail);
                 this.acquireLot(false);
 
-                if (this.getAllocationQuantity().compareTo(BigDecimal.ZERO) > 0 && detail.getGoods().getStorageClassification() == StorageClassification.ALL) {
+                if (this.getAllocationQuantity().compareTo(BigDecimal.ZERO) > 0 && detail.getItem().getStorageClassification() == StorageClassification.ALL) {
                     this.setAllocationQuantity(detail.getRemainderQuantity());
                     this.acquireLot(true);
                 }

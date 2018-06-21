@@ -2,8 +2,8 @@ package org.thinking.logistics.services.core.domain.command;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import org.thinking.logistics.services.core.domain.documents.InboundOrderDetail;
-import org.thinking.logistics.services.core.domain.documents.InboundOrderHeader;
+import org.thinking.logistics.services.core.domain.document.InboundOrderDetail;
+import org.thinking.logistics.services.core.domain.document.InboundOrderHeader;
 
 import javax.persistence.Entity;
 import javax.persistence.FetchType;

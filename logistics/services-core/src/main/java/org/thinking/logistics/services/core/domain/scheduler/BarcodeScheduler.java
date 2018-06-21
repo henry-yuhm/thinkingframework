@@ -3,7 +3,7 @@ package org.thinking.logistics.services.core.domain.scheduler;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import org.thinking.logistics.services.core.domain.barcode.OutboundBarcode;
-import org.thinking.logistics.services.core.domain.barcode.ReplenishingBarcode;
+import org.thinking.logistics.services.core.domain.barcode.ReplenishmentBarcode;
 
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -17,5 +17,5 @@ public class BarcodeScheduler extends Scheduler {
     private OutboundBarcode outboundBarcode;//出库条码
 
     @OneToOne(fetch = FetchType.LAZY)
-    private ReplenishingBarcode replenishingBarcode;//补货条码
+    private ReplenishmentBarcode replenishmentBarcode;//补货条码
 }

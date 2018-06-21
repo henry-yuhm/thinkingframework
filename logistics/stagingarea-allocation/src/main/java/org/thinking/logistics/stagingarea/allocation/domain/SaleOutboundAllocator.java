@@ -3,12 +3,12 @@ package org.thinking.logistics.stagingarea.allocation.domain;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import org.thinking.logistics.services.core.domain.CompositeException;
-import org.thinking.logistics.services.core.domain.documents.OutboundOrderHeader;
+import org.thinking.logistics.services.core.domain.document.ShipmentOrderHeader;
 
 @Data
 @EqualsAndHashCode(callSuper = true)
 public class SaleOutboundAllocator extends AbstractAllocator {
-    public SaleOutboundAllocator(OutboundOrderHeader header) {
+    public SaleOutboundAllocator(ShipmentOrderHeader header) {
         super(header);
     }
 
@@ -29,7 +29,7 @@ public class SaleOutboundAllocator extends AbstractAllocator {
         super.acquireAvailableArea();
 
         if (this.getStagingareas().size() == 0) {
-            throw CompositeException.getException("需【" + this.getQuantity() + "】个、类型【" + this.getStagingarea().getType().name() + "】、类别【" + this.getStagingarea().getCategory().name() + "】、提货方式【" + this.getStagingarea().getTakegoodsMode().name() + "】、配送方向【" + this.getStagingarea().getDirection().getName() + "】", this.getHeader(), this.getHeader().getOwner(), this.getHeader().getCustomer());
+            throw CompositeException.getException("需【" + this.getQuantity() + "】个、类型【" + this.getStagingarea().getType().name() + "】、类别【" + this.getStagingarea().getCategory().name() + "】、提货方式【" + this.getStagingarea().getPickupMode().name() + "】、配送方向【" + this.getStagingarea().getDirection().getName() + "】", this.getHeader(), this.getHeader().getOwner(), this.getHeader().getCustomer());
         }
     }
 }

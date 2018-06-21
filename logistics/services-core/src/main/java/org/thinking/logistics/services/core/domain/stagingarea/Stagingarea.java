@@ -8,9 +8,9 @@ import org.thinking.logistics.services.core.domain.core.Direction;
 import org.thinking.logistics.services.core.domain.core.Owner;
 import org.thinking.logistics.services.core.domain.core.Warehouse;
 import org.thinking.logistics.services.core.domain.support.BillType;
+import org.thinking.logistics.services.core.domain.support.PickupMode;
 import org.thinking.logistics.services.core.domain.support.StagingareaCategory;
 import org.thinking.logistics.services.core.domain.support.StagingareaType;
-import org.thinking.logistics.services.core.domain.support.TakegoodsMode;
 
 import javax.persistence.*;
 import java.util.LinkedHashSet;
@@ -43,7 +43,7 @@ public class Stagingarea extends BaseDomainEntity {
 
     private BillType billType;//单据类型
 
-    private TakegoodsMode takegoodsMode;//提货方式
+    private PickupMode pickupMode;//提货方式
 
     @ManyToMany
     @JoinTable(joinColumns = @JoinColumn(name = "stagingarea_id"), inverseJoinColumns = @JoinColumn(name = "owner_id"))

@@ -2,9 +2,9 @@ package org.thinking.logistics.order.inversion.domain;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import org.thinking.logistics.services.core.domain.documents.InverseOrderDetail;
-import org.thinking.logistics.services.core.domain.documents.OutboundOrderDetail;
-import org.thinking.logistics.services.core.domain.documents.OutboundOrderHeader;
+import org.thinking.logistics.services.core.domain.document.InverseOrderDetail;
+import org.thinking.logistics.services.core.domain.document.ShipmentOrderDetail;
+import org.thinking.logistics.services.core.domain.document.ShipmentOrderHeader;
 import org.thinking.logistics.services.core.domain.employee.Employee;
 import org.thinking.logistics.services.core.domain.support.InverseStage;
 import org.thinking.logistics.services.core.domain.support.OutboundStage;
@@ -18,13 +18,13 @@ import java.util.stream.Collectors;
 @Data
 @EqualsAndHashCode(callSuper = true)
 public class SaleOutboundInverser extends AbstractInverser {
-    public SaleOutboundInverser(Employee operator, OutboundOrderHeader header, InverseStage stage) {
+    public SaleOutboundInverser(Employee operator, ShipmentOrderHeader header, InverseStage stage) {
         super(operator, header, stage);
     }
 
     @Override
     public void inverse() {
-        List<OutboundOrderDetail> details = this.getHeader().getDetails()
+        List<ShipmentOrderDetail> details = this.getHeader().getDetails()
             .stream()
             .filter(detail -> detail.isOriginal() && ((this.getStage() == InverseStage.DISPATCHING && detail.getPlanQuantity().compareTo(detail.getFactQuantity()) != 0) || (this.getStage() == InverseStage.SUSPENDING && detail.getLessnessQuantity().compareTo(BigDecimal.ZERO) > 0)))
             .collect(Collectors.toList());

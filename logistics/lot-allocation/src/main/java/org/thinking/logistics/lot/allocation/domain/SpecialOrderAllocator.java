@@ -4,8 +4,8 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import org.thinking.logistics.order.inversion.domain.SaleOutboundInverser;
 import org.thinking.logistics.services.core.domain.command.OutboundCommand;
-import org.thinking.logistics.services.core.domain.documents.OutboundOrderDetail;
-import org.thinking.logistics.services.core.domain.documents.OutboundOrderHeader;
+import org.thinking.logistics.services.core.domain.document.ShipmentOrderDetail;
+import org.thinking.logistics.services.core.domain.document.ShipmentOrderHeader;
 import org.thinking.logistics.services.core.domain.inventory.Inventory;
 import org.thinking.logistics.services.core.domain.support.*;
 
@@ -21,17 +21,17 @@ import java.util.stream.Collectors;
 @Data
 @EqualsAndHashCode(callSuper = true)
 public class SpecialOrderAllocator extends AbstractAllocator {
-    public SpecialOrderAllocator(OutboundOrderHeader header) throws Exception {
+    public SpecialOrderAllocator(ShipmentOrderHeader header) throws Exception {
         super(header);
     }
 
     @Override
-    public void acquireLocation(OutboundOrderDetail detail) throws Exception {
+    public void acquireLocation(ShipmentOrderDetail detail) throws Exception {
         super.acquireLocation(detail);
     }
 
     @Override
-    public OutboundCommand acquireCommand(OutboundOrderDetail detail, Inventory inventory, BigDecimal quantity) throws Exception {
+    public OutboundCommand acquireCommand(ShipmentOrderDetail detail, Inventory inventory, BigDecimal quantity) throws Exception {
         OutboundCommand command = super.acquireCommand(detail, inventory, quantity);
 
         command.setStage(CommandStage.INNER_RECHECK_CONFIRM);
@@ -66,12 +66,12 @@ public class SpecialOrderAllocator extends AbstractAllocator {
         this.verify();
 
         //获取原始行数据
-        List<OutboundOrderDetail> originalDetails = this.getHeader().getDetails().stream().filter(OutboundOrderDetail::isOriginal).sorted(Comparator.comparing(OutboundOrderDetail::getId)).collect(Collectors.toList());
+        List<ShipmentOrderDetail> originalDetails = this.getHeader().getDetails().stream().filter(ShipmentOrderDetail::isOriginal).sorted(Comparator.comparing(ShipmentOrderDetail::getId)).collect(Collectors.toList());
 
         //按原始行循环
-        for (OutboundOrderDetail originalDetail : originalDetails) {
+        for (ShipmentOrderDetail originalDetail : originalDetails) {
             //获取补发行数据
-            List<OutboundOrderDetail> unoriginalDetails = this.getHeader().getDetails().stream().filter(d -> d.getParent() == originalDetail && !d.isOriginal()).sorted(Comparator.comparing(OutboundOrderDetail::getId)).collect(Collectors.toList());
+            List<ShipmentOrderDetail> unoriginalDetails = this.getHeader().getDetails().stream().filter(d -> d.getParent() == originalDetail && !d.isOriginal()).sorted(Comparator.comparing(ShipmentOrderDetail::getId)).collect(Collectors.toList());
 
             //如果没有索取补发行，则按原始行分配
             if (unoriginalDetails == null || unoriginalDetails.size() == 0) {
@@ -80,7 +80,7 @@ public class SpecialOrderAllocator extends AbstractAllocator {
             }
 
             //分配批号
-            for (OutboundOrderDetail unoriginalDetail : unoriginalDetails) {
+            for (ShipmentOrderDetail unoriginalDetail : unoriginalDetails) {
                 if (unoriginalDetail.getWholepiecesQuantity().compareTo(BigDecimal.ZERO) > 0) {
                     this.getInventories().clear();
                     this.getCommands().clear();
@@ -111,7 +111,7 @@ public class SpecialOrderAllocator extends AbstractAllocator {
             }
 
             //region 更新原始行
-            originalDetail.setFactQuantity(Optional.ofNullable(this.getHeader().getDetails().stream().filter(d -> d.getParent() == originalDetail && !d.isOriginal()).map(OutboundOrderDetail::getFactQuantity).reduce(BigDecimal.ZERO, BigDecimal::add)).orElse(originalDetail.getFactQuantity()));
+            originalDetail.setFactQuantity(Optional.ofNullable(this.getHeader().getDetails().stream().filter(d -> d.getParent() == originalDetail && !d.isOriginal()).map(ShipmentOrderDetail::getFactQuantity).reduce(BigDecimal.ZERO, BigDecimal::add)).orElse(originalDetail.getFactQuantity()));
             originalDetail.setWholepiecesQuantity(BigDecimal.ZERO);
             originalDetail.setRemainderQuantity(BigDecimal.ZERO);
             originalDetail.setLessnessQuantity(BigDecimal.ZERO);

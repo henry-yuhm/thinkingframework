@@ -23,7 +23,7 @@ public class Inventory extends BaseDomainEntity {
     private Owner owner;//业主
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    private Goods goods;//商品
+    private Item item;//商品
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     private Lot lot;//批号
@@ -91,14 +91,14 @@ public class Inventory extends BaseDomainEntity {
     private BigDecimal availableObtainQuantity;//可用索取数量
 
     @Transient
-    private BigDecimal availableReplenishingQuantity;//可用补货数量
+    private BigDecimal availableReplenishmentQuantity;//可用补货数量
 
     public BigDecimal getPieces() {
-        return goods.getPieces(quantity);
+        return item.getPieces(quantity);
     }
 
     public BigDecimal getRemainder() {
-        return goods.getRemainder(quantity);
+        return item.getRemainder(quantity);
     }
 
     public BigDecimal getAvailableOutboundQuantity() {

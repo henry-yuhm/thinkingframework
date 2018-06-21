@@ -3,8 +3,8 @@ package org.thinking.logistics.lot.allocation.domain;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import org.thinking.logistics.order.inversion.domain.SaleOutboundInverser;
-import org.thinking.logistics.services.core.domain.documents.OutboundOrderDetail;
-import org.thinking.logistics.services.core.domain.documents.OutboundOrderHeader;
+import org.thinking.logistics.services.core.domain.document.ShipmentOrderDetail;
+import org.thinking.logistics.services.core.domain.document.ShipmentOrderHeader;
 import org.thinking.logistics.services.core.domain.support.InverseStage;
 import org.thinking.logistics.services.core.domain.support.PackageType;
 
@@ -17,12 +17,12 @@ import java.util.stream.Collectors;
 @Data
 @EqualsAndHashCode(callSuper = true)
 public class PurchaseReturnAllocator extends AbstractAllocator {
-    public PurchaseReturnAllocator(OutboundOrderHeader header) throws Exception {
+    public PurchaseReturnAllocator(ShipmentOrderHeader header) throws Exception {
         super(header);
     }
 
     @Override
-    public void initialize(OutboundOrderDetail detail) throws Exception {
+    public void initialize(ShipmentOrderDetail detail) throws Exception {
         //零货出整件处理
         if (detail.getWholepiecesQuantity().compareTo(BigDecimal.ZERO) > 0) {
             if (detail.getLocation() != null && detail.getLocation().getPackageType() == PackageType.REMAINDER) {
@@ -38,15 +38,15 @@ public class PurchaseReturnAllocator extends AbstractAllocator {
         this.verify();
 
         //获取原始行数据
-        List<OutboundOrderDetail> originalDetails = this.getHeader().getDetails().stream().filter(OutboundOrderDetail::isOriginal).sorted(Comparator.comparing(OutboundOrderDetail::getId)).collect(Collectors.toList());
+        List<ShipmentOrderDetail> originalDetails = this.getHeader().getDetails().stream().filter(ShipmentOrderDetail::isOriginal).sorted(Comparator.comparing(ShipmentOrderDetail::getId)).collect(Collectors.toList());
 
         //按原始行循环
-        for (OutboundOrderDetail originalDetail : originalDetails) {
+        for (ShipmentOrderDetail originalDetail : originalDetails) {
             //获取补发行数据
-            List<OutboundOrderDetail> unoriginalDetails = this.getHeader().getDetails().stream().filter(d -> d.getParent() == originalDetail && !d.isOriginal()).sorted(Comparator.comparing(OutboundOrderDetail::getId)).collect(Collectors.toList());
+            List<ShipmentOrderDetail> unoriginalDetails = this.getHeader().getDetails().stream().filter(d -> d.getParent() == originalDetail && !d.isOriginal()).sorted(Comparator.comparing(ShipmentOrderDetail::getId)).collect(Collectors.toList());
 
             //分配批号
-            for (OutboundOrderDetail unoriginalDetail : unoriginalDetails) {
+            for (ShipmentOrderDetail unoriginalDetail : unoriginalDetails) {
                 this.initialize(unoriginalDetail);
 
                 if (unoriginalDetail.getWholepiecesQuantity().compareTo(BigDecimal.ZERO) > 0) {
@@ -81,7 +81,7 @@ public class PurchaseReturnAllocator extends AbstractAllocator {
             }
 
             //region 更新原始行
-            originalDetail.setFactQuantity(Optional.ofNullable(this.getHeader().getDetails().stream().filter(d -> d.getParent() == originalDetail && !d.isOriginal()).map(OutboundOrderDetail::getPlanQuantity).reduce(BigDecimal.ZERO, BigDecimal::add)).orElse(BigDecimal.ZERO));
+            originalDetail.setFactQuantity(Optional.ofNullable(this.getHeader().getDetails().stream().filter(d -> d.getParent() == originalDetail && !d.isOriginal()).map(ShipmentOrderDetail::getPlanQuantity).reduce(BigDecimal.ZERO, BigDecimal::add)).orElse(BigDecimal.ZERO));
             originalDetail.setWholepiecesQuantity(BigDecimal.ZERO);
             originalDetail.setRemainderQuantity(BigDecimal.ZERO);
             originalDetail.setLessnessQuantity(BigDecimal.ZERO);

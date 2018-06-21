@@ -8,14 +8,14 @@ import org.thinking.logistics.services.core.domain.core.Direction;
 import org.thinking.logistics.services.core.domain.core.Owner;
 import org.thinking.logistics.services.core.domain.core.Warehouse;
 import org.thinking.logistics.services.core.domain.support.BillCategory;
+import org.thinking.logistics.services.core.domain.support.PickupMode;
 import org.thinking.logistics.services.core.domain.support.SaleType;
 import org.thinking.logistics.services.core.domain.support.StagingareaCategory;
-import org.thinking.logistics.services.core.domain.support.TakegoodsMode;
 
 import javax.persistence.*;
 
 @Entity
-@Table(uniqueConstraints = @UniqueConstraint(name = "uk_virtual_sga_cfg", columnNames = {"warehouse_id", "owner_id", "available", "billCategory", "takegoodsMode", "saleType", "stagingareaCategory", "direction_id"}))
+@Table(uniqueConstraints = @UniqueConstraint(name = "uk_virtual_sga_cfg", columnNames = {"warehouse_id", "owner_id", "available", "billCategory", "pickupMode", "saleType", "stagingareaCategory", "direction_id"}))
 @Data
 @EqualsAndHashCode(callSuper = true)
 @NoArgsConstructor
@@ -33,7 +33,7 @@ public class VirtualConfiguration extends BaseDomainEntity {
     private BillCategory billCategory;//单据类别
 
     @Column(nullable = false)
-    private TakegoodsMode takegoodsMode;//提货方式
+    private PickupMode pickupMode;//提货方式
 
     @Column(nullable = false)
     private SaleType saleType;//销售类型

@@ -5,23 +5,23 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.thinking.logistics.order.dispatcher.domain.*;
 import org.thinking.logistics.services.core.domain.core.Warehouse;
-import org.thinking.logistics.services.core.domain.documents.OutboundOrderHeader;
+import org.thinking.logistics.services.core.domain.document.ShipmentOrderHeader;
 import org.thinking.logistics.services.core.domain.employee.Employee;
-import org.thinking.logistics.services.core.service.documents.OutboundOrderService;
+import org.thinking.logistics.services.core.service.document.ShipmentOrderService;
 
 import java.util.List;
 
 @Service
 public class DispatcherService {
-    private OutboundOrderService orderService;
+    private ShipmentOrderService orderService;
 
     @Autowired
-    public DispatcherService(OutboundOrderService orderService) {
+    public DispatcherService(ShipmentOrderService orderService) {
         this.orderService = orderService;
     }
 
     @Transactional(rollbackFor = Exception.class)
-    public void arrangeWave(Employee employee, List<OutboundOrderHeader> headers) throws Exception {
+    public void arrangeWave(Employee employee, List<ShipmentOrderHeader> headers) throws Exception {
         new OutboundOrderDispatcher(employee, headers).arrangeWave();
     }
 

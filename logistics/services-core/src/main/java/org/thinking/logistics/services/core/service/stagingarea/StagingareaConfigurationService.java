@@ -3,7 +3,7 @@ package org.thinking.logistics.services.core.service.stagingarea;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.thinking.logistics.services.core.domain.CompositeException;
-import org.thinking.logistics.services.core.domain.documents.OutboundOrderHeader;
+import org.thinking.logistics.services.core.domain.document.ShipmentOrderHeader;
 import org.thinking.logistics.services.core.domain.stagingarea.QStagingareaConfiguration;
 import org.thinking.logistics.services.core.domain.stagingarea.StagingareaConfiguration;
 import org.thinking.logistics.services.core.repository.DomainRepository;
@@ -19,12 +19,12 @@ public class StagingareaConfigurationService extends DomainService<QStagingareaC
         super(entityManager, repository, QStagingareaConfiguration.stagingareaConfiguration);
     }
 
-    public final StagingareaConfiguration acquire(OutboundOrderHeader header, boolean verifiable) throws Exception {
+    public final StagingareaConfiguration acquire(ShipmentOrderHeader header, boolean verifiable) throws Exception {
         StagingareaConfiguration configuration = this.getFactory().selectFrom(this.getPath())
             .where(
                 this.getPath().warehouse.eq(header.getWarehouse()),
                 this.getPath().owner.eq(header.getOwner()),
-                this.getPath().takegoodsMode.eq(header.getTakegoodsMode()))
+                this.getPath().pickupMode.eq(header.getPickupMode()))
             .fetchOne();
 
         if (verifiable) {
@@ -33,7 +33,7 @@ public class StagingareaConfigurationService extends DomainService<QStagingareaC
             }
 
             if (configuration.getSmallQuantity().compareTo(BigDecimal.ZERO) == 0 || configuration.getLargeQuantity().compareTo(BigDecimal.ZERO) == 0) {
-                throw CompositeException.getException("提货方式【" + header.getTakegoodsMode().toString() + "】对应的月台件数未设定", header, header.getOwner());
+                throw CompositeException.getException("提货方式【" + header.getPickupMode().toString() + "】对应的月台件数未设定", header, header.getOwner());
             }
         }
 

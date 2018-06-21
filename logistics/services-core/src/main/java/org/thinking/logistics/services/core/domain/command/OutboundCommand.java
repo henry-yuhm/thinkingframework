@@ -10,8 +10,8 @@ import org.thinking.logistics.services.core.domain.core.Location;
 import org.thinking.logistics.services.core.domain.core.Lot;
 import org.thinking.logistics.services.core.domain.core.Platform;
 import org.thinking.logistics.services.core.domain.core.Task;
-import org.thinking.logistics.services.core.domain.documents.OutboundOrderDetail;
-import org.thinking.logistics.services.core.domain.documents.OutboundOrderHeader;
+import org.thinking.logistics.services.core.domain.document.ShipmentOrderDetail;
+import org.thinking.logistics.services.core.domain.document.ShipmentOrderHeader;
 import org.thinking.logistics.services.core.domain.support.AppendantSign;
 import org.thinking.logistics.services.core.domain.support.InventoryState;
 
@@ -28,10 +28,10 @@ public class OutboundCommand extends Command {
     private OutboundCommand parent;//父指令
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    private OutboundOrderHeader header;//单据抬头
+    private ShipmentOrderHeader header;//单据抬头
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    private OutboundOrderDetail detail;//单据明细
+    private ShipmentOrderDetail detail;//单据明细
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     private Lot lot;//批号
@@ -100,29 +100,29 @@ public class OutboundCommand extends Command {
 
     @ManyToMany
     @JoinTable(joinColumns = @JoinColumn(name = "command_id"), inverseJoinColumns = @JoinColumn(name = "rep_command_id"))
-    private Set<ReplenishingCommand> commands = new LinkedHashSet<>();//补货指令
+    private Set<ReplenishmentCommand> commands = new LinkedHashSet<>();//补货指令
 
     public BigDecimal getCreationPieces() {
-        return getGoods().getPieces(creationQuantity);
+        return this.getItem().getPieces(creationQuantity);
     }
 
     public BigDecimal getCreationRemainder() {
-        return getGoods().getRemainder(creationQuantity);
+        return this.getItem().getRemainder(creationQuantity);
     }
 
     public BigDecimal getPlanPieces() {
-        return getGoods().getPieces(planQuantity);
+        return this.getItem().getPieces(planQuantity);
     }
 
     public BigDecimal getPlanRemainder() {
-        return getGoods().getRemainder(planQuantity);
+        return this.getItem().getRemainder(planQuantity);
     }
 
     public BigDecimal getFactPieces() {
-        return getGoods().getPieces(factQuantity);
+        return this.getItem().getPieces(factQuantity);
     }
 
     public BigDecimal getFactRemainder() {
-        return getGoods().getRemainder(factQuantity);
+        return this.getItem().getRemainder(factQuantity);
     }
 }

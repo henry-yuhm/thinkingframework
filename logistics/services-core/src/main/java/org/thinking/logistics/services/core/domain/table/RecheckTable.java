@@ -39,7 +39,7 @@ public class RecheckTable extends BaseDomainEntity {
     private int workload = 0;//工作量
 
     @Column(nullable = false)
-    private int goodsQuantity = 0;//品规数
+    private int itemQuantity = 0;//品规数
 
     private Date modificationTime;//修改时间
 }

@@ -3,7 +3,7 @@ package org.thinking.logistics.services.core.domain.inventory;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import org.thinking.logistics.services.core.domain.BaseDomainEntity;
-import org.thinking.logistics.services.core.domain.core.Goods;
+import org.thinking.logistics.services.core.domain.core.Item;
 import org.thinking.logistics.services.core.domain.core.Lot;
 import org.thinking.logistics.services.core.domain.support.ValidPeriodType;
 
@@ -11,12 +11,12 @@ import javax.persistence.*;
 import java.math.BigDecimal;
 
 @Entity
-@Table(uniqueConstraints = @UniqueConstraint(name = "uk_lot_inventory", columnNames = {"goods_id", "lot_id", "type"}))
+@Table(uniqueConstraints = @UniqueConstraint(name = "uk_lot_inventory", columnNames = {"item_id", "lot_id", "type"}))
 @Data
 @EqualsAndHashCode(callSuper = true)
 public class LotInventory extends BaseDomainEntity {
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    private Goods goods;//商品
+    private Item item;//商品
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     private Lot lot;//批号

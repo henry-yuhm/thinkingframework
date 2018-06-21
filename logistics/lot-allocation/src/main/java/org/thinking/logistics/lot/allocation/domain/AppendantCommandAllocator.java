@@ -4,8 +4,8 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import org.thinking.logistics.services.core.domain.CompositeException;
 import org.thinking.logistics.services.core.domain.command.OutboundCommand;
-import org.thinking.logistics.services.core.domain.documents.OutboundOrderDetail;
-import org.thinking.logistics.services.core.domain.documents.OutboundOrderHeader;
+import org.thinking.logistics.services.core.domain.document.ShipmentOrderDetail;
+import org.thinking.logistics.services.core.domain.document.ShipmentOrderHeader;
 import org.thinking.logistics.services.core.domain.inventory.Inventory;
 import org.thinking.logistics.services.core.domain.support.AppendantSign;
 import org.thinking.logistics.services.core.domain.support.CommandStage;
@@ -19,20 +19,20 @@ import java.math.BigDecimal;
 public class AppendantCommandAllocator extends AbstractAllocator {
     private OutboundCommand command;
 
-    public AppendantCommandAllocator(OutboundOrderHeader header, OutboundCommand command) throws Exception {
+    public AppendantCommandAllocator(ShipmentOrderHeader header, OutboundCommand command) throws Exception {
         super(header);
         this.command = command;
     }
 
     @Override
-    public void initialize(OutboundOrderDetail detail) throws Exception {
+    public void initialize(ShipmentOrderDetail detail) throws Exception {
         detail.setFactQuantity(this.command.getPlanQuantity().subtract(this.command.getFactQuantity()));
 
         super.initialize(detail);
     }
 
     @Override
-    public OutboundCommand acquireCommand(OutboundOrderDetail detail, Inventory inventory, BigDecimal quantity) throws Exception {
+    public OutboundCommand acquireCommand(ShipmentOrderDetail detail, Inventory inventory, BigDecimal quantity) throws Exception {
         OutboundCommand command = super.acquireCommand(detail, inventory, quantity);
 
         command.setParent(this.command);
@@ -108,7 +108,7 @@ public class AppendantCommandAllocator extends AbstractAllocator {
             this.acquireLotInventory(this.command.getDetail());
             this.acquireLot(false);
 
-            if (this.getAllocationQuantity().compareTo(BigDecimal.ZERO) > 0 && this.command.getDetail().getGoods().getStorageClassification() == StorageClassification.ALL) {
+            if (this.getAllocationQuantity().compareTo(BigDecimal.ZERO) > 0 && this.command.getDetail().getItem().getStorageClassification() == StorageClassification.ALL) {
                 this.setAllocationQuantity(this.command.getDetail().getRemainderQuantity());
                 this.acquireLot(true);
             }

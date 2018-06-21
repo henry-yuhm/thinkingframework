@@ -4,11 +4,11 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import org.thinking.logistics.services.core.domain.BusinessBase;
 import org.thinking.logistics.services.core.domain.CompositeException;
-import org.thinking.logistics.services.core.domain.documents.OutboundOrderDetail;
-import org.thinking.logistics.services.core.domain.documents.OutboundOrderHeader;
+import org.thinking.logistics.services.core.domain.document.ShipmentOrderDetail;
+import org.thinking.logistics.services.core.domain.document.ShipmentOrderHeader;
 import org.thinking.logistics.services.core.domain.support.NotExistsEntityException;
 import org.thinking.logistics.services.core.domain.support.OutboundStage;
-import org.thinking.logistics.services.core.service.documents.OutboundOrderService;
+import org.thinking.logistics.services.core.service.document.ShipmentOrderService;
 
 import javax.annotation.Resource;
 import java.math.BigDecimal;
@@ -16,12 +16,12 @@ import java.math.BigDecimal;
 @Data
 @EqualsAndHashCode(callSuper = true)
 public abstract class AbstractInitiator extends BusinessBase implements Initiator {
-    private OutboundOrderHeader header;
+    private ShipmentOrderHeader header;
 
     @Resource
-    private OutboundOrderService orderService;
+    private ShipmentOrderService orderService;
 
-    public AbstractInitiator(OutboundOrderHeader header) {
+    public AbstractInitiator(ShipmentOrderHeader header) {
         this.header = header;
     }
 
@@ -41,15 +41,15 @@ public abstract class AbstractInitiator extends BusinessBase implements Initiato
             throw CompositeException.getException(NotExistsEntityException.DETAIL.name(), this.header, this.header.getOwner());
         }
 
-        for (OutboundOrderDetail detail : this.header.getDetails()) {
-            if (detail.getGoods() == null) {
-                throw CompositeException.getException(NotExistsEntityException.GOODS.name(), this.header, this.header.getOwner());
+        for (ShipmentOrderDetail detail : this.header.getDetails()) {
+            if (detail.getItem() == null) {
+                throw CompositeException.getException(NotExistsEntityException.ITEM.name(), this.header, this.header.getOwner());
             } else {
                 if (detail.getFactQuantity().compareTo(BigDecimal.ZERO) > 0) {
                     detail.setWholepiecesQuantity(detail.getFactQuantity().subtract(detail.getFactRemainder()));
                     detail.setRemainderQuantity(detail.getFactRemainder());
                 } else {
-                    message.append("商品【").append(detail.getGoods().getNo()).append("】【").append(detail.getGoods().getName()).append("】数量为0");
+                    message.append("商品【").append(detail.getItem().getNo()).append("】【").append(detail.getItem().getName()).append("】数量为0");
                 }
             }
         }

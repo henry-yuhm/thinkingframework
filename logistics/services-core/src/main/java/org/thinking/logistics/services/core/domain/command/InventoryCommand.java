@@ -6,8 +6,8 @@ import lombok.EqualsAndHashCode;
 import lombok.Setter;
 import org.thinking.logistics.services.core.domain.container.Pallet;
 import org.thinking.logistics.services.core.domain.core.Lot;
-import org.thinking.logistics.services.core.domain.documents.InventoryDocumentsDetail;
-import org.thinking.logistics.services.core.domain.documents.InventoryDocumentsHeader;
+import org.thinking.logistics.services.core.domain.document.InventoryDocumentDetail;
+import org.thinking.logistics.services.core.domain.document.InventoryDocumentHeader;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -20,10 +20,10 @@ import java.math.BigDecimal;
 @EqualsAndHashCode(callSuper = true)
 public class InventoryCommand extends TransitionCommand {
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    private InventoryDocumentsHeader header;//单据抬头
+    private InventoryDocumentHeader header;//单据抬头
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    private InventoryDocumentsDetail detail;//单据明细
+    private InventoryDocumentDetail detail;//单据明细
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     private Lot sourceLot;//源批号
@@ -60,18 +60,18 @@ public class InventoryCommand extends TransitionCommand {
     private BigDecimal factRemainder = BigDecimal.ZERO;//实际余数
 
     public BigDecimal getInventoryPieces() {
-        return getGoods().getPieces(inventoryQuantity);
+        return this.getItem().getPieces(inventoryQuantity);
     }
 
     public BigDecimal getInventoryRemainder() {
-        return getGoods().getRemainder(inventoryQuantity);
+        return this.getItem().getRemainder(inventoryQuantity);
     }
 
     public BigDecimal getFactPieces() {
-        return getGoods().getPieces(factQuantity);
+        return this.getItem().getPieces(factQuantity);
     }
 
     public BigDecimal getFactRemainder() {
-        return getGoods().getRemainder(factQuantity);
+        return this.getItem().getRemainder(factQuantity);
     }
 }
