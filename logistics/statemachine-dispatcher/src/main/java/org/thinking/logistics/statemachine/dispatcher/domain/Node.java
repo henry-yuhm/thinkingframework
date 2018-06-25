@@ -2,11 +2,15 @@ package org.thinking.logistics.statemachine.dispatcher.domain;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.DynamicInsert;
+import org.hibernate.annotations.DynamicUpdate;
 import org.springframework.statemachine.data.jpa.JpaRepositoryState;
 
 import javax.persistence.*;
 
 @Entity
+@DynamicInsert
+@DynamicUpdate
 @Data
 @NoArgsConstructor
 public class Node {

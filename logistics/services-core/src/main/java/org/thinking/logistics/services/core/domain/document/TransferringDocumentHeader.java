@@ -2,12 +2,16 @@ package org.thinking.logistics.services.core.domain.document;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import org.hibernate.annotations.DynamicInsert;
+import org.hibernate.annotations.DynamicUpdate;
 
 import javax.persistence.*;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
 @Entity
+@DynamicInsert
+@DynamicUpdate
 @Data
 @EqualsAndHashCode(callSuper = true)
 public class TransferringDocumentHeader extends Header {

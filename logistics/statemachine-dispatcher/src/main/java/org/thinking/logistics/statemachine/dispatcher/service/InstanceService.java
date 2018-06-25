@@ -25,7 +25,7 @@ public class InstanceService {
     public Workflow findOne(String machineId, String instanceId) {
         Workflow workflow = this.workflowRepository.getOne(machineId);
 
-        Map<String, String> map = new LinkedHashMap<>();
+        Map<String, String> map = new LinkedHashMap<>(16);
         this.monitorRepository.findAllByMachineId(instanceId).stream().map(Monitor::getState).forEach(state -> map.put(state, state));
 
         workflow.getNodes().forEach(node -> node.setCurrent(map.containsKey(node.getState().getState())));

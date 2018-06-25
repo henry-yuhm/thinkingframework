@@ -10,7 +10,7 @@ import java.util.Map;
 @Service
 public class TransitionKindService {
     public Map<String, String> findAll() {
-        Map<String, String> map = new LinkedHashMap<>();
+        Map<String, String> map = new LinkedHashMap<>(16);
 
         EnumSet.allOf(TransitionKind.class).forEach(kind -> map.put(kind.name().toLowerCase(), kind.toString()));
 

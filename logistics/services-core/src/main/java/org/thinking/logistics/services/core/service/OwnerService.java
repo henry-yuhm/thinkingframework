@@ -35,29 +35,11 @@ public class OwnerService extends DomainService<QOwner, Owner, Long> {
     }
 
     @Transactional(rollbackFor = Exception.class)
-    public Owner save(Owner own) throws Exception {
-        Optional.of(own.getNo()).orElseThrow(() -> CompositeException.getException("编号不能为空"));
-        Optional.of(own.getName()).orElseThrow(() -> CompositeException.getException("名称不能为空"));
+    public Owner save(Owner owner) throws Exception {
+        Optional.of(owner.getNo()).orElseThrow(() -> CompositeException.getException("编号不能为空"));
+        Optional.of(owner.getName()).orElseThrow(() -> CompositeException.getException("名称不能为空"));
 
-        Owner owner = this.getFactory().selectFrom(this.getPath())
-            .where(this.getPath().no.eq(own.getNo()))
-            .fetchOne();
-
-        if (owner == null) {
-            owner = own;
-        } else {
-            if (Optional.ofNullable(own.getMnemonicCode()).isPresent()) {
-                owner.setMnemonicCode(own.getMnemonicCode());
-            }
-
-            if (Optional.ofNullable(own.getInventoryUpper()).isPresent()) {
-                owner.setInventoryUpper(own.getInventoryUpper());
-            }
-
-            owner.setThirdpart(own.isThirdpart());
-        }
-
-        return this.getRepository().save(owner);
+        return this.getRepository().saveAndFlush(owner);
     }
 
     @Transactional(rollbackFor = Exception.class)

@@ -2,6 +2,8 @@ package org.thinking.logistics.services.core.domain.core;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import org.hibernate.annotations.DynamicInsert;
+import org.hibernate.annotations.DynamicUpdate;
 import org.thinking.logistics.services.core.domain.BaseDomainEntity;
 import org.thinking.logistics.services.core.domain.support.BillCategory;
 import org.thinking.logistics.services.core.domain.support.CommandCategory;
@@ -13,6 +15,8 @@ import javax.persistence.ManyToOne;
 import java.util.LinkedHashMap;
 
 @Entity
+@DynamicInsert
+@DynamicUpdate
 @Data
 @EqualsAndHashCode(callSuper = true)
 public class Sorter extends BaseDomainEntity {
@@ -28,7 +32,7 @@ public class Sorter extends BaseDomainEntity {
     @Column(nullable = false)
     private int workload = 0;//工作量
 
-    private LinkedHashMap<Integer, CommandCategory> taskCategories = new LinkedHashMap<>();//任务类别
+    private LinkedHashMap<Integer, CommandCategory> taskCategories = new LinkedHashMap<>(16);//任务类别
 
-    private LinkedHashMap<Integer, BillCategory> billCategories = new LinkedHashMap<>();//单据类别
+    private LinkedHashMap<Integer, BillCategory> billCategories = new LinkedHashMap<>(16);//单据类别
 }

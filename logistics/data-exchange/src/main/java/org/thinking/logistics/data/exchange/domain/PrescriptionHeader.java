@@ -2,22 +2,25 @@ package org.thinking.logistics.data.exchange.domain;
 
 import com.alibaba.fastjson.annotation.JSONField;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
+import org.hibernate.annotations.DynamicInsert;
+import org.hibernate.annotations.DynamicUpdate;
 import org.thinking.logistics.data.exchange.domain.support.Sex;
 import org.thinking.logistics.data.exchange.domain.support.Type;
+import org.thinking.logistics.services.core.domain.BaseDomainEntity;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
-import java.sql.Date;
+import java.time.Instant;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
 @Entity
+@DynamicInsert
+@DynamicUpdate
 @Data
-public class PrescriptionHeader implements EntityBase {
-    @Id
-    @GeneratedValue
-    private long id;
-
+@EqualsAndHashCode(callSuper = true)
+public class PrescriptionHeader extends BaseDomainEntity {
     @Column(nullable = false, length = 20)
     @JSONField(name = "ID")
     private String platformId;//平台处方主键
@@ -44,11 +47,11 @@ public class PrescriptionHeader implements EntityBase {
 
     @Column(nullable = false)
     @JSONField(name = "RecipeTime", format = "YYYY-MM-DD HH:MM:SS")
-    private Date prescriptionTime;//处方时间
+    private Instant prescriptionTime;//处方时间
 
-    @Column(nullable = false, length = 20)
-    @JSONField(name = "PatientNO")
-    private String patientNo;//患者编号
+//    @Column(nullable = false, length = 20)
+//    @JSONField(name = "PatientNO")
+//    private String patientNo;//患者编号
 
     @Column(nullable = false, length = 64)
     @JSONField(name = "Patient")

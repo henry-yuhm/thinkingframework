@@ -16,8 +16,7 @@ import org.thinking.logistics.services.core.service.stagingarea.StagingareaServi
 
 import javax.annotation.Resource;
 import java.math.BigDecimal;
-import java.sql.Date;
-import java.time.LocalDate;
+import java.time.Instant;
 import java.util.List;
 
 @Data
@@ -99,7 +98,7 @@ public abstract class AbstractInverser extends BusinessBase implements Inverser 
 
         details.forEach(detail -> {
             detail.setAuditor(this.getOperator());
-            detail.setAuditTime(Date.valueOf(LocalDate.now()));
+            detail.setAuditTime(Instant.now());
         });
         this.inverseOrderService.getRepository().saveAll(details);
 

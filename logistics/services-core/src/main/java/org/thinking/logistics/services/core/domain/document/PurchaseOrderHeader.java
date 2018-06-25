@@ -2,15 +2,19 @@ package org.thinking.logistics.services.core.domain.document;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import org.hibernate.annotations.DynamicInsert;
+import org.hibernate.annotations.DynamicUpdate;
 import org.thinking.logistics.services.core.domain.core.Customer;
 import org.thinking.logistics.services.core.domain.support.InboundType;
 
 import javax.persistence.*;
-import java.sql.Date;
+import java.time.Instant;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
 @Entity
+@DynamicInsert
+@DynamicUpdate
 @Data
 @EqualsAndHashCode(callSuper = true)
 public class PurchaseOrderHeader extends Header {
@@ -24,7 +28,7 @@ public class PurchaseOrderHeader extends Header {
     private InboundType inboundType;//入库类型
 
     @Column(nullable = false)
-    private Date invoiceTime;//开票时间
+    private Instant invoiceTime;//开票时间
 
     private String buyer;//采购员
 
@@ -38,7 +42,7 @@ public class PurchaseOrderHeader extends Header {
 
     private String shipper;//运输方
 
-    private Date shippingTime;//运输时间
+    private Instant shippingTime;//运输时间
 
     private String tempControlMode;//温控方式
 

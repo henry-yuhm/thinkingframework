@@ -53,7 +53,7 @@ public class MachineService {
             ((AbstractStateMachine) stateMachine).setId(instanceId);
 
             stateMachine.getExtendedState().getVariables().clear();
-            stateMachine.getExtendedState().getVariables().putAll(parameters == null ? new LinkedHashMap<>() : JSONObject.parseObject(parameters).getInnerMap());
+            stateMachine.getExtendedState().getVariables().putAll(parameters == null ? new LinkedHashMap<>(16) : JSONObject.parseObject(parameters).getInnerMap());
 
             stateMachine.start();
 

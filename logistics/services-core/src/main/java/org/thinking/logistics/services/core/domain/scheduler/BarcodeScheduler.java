@@ -2,6 +2,8 @@ package org.thinking.logistics.services.core.domain.scheduler;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import org.hibernate.annotations.DynamicInsert;
+import org.hibernate.annotations.DynamicUpdate;
 import org.thinking.logistics.services.core.domain.barcode.OutboundBarcode;
 import org.thinking.logistics.services.core.domain.barcode.ReplenishmentBarcode;
 
@@ -10,6 +12,8 @@ import javax.persistence.FetchType;
 import javax.persistence.OneToOne;
 
 @Entity
+@DynamicInsert
+@DynamicUpdate
 @Data
 @EqualsAndHashCode(callSuper = true)
 public class BarcodeScheduler extends Scheduler {

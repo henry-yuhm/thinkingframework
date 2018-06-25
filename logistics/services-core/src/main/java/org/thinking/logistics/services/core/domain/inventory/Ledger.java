@@ -13,8 +13,7 @@ import org.thinking.logistics.services.core.domain.support.LedgerType;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
-import java.sql.Date;
-import java.time.LocalDate;
+import java.time.Instant;
 
 @MappedSuperclass
 @Inheritance(strategy = InheritanceType.JOINED)
@@ -85,7 +84,7 @@ public abstract class Ledger extends BaseDomainEntity {
     private BigDecimal grossBalance = BigDecimal.ZERO;//总结存
 
     @Column(nullable = false)
-    private Date creationTime = Date.valueOf(LocalDate.now());//创建时间
+    private Instant creationTime = Instant.now();//创建时间
 
     public abstract void setHeader(Header header);
 }

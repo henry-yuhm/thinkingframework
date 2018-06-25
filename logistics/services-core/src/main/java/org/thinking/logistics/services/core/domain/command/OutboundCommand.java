@@ -4,6 +4,8 @@ import lombok.AccessLevel;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.Setter;
+import org.hibernate.annotations.DynamicInsert;
+import org.hibernate.annotations.DynamicUpdate;
 import org.thinking.logistics.services.core.domain.barcode.OutboundBarcode;
 import org.thinking.logistics.services.core.domain.container.Pallet;
 import org.thinking.logistics.services.core.domain.core.Location;
@@ -21,6 +23,8 @@ import java.util.LinkedHashSet;
 import java.util.Set;
 
 @Entity
+@DynamicInsert
+@DynamicUpdate
 @Data
 @EqualsAndHashCode(callSuper = true)
 public class OutboundCommand extends Command {

@@ -1,6 +1,8 @@
 package org.thinking.logistics.statemachine.dispatcher.domain;
 
 import lombok.Data;
+import org.hibernate.annotations.DynamicInsert;
+import org.hibernate.annotations.DynamicUpdate;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -8,6 +10,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
 @Entity
+@DynamicInsert
+@DynamicUpdate
 @Data
 public class Monitor {
     @Id

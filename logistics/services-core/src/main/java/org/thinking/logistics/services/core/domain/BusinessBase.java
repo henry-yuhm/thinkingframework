@@ -7,7 +7,7 @@ import org.thinking.logistics.services.core.service.ParameterService;
 
 import javax.annotation.Resource;
 import java.math.BigDecimal;
-import java.sql.Date;
+import java.time.Instant;
 import java.util.regex.Pattern;
 
 @Data
@@ -51,12 +51,12 @@ public abstract class BusinessBase {
         return pattern.matcher(value).matches() ? new BigDecimal(value) : new BigDecimal(-1);
     }
 
-    public final Date getDateParameter(String name) throws Exception {
-        return this.getDateParameter(null, name);
+    public final Instant getInstantParameter(String name) throws Exception {
+        return this.getInstantParameter(null, name);
     }
 
-    public final Date getDateParameter(Warehouse warehouse, String name) throws Exception {
-        return Date.valueOf(this.getStringParameter(warehouse, name));
+    public final Instant getInstantParameter(Warehouse warehouse, String name) throws Exception {
+        return Instant.parse(this.getStringParameter(warehouse, name));
     }
 
     public final boolean isEnable(String name) throws Exception {

@@ -4,7 +4,7 @@ import com.alibaba.fastjson.annotation.JSONField;
 import lombok.Data;
 import org.thinking.logistics.data.exchange.domain.support.DownloadState;
 
-import java.util.Date;
+import java.time.Instant;
 
 @Data
 public class Request {
@@ -29,10 +29,10 @@ public class Request {
     @Data
     public static class Criteria {
         @JSONField(name = "Kssj")
-        private Date startTime;
+        private Instant startTime;
 
         @JSONField(name = "Jssj")
-        private Date endTime;
+        private Instant endTime;
 
         @JSONField(name = "Count")
         private int count = 1;

@@ -8,8 +8,7 @@ import org.thinking.logistics.services.core.domain.employee.Employee;
 import org.thinking.logistics.services.core.domain.support.InverseStage;
 import org.thinking.logistics.services.core.domain.support.OutboundStage;
 
-import java.sql.Date;
-import java.time.LocalDate;
+import java.time.Instant;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -37,7 +36,7 @@ public class PurchaseReturnInverser extends AbstractInverser {
         if (this.getOrderService().isInversed(this.getHeader())) {
             this.getHeader().setStage(OutboundStage.TASK_COMPLETE);
             this.getHeader().setInversed(true);
-            this.getHeader().setTaskCompleteTime(Date.valueOf(LocalDate.now()));
+            this.getHeader().setTaskCompleteTime(Instant.now());
         }
 
         this.getOrderService().getRepository().save(this.getHeader());

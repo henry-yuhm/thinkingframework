@@ -2,6 +2,8 @@ package org.thinking.logistics.services.core.domain.table;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import org.hibernate.annotations.DynamicInsert;
+import org.hibernate.annotations.DynamicUpdate;
 import org.thinking.logistics.services.core.domain.BaseDomainEntity;
 import org.thinking.logistics.services.core.domain.core.Warehouse;
 import org.thinking.logistics.services.core.domain.support.RecheckTableCategory;
@@ -11,9 +13,11 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.ManyToOne;
-import java.sql.Date;
+import java.time.Instant;
 
 @Entity
+@DynamicInsert
+@DynamicUpdate
 @Data
 @EqualsAndHashCode(callSuper = true)
 public class RecheckTable extends BaseDomainEntity {
@@ -41,5 +45,5 @@ public class RecheckTable extends BaseDomainEntity {
     @Column(nullable = false)
     private int itemQuantity = 0;//品规数
 
-    private Date modificationTime;//修改时间
+    private Instant modificationTime;//修改时间
 }

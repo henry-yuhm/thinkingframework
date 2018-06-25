@@ -47,7 +47,7 @@ public abstract class AbstractAllocator extends BusinessBase implements Allocato
 
     private int lotNumbers = 0;
 
-    private Map<Lot, BigDecimal> lots = new LinkedHashMap<>();
+    private Map<Lot, BigDecimal> lots = new LinkedHashMap<>(16);
 
     private List<LotInventory> lotInventories = new LinkedList<>();
 
@@ -351,14 +351,11 @@ public abstract class AbstractAllocator extends BusinessBase implements Allocato
             }
         }
 
-        BigDecimal lotQuantity = BigDecimal.ZERO;
-        for (BigDecimal quantity : this.lots.values()) {
-            lotQuantity = lotQuantity.add(quantity);
-        }
+        BigDecimal lotQuantity = this.lots.values().stream().reduce(BigDecimal::add).get();
 
         List<Inventory> inventories;
-        for (Lot lot : this.lots.keySet()) {
-            if (this.lots.get(lot).compareTo(BigDecimal.ZERO) == 0) {
+        for (Map.Entry<Lot, BigDecimal> lot : this.lots.entrySet()) {
+            if (lot.getValue().compareTo(BigDecimal.ZERO) == 0) {
                 break;
             }
 
@@ -366,24 +363,24 @@ public abstract class AbstractAllocator extends BusinessBase implements Allocato
             for (OutboundConfiguration configuration : configurations) {
                 if (configuration.getStoreNo().equalsIgnoreCase("LTK")) {
                     //立体库在途库存
-                    inventories = this.inventoryService.acquire(detail.getWarehouse(), detail.getItem(), lot);
+                    inventories = this.inventoryService.acquire(detail.getWarehouse(), detail.getItem(), lot.getKey());
 
                     for (Inventory inventory : inventories) {
                         inventory.setAvailableOutboundQuantity(inventory.getTransitionalQuantity());
 
-                        this.addInventory(inventory, this.lots.get(lot));
+                        this.addInventory(inventory, lot.getValue());
 
-                        if (this.lots.get(lot).compareTo(BigDecimal.ZERO) == 0) {
+                        if (lot.getValue().compareTo(BigDecimal.ZERO) == 0) {
                             break;
                         }
                     }
                 }
 
-                if (this.lots.get(lot).compareTo(BigDecimal.ZERO) == 0) {
+                if (lot.getValue().compareTo(BigDecimal.ZERO) == 0) {
                     break;
                 }
 
-                inventories = this.inventoryService.acquire(detail.getWarehouse(), detail.getItem(), lot, detail.getInventoryState(), configuration.getStoreCategory(), configuration.getStoreNo(), this.lots.get(lot));
+                inventories = this.inventoryService.acquire(detail.getWarehouse(), detail.getItem(), lot.getKey(), detail.getInventoryState(), configuration.getStoreCategory(), configuration.getStoreNo(), lot.getValue());
 
                 if (inventories == null || inventories.size() == 0) {
                     continue;
@@ -397,15 +394,15 @@ public abstract class AbstractAllocator extends BusinessBase implements Allocato
                             }
                         }
 
-                        this.addInventory(inventory, this.lots.get(lot));
+                        this.addInventory(inventory, lot.getValue());
                     }
 
-                    if (this.lots.get(lot).compareTo(BigDecimal.ZERO) == 0) {
+                    if (lot.getValue().compareTo(BigDecimal.ZERO) == 0) {
                         break;
                     }
                 }
 
-                if (this.lots.get(lot).compareTo(BigDecimal.ZERO) == 0) {
+                if (lot.getValue().compareTo(BigDecimal.ZERO) == 0) {
                     break;
                 }
             }

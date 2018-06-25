@@ -2,6 +2,8 @@ package org.thinking.logistics.services.core.domain.barcode;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import org.hibernate.annotations.DynamicInsert;
+import org.hibernate.annotations.DynamicUpdate;
 import org.thinking.logistics.services.core.domain.command.ReplenishmentCommand;
 
 import javax.persistence.Entity;
@@ -12,6 +14,8 @@ import java.util.LinkedHashSet;
 import java.util.Set;
 
 @Entity
+@DynamicInsert
+@DynamicUpdate
 @Data
 @EqualsAndHashCode(callSuper = true)
 public class ReplenishmentBarcode extends TaskBarcode {

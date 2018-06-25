@@ -11,8 +11,7 @@ import org.thinking.logistics.services.core.domain.support.BillSource;
 import org.thinking.logistics.services.core.domain.support.BillType;
 
 import javax.persistence.*;
-import java.sql.Date;
-import java.time.LocalDate;
+import java.time.Instant;
 import java.util.Set;
 
 @MappedSuperclass
@@ -45,10 +44,10 @@ public abstract class Header extends BaseDomainEntity {
     private Employee businessman;//业务员
 
     @Column(nullable = false)
-    private Date creationTime = Date.valueOf(LocalDate.now());//创建时间
+    private Instant creationTime = Instant.now();//创建时间
 
     @Column(nullable = false)
-    private Date modificationTime = Date.valueOf(LocalDate.now());//修改时间
+    private Instant modificationTime = Instant.now();//修改时间
 
     private String remarks;//备注
 

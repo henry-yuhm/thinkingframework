@@ -15,7 +15,7 @@ import java.util.Optional;
 
 @Service
 public class ParameterService extends DomainService<QParameter, Parameter, Long> {
-    private final Map<String, Parameter> parameters = new LinkedHashMap<>();
+    private final Map<String, Parameter> parameters = new LinkedHashMap<>(16);
 
     @Autowired
     public ParameterService(EntityManager entityManager, DomainRepository<Parameter, Long> repository) {

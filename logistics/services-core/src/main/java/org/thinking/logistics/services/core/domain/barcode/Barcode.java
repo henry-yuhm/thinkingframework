@@ -8,8 +8,7 @@ import javax.persistence.Column;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.MappedSuperclass;
-import java.sql.Date;
-import java.time.LocalDate;
+import java.time.Instant;
 
 @MappedSuperclass
 @Inheritance(strategy = InheritanceType.JOINED)
@@ -20,8 +19,8 @@ public abstract class Barcode extends BaseDomainEntity {
     private String no;//编号
 
     @Column(nullable = false)
-    private Date creationTime = Date.valueOf(LocalDate.now());//创建时间
+    private Instant creationTime = Instant.now();//创建时间
 
     @Column(nullable = false)
-    private Date modificationTime = Date.valueOf(LocalDate.now());//修改时间
+    private Instant modificationTime = Instant.now();//修改时间
 }

@@ -86,7 +86,7 @@ public class MachineConfigurer extends StateMachineConfigurerAdapter<String, Str
     public Action<String, String> restAction(String spel) {
         return stateContext -> {
             try {
-                stateContext.getExtendedState().getVariables().putAll(Optional.ofNullable(this.restTemplate.postForObject(spel, stateContext.getExtendedState().getVariables(), Map.class)).orElse(new HashMap()));
+                stateContext.getExtendedState().getVariables().putAll(Optional.ofNullable(this.restTemplate.postForObject(spel, stateContext.getExtendedState().getVariables(), Map.class)).orElse(new HashMap(16)));
             } catch (Exception ex) {
                 throw new RuntimeException(ex.getMessage(), ex.getCause());
             }
@@ -101,7 +101,7 @@ public class MachineConfigurer extends StateMachineConfigurerAdapter<String, Str
 
     @Bean
     public Map<String, JpaRepositoryAction> actions() {
-        Map<String, JpaRepositoryAction> actions = new LinkedHashMap<>();
+        Map<String, JpaRepositoryAction> actions = new LinkedHashMap<>(16);
 
         this.actionRepository.findAll().forEach(action -> actions.put(Optional.ofNullable(action.getName()).orElse(action.getSpel()), action));
 
@@ -110,7 +110,7 @@ public class MachineConfigurer extends StateMachineConfigurerAdapter<String, Str
 
     @Bean
     public Map<String, JpaRepositoryGuard> guards() {
-        Map<String, JpaRepositoryGuard> guards = new LinkedHashMap<>();
+        Map<String, JpaRepositoryGuard> guards = new LinkedHashMap<>(16);
 
         this.guardRepository.findAll().forEach(guard -> guards.put(guard.getName(), guard));
 
@@ -119,8 +119,8 @@ public class MachineConfigurer extends StateMachineConfigurerAdapter<String, Str
 
 //    @Bean
 //    public StateMachineComponentResolver<String, String> stateMachineComponentResolver() {
-//        Map<String, Action<String, String>> registeredActions = new HashMap<>();
-//        Map<String, Guard<String, String>> registeredGuards = new HashMap<>();
+//        Map<String, Action<String, String>> registeredActions = new HashMap<>(16);
+//        Map<String, Guard<String, String>> registeredGuards = new HashMap<>(16);
 //
 //        this.actions().values().forEach(action -> {
 //            if (!action.getName().isEmpty()) {

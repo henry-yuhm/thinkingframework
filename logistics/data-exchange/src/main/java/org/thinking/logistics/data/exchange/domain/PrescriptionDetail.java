@@ -2,6 +2,8 @@ package org.thinking.logistics.data.exchange.domain;
 
 import com.alibaba.fastjson.annotation.JSONField;
 import lombok.Data;
+import org.hibernate.annotations.DynamicInsert;
+import org.hibernate.annotations.DynamicUpdate;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -10,6 +12,8 @@ import javax.persistence.Id;
 import java.math.BigDecimal;
 
 @Entity
+@DynamicInsert
+@DynamicUpdate
 @Data
 public class PrescriptionDetail implements EntityBase {
     @Id

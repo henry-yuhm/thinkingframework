@@ -135,7 +135,7 @@ public class InventoryService extends DomainService<QInventory, Inventory, Long>
             .fetch()
             .stream()
             .map(tuple -> {
-                Map<String, Object> map = new LinkedHashMap<>();
+                Map<String, Object> map = new LinkedHashMap<>(16);
                 map.put("item", tuple.get(this.getPath().item));
                 map.put("lot", tuple.get(this.getPath().lot));
                 map.put("type", tuple.get(type));

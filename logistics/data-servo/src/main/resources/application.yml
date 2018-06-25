@@ -12,9 +12,9 @@ spring:
   datasource:
     # JDBC 配置
     type: com.alibaba.druid.pool.DruidDataSource
-    url: jdbc:oracle:thin:@10.211.55.3:1521:WMS
-    username: exwms
-    password: exwms
+    url: jdbc:oracle:thin:@10.211.55.3:1523:THINKING
+    username: wms
+    password: wms
 #    url: jdbc:mysql://10.3.87.202:3306/ua
 #    username: ua
 #    password: ua

@@ -2,6 +2,8 @@ package org.thinking.logistics.services.core.domain.core;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import org.hibernate.annotations.DynamicInsert;
+import org.hibernate.annotations.DynamicUpdate;
 import org.thinking.logistics.services.core.domain.BaseDomainEntity;
 import org.thinking.logistics.services.core.domain.support.OperationDevice;
 import org.thinking.logistics.services.core.domain.support.PackageType;
@@ -14,6 +16,8 @@ import javax.persistence.FetchType;
 import javax.persistence.ManyToOne;
 
 @Entity
+@DynamicInsert
+@DynamicUpdate
 @Data
 @EqualsAndHashCode(callSuper = true)
 public class Area extends BaseDomainEntity {

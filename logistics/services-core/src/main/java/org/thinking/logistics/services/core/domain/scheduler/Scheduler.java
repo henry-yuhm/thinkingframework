@@ -10,8 +10,7 @@ import javax.persistence.Column;
 import javax.persistence.FetchType;
 import javax.persistence.ManyToOne;
 import javax.persistence.MappedSuperclass;
-import java.sql.Date;
-import java.time.LocalDate;
+import java.time.Instant;
 
 @MappedSuperclass
 @Data
@@ -27,8 +26,8 @@ public abstract class Scheduler extends BaseDomainEntity {
     private boolean complete = false;//完成
 
     @Column(nullable = false)
-    private Date creationTime = Date.valueOf(LocalDate.now());//创建时间
+    private Instant creationTime = Instant.now();//创建时间
 
     @Column(nullable = false)
-    private Date modificationTime = Date.valueOf(LocalDate.now());//修改时间
+    private Instant modificationTime = Instant.now();//修改时间
 }

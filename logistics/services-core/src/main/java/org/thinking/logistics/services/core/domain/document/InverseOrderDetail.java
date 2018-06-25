@@ -4,6 +4,8 @@ import lombok.AccessLevel;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.Setter;
+import org.hibernate.annotations.DynamicInsert;
+import org.hibernate.annotations.DynamicUpdate;
 import org.thinking.logistics.services.core.domain.employee.Employee;
 import org.thinking.logistics.services.core.domain.support.InverseStage;
 
@@ -12,10 +14,11 @@ import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.ManyToOne;
 import java.math.BigDecimal;
-import java.sql.Date;
-import java.time.LocalDate;
+import java.time.Instant;
 
 @Entity
+@DynamicInsert
+@DynamicUpdate
 @Data
 @EqualsAndHashCode(callSuper = true)
 public class InverseOrderDetail extends Detail {
@@ -40,7 +43,7 @@ public class InverseOrderDetail extends Detail {
     private Employee operator;//操作员
 
     @Column(nullable = false)
-    private Date operationTime = Date.valueOf(LocalDate.now());//操作时间
+    private Instant operationTime = Instant.now();//操作时间
 
     @Column(nullable = false)
     private InverseStage stage;//冲红阶段
@@ -48,7 +51,7 @@ public class InverseOrderDetail extends Detail {
     @ManyToOne(fetch = FetchType.LAZY)
     private Employee auditor;//审核员
 
-    private Date auditTime;//审核时间
+    private Instant auditTime;//审核时间
 
     private String reasons;//原因
 

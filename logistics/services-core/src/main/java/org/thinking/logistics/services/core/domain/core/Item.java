@@ -2,6 +2,8 @@ package org.thinking.logistics.services.core.domain.core;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import org.hibernate.annotations.DynamicInsert;
+import org.hibernate.annotations.DynamicUpdate;
 import org.thinking.logistics.services.core.domain.BaseDomainEntity;
 import org.thinking.logistics.services.core.domain.dictionary.ItemCategory;
 import org.thinking.logistics.services.core.domain.support.SaleClassification;
@@ -11,11 +13,13 @@ import org.thinking.logistics.services.core.domain.support.StorageClassification
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
-import java.util.Date;
+import java.time.Instant;
 import java.util.Optional;
 
 @Entity
 @Table(uniqueConstraints = @UniqueConstraint(name = "uk_item", columnNames = {"owner_id", "no"}))
+@DynamicInsert
+@DynamicUpdate
 @Data
 @EqualsAndHashCode(callSuper = true)
 public class Item extends BaseDomainEntity {
@@ -56,7 +60,7 @@ public class Item extends BaseDomainEntity {
     @Column(nullable = false)
     private String approval;//批准文号
 
-    private Date approvalValidUntil;//批准文号效期
+    private Instant approvalValidUntil;//批准文号效期
 
     @Column(nullable = false)
     private SplittingGranularity splittingGranularity;//拆分粒度

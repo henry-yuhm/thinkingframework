@@ -2,6 +2,9 @@ package org.thinking.logistics.services.core.domain.core;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import org.hibernate.annotations.ColumnDefault;
+import org.hibernate.annotations.DynamicInsert;
+import org.hibernate.annotations.DynamicUpdate;
 import org.thinking.logistics.services.core.domain.BaseDomainEntity;
 
 import javax.persistence.Column;
@@ -9,6 +12,8 @@ import javax.persistence.Entity;
 import java.math.BigDecimal;
 
 @Entity
+@DynamicInsert
+@DynamicUpdate
 @Data
 @EqualsAndHashCode(callSuper = true)
 public class Owner extends BaseDomainEntity {
@@ -21,7 +26,8 @@ public class Owner extends BaseDomainEntity {
     private String mnemonicCode;//助记码
 
     @Column(nullable = false, precision = 12, scale = 5)
-    private BigDecimal inventoryUpper = BigDecimal.ZERO;//库存上限
+    @ColumnDefault("0.00000")
+    private BigDecimal inventoryUpper;//库存上限
 
     private String serviceHotline;//服务热线
 

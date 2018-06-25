@@ -2,16 +2,20 @@ package org.thinking.logistics.services.core.domain.document;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import org.hibernate.annotations.DynamicInsert;
+import org.hibernate.annotations.DynamicUpdate;
 import org.thinking.logistics.services.core.domain.support.ArrivalMode;
 import org.thinking.logistics.services.core.domain.support.ArrivalVoucher;
 import org.thinking.logistics.services.core.domain.support.InboundStage;
 
 import javax.persistence.*;
-import java.sql.Date;
+import java.time.Instant;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
 @Entity
+@DynamicInsert
+@DynamicUpdate
 @Data
 @EqualsAndHashCode(callSuper = true)
 public class InboundOrderHeader extends Header {
@@ -47,7 +51,7 @@ public class InboundOrderHeader extends Header {
 
     private String arrivalNo;//到货单号
 
-    private Date arrivalTime;//到货时间
+    private Instant arrivalTime;//到货时间
 
     private String saleOrderNo;//销售订单号
 

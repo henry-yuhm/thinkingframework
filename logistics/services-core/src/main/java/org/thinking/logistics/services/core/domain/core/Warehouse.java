@@ -2,6 +2,8 @@ package org.thinking.logistics.services.core.domain.core;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import org.hibernate.annotations.DynamicInsert;
+import org.hibernate.annotations.DynamicUpdate;
 import org.thinking.logistics.services.core.domain.BaseDomainEntity;
 import org.thinking.logistics.services.core.domain.support.TWFType;
 import org.thinking.logistics.services.core.domain.support.TransferlineType;
@@ -13,6 +15,8 @@ import javax.persistence.ManyToOne;
 import java.util.LinkedHashMap;
 
 @Entity
+@DynamicInsert
+@DynamicUpdate
 @Data
 @EqualsAndHashCode(callSuper = true)
 public class Warehouse extends BaseDomainEntity {
@@ -34,9 +38,9 @@ public class Warehouse extends BaseDomainEntity {
     @Column(nullable = false)
     private boolean tablet;//使用平板电脑
 
-    private LinkedHashMap<Integer, TransferlineType> transferlineTypes = new LinkedHashMap<>();//输送线类型
+    private LinkedHashMap<Integer, TransferlineType> transferlineTypes = new LinkedHashMap<>(16);//输送线类型
 
-    private LinkedHashMap<Integer, TWFType> twfTypes = new LinkedHashMap<>();//立体库类型
+    private LinkedHashMap<Integer, TWFType> twfTypes = new LinkedHashMap<>(16);//立体库类型
 
     private String address;//地址
 }

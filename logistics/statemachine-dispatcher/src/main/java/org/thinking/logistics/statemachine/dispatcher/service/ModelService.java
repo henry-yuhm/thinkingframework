@@ -81,10 +81,10 @@ public class ModelService {
             throw new Exception("工作流模板不允许出现重复的节点状态值");
         }
 
-        Map<String, Node> nodes = new LinkedHashMap<>();
-        Map<String, JpaRepositoryState> states = new LinkedHashMap<>();
-        Map<String, JpaRepositoryState> existingStates = new LinkedHashMap<>();
-        Map<String, JpaRepositoryTransition> existingTransitions = new LinkedHashMap<>();
+        Map<String, Node> nodes = new LinkedHashMap<>(16);
+        Map<String, JpaRepositoryState> states = new LinkedHashMap<>(16);
+        Map<String, JpaRepositoryState> existingStates = new LinkedHashMap<>(16);
+        Map<String, JpaRepositoryTransition> existingTransitions = new LinkedHashMap<>(16);
 
         this.stateRepository.findByMachineId(workflow.getId()).forEach(state -> existingStates.put(state.getState(), state));
 

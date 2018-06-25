@@ -10,8 +10,7 @@ import org.thinking.logistics.services.core.domain.support.OutboundStage;
 import org.thinking.logistics.services.core.service.document.ShipmentOrderService;
 
 import javax.annotation.Resource;
-import java.sql.Date;
-import java.time.LocalDate;
+import java.time.Instant;
 import java.util.List;
 
 @Data
@@ -37,9 +36,9 @@ public abstract class AbstractDispatcher extends BusinessBase implements Dispatc
     @Override
     public void arrangeWave() throws Exception {
         //region 系统截单时间处理
-        Date currentTime = Date.valueOf(LocalDate.now());
-        Date trimTime = this.getDateParameter(this.header.getWarehouse(), "截单时间");
-        if (currentTime.after(trimTime)) {
+        Instant currentTime = Instant.now();
+        Instant trimTime = this.getInstantParameter(this.header.getWarehouse(), "截单时间");
+        if (currentTime.isAfter(trimTime)) {
             throw CompositeException.getException("当前时间大于系统截单时间【" + trimTime.toString() + "】，不允许再安排波次");
         }
         //endregion
@@ -51,7 +50,7 @@ public abstract class AbstractDispatcher extends BusinessBase implements Dispatc
         this.headers.forEach(header -> {
             header.setStage(OutboundStage.ARRANGED);
             header.setDispatchers(this.getOperator());
-            header.setDispatcherTime(Date.valueOf(LocalDate.now()));
+            header.setDispatcherTime(Instant.now());
         });
 
         this.orderService.getRepository().saveAll(this.headers);
@@ -91,7 +90,7 @@ public abstract class AbstractDispatcher extends BusinessBase implements Dispatc
     public void releaseWave() throws Exception {
         this.headers.forEach(header -> {
             header.setStage(OutboundStage.RELEASED);
-            header.setReleaseTime(Date.valueOf(LocalDate.now()));
+            header.setReleaseTime(Instant.now());
         });
 
         this.orderService.getRepository().saveAll(this.headers);
@@ -101,8 +100,8 @@ public abstract class AbstractDispatcher extends BusinessBase implements Dispatc
     public void releaseOrder() throws Exception {
         this.header.setStage(this.header.getStage() == OutboundStage.SUSPENDED ? OutboundStage.RESEND : OutboundStage.RELEASED);
         this.header.setDispatchers(this.getOperator());
-        this.header.setDispatcherTime(Date.valueOf(LocalDate.now()));
-        this.header.setReleaseTime(Date.valueOf(LocalDate.now()));
+        this.header.setDispatcherTime(Instant.now());
+        this.header.setReleaseTime(Instant.now());
 
         this.orderService.getRepository().save(this.header);
     }

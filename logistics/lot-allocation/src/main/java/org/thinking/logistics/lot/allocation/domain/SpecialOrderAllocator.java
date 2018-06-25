@@ -10,8 +10,7 @@ import org.thinking.logistics.services.core.domain.inventory.Inventory;
 import org.thinking.logistics.services.core.domain.support.*;
 
 import java.math.BigDecimal;
-import java.sql.Date;
-import java.time.LocalDate;
+import java.time.Instant;
 import java.util.Comparator;
 import java.util.LinkedList;
 import java.util.List;
@@ -39,8 +38,8 @@ public class SpecialOrderAllocator extends AbstractAllocator {
         command.setActivated(true);
         if (command.getTask().getPicker() == null) {
             command.getTask().setPicker(this.getOperator());
-            command.getTask().setPickingStartTime(Date.valueOf(LocalDate.now()));
-            command.getTask().setPickingCompleteTime(Date.valueOf(LocalDate.now()));
+            command.getTask().setPickingStartTime(Instant.now());
+            command.getTask().setPickingCompleteTime(Instant.now());
         }
 
         return command;
@@ -50,12 +49,12 @@ public class SpecialOrderAllocator extends AbstractAllocator {
     public void save() {
         this.getHeader().setStage(OutboundStage.TASK_COMPLETE);
         this.getHeader().setDispatchers(this.getOperator());
-        this.getHeader().setDispatcherTime(Date.valueOf(LocalDate.now()));
-        this.getHeader().setReleaseTime(Date.valueOf(LocalDate.now()));
-        this.getHeader().setTaskCompleteTime(Date.valueOf(LocalDate.now()));
+        this.getHeader().setDispatcherTime(Instant.now());
+        this.getHeader().setReleaseTime(Instant.now());
+        this.getHeader().setTaskCompleteTime(Instant.now());
         this.getHeader().setReportbillPrintSign(PrintSign.CONFIRMATION);
         this.getHeader().setReportbillPrintClerk(this.getOperator());
-        this.getHeader().setReportbillPrintTime(Date.valueOf(LocalDate.now()));
+        this.getHeader().setReportbillPrintTime(Instant.now());
 
         this.getOrderService().getRepository().save(this.getHeader());
     }

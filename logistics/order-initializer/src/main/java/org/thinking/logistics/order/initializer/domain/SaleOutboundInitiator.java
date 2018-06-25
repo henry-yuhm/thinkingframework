@@ -8,8 +8,7 @@ import org.thinking.logistics.services.core.domain.support.*;
 import org.thinking.logistics.services.core.service.AddressService;
 
 import javax.annotation.Resource;
-import java.sql.Date;
-import java.time.LocalDate;
+import java.time.Instant;
 
 @Data
 @EqualsAndHashCode(callSuper = true)
@@ -65,10 +64,10 @@ public class SaleOutboundInitiator extends AbstractInitiator {
         if (this.getHeader().getOwner().isThirdpart() && !this.isEnable(this.getHeader().getWarehouse(), "三方业主自动打单")) {
             this.getHeader().setRecheckbillPrintSign(PrintSign.CONFIRMATION);
             this.getHeader().setRecheckbillPrintClerk(this.getOperator());
-            this.getHeader().setRecheckbillPrintTime(Date.valueOf(LocalDate.now()));
+            this.getHeader().setRecheckbillPrintTime(Instant.now());
             this.getHeader().setReportbillPrintSign(PrintSign.CONFIRMATION);
             this.getHeader().setReportbillPrintClerk(this.getOperator());
-            this.getHeader().setReportbillPrintTime(Date.valueOf(LocalDate.now()));
+            this.getHeader().setReportbillPrintTime(Instant.now());
         }
         //endregion
 
@@ -85,9 +84,9 @@ public class SaleOutboundInitiator extends AbstractInitiator {
                 this.getHeader().getSaleType() == SaleType.NORMAL_SALE &&
                 this.getHeader().getDispatcherType() == DispatcherType.AUTOMATIC) {
                 //region 系统截单时间处理
-                Date currentTime = Date.valueOf(LocalDate.now());
-                Date trimTime = this.getDateParameter(this.getHeader().getWarehouse(), "截单时间");
-                if (currentTime.after(trimTime)) {
+                Instant currentTime = Instant.now();
+                Instant trimTime = this.getInstantParameter(this.getHeader().getWarehouse(), "截单时间");
+                if (currentTime.isAfter(trimTime)) {
                     throw CompositeException.getException("当前时间大于系统截单时间【" + trimTime.toString() + "】，不允许自动下发", this.getHeader(), this.getHeader().getOwner());
                 }
                 //endregion

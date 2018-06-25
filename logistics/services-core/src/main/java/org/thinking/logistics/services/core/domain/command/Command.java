@@ -8,8 +8,7 @@ import org.thinking.logistics.services.core.domain.core.Warehouse;
 import org.thinking.logistics.services.core.domain.support.*;
 
 import javax.persistence.*;
-import java.sql.Date;
-import java.time.LocalDate;
+import java.time.Instant;
 
 @MappedSuperclass
 @Inheritance(strategy = InheritanceType.JOINED)
@@ -37,8 +36,8 @@ public abstract class Command extends BaseDomainEntity {
     private WorkMode workMode;//作业方式
 
     @Column(nullable = false)
-    private Date creationTime = Date.valueOf(LocalDate.now());//创建时间
+    private Instant creationTime = Instant.now();//创建时间
 
     @Column(nullable = false)
-    private Date modificationTime = Date.valueOf(LocalDate.now());//修改时间
+    private Instant modificationTime = Instant.now();//修改时间
 }

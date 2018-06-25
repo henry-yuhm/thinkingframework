@@ -1,14 +1,18 @@
 package org.thinking.logistics.operation.audit.domain;
 
 import lombok.Data;
+import org.hibernate.annotations.DynamicInsert;
+import org.hibernate.annotations.DynamicUpdate;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
-import java.util.Date;
+import java.time.Instant;
 import java.util.HashMap;
 
 @Entity
+@DynamicInsert
+@DynamicUpdate
 @Data
 public class AuditData {
     @Id
@@ -35,5 +39,5 @@ public class AuditData {
 
     @Column(nullable = false, updatable = false)
     @NotNull(message = "审计时间不能为空")
-    private Date auditTime;
+    private Instant auditTime;
 }

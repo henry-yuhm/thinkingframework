@@ -3,6 +3,8 @@ package org.thinking.logistics.services.core.domain.barcode;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.DynamicInsert;
+import org.hibernate.annotations.DynamicUpdate;
 import org.thinking.logistics.services.core.domain.command.OutboundCommand;
 import org.thinking.logistics.services.core.domain.core.Sorter;
 import org.thinking.logistics.services.core.domain.support.GroupageType;
@@ -12,6 +14,8 @@ import java.util.LinkedHashSet;
 import java.util.Set;
 
 @Entity
+@DynamicInsert
+@DynamicUpdate
 @Data
 @NoArgsConstructor
 @EqualsAndHashCode(callSuper = true)

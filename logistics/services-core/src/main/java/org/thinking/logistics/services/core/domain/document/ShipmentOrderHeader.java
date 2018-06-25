@@ -2,6 +2,8 @@ package org.thinking.logistics.services.core.domain.document;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import org.hibernate.annotations.DynamicInsert;
+import org.hibernate.annotations.DynamicUpdate;
 import org.thinking.logistics.services.core.domain.CompositeException;
 import org.thinking.logistics.services.core.domain.core.Address;
 import org.thinking.logistics.services.core.domain.core.Customer;
@@ -11,11 +13,13 @@ import org.thinking.logistics.services.core.domain.support.*;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
-import java.sql.Date;
+import java.time.Instant;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
 @Entity
+@DynamicInsert
+@DynamicUpdate
 @Data
 @EqualsAndHashCode(callSuper = true)
 public class ShipmentOrderHeader extends Header {
@@ -43,14 +47,14 @@ public class ShipmentOrderHeader extends Header {
     private String distributionType;//配送类型
 
     @Column(nullable = false)
-    private Date invoiceTime;//开票时间
+    private Instant invoiceTime;//开票时间
 
     @ManyToOne(fetch = FetchType.LAZY)
     private Employee buyer;//采购员
 
     private String settlementType = "无";//结算类型
 
-    private Date settlementTime;//结算时间
+    private Instant settlementTime;//结算时间
 
     private TaxType taxType;//税票类型
 
@@ -67,9 +71,9 @@ public class ShipmentOrderHeader extends Header {
     @ManyToOne(fetch = FetchType.LAZY)
     private Employee dispatchers;//调度员
 
-    private Date dispatcherTime;//调度时间
+    private Instant dispatcherTime;//调度时间
 
-    private Date releaseTime;//下发时间
+    private Instant releaseTime;//下发时间
 
     @ManyToOne(fetch = FetchType.LAZY)
     private Address address;//地址
@@ -92,14 +96,14 @@ public class ShipmentOrderHeader extends Header {
     @Column(nullable = false)
     private boolean gatheringComplete = false;//集货完成
 
-    private Date taskCompleteTime;//作业完成时间
+    private Instant taskCompleteTime;//作业完成时间
 
     @ManyToOne(fetch = FetchType.LAZY)
     private Employee rechecker;//复核员
 
-    private Date recheckStartTime;//复核开始时间
+    private Instant recheckStartTime;//复核开始时间
 
-    private Date recheckCompleteTime;//复核结束时间
+    private Instant recheckCompleteTime;//复核结束时间
 
     @Column(nullable = false)
     private PrintSign recheckbillPrintSign = PrintSign.NONE;//复核单打印标识
@@ -107,7 +111,7 @@ public class ShipmentOrderHeader extends Header {
     @ManyToOne(fetch = FetchType.LAZY)
     private Employee recheckbillPrintClerk;//复核单打印员
 
-    private Date recheckbillPrintTime;//复核单打印时间
+    private Instant recheckbillPrintTime;//复核单打印时间
 
     @Column(nullable = false)
     private PrintSign reportbillPrintSign = PrintSign.NONE;//报告单打印标识
@@ -115,7 +119,7 @@ public class ShipmentOrderHeader extends Header {
     @ManyToOne(fetch = FetchType.LAZY)
     private Employee reportbillPrintClerk;//报告单打印员
 
-    private Date reportbillPrintTime;//报告单打印时间
+    private Instant reportbillPrintTime;//报告单打印时间
 
     @Column(nullable = false)
     private int printTimes = 0;//打印次数

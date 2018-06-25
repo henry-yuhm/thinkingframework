@@ -3,6 +3,8 @@ package org.thinking.logistics.services.core.domain.core;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.DynamicInsert;
+import org.hibernate.annotations.DynamicUpdate;
 import org.thinking.logistics.services.core.domain.BaseDomainEntity;
 import org.thinking.logistics.services.core.domain.container.Totebox;
 import org.thinking.logistics.services.core.domain.employee.Employee;
@@ -12,9 +14,11 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.ManyToOne;
-import java.sql.Date;
+import java.time.Instant;
 
 @Entity
+@DynamicInsert
+@DynamicUpdate
 @Data
 @EqualsAndHashCode(callSuper = true)
 @NoArgsConstructor
@@ -40,14 +44,14 @@ public class Task extends BaseDomainEntity {
     @ManyToOne(fetch = FetchType.LAZY)
     private Employee picker;//拣货员
 
-    private Date pickingStartTime;//拣货开始时间
+    private Instant pickingStartTime;//拣货开始时间
 
-    private Date pickingCompleteTime;//拣货完成时间
+    private Instant pickingCompleteTime;//拣货完成时间
 
     @ManyToOne(fetch = FetchType.LAZY)
     private Employee rechecker;//复核员
 
-    private Date recheckStartTime;//复核开始时间
+    private Instant recheckStartTime;//复核开始时间
 
-    private Date recheckCompleteTime;//复核完成时间
+    private Instant recheckCompleteTime;//复核完成时间
 }
