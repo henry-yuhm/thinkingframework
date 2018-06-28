@@ -1,7 +1,7 @@
 package org.thinking.logistics.services.core.domain.support;
 
-//单据来源
-public enum BillSource {
+//数据来源
+public enum DataSource {
     ERP(1) {
         @Override
         public String toString() {
@@ -27,6 +27,6 @@ public enum BillSource {
         }
     };
 
-    BillSource(int ordinal) {
+    DataSource(int ordinal) {
     }
 }

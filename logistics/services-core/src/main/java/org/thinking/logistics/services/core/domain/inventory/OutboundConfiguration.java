@@ -8,7 +8,7 @@ import org.hibernate.annotations.DynamicUpdate;
 import org.thinking.logistics.services.core.domain.BaseDomainEntity;
 import org.thinking.logistics.services.core.domain.core.Owner;
 import org.thinking.logistics.services.core.domain.core.Warehouse;
-import org.thinking.logistics.services.core.domain.support.BillCategory;
+import org.thinking.logistics.services.core.domain.support.ItemCategory;
 import org.thinking.logistics.services.core.domain.support.PackageType;
 import org.thinking.logistics.services.core.domain.support.SaleType;
 
@@ -16,7 +16,7 @@ import javax.persistence.*;
 import java.math.BigDecimal;
 
 @Entity
-@Table(uniqueConstraints = @UniqueConstraint(name = "uk_outbound_configuration", columnNames = {"warehouse_id", "owner_id", "packageType", "billCategory", "saleType", "storeCategory", "storeNo"}))
+@Table(uniqueConstraints = @UniqueConstraint(name = "uk_outbound_configuration", columnNames = {"warehouse_id", "owner_id", "packageType", "itemCategory", "saleType", "storeCategory", "storeNo"}))
 @DynamicInsert
 @DynamicUpdate
 @Data
@@ -33,7 +33,7 @@ public class OutboundConfiguration extends BaseDomainEntity {
     private PackageType packageType;//包装类型
 
     @Column(nullable = false)
-    private BillCategory billCategory;//单据类别
+    private ItemCategory itemCategory;//商品类别
 
     @Column(nullable = false)
     private SaleType saleType;//销售类型

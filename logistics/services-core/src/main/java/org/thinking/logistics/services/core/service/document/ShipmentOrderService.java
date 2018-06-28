@@ -5,7 +5,7 @@ import org.springframework.stereotype.Service;
 import org.thinking.logistics.services.core.domain.CompositeException;
 import org.thinking.logistics.services.core.domain.core.Owner;
 import org.thinking.logistics.services.core.domain.core.Warehouse;
-import org.thinking.logistics.services.core.domain.document.QInverseOrderDetail;
+import org.thinking.logistics.services.core.domain.document.QReversionNoteDetail;
 import org.thinking.logistics.services.core.domain.document.QShipmentOrderDetail;
 import org.thinking.logistics.services.core.domain.document.QShipmentOrderHeader;
 import org.thinking.logistics.services.core.domain.document.ShipmentOrderHeader;
@@ -19,12 +19,12 @@ import java.util.Optional;
 
 @Service
 public class ShipmentOrderService extends DomainService<QShipmentOrderHeader, ShipmentOrderHeader, Long> {
-    private final InverseOrderService inverseOrderService;
+    private final ReversionNoteService reversionNoteService;
 
     @Autowired
-    public ShipmentOrderService(EntityManager entityManager, DomainRepository<ShipmentOrderHeader, Long> repository, InverseOrderService inverseOrderService) {
+    public ShipmentOrderService(EntityManager entityManager, DomainRepository<ShipmentOrderHeader, Long> repository, ReversionNoteService reversionNoteService) {
         super(entityManager, repository, QShipmentOrderHeader.shipmentOrderHeader);
-        this.inverseOrderService = inverseOrderService;
+        this.reversionNoteService = reversionNoteService;
     }
 
     public final ShipmentOrderHeader acquire(long id, boolean verifiable) throws Exception {
@@ -75,7 +75,7 @@ public class ShipmentOrderService extends DomainService<QShipmentOrderHeader, Sh
         return headers;
     }
 
-    public final boolean isInversed(ShipmentOrderHeader header) {
+    public final boolean isReversed(ShipmentOrderHeader header) {
         QShipmentOrderDetail detail = QShipmentOrderDetail.shipmentOrderDetail;
         BigDecimal orderQuantity = Optional.ofNullable(this.getFactory().selectFrom(this.getPath())
             .innerJoin(this.getPath().details, detail)
@@ -87,13 +87,13 @@ public class ShipmentOrderService extends DomainService<QShipmentOrderHeader, Sh
             .fetchOne()
         ).orElse(BigDecimal.ZERO);
 
-        QInverseOrderDetail inverseDetail = QInverseOrderDetail.inverseOrderDetail;
-        BigDecimal inverseQuantity = Optional.ofNullable(this.inverseOrderService.getFactory().selectFrom(inverseDetail)
-            .where(inverseDetail.header.eq(header))
-            .select(inverseDetail.quantity.sum())
+        QReversionNoteDetail reversionNoteDetail = QReversionNoteDetail.reversionNoteDetail;
+        BigDecimal reverseQuantity = Optional.ofNullable(this.reversionNoteService.getFactory().selectFrom(reversionNoteDetail)
+            .where(reversionNoteDetail.header.eq(header))
+            .select(reversionNoteDetail.quantity.sum())
             .fetchOne()
         ).orElse(BigDecimal.ZERO);
 
-        return orderQuantity.compareTo(inverseQuantity) == 0;
+        return orderQuantity.compareTo(reverseQuantity) == 0;
     }
 }

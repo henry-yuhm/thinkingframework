@@ -30,7 +30,7 @@ public class StagingareaService extends DomainService<QStagingarea, Stagingarea,
                 this.getPath().category.eq(stagingarea.getCategory()),
                 this.getPath().locking.isFalse(),
                 this.getPath().available.isTrue(),
-                this.getPath().billType.eq(stagingarea.getBillType()),
+                this.getPath().documentType.eq(stagingarea.getDocumentType()),
                 this.getPath().pickupMode.eq(stagingarea.getPickupMode()),
                 this.getPath().owners.contains(stagingarea.getOwners().stream().findAny().get()),
                 this.getPath().direction.eq(stagingarea.getDirection()))
@@ -48,7 +48,7 @@ public class StagingareaService extends DomainService<QStagingarea, Stagingarea,
                 this.getPath().category.eq(stagingarea.getCategory()),
                 this.getPath().locking.isFalse(),
                 this.getPath().available.isTrue(),
-                this.getPath().billType.eq(stagingarea.getBillType()),
+                this.getPath().documentType.eq(stagingarea.getDocumentType()),
                 this.getPath().pickupMode.eq(stagingarea.getPickupMode()),
                 this.getPath().owners.contains(stagingarea.getOwners().stream().findAny().get()),
                 this.getPath().direction.eq(stagingarea.getDirection()))
@@ -59,7 +59,7 @@ public class StagingareaService extends DomainService<QStagingarea, Stagingarea,
 
     @Transactional(rollbackFor = Exception.class)
     public void cleanup(final ShipmentOrderHeader header) throws Exception {
-        if (header.getStage().compareTo(OutboundStage.RECHECK_COMPLETE) < 0 && !header.isInversed()) {
+        if (header.getStage().compareTo(OutboundStage.RECHECK_COMPLETE) < 0 && !header.isReversed()) {
             throw CompositeException.getException("单据任务未完成，不能清空月台", header, header.getOwner());
         }
 

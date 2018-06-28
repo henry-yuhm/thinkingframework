@@ -7,7 +7,7 @@ import lombok.Setter;
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
 import org.thinking.logistics.services.core.domain.employee.Employee;
-import org.thinking.logistics.services.core.domain.support.InverseStage;
+import org.thinking.logistics.services.core.domain.support.ReversionStage;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -21,7 +21,7 @@ import java.time.Instant;
 @DynamicUpdate
 @Data
 @EqualsAndHashCode(callSuper = true)
-public class InverseOrderDetail extends Detail {
+public class ReversionNoteDetail extends Detail {
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     private ShipmentOrderHeader header;//单据抬头
 
@@ -46,7 +46,7 @@ public class InverseOrderDetail extends Detail {
     private Instant operationTime = Instant.now();//操作时间
 
     @Column(nullable = false)
-    private InverseStage stage;//冲红阶段
+    private ReversionStage stage;//冲红阶段
 
     @ManyToOne(fetch = FetchType.LAZY)
     private Employee auditor;//审核员

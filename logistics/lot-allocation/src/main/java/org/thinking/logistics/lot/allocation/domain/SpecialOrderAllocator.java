@@ -2,7 +2,7 @@ package org.thinking.logistics.lot.allocation.domain;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import org.thinking.logistics.order.inversion.domain.SaleOutboundInverser;
+import org.thinking.logistics.order.inversion.domain.SaleOutboundReversor;
 import org.thinking.logistics.services.core.domain.command.OutboundCommand;
 import org.thinking.logistics.services.core.domain.document.ShipmentOrderDetail;
 import org.thinking.logistics.services.core.domain.document.ShipmentOrderHeader;
@@ -120,7 +120,7 @@ public class SpecialOrderAllocator extends AbstractAllocator {
         this.save();
 
         //冲红
-        new SaleOutboundInverser(this.getHeader().getDispatchers(), this.getHeader(), InverseStage.DISPATCHING).inverse();
+        new SaleOutboundReversor(this.getHeader().getDispatchers(), this.getHeader(), ReversionStage.DISPATCHING).revert();
 
         //校验指令
         this.verify();

@@ -2,11 +2,11 @@ package org.thinking.logistics.lot.allocation.domain;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import org.thinking.logistics.order.inversion.domain.SaleOutboundInverser;
+import org.thinking.logistics.order.inversion.domain.SaleOutboundReversor;
 import org.thinking.logistics.services.core.domain.document.ShipmentOrderDetail;
 import org.thinking.logistics.services.core.domain.document.ShipmentOrderHeader;
-import org.thinking.logistics.services.core.domain.support.InverseStage;
 import org.thinking.logistics.services.core.domain.support.PackageType;
+import org.thinking.logistics.services.core.domain.support.ReversionStage;
 import org.thinking.logistics.services.core.domain.support.StorageClassification;
 
 import java.math.BigDecimal;
@@ -92,7 +92,7 @@ public class SuspendedOrderAllocator extends AbstractAllocator {
         this.save();
 
         //冲红
-        new SaleOutboundInverser(this.getHeader().getDispatchers(), this.getHeader(), InverseStage.DISPATCHING).inverse();
+        new SaleOutboundReversor(this.getHeader().getDispatchers(), this.getHeader(), ReversionStage.DISPATCHING).revert();
 
         //校验指令
         this.verify();

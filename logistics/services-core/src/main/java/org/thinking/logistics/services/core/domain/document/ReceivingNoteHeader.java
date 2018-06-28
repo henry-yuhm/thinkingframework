@@ -18,7 +18,7 @@ import java.util.Set;
 @DynamicUpdate
 @Data
 @EqualsAndHashCode(callSuper = true)
-public class InboundOrderHeader extends Header {
+public class ReceivingNoteHeader extends Header {
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     private PurchaseOrderHeader order;//订单
 
@@ -60,5 +60,5 @@ public class InboundOrderHeader extends Header {
 
     @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH})
     @JoinTable(joinColumns = @JoinColumn(name = "header_id"), inverseJoinColumns = @JoinColumn(name = "detail_id"))
-    private Set<InboundOrderDetail> details = new LinkedHashSet<>();//单据明细
+    private Set<ReceivingNoteDetail> details = new LinkedHashSet<>();//单据明细
 }

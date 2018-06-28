@@ -10,7 +10,7 @@
         <relativePath>../services-parent</relativePath>
     </parent>
 
-    <artifactId>order-inversion</artifactId>
+    <artifactId>order-reversion</artifactId>
     <packaging>jar</packaging>
 
     <dependencies>

@@ -126,11 +126,11 @@ public abstract class AbstractAllocator extends BusinessBase implements Allocato
         BigDecimal mediumQuantity = this.getDecimalParameter(this.header.getWarehouse(), "中型月台暂存区件数");
         BigDecimal largeQuantity = this.getDecimalParameter(this.header.getWarehouse(), "大型月台暂存区件数");
 
-        if (this.configuration.getAllocationMode() == StagingareaAllocationMode.VOLUMETRIC) {
+        if (this.configuration.getAllocationMode() == StagingareaAllocateMode.VOLUMETRIC) {
             BigDecimal volume = this.header.getDetails().stream().map(detail -> detail.getFactQuantity().multiply(detail.getItem().getSmallPackageVolume())).reduce(BigDecimal::multiply).get();
 
             //中药单据体积不能过大
-            if (this.header.getCategory() == BillCategory.TRADITIONAL_CHINESE_MEDICINE) {
+            if (this.header.getCategory() == ItemCategory.TRADITIONAL_CHINESE_MEDICINE) {
                 volume = volume.min(standardPieceVolume.multiply(this.getDecimalParameter(this.header.getWarehouse(), "中药月台标准件数上限")).multiply(mediumQuantity));
             }
 
@@ -146,7 +146,7 @@ public abstract class AbstractAllocator extends BusinessBase implements Allocato
             }
         }
 
-        if (this.configuration.getAllocationMode() == StagingareaAllocationMode.PIECEMEAL) {
+        if (this.configuration.getAllocationMode() == StagingareaAllocateMode.PIECEMEAL) {
             if (this.header.getEquivalentPieces().compareTo(smallQuantity) <= 0) {
                 this.stagingarea.setCategory(StagingareaCategory.MINIATURE);
                 this.quantity = this.header.getEquivalentPieces().divide(smallQuantity, RoundingMode.CEILING).intValue();
@@ -163,7 +163,7 @@ public abstract class AbstractAllocator extends BusinessBase implements Allocato
     @Override
     public void acquireAvailableArea() throws Exception {
         if (this.stagingarea.getType() == StagingareaType.NORMAL) {
-            this.stagingarea.setBillType(this.header.getType());
+            this.stagingarea.setDocumentType(this.header.getType());
             this.stagingarea.setPickupMode(this.header.getPickupMode() == PickupMode.GREEN_CHANNEL ? PickupMode.SELF_SERVICE : this.header.getPickupMode());
             this.stagingarea.setDirection(this.header.getAddress().getDirection());
 

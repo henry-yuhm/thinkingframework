@@ -6,9 +6,9 @@ import org.thinking.logistics.services.core.domain.BaseDomainEntity;
 import org.thinking.logistics.services.core.domain.core.Owner;
 import org.thinking.logistics.services.core.domain.core.Warehouse;
 import org.thinking.logistics.services.core.domain.employee.Employee;
-import org.thinking.logistics.services.core.domain.support.BillCategory;
-import org.thinking.logistics.services.core.domain.support.BillSource;
-import org.thinking.logistics.services.core.domain.support.BillType;
+import org.thinking.logistics.services.core.domain.support.DataSource;
+import org.thinking.logistics.services.core.domain.support.DocumentType;
+import org.thinking.logistics.services.core.domain.support.ItemCategory;
 
 import javax.persistence.*;
 import java.time.Instant;
@@ -29,13 +29,13 @@ public abstract class Header extends BaseDomainEntity {
     private String no;//单据编号
 
     @Column(nullable = false)
-    private BillType type;//单据类型
+    private DocumentType type;//单据类型
 
     @Column(nullable = false)
-    private BillCategory category;//单据类别
+    private ItemCategory category;//商品类别
 
     @Column(nullable = false)
-    private BillSource source;//单据来源
+    private DataSource source;//数据来源
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     private Employee operator;//操作员

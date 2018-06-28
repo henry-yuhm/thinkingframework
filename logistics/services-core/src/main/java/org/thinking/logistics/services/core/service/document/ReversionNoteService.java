@@ -3,23 +3,23 @@ package org.thinking.logistics.services.core.service.document;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.thinking.logistics.services.core.domain.core.Warehouse;
-import org.thinking.logistics.services.core.domain.document.InverseOrderDetail;
-import org.thinking.logistics.services.core.domain.document.QInverseOrderDetail;
+import org.thinking.logistics.services.core.domain.document.QReversionNoteDetail;
+import org.thinking.logistics.services.core.domain.document.ReversionNoteDetail;
 import org.thinking.logistics.services.core.domain.document.ShipmentOrderDetail;
-import org.thinking.logistics.services.core.domain.support.InverseStage;
+import org.thinking.logistics.services.core.domain.support.ReversionStage;
 import org.thinking.logistics.services.core.repository.DomainRepository;
 import org.thinking.logistics.services.core.service.DomainService;
 
 import javax.persistence.EntityManager;
 
 @Service
-public class InverseOrderService extends DomainService<QInverseOrderDetail, InverseOrderDetail, Long> {
+public class ReversionNoteService extends DomainService<QReversionNoteDetail, ReversionNoteDetail, Long> {
     @Autowired
-    public InverseOrderService(EntityManager entityManager, DomainRepository<InverseOrderDetail, Long> repository) {
-        super(entityManager, repository, QInverseOrderDetail.inverseOrderDetail);
+    public ReversionNoteService(EntityManager entityManager, DomainRepository<ReversionNoteDetail, Long> repository) {
+        super(entityManager, repository, QReversionNoteDetail.reversionNoteDetail);
     }
 
-    public final InverseOrderDetail acquire(Warehouse warehouse, ShipmentOrderDetail detail, InverseStage stage) {
+    public final ReversionNoteDetail acquire(Warehouse warehouse, ShipmentOrderDetail detail, ReversionStage stage) {
         return this.getFactory().selectFrom(this.getPath())
             .where(
                 this.getPath().warehouse.eq(warehouse),

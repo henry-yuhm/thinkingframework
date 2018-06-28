@@ -18,7 +18,7 @@ import org.thinking.logistics.services.core.domain.inventory.ShipmentOrderLedger
 import org.thinking.logistics.services.core.domain.support.*;
 import org.thinking.logistics.services.core.service.command.OutboundCommandService;
 import org.thinking.logistics.services.core.service.command.ReplenishmentCommandService;
-import org.thinking.logistics.services.core.service.document.InverseOrderService;
+import org.thinking.logistics.services.core.service.document.ReversionNoteService;
 import org.thinking.logistics.services.core.service.document.ShipmentOrderService;
 import org.thinking.logistics.services.core.service.inventory.InventoryService;
 import org.thinking.logistics.services.core.service.inventory.LedgerService;
@@ -77,7 +77,7 @@ public abstract class AbstractAllocator extends BusinessBase implements Allocato
     private ReplenishmentCommandService replenishmentCommandService;
 
     @Resource
-    private InverseOrderService inverseOrderService;
+    private ReversionNoteService reversionNoteService;
 
     public AbstractAllocator(ShipmentOrderHeader header) throws Exception {
         this.header = header;
@@ -340,7 +340,7 @@ public abstract class AbstractAllocator extends BusinessBase implements Allocato
         //endregion
 
         //中药根据参数重定义特殊库房出库顺序
-        if (this.header.getCategory() == BillCategory.TRADITIONAL_CHINESE_MEDICINE && this.isEnable(this.header.getWarehouse(), "中药大单从储备库出库") && detail.getFactQuantity().compareTo(detail.getItem().getTcmOutboundQuantity()) >= 0) {
+        if (this.header.getCategory() == ItemCategory.TRADITIONAL_CHINESE_MEDICINE && this.isEnable(this.header.getWarehouse(), "中药大单从储备库出库") && detail.getFactQuantity().compareTo(detail.getItem().getTcmOutboundQuantity()) >= 0) {
             int pos1 = configurations.indexOf(configurations.stream().filter(cfg -> cfg.getStoreNo().equalsIgnoreCase("LBK")).findAny().get());
             int pos2 = configurations.indexOf(configurations.stream().filter(cfg -> cfg.getStoreNo().equalsIgnoreCase("ZYL")).findAny().get());
             if (pos1 >= 0) {
@@ -460,7 +460,7 @@ public abstract class AbstractAllocator extends BusinessBase implements Allocato
 
         command.setWarehouse(this.header.getWarehouse());
         command.setPackageType(this.packageType);
-        if (this.header.getCategory() == BillCategory.GIFT && this.header.getParent() == null) {
+        if (this.header.getCategory() == ItemCategory.GIFT && this.header.getParent() == null) {
             command.setCommandType(CommandType.GIFT_OUTBOUND);
         } else if (this.header.getSaleType() == SaleType.PURCHASE_RETURN) {
             command.setCommandType(CommandType.PURCHASE_RETURN);
@@ -469,7 +469,7 @@ public abstract class AbstractAllocator extends BusinessBase implements Allocato
         }
         if (command.getCommandType() == CommandType.PURCHASE_RETURN) {
             command.setCommandCategory(CommandCategory.PURCHASE_RETURN);
-        } else if (this.header.getCategory() == BillCategory.GIFT) {
+        } else if (this.header.getCategory() == ItemCategory.GIFT) {
             command.setCommandCategory(CommandCategory.GIFT_OUTBOUND);
         } else if (this.header.getPickupModeSwitch() == PickupMode.GREEN_CHANNEL) {
             command.setCommandCategory(CommandCategory.GREEN_CHANNEL);
@@ -587,7 +587,7 @@ public abstract class AbstractAllocator extends BusinessBase implements Allocato
         QShipmentOrderHeader header = QShipmentOrderHeader.shipmentOrderHeader;
         QShipmentOrderDetail detail = QShipmentOrderDetail.shipmentOrderDetail;
         QOutboundCommand command = QOutboundCommand.outboundCommand;
-        QInverseOrderDetail inverseDetail = QInverseOrderDetail.inverseOrderDetail;
+        QReversionNoteDetail reversionNoteDetail = QReversionNoteDetail.reversionNoteDetail;
 
         List<Tuple> tuples = this.orderService.getFactory().selectFrom(header)
             .innerJoin(header.details, detail)
@@ -614,17 +614,17 @@ public abstract class AbstractAllocator extends BusinessBase implements Allocato
                 .fetchOne()
             ).orElse(BigDecimal.ZERO);
 
-            BigDecimal inverseQuantity = Optional.ofNullable(this.inverseOrderService.getFactory().selectFrom(inverseDetail)
+            BigDecimal reverseQuantity = Optional.ofNullable(this.reversionNoteService.getFactory().selectFrom(reversionNoteDetail)
                 .where(
-                    inverseDetail.header.eq(this.header),
-                    inverseDetail.item.eq(item)
+                    reversionNoteDetail.header.eq(this.header),
+                    reversionNoteDetail.item.eq(item)
                 )
-                .select(inverseDetail.quantity.sum())
+                .select(reversionNoteDetail.quantity.sum())
                 .fetchOne()
             ).orElse(BigDecimal.ZERO);
 
-            if (orderQuantity.compareTo(commandQuantity.add(inverseQuantity)) != 0) {
-                message.append(item.toString() + "批号分配数据异常，订单数量【" + orderQuantity + "】、指令数量【" + commandQuantity + "】、冲红数量【" + inverseQuantity + "】，差异数量为【" + orderQuantity.subtract(commandQuantity).subtract(inverseQuantity) + "】");
+            if (orderQuantity.compareTo(commandQuantity.add(reverseQuantity)) != 0) {
+                message.append(item.toString() + "批号分配数据异常，订单数量【" + orderQuantity + "】、指令数量【" + commandQuantity + "】、冲红数量【" + reverseQuantity + "】，差异数量为【" + orderQuantity.subtract(commandQuantity).subtract(reverseQuantity) + "】");
             }
         }
 

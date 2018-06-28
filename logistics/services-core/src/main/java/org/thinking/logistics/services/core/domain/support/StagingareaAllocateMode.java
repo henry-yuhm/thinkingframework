@@ -1,7 +1,7 @@
 package org.thinking.logistics.services.core.domain.support;
 
 //月台分配方式
-public enum StagingareaAllocationMode {
+public enum StagingareaAllocateMode {
     VOLUMETRIC(1) {
         @Override
         public String toString() {
@@ -15,6 +15,6 @@ public enum StagingareaAllocationMode {
         }
     };
 
-    StagingareaAllocationMode(int ordinal) {
+    StagingareaAllocateMode(int ordinal) {
     }
 }

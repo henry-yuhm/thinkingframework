@@ -9,7 +9,7 @@ import org.thinking.logistics.services.core.domain.BaseDomainEntity;
 import org.thinking.logistics.services.core.domain.core.Direction;
 import org.thinking.logistics.services.core.domain.core.Owner;
 import org.thinking.logistics.services.core.domain.core.Warehouse;
-import org.thinking.logistics.services.core.domain.support.BillCategory;
+import org.thinking.logistics.services.core.domain.support.ItemCategory;
 import org.thinking.logistics.services.core.domain.support.PickupMode;
 import org.thinking.logistics.services.core.domain.support.SaleType;
 import org.thinking.logistics.services.core.domain.support.StagingareaCategory;
@@ -17,7 +17,7 @@ import org.thinking.logistics.services.core.domain.support.StagingareaCategory;
 import javax.persistence.*;
 
 @Entity
-@Table(uniqueConstraints = @UniqueConstraint(name = "uk_virtual_sga_cfg", columnNames = {"warehouse_id", "owner_id", "available", "billCategory", "pickupMode", "saleType", "stagingareaCategory", "direction_id"}))
+@Table(uniqueConstraints = @UniqueConstraint(name = "uk_virtual_sga_cfg", columnNames = {"warehouse_id", "owner_id", "available", "itemCategory", "pickupMode", "saleType", "stagingareaCategory", "direction_id"}))
 @DynamicInsert
 @DynamicUpdate
 @Data
@@ -34,7 +34,7 @@ public class VirtualConfiguration extends BaseDomainEntity {
     private boolean available = true;//可用
 
     @Column(nullable = false)
-    private BillCategory billCategory;//单据类别
+    private ItemCategory itemCategory;//商品类别
 
     @Column(nullable = false)
     private PickupMode pickupMode;//提货方式

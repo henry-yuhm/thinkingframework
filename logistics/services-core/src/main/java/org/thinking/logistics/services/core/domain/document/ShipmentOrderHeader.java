@@ -85,7 +85,7 @@ public class ShipmentOrderHeader extends Header {
     private Stagingarea targetStagingarea;//终止月台
 
     @Column(nullable = false)
-    private boolean inversed = false;//整单冲红
+    private boolean reversed = false;//整单冲红
 
     @Column(nullable = false)
     private boolean approved = false;//冲红审核

@@ -26,7 +26,7 @@ public class OutboundConfigurationService extends DomainService<QOutboundConfigu
                 this.getPath().warehouse.eq(header.getWarehouse()),
                 this.getPath().owner.eq(header.getOwner()),
                 this.getPath().packageType.eq(packageType),
-                this.getPath().billCategory.eq(header.getCategory()),
+                this.getPath().itemCategory.eq(header.getCategory()),
                 this.getPath().saleType.eq(header.getSaleType()))
             .orderBy(
                 this.getPath().threshold.loe(packageType == PackageType.WHOLEPIECES ? detail.getItem().getPieces(detail.getWholepiecesQuantity()) : detail.getItem().getRemainder(detail.getRemainderQuantity())).when(true).then(this.getPath().lowerOrder).otherwise(this.getPath().upperOrder).asc())

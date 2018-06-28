@@ -9,7 +9,7 @@ import org.thinking.logistics.services.core.domain.BaseDomainEntity;
 import org.thinking.logistics.services.core.domain.core.Owner;
 import org.thinking.logistics.services.core.domain.core.Warehouse;
 import org.thinking.logistics.services.core.domain.support.PickupMode;
-import org.thinking.logistics.services.core.domain.support.StagingareaAllocationMode;
+import org.thinking.logistics.services.core.domain.support.StagingareaAllocateMode;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
@@ -32,7 +32,7 @@ public class StagingareaConfiguration extends BaseDomainEntity {
     private PickupMode pickupMode;//提货方式
 
     @Column(nullable = false)
-    private StagingareaAllocationMode allocationMode;//分配方式
+    private StagingareaAllocateMode allocationMode;//分配方式
 
     @Column(nullable = false)
     private BigDecimal smallQuantity = BigDecimal.ZERO;//小订单件数

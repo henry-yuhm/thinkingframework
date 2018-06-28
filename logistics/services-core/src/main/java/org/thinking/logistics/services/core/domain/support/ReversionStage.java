@@ -1,7 +1,7 @@
 package org.thinking.logistics.services.core.domain.support;
 
 // 冲红阶段
-public enum InverseStage {
+public enum ReversionStage {
     DISPATCHING(1) {
         @Override
         public String toString() {
@@ -33,6 +33,6 @@ public enum InverseStage {
         }
     };
 
-    InverseStage(int ordinal) {
+    ReversionStage(int ordinal) {
     }
 }

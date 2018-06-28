@@ -5,7 +5,7 @@ import lombok.EqualsAndHashCode;
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
 import org.thinking.logistics.services.core.domain.document.Header;
-import org.thinking.logistics.services.core.domain.document.InboundOrderHeader;
+import org.thinking.logistics.services.core.domain.document.ReceivingNoteHeader;
 
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -18,10 +18,10 @@ import javax.persistence.ManyToOne;
 @EqualsAndHashCode(callSuper = true)
 public class InboundOrderLedger extends Ledger {
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    private InboundOrderHeader header;
+    private ReceivingNoteHeader header;
 
     @Override
     public void setHeader(Header header) {
-        this.header = (InboundOrderHeader) header;
+        this.header = (ReceivingNoteHeader) header;
     }
 }

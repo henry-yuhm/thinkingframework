@@ -1,7 +1,7 @@
 package org.thinking.logistics.services.core.domain.support;
 
 //单据类型
-public enum BillType {
+public enum DocumentType {
     PURCHASE_INBOUND(11) {
         @Override
         public String toString() {
@@ -63,6 +63,6 @@ public enum BillType {
         }
     };
 
-    BillType(int ordinal) {
+    DocumentType(int ordinal) {
     }
 }

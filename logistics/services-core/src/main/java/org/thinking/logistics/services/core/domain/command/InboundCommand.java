@@ -4,8 +4,8 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
-import org.thinking.logistics.services.core.domain.document.InboundOrderDetail;
-import org.thinking.logistics.services.core.domain.document.InboundOrderHeader;
+import org.thinking.logistics.services.core.domain.document.ReceivingNoteDetail;
+import org.thinking.logistics.services.core.domain.document.ReceivingNoteHeader;
 
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -21,8 +21,8 @@ public class InboundCommand extends Command {
     private InboundCommand parent;//父指令
 
     @ManyToOne(fetch = FetchType.LAZY)
-    private InboundOrderHeader header;//单据抬头
+    private ReceivingNoteHeader header;//单据抬头
 
     @ManyToOne(fetch = FetchType.LAZY)
-    private InboundOrderDetail detail;//单据明细
+    private ReceivingNoteDetail detail;//单据明细
 }

@@ -23,12 +23,12 @@ import java.math.BigDecimal;
 @DynamicUpdate
 @Data
 @EqualsAndHashCode(callSuper = true)
-public class InboundOrderDetail extends Detail {
+public class ReceivingNoteDetail extends Detail {
     @ManyToOne(fetch = FetchType.LAZY)
-    private InboundOrderDetail parent;//父明细
+    private ReceivingNoteDetail parent;//父明细
 
 //    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-//    private InboundOrderHeader header;//抬头
+//    private ReceivingNoteHeader header;//抬头
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     private PurchaseOrderDetail order;//订单

@@ -9,7 +9,7 @@ import org.thinking.logistics.services.core.domain.BaseDomainEntity;
 import org.thinking.logistics.services.core.domain.core.Direction;
 import org.thinking.logistics.services.core.domain.core.Owner;
 import org.thinking.logistics.services.core.domain.core.Warehouse;
-import org.thinking.logistics.services.core.domain.support.BillType;
+import org.thinking.logistics.services.core.domain.support.DocumentType;
 import org.thinking.logistics.services.core.domain.support.PickupMode;
 import org.thinking.logistics.services.core.domain.support.StagingareaCategory;
 import org.thinking.logistics.services.core.domain.support.StagingareaType;
@@ -45,7 +45,7 @@ public class Stagingarea extends BaseDomainEntity {
     @Column(nullable = false)
     private boolean available = true;//可用
 
-    private BillType billType;//单据类型
+    private DocumentType documentType;//单据类型
 
     private PickupMode pickupMode;//提货方式
 
