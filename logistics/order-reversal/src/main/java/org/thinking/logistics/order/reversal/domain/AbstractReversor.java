@@ -1,4 +1,4 @@
-package org.thinking.logistics.order.inversion.domain;
+package org.thinking.logistics.order.reversal.domain;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;

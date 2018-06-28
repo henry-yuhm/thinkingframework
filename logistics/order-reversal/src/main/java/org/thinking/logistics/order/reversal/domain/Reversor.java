@@ -1,4 +1,4 @@
-package org.thinking.logistics.order.inversion.domain;
+package org.thinking.logistics.order.reversal.domain;
 
 import org.thinking.logistics.services.core.domain.document.ReversionNoteDetail;
 import org.thinking.logistics.services.core.domain.document.ShipmentOrderDetail;

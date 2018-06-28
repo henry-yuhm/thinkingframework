@@ -1,4 +1,4 @@
-package org.thinking.logistics.order.inversion;
+package org.thinking.logistics.order.reversal;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
