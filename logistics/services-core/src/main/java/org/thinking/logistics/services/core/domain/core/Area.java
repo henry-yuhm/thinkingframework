@@ -24,13 +24,13 @@ public class Area extends BaseDomainEntity {
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     private Warehouse warehouse;//仓库
 
-    @Column(nullable = false)
+    @Column(nullable = false, updatable = false, length = 10)
     private String no;//编号
 
-    @Column(nullable = false)
+    @Column(nullable = false, length = 100)
     private String name;//名称
 
-    @Column(nullable = false)
+    @Column(nullable = false, length = 20)
     private String storeCategory;//库别
 
     @Column(nullable = false)

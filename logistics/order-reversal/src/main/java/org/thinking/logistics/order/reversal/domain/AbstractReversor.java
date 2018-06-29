@@ -82,12 +82,12 @@ public abstract class AbstractReversor extends BusinessBase implements Reversor 
             throw CompositeException.getException("单据已冲红审核，不能重复审核", this.getOperator(), this.header, this.header.getOwner());
         }
 
-        if (this.header.getStage().compareTo(OutboundStage.TASK_COMPLETE) < 0) {
+        if (this.header.getStage().compareTo(OutboundStage.TASK_COMPLETED) < 0) {
             throw CompositeException.getException("单据未内复核完成，不能审核", this.getOperator(), this.header, this.header.getOwner());
         }
 
         if (this.header.isReversed()) {
-            this.header.setStage(OutboundStage.REVIEW_COMPLETE);
+            this.header.setStage(OutboundStage.REVIEW_COMPLETED);
 
             //整单冲红且分配月台的，自动清理月台
             this.stagingareaService.cleanup(this.header);

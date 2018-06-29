@@ -22,25 +22,31 @@ public class Location extends BaseDomainEntity {
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     private Warehouse warehouse;//仓库
 
-    @Column(nullable = false)
+    @Column(nullable = false, updatable = false, length = 30)
     private String no;//编号
 
-    @Column(nullable = false)
+    @Column(nullable = false, length = 2)
     private String floor;//楼层
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     private Area area;//区域
 
+    @Column(length = 2)
     private String region;//大区
 
+    @Column(length = 2)
     private String roadway;//巷道
 
-    private String x = "";//排
+    @Column(length = 2)
+    private String x;//排
 
-    private String y = "";//列
+    @Column(length = 2)
+    private String y;//列
 
-    private String z = "";//层
+    @Column(length = 2)
+    private String z;//层
 
+    @Column(length = 6)
     private String shortno = x + y + z;//短编号
 
     @Column(nullable = false, precision = 9, scale = 2)

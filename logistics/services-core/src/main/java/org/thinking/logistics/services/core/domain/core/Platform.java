@@ -20,9 +20,9 @@ public class Platform extends BaseDomainEntity {
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     private Warehouse warehouse;//仓库
 
-    @Column(nullable = false)
+    @Column(nullable = false, updatable = false, length = 20)
     private String no;//编号
 
-    @Column(nullable = false)
+    @Column(nullable = false, length = 100)
     private String name;//名称
 }

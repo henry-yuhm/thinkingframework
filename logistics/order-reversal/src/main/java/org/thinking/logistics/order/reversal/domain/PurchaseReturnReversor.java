@@ -34,7 +34,7 @@ public class PurchaseReturnReversor extends AbstractReversor {
 
         //整单冲红处理
         if (this.getOrderService().isReversed(this.getHeader())) {
-            this.getHeader().setStage(OutboundStage.TASK_COMPLETE);
+            this.getHeader().setStage(OutboundStage.TASK_COMPLETED);
             this.getHeader().setReversed(true);
             this.getHeader().setTaskCompleteTime(Instant.now());
         }

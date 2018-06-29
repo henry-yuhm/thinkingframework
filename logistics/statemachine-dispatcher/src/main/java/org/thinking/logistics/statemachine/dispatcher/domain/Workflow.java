@@ -16,6 +16,7 @@ public class Workflow {
     @Column(length = 50)
     private String id;
 
+    @Column(nullable = false, updatable = false, length = 100)
     private String name;
 
     private String kind;

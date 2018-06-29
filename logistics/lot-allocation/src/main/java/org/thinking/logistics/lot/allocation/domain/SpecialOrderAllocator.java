@@ -47,7 +47,7 @@ public class SpecialOrderAllocator extends AbstractAllocator {
 
     @Override
     public void save() {
-        this.getHeader().setStage(OutboundStage.TASK_COMPLETE);
+        this.getHeader().setStage(OutboundStage.TASK_COMPLETED);
         this.getHeader().setDispatchers(this.getOperator());
         this.getHeader().setDispatcherTime(Instant.now());
         this.getHeader().setReleaseTime(Instant.now());

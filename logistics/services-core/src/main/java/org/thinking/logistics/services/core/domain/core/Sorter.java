@@ -23,7 +23,7 @@ public class Sorter extends BaseDomainEntity {
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     private Warehouse warehouse;//仓库
 
-    @Column(nullable = false)
+    @Column(nullable = false, updatable = false, length = 2)
     private String no;//编号
 
     @Column(nullable = false)

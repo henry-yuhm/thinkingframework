@@ -17,18 +17,20 @@ import java.math.BigDecimal;
 @Data
 @EqualsAndHashCode(callSuper = true)
 public class Owner extends BaseDomainEntity {
-    @Column(unique = true, nullable = false, length = 50)
+    @Column(unique = true, nullable = false, updatable = false, length = 5)
     private String no;//编号
 
     @Column(unique = true, nullable = false, length = 100)
     private String name;//名称
 
+    @Column(length = 100)
     private String mnemonicCode;//助记码
 
     @Column(nullable = false, precision = 12, scale = 5)
     @ColumnDefault("0.00000")
     private BigDecimal inventoryUpper;//库存上限
 
+    @Column(length = 100)
     private String serviceHotline;//服务热线
 
     @Column(nullable = false)

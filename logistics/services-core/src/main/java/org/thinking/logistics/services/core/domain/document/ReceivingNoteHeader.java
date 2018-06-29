@@ -33,16 +33,16 @@ public class ReceivingNoteHeader extends Header {
     private String inspector;//质检员
 
     @Column(nullable = false)
-    private boolean passback = true;//回传
+    private boolean passback;//回传
 
     @Column(nullable = false)
-    private boolean chargeup = false;//记账
+    private boolean chargeup;//记账
 
     @Column(nullable = false)
-    private boolean executed = false;//执行
+    private boolean executed;//执行
 
     @Column(nullable = false)
-    private boolean complete = false;//完成
+    private boolean completed;//完成
 
     private ArrivalMode arrivalMode;//到货方式
 

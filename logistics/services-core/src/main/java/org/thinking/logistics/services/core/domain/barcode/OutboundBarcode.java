@@ -21,13 +21,13 @@ import java.util.Set;
 @EqualsAndHashCode(callSuper = true)
 public class OutboundBarcode extends TaskBarcode {
     @Column(nullable = false)
-    private boolean available = true;//可用
+    private boolean available;//可用
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     private Sorter sorter;//分拣机
 
     @Column(nullable = false)
-    private boolean gathered = false;//集货
+    private boolean gathered;//集货
 
     @Column(nullable = false)
     private String groupage;//拼箱

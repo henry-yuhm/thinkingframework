@@ -15,9 +15,9 @@ import javax.persistence.Entity;
 @Data
 @EqualsAndHashCode(callSuper = true)
 public class Direction extends BaseDomainEntity {
-    @Column(nullable = false)
+    @Column(nullable = false, updatable = false, length = 50)
     private String no;//编号
 
-    @Column(nullable = false)
+    @Column(nullable = false, length = 100)
     private String name;//名称
 }

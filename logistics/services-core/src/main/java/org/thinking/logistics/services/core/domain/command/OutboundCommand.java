@@ -97,7 +97,7 @@ public class OutboundCommand extends Command {
     @ManyToOne(fetch = FetchType.LAZY)
     private Platform platform;//站台
 
-    @Column(nullable = false)
+    @Column(nullable = false, length = 100)
     private String pickingOrder = "0";//拣货顺序
 
     private BigDecimal remainder;//余量

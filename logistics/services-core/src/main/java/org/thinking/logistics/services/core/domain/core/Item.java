@@ -26,23 +26,25 @@ public class Item extends BaseDomainEntity {
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     private Owner owner;//业主
 
-    @Column(nullable = false, length = 50)
+    @Column(nullable = false, updatable = false, length = 50)
     private String no;//编号
 
-    @Column(nullable = false)
+    @Column(nullable = false, updatable = false, length = 200)
     private String name;//名称
 
+    @Column(length = 200)
     private String universalName;//通用名
 
+    @Column(length = 200)
     private String mnemonicCode;//助记码
 
-    @Column(nullable = false)
+    @Column(nullable = false, length = 200)
     private String specification;//规格
 
-    @Column(nullable = false)
+    @Column(nullable = false, length = 200)
     private String manufacturer;//生产厂家
 
-    @Column(nullable = false)
+    @Column(nullable = false, length = 200)
     private String producingArea;//产地
 
     @Column(nullable = false, precision = 12, scale = 5)
@@ -54,10 +56,10 @@ public class Item extends BaseDomainEntity {
     @Column(nullable = false, precision = 12, scale = 5)
     private BigDecimal smallPackageQuantity;//小包装数量
 
-    @Column(nullable = false)
+    @Column(nullable = false, length = 10)
     private String packageUnit;//包装单位
 
-    @Column(nullable = false)
+    @Column(nullable = false, length = 100)
     private String approval;//批准文号
 
     private Instant approvalValidUntil;//批准文号效期
@@ -71,10 +73,13 @@ public class Item extends BaseDomainEntity {
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     private ItemCategory category;//类别
 
+    @Column(length = 13)
     private String largePackageBarcode;//大包装条码
 
+    @Column(length = 13)
     private String mediumPackageBarcode;//中包装条码
 
+    @Column(length = 13)
     private String smallPackageBarcode;//小包装条码
 
     @Column(nullable = false)

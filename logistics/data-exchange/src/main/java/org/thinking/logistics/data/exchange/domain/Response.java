@@ -13,7 +13,7 @@ public class Response {
     private String message;
 
     @JSONField(name = "Completed")
-    private boolean complete = false;
+    private boolean completed;
 
     @JSONField(name = "Data")
     private String data;

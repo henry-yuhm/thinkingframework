@@ -14,6 +14,6 @@ import javax.persistence.MappedSuperclass;
 @Data
 @EqualsAndHashCode(callSuper = true)
 public abstract class Barcode extends BaseDomainEntity {
-    @Column(nullable = false, length = 20)
+    @Column(nullable = false, updatable = false, length = 20)
     private String no;//编号
 }

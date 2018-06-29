@@ -19,7 +19,7 @@ public class PurchaseOrderDetail extends Detail {
 //    private PurchaseOrderHeader header;//抬头
 
     @Column(nullable = false)
-    private boolean complete = false;//完成
+    private boolean completed;//完成
 
     @Column(nullable = false, precision = 12, scale = 5)
     private BigDecimal planQuantity;//计划数量

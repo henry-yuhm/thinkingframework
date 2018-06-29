@@ -89,16 +89,16 @@ public class ShipmentOrderHeader extends Header {
     private Stagingarea targetStagingarea;//终止月台
 
     @Column(nullable = false)
-    private boolean reversed = false;//整单冲红
+    private boolean reversed;//整单冲红
 
     @Column(nullable = false)
-    private boolean approved = false;//冲红审核
+    private boolean approved;//冲红审核
 
     @Column(nullable = false)
-    private boolean uploaded = false;//上传
+    private boolean uploaded;//上传
 
     @Column(nullable = false)
-    private boolean gatheringComplete = false;//集货完成
+    private boolean gatheringCompleted;//集货完成
 
     @Temporal(TemporalType.DATE)
     private Instant taskCompleteTime;//作业完成时间

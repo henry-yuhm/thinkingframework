@@ -23,9 +23,10 @@ public class Task extends BaseDomainEntity {
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     private Warehouse warehouse;//仓库
 
-    @Column(nullable = false)
+    @Column(nullable = false, updatable = false, length = 20)
     private String no;//编号
 
+    @Column(length = 100)
     private String splittingBill;//拆分单
 
     @ManyToOne(fetch = FetchType.LAZY)
@@ -36,6 +37,7 @@ public class Task extends BaseDomainEntity {
 
     private int groupNo;//任务组
 
+    @Column(updatable = false, length = 1)
     private String bufferNo;//暂存位编号
 
     @ManyToOne(fetch = FetchType.LAZY)

@@ -22,5 +22,5 @@ public abstract class Scheduler extends BaseDomainEntity {
     private SchedulerType type;//类型
 
     @Column(nullable = false)
-    private boolean complete = false;//完成
+    private boolean completed;//完成
 }

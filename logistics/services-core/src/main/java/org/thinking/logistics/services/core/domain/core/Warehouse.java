@@ -23,7 +23,7 @@ public class Warehouse extends BaseDomainEntity {
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     private Owner owner;//业主
 
-    @Column(nullable = false)
+    @Column(nullable = false, updatable = false, length = 100)
     private String name;//名称
 
     @Column(nullable = false)
@@ -42,5 +42,6 @@ public class Warehouse extends BaseDomainEntity {
 
     private LinkedHashMap<Integer, TWFType> twfTypes = new LinkedHashMap<>(16);//立体库类型
 
+    @Column(length = 200)
     private String address;//地址
 }

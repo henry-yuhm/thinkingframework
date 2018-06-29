@@ -74,7 +74,7 @@ public enum OutboundStage {
             return "正在作业";
         }
     },
-    TASK_COMPLETE(51) {
+    TASK_COMPLETED(51) {
         @Override
         public String toString() {
             return "任务完成";
@@ -86,7 +86,7 @@ public enum OutboundStage {
             return "正在外复核";
         }
     },
-    REVIEW_COMPLETE(62) {
+    REVIEW_COMPLETED(62) {
         @Override
         public String toString() {
             return "外复核完成";

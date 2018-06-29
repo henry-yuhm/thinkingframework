@@ -22,7 +22,7 @@ public class PurchaseOrderHeader extends Header {
     private Customer customer;//客户
 
     @Column(nullable = false)
-    private boolean complete = false;//完成
+    private boolean completed;//完成
 
     @Column(nullable = false)
     private InboundType inboundType;//入库类型

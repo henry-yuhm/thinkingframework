@@ -14,7 +14,7 @@ public enum InboundStage {
             return "正在作业";
         }
     },
-    COMPLETE(2) {
+    COMPLETED(2) {
         @Override
         public String toString() {
             return "作业完成";
