@@ -1,20 +1,20 @@
 package org.thinking.logistics.services.core.domain.support;
 
-//复核暂存位类型
-public enum RecheckBufferType {
+//复核台类型
+public enum ReviewTableType {
     NORMAL(1) {
         @Override
         public String toString() {
-            return "普通";
+            return "正常";
         }
     },
-    APPENDANT(2) {
+    CULLING(2) {
         @Override
         public String toString() {
-            return "追加";
+            return "剔除";
         }
     };
 
-    RecheckBufferType(int ordinal) {
+    ReviewTableType(int ordinal) {
     }
 }

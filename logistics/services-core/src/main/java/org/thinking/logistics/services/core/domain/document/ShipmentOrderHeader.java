@@ -47,6 +47,7 @@ public class ShipmentOrderHeader extends Header {
     private String distributionType;//配送类型
 
     @Column(nullable = false)
+    @Temporal(TemporalType.DATE)
     private Instant invoiceTime;//开票时间
 
     @ManyToOne(fetch = FetchType.LAZY)
@@ -54,6 +55,7 @@ public class ShipmentOrderHeader extends Header {
 
     private String settlementType = "无";//结算类型
 
+    @Temporal(TemporalType.DATE)
     private Instant settlementTime;//结算时间
 
     private TaxType taxType;//税票类型
@@ -71,8 +73,10 @@ public class ShipmentOrderHeader extends Header {
     @ManyToOne(fetch = FetchType.LAZY)
     private Employee dispatchers;//调度员
 
+    @Temporal(TemporalType.DATE)
     private Instant dispatcherTime;//调度时间
 
+    @Temporal(TemporalType.DATE)
     private Instant releaseTime;//下发时间
 
     @ManyToOne(fetch = FetchType.LAZY)
@@ -96,42 +100,47 @@ public class ShipmentOrderHeader extends Header {
     @Column(nullable = false)
     private boolean gatheringComplete = false;//集货完成
 
+    @Temporal(TemporalType.DATE)
     private Instant taskCompleteTime;//作业完成时间
 
     @ManyToOne(fetch = FetchType.LAZY)
-    private Employee rechecker;//复核员
+    private Employee reviewer;//复核员
 
-    private Instant recheckStartTime;//复核开始时间
+    @Temporal(TemporalType.DATE)
+    private Instant reviewStartTime;//复核开始时间
 
-    private Instant recheckCompleteTime;//复核结束时间
-
-    @Column(nullable = false)
-    private PrintSign recheckbillPrintSign = PrintSign.NONE;//复核单打印标识
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    private Employee recheckbillPrintClerk;//复核单打印员
-
-    private Instant recheckbillPrintTime;//复核单打印时间
+    @Temporal(TemporalType.DATE)
+    private Instant reviewCompleteTime;//复核结束时间
 
     @Column(nullable = false)
-    private PrintSign reportbillPrintSign = PrintSign.NONE;//报告单打印标识
+    private PrintSign reviewListPrintSign = PrintSign.NONE;//复核单打印标识
 
     @ManyToOne(fetch = FetchType.LAZY)
-    private Employee reportbillPrintClerk;//报告单打印员
+    private Employee reviewListPrintClerk;//复核单打印员
 
-    private Instant reportbillPrintTime;//报告单打印时间
+    @Temporal(TemporalType.DATE)
+    private Instant reviewListPrintTime;//复核单打印时间
+
+    @Column(nullable = false)
+    private PrintSign reportListPrintSign = PrintSign.NONE;//报告单打印标识
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    private Employee reportListPrintClerk;//报告单打印员
+
+    @Temporal(TemporalType.DATE)
+    private Instant reportListPrintTime;//报告单打印时间
 
     @Column(nullable = false)
     private int printTimes = 0;//打印次数
 
     @Column(nullable = false)
-    private boolean stagingareaCleaned = false;//清空月台
+    private boolean stagingareaEmpty = false;//清空月台
 
     @Column(nullable = false)
     private int itemQuantity = 0;//品规数
 
     @Column(nullable = false)
-    private BigDecimal equivalentPieces = BigDecimal.ZERO;//折合件数
+    private BigDecimal equivalentPieces;//折合件数
 
     @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH})
     @JoinTable(joinColumns = @JoinColumn(name = "header_id"), inverseJoinColumns = @JoinColumn(name = "detail_id"))

@@ -42,26 +42,26 @@ public class InventoryCommand extends TransitionCommand {
     private Pallet targetPallet;//目标托盘
 
     @Column(nullable = false, precision = 12, scale = 5)
-    private BigDecimal inventoryQuantity = BigDecimal.ZERO;//库存数量
+    private BigDecimal inventoryQuantity;//库存数量
 
     @Column(nullable = false, precision = 12, scale = 5)
     @Setter(value = AccessLevel.NONE)
-    private BigDecimal inventoryPieces = BigDecimal.ZERO;//库存件数
+    private BigDecimal inventoryPieces;//库存件数
 
     @Column(nullable = false, precision = 12, scale = 5)
     @Setter(value = AccessLevel.NONE)
-    private BigDecimal inventoryRemainder = BigDecimal.ZERO;//库存余数
+    private BigDecimal inventoryRemainder;//库存余数
 
     @Column(nullable = false, precision = 12, scale = 5)
-    private BigDecimal factQuantity = BigDecimal.ZERO;//实际数量
-
-    @Column(nullable = false, precision = 12, scale = 5)
-    @Setter(value = AccessLevel.NONE)
-    private BigDecimal factPieces = BigDecimal.ZERO;//实际件数
+    private BigDecimal factQuantity;//实际数量
 
     @Column(nullable = false, precision = 12, scale = 5)
     @Setter(value = AccessLevel.NONE)
-    private BigDecimal factRemainder = BigDecimal.ZERO;//实际余数
+    private BigDecimal factPieces;//实际件数
+
+    @Column(nullable = false, precision = 12, scale = 5)
+    @Setter(value = AccessLevel.NONE)
+    private BigDecimal factRemainder;//实际余数
 
     public BigDecimal getInventoryPieces() {
         return this.getItem().getPieces(inventoryQuantity);

@@ -1,7 +1,7 @@
 package org.thinking.logistics.services.core.domain.support;
 
 //度量单位
-public enum MeasurementUnit {
+public enum MeasureUnit {
     EACH(1) {
         @Override
         public String toString() {
@@ -57,6 +57,6 @@ public enum MeasurementUnit {
         }
     };
 
-    MeasurementUnit(int ordinal) {
+    MeasureUnit(int ordinal) {
     }
 }

@@ -10,7 +10,6 @@ import javax.persistence.Column;
 import javax.persistence.FetchType;
 import javax.persistence.ManyToOne;
 import javax.persistence.MappedSuperclass;
-import java.time.Instant;
 
 @MappedSuperclass
 @Data
@@ -24,10 +23,4 @@ public abstract class Scheduler extends BaseDomainEntity {
 
     @Column(nullable = false)
     private boolean complete = false;//完成
-
-    @Column(nullable = false)
-    private Instant creationTime = Instant.now();//创建时间
-
-    @Column(nullable = false)
-    private Instant modificationTime = Instant.now();//修改时间
 }

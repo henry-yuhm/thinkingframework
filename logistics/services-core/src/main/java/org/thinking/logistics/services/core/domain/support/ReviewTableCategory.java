@@ -1,7 +1,7 @@
 package org.thinking.logistics.services.core.domain.support;
 
 //复核台类别
-public enum RecheckTableCategory {
+public enum ReviewTableCategory {
     WESTERN_MEDICINE(1) {
         @Override
         public String toString() {
@@ -45,6 +45,6 @@ public enum RecheckTableCategory {
         }
     };
 
-    RecheckTableCategory(int ordinal) {
+    ReviewTableCategory(int ordinal) {
     }
 }

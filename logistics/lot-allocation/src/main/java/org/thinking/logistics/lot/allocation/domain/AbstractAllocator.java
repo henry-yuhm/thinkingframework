@@ -340,7 +340,7 @@ public abstract class AbstractAllocator extends BusinessBase implements Allocato
         //endregion
 
         //中药根据参数重定义特殊库房出库顺序
-        if (this.header.getCategory() == ItemCategory.TRADITIONAL_CHINESE_MEDICINE && this.isEnable(this.header.getWarehouse(), "中药大单从储备库出库") && detail.getFactQuantity().compareTo(detail.getItem().getTcmOutboundQuantity()) >= 0) {
+        if (this.header.getItemClass() == ItemClass.TRADITIONAL_CHINESE_MEDICINE && this.isEnable(this.header.getWarehouse(), "中药大单从储备库出库") && detail.getFactQuantity().compareTo(detail.getItem().getTcmOutboundQuantity()) >= 0) {
             int pos1 = configurations.indexOf(configurations.stream().filter(cfg -> cfg.getStoreNo().equalsIgnoreCase("LBK")).findAny().get());
             int pos2 = configurations.indexOf(configurations.stream().filter(cfg -> cfg.getStoreNo().equalsIgnoreCase("ZYL")).findAny().get());
             if (pos1 >= 0) {
@@ -460,7 +460,7 @@ public abstract class AbstractAllocator extends BusinessBase implements Allocato
 
         command.setWarehouse(this.header.getWarehouse());
         command.setPackageType(this.packageType);
-        if (this.header.getCategory() == ItemCategory.GIFT && this.header.getParent() == null) {
+        if (this.header.getItemClass() == ItemClass.GIFT && this.header.getParent() == null) {
             command.setCommandType(CommandType.GIFT_OUTBOUND);
         } else if (this.header.getSaleType() == SaleType.PURCHASE_RETURN) {
             command.setCommandType(CommandType.PURCHASE_RETURN);
@@ -469,7 +469,7 @@ public abstract class AbstractAllocator extends BusinessBase implements Allocato
         }
         if (command.getCommandType() == CommandType.PURCHASE_RETURN) {
             command.setCommandCategory(CommandCategory.PURCHASE_RETURN);
-        } else if (this.header.getCategory() == ItemCategory.GIFT) {
+        } else if (this.header.getItemClass() == ItemClass.GIFT) {
             command.setCommandCategory(CommandCategory.GIFT_OUTBOUND);
         } else if (this.header.getPickupModeSwitch() == PickupMode.GREEN_CHANNEL) {
             command.setCommandCategory(CommandCategory.GREEN_CHANNEL);

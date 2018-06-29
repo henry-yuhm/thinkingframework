@@ -51,6 +51,7 @@ public class ReceivingNoteHeader extends Header {
 
     private String arrivalNo;//到货单号
 
+    @Temporal(TemporalType.DATE)
     private Instant arrivalTime;//到货时间
 
     private String saleOrderNo;//销售订单号

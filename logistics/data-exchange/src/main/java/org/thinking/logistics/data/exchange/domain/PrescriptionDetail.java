@@ -46,15 +46,15 @@ public class PrescriptionDetail implements EntityBase {
 
     @Column(nullable = false, precision = 18, scale = 4)
     @JSONField(name = "Quantity")
-    private BigDecimal quantity = BigDecimal.ZERO;//数量
+    private BigDecimal quantity;//数量
 
     @Column(nullable = false, precision = 18, scale = 4)
     @JSONField(name = "Price")
-    private BigDecimal price = BigDecimal.ZERO;//单价
+    private BigDecimal price;//单价
 
     @Column(nullable = false, precision = 18, scale = 4)
     @JSONField(name = "Amount")
-    private BigDecimal amount = BigDecimal.ZERO;//金额
+    private BigDecimal amount;//金额
 
     @Column(length = 64)
     @JSONField(name = "EachUnit")
@@ -62,13 +62,13 @@ public class PrescriptionDetail implements EntityBase {
 
     @Column(nullable = false, precision = 18, scale = 4)
     @JSONField(name = "EachQuantity")
-    private BigDecimal pieceQuantity = BigDecimal.ZERO;//单贴数量
+    private BigDecimal pieceQuantity;//单贴数量
 
     @Column(nullable = false, precision = 18, scale = 4)
     @JSONField(name = "EachPrice")
-    private BigDecimal piecePrice = BigDecimal.ZERO;//单贴单价
+    private BigDecimal piecePrice;//单贴单价
 
     @Column(nullable = false, precision = 18, scale = 4)
     @JSONField(name = "EachAmount")
-    private BigDecimal pieceAmount = BigDecimal.ZERO;//单贴金额
+    private BigDecimal pieceAmount;//单贴金额
 }

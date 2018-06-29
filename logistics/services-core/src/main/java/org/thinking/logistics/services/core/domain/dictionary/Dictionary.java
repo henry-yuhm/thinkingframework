@@ -19,4 +19,6 @@ public abstract class Dictionary extends BaseDomainEntity {
 
     @Column(nullable = false)
     private String name;//名称
+
+    private String remarks;//备注
 }

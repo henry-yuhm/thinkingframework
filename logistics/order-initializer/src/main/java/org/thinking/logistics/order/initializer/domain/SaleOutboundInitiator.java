@@ -62,12 +62,12 @@ public class SaleOutboundInitiator extends AbstractInitiator {
 
         //region 三方业主自动打单
         if (this.getHeader().getOwner().isThirdpart() && !this.isEnable(this.getHeader().getWarehouse(), "三方业主自动打单")) {
-            this.getHeader().setRecheckbillPrintSign(PrintSign.CONFIRMATION);
-            this.getHeader().setRecheckbillPrintClerk(this.getOperator());
-            this.getHeader().setRecheckbillPrintTime(Instant.now());
-            this.getHeader().setReportbillPrintSign(PrintSign.CONFIRMATION);
-            this.getHeader().setReportbillPrintClerk(this.getOperator());
-            this.getHeader().setReportbillPrintTime(Instant.now());
+            this.getHeader().setReviewListPrintSign(PrintSign.CONFIRMATION);
+            this.getHeader().setReviewListPrintClerk(this.getOperator());
+            this.getHeader().setReviewListPrintTime(Instant.now());
+            this.getHeader().setReportListPrintSign(PrintSign.CONFIRMATION);
+            this.getHeader().setReportListPrintClerk(this.getOperator());
+            this.getHeader().setReportListPrintTime(Instant.now());
         }
         //endregion
 
@@ -80,7 +80,7 @@ public class SaleOutboundInitiator extends AbstractInitiator {
         //region 自提，绿色通道自动下发
         if (this.isEnable(this.getHeader().getWarehouse(), "自提订单自动下发")) {
             if ((this.getHeader().getPickupMode() == PickupMode.SELF_SERVICE || this.getHeader().getPickupMode() == PickupMode.GREEN_CHANNEL) &&
-                (this.getStringParameter(this.getHeader().getWarehouse(), "配送合流单据类别").contains(this.getHeader().getCategory().name())) &&
+                (this.getStringParameter(this.getHeader().getWarehouse(), "配送合流单据类别").contains(this.getHeader().getItemClass().name())) &&
                 this.getHeader().getSaleType() == SaleType.NORMAL_SALE &&
                 this.getHeader().getDispatcherType() == DispatcherType.AUTOMATIC) {
                 //region 系统截单时间处理

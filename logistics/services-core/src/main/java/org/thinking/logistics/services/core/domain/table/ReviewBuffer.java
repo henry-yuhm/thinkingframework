@@ -6,6 +6,7 @@ import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
 import org.thinking.logistics.services.core.domain.BaseDomainEntity;
 import org.thinking.logistics.services.core.domain.core.Warehouse;
+import org.thinking.logistics.services.core.domain.support.ReviewBufferType;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -17,7 +18,7 @@ import javax.persistence.ManyToOne;
 @DynamicUpdate
 @Data
 @EqualsAndHashCode(callSuper = true)
-public class RecheckSlide extends BaseDomainEntity {
+public class ReviewBuffer extends BaseDomainEntity {
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     private Warehouse warehouse;//仓库
 
@@ -25,5 +26,14 @@ public class RecheckSlide extends BaseDomainEntity {
     private String no;//编号
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    private RecheckTable table;//复核台
+    private ReviewTable table;//复核台
+
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    private ReviewSlide slide;//复核滑道
+
+    @Column(nullable = false)
+    private ReviewBufferType type = ReviewBufferType.NORMAL;//类型
+
+    @Column(nullable = false)
+    private boolean available = true;//可用
 }

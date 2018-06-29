@@ -6,7 +6,7 @@ import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
 import org.thinking.logistics.services.core.domain.BaseDomainEntity;
 import org.thinking.logistics.services.core.domain.support.CommandCategory;
-import org.thinking.logistics.services.core.domain.support.ItemCategory;
+import org.thinking.logistics.services.core.domain.support.ItemClass;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -34,5 +34,5 @@ public class Sorter extends BaseDomainEntity {
 
     private LinkedHashMap<Integer, CommandCategory> taskCategories = new LinkedHashMap<>(16);//任务类别
 
-    private LinkedHashMap<Integer, ItemCategory> billCategories = new LinkedHashMap<>(16);//单据类别
+    private LinkedHashMap<Integer, ItemClass> billCategories = new LinkedHashMap<>(16);//单据类别
 }

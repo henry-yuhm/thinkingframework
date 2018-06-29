@@ -39,15 +39,15 @@ public class TransferringDocumentDetail extends Detail {
     private InventoryState targetInventoryState;//目标库存状态
 
     @Column(nullable = false, precision = 12, scale = 5)
-    private BigDecimal quantity = BigDecimal.ZERO;//数量
+    private BigDecimal quantity;//数量
 
     @Column(nullable = false, precision = 12, scale = 5)
     @Setter(value = AccessLevel.NONE)
-    private BigDecimal pieces = BigDecimal.ZERO;//件数
+    private BigDecimal pieces;//件数
 
     @Column(nullable = false, precision = 12, scale = 5)
     @Setter(value = AccessLevel.NONE)
-    private BigDecimal remainder = BigDecimal.ZERO;//余数
+    private BigDecimal remainder;//余数
 
     @ManyToOne(fetch = FetchType.LAZY)
     private Pallet pallet;//托盘

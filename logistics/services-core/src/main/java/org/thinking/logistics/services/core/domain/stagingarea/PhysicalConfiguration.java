@@ -8,13 +8,13 @@ import org.hibernate.annotations.DynamicUpdate;
 import org.thinking.logistics.services.core.domain.BaseDomainEntity;
 import org.thinking.logistics.services.core.domain.core.Owner;
 import org.thinking.logistics.services.core.domain.core.Warehouse;
-import org.thinking.logistics.services.core.domain.support.ItemCategory;
+import org.thinking.logistics.services.core.domain.support.ItemClass;
 import org.thinking.logistics.services.core.domain.support.StagingareaType;
 
 import javax.persistence.*;
 
 @Entity
-@Table(uniqueConstraints = @UniqueConstraint(name = "uk_physical_sga_cfg", columnNames = {"warehouse_id", "owner_id", "itemCategory"}))
+@Table(uniqueConstraints = @UniqueConstraint(name = "uk_physical_sga_cfg", columnNames = {"warehouse_id", "owner_id", "itemClass"}))
 @DynamicInsert
 @DynamicUpdate
 @Data
@@ -28,7 +28,7 @@ public class PhysicalConfiguration extends BaseDomainEntity {
     private Owner owner;//业主
 
     @Column(nullable = false)
-    private ItemCategory itemCategory;//商品类别
+    private ItemClass itemClass;//商品种类
 
     @Column(nullable = false)
     private StagingareaType stagingareaType;//月台类型

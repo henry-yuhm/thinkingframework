@@ -39,42 +39,42 @@ public class Inventory extends BaseDomainEntity {
     private InventoryState inventoryState;//库存状态
 
     @Column(nullable = false, precision = 12, scale = 5)
-    private BigDecimal quantity = BigDecimal.ZERO;//数量
+    private BigDecimal quantity;//数量
 
     @Column(nullable = false, precision = 12, scale = 5)
     @Setter(value = AccessLevel.NONE)
-    private BigDecimal pieces = BigDecimal.ZERO;//件数
+    private BigDecimal pieces;//件数
 
     @Column(nullable = false, precision = 12, scale = 5)
     @Setter(value = AccessLevel.NONE)
-    private BigDecimal remainder = BigDecimal.ZERO;//余数
+    private BigDecimal remainder;//余数
 
     @Column(nullable = false, precision = 12, scale = 5)
-    private BigDecimal inboundQuantity = BigDecimal.ZERO;//入库数量
+    private BigDecimal inboundQuantity;//入库数量
 
     @Column(nullable = false, precision = 12, scale = 5)
-    private BigDecimal outboundQuantity = BigDecimal.ZERO;//出库数量
+    private BigDecimal outboundQuantity;//出库数量
 
     @Column(nullable = false, precision = 12, scale = 5)
-    private BigDecimal replenishedFromQuantity = BigDecimal.ZERO;//补出数量
+    private BigDecimal replenishedFromQuantity;//补出数量
 
     @Column(nullable = false, precision = 12, scale = 5)
-    private BigDecimal replenishedToQuantity = BigDecimal.ZERO;//补入数量
+    private BigDecimal replenishedToQuantity;//补入数量
 
     @Column(nullable = false, precision = 12, scale = 5)
-    private BigDecimal transferredFromQuantity = BigDecimal.ZERO;//移出数量
+    private BigDecimal transferredFromQuantity;//移出数量
 
     @Column(nullable = false, precision = 12, scale = 5)
-    private BigDecimal transferredToQuantity = BigDecimal.ZERO;//移入数量
+    private BigDecimal transferredToQuantity;//移入数量
 
     @Column(nullable = false, precision = 12, scale = 5)
-    private BigDecimal transitionalQuantity = BigDecimal.ZERO;//在途数量
+    private BigDecimal transitionalQuantity;//在途数量
 
     @Column(nullable = false)
     private boolean locking = false;//锁定
 
     @Column(nullable = false, precision = 12, scale = 5)
-    private BigDecimal lockingQuantity = BigDecimal.ZERO;//锁定数量
+    private BigDecimal lockingQuantity;//锁定数量
 
     @ManyToOne(fetch = FetchType.LAZY)
     private Pallet pallet;//托盘

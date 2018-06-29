@@ -87,7 +87,7 @@ public abstract class AbstractReversor extends BusinessBase implements Reversor 
         }
 
         if (this.header.isReversed()) {
-            this.header.setStage(OutboundStage.RECHECK_COMPLETE);
+            this.header.setStage(OutboundStage.REVIEW_COMPLETE);
 
             //整单冲红且分配月台的，自动清理月台
             this.stagingareaService.cleanup(this.header);

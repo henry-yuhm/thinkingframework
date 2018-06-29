@@ -13,7 +13,6 @@ import org.thinking.logistics.services.core.domain.support.LedgerType;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
-import java.time.Instant;
 
 @MappedSuperclass
 @Inheritance(strategy = InheritanceType.JOINED)
@@ -51,40 +50,37 @@ public abstract class Ledger extends BaseDomainEntity {
     private Pallet pallet;//托盘
 
     @Column(nullable = false, precision = 12, scale = 5)
-    private BigDecimal quantity = BigDecimal.ZERO;//数量
+    private BigDecimal quantity;//数量
 
     @Column(nullable = false, precision = 12, scale = 5)
-    private BigDecimal inboundQuantity = BigDecimal.ZERO;//入库数量
+    private BigDecimal inboundQuantity;//入库数量
 
     @Column(nullable = false, precision = 12, scale = 5)
-    private BigDecimal outboundQuantity = BigDecimal.ZERO;//出库数量
+    private BigDecimal outboundQuantity;//出库数量
 
     @Column(nullable = false, precision = 12, scale = 5)
-    private BigDecimal replenishedFromQuantity = BigDecimal.ZERO;//补出数量
+    private BigDecimal replenishedFromQuantity;//补出数量
 
     @Column(nullable = false, precision = 12, scale = 5)
-    private BigDecimal replenishedToQuantity = BigDecimal.ZERO;//补入数量
+    private BigDecimal replenishedToQuantity;//补入数量
 
     @Column(nullable = false, precision = 12, scale = 5)
-    private BigDecimal transferredFromQuantity = BigDecimal.ZERO;//移出数量
+    private BigDecimal transferredFromQuantity;//移出数量
 
     @Column(nullable = false, precision = 12, scale = 5)
-    private BigDecimal transferredToQuantity = BigDecimal.ZERO;//移入数量
+    private BigDecimal transferredToQuantity;//移入数量
 
     @Column(nullable = false, precision = 12, scale = 5)
-    private BigDecimal transitionalQuantity = BigDecimal.ZERO;//在途数量
+    private BigDecimal transitionalQuantity;//在途数量
 
     @Column(nullable = false, precision = 12, scale = 5)
-    private BigDecimal lockingQuantity = BigDecimal.ZERO;//锁定数量
+    private BigDecimal lockingQuantity;//锁定数量
 
     @Column(nullable = false, precision = 12, scale = 5)
-    private BigDecimal balance = BigDecimal.ZERO;//结存
+    private BigDecimal balance;//结存
 
     @Column(nullable = false, precision = 12, scale = 5)
-    private BigDecimal grossBalance = BigDecimal.ZERO;//总结存
-
-    @Column(nullable = false)
-    private Instant creationTime = Instant.now();//创建时间
+    private BigDecimal grossBalance;//总结存
 
     public abstract void setHeader(Header header);
 }

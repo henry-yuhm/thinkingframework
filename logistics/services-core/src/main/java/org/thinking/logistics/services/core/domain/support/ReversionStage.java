@@ -26,7 +26,7 @@ public enum ReversionStage {
             return "拣货";
         }
     },
-    RECHECKING(5) {
+    REVIEWING(5) {
         @Override
         public String toString() {
             return "复核";

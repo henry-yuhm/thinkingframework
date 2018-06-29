@@ -40,53 +40,53 @@ public class ShipmentOrderDetail extends Detail {
     private LotRequest request;//批号要求
 
     @Column(nullable = false, precision = 12, scale = 5)
-    private BigDecimal planQuantity = BigDecimal.ZERO;//计划数量
+    private BigDecimal planQuantity;//计划数量
 
     @Column(nullable = false, precision = 12, scale = 5)
     @Setter(value = AccessLevel.NONE)
-    private BigDecimal planPieces = BigDecimal.ZERO;//计划件数
+    private BigDecimal planPieces;//计划件数
 
     @Column(nullable = false, precision = 12, scale = 5)
     @Setter(value = AccessLevel.NONE)
-    private BigDecimal planRemainder = BigDecimal.ZERO;//计划余数
+    private BigDecimal planRemainder;//计划余数
 
     @Column(nullable = false, precision = 12, scale = 5)
-    private BigDecimal factQuantity = BigDecimal.ZERO;//实际数量
-
-    @Column(nullable = false, precision = 12, scale = 5)
-    @Setter(value = AccessLevel.NONE)
-    private BigDecimal factPieces = BigDecimal.ZERO;//实际件数
+    private BigDecimal factQuantity;//实际数量
 
     @Column(nullable = false, precision = 12, scale = 5)
     @Setter(value = AccessLevel.NONE)
-    private BigDecimal factRemainder = BigDecimal.ZERO;//实际余数
+    private BigDecimal factPieces;//实际件数
 
     @Column(nullable = false, precision = 12, scale = 5)
-    private BigDecimal wholepiecesQuantity = BigDecimal.ZERO;//整件未处理数量
+    @Setter(value = AccessLevel.NONE)
+    private BigDecimal factRemainder;//实际余数
 
     @Column(nullable = false, precision = 12, scale = 5)
-    private BigDecimal remainderQuantity = BigDecimal.ZERO;//零货未处理数量
+    private BigDecimal wholepiecesQuantity;//整件未处理数量
 
     @Column(nullable = false, precision = 12, scale = 5)
-    private BigDecimal lessnessQuantity = BigDecimal.ZERO;//库存不足数量
+    private BigDecimal remainderQuantity;//零货未处理数量
 
     @Column(nullable = false, precision = 12, scale = 5)
-    private BigDecimal price = BigDecimal.ZERO;//单价
+    private BigDecimal lessnessQuantity;//库存不足数量
 
     @Column(nullable = false, precision = 12, scale = 5)
-    private BigDecimal amount = BigDecimal.ZERO;//金额
+    private BigDecimal price;//单价
 
     @Column(nullable = false, precision = 12, scale = 5)
-    private BigDecimal taxes = BigDecimal.ZERO;//税票金额
+    private BigDecimal amount;//金额
 
     @Column(nullable = false, precision = 12, scale = 5)
-    private BigDecimal settlementPrice = BigDecimal.ZERO;//结算单价
+    private BigDecimal taxes;//税票金额
 
     @Column(nullable = false, precision = 12, scale = 5)
-    private BigDecimal settlementAmount = BigDecimal.ZERO;//结算金额
+    private BigDecimal settlementPrice;//结算单价
 
     @Column(nullable = false, precision = 12, scale = 5)
-    private BigDecimal flittingCostPrice = BigDecimal.ZERO;//调拨成本价
+    private BigDecimal settlementAmount;//结算金额
+
+    @Column(nullable = false, precision = 12, scale = 5)
+    private BigDecimal flittingCostPrice;//调拨成本价
 
     public BigDecimal getPlanPieces() {
         return this.getItem().getPieces(planQuantity);

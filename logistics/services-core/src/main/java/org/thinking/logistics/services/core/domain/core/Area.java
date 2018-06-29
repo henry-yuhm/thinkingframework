@@ -7,7 +7,7 @@ import org.hibernate.annotations.DynamicUpdate;
 import org.thinking.logistics.services.core.domain.BaseDomainEntity;
 import org.thinking.logistics.services.core.domain.support.OperationDevice;
 import org.thinking.logistics.services.core.domain.support.PackageType;
-import org.thinking.logistics.services.core.domain.support.RecheckType;
+import org.thinking.logistics.services.core.domain.support.ReviewType;
 import org.thinking.logistics.services.core.domain.support.UpshelfMode;
 
 import javax.persistence.Column;
@@ -53,7 +53,7 @@ public class Area extends BaseDomainEntity {
     private boolean useSorter;//使用分拣机
 
     @Column(nullable = false)
-    private RecheckType recheckType;//复核类型
+    private ReviewType reviewType;//复核类型
 
     @Column(nullable = false)
     private int fullloadQuantity = 0;//满载周转箱数

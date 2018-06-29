@@ -30,18 +30,18 @@ public class ReplenishmentDocumentDetail extends Detail {
     private String storeCategory;//库别
 
     @Column(nullable = false, precision = 12, scale = 5)
-    private BigDecimal planQuantity = BigDecimal.ZERO;//计划数量
+    private BigDecimal planQuantity;//计划数量
 
     @Column(nullable = false, precision = 12, scale = 5)
     @Setter(value = AccessLevel.NONE)
-    private BigDecimal planPieces = BigDecimal.ZERO;//计划件数
+    private BigDecimal planPieces;//计划件数
 
     @Column(nullable = false, precision = 12, scale = 5)
-    private BigDecimal factQuantity = BigDecimal.ZERO;//实际数量
+    private BigDecimal factQuantity;//实际数量
 
     @Column(nullable = false, precision = 12, scale = 5)
     @Setter(value = AccessLevel.NONE)
-    private BigDecimal factPieces = BigDecimal.ZERO;//实际件数
+    private BigDecimal factPieces;//实际件数
 
     @ManyToOne(fetch = FetchType.LAZY)
     private Pallet pallet;//托盘

@@ -8,7 +8,6 @@ import org.thinking.logistics.services.core.domain.core.Warehouse;
 import org.thinking.logistics.services.core.domain.support.*;
 
 import javax.persistence.*;
-import java.time.Instant;
 
 @MappedSuperclass
 @Inheritance(strategy = InheritanceType.JOINED)
@@ -34,10 +33,4 @@ public abstract class Command extends BaseDomainEntity {
     private CommandStage stage = CommandStage.CREATED;//指令阶段
 
     private WorkMode workMode;//作业方式
-
-    @Column(nullable = false)
-    private Instant creationTime = Instant.now();//创建时间
-
-    @Column(nullable = false)
-    private Instant modificationTime = Instant.now();//修改时间
 }

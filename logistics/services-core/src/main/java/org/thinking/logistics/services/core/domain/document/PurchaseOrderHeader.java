@@ -28,6 +28,7 @@ public class PurchaseOrderHeader extends Header {
     private InboundType inboundType;//入库类型
 
     @Column(nullable = false)
+    @Temporal(TemporalType.DATE)
     private Instant invoiceTime;//开票时间
 
     private String buyer;//采购员
@@ -42,6 +43,7 @@ public class PurchaseOrderHeader extends Header {
 
     private String shipper;//运输方
 
+    @Temporal(TemporalType.DATE)
     private Instant shippingTime;//运输时间
 
     private String tempControlMode;//温控方式

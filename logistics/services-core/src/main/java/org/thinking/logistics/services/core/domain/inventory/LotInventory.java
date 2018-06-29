@@ -13,7 +13,7 @@ import javax.persistence.*;
 import java.math.BigDecimal;
 
 @Entity
-@Table(uniqueConstraints = @UniqueConstraint(name = "uk_lot_inventory", columnNames = {"item_id", "lot_id", "type"}))
+@Table(uniqueConstraints = @UniqueConstraint(name = "uk_lot_inventory", columnNames = {"item_id", "lot_id", "documentType"}))
 @DynamicInsert
 @DynamicUpdate
 @Data
@@ -32,17 +32,17 @@ public class LotInventory extends BaseDomainEntity {
     private ValidPeriodType mixedType;//效期类型
 
     @Column(nullable = false, precision = 12, scale = 5)
-    private BigDecimal availableInventory = BigDecimal.ZERO;//可用库存
+    private BigDecimal availableInventory;//可用库存
 
     @Column(nullable = false, precision = 12, scale = 5)
-    private BigDecimal palletInventory = BigDecimal.ZERO;//托盘库存
+    private BigDecimal palletInventory;//托盘库存
 
     @Column(nullable = false, precision = 12, scale = 5)
-    private BigDecimal wholepiecesInventory = BigDecimal.ZERO;//整件库存
+    private BigDecimal wholepiecesInventory;//整件库存
 
     @Column(nullable = false, precision = 12, scale = 5)
-    private BigDecimal remainderInventory = BigDecimal.ZERO;//零散库存
+    private BigDecimal remainderInventory;//零散库存
 
     @Column(nullable = false, precision = 12, scale = 5)
-    private BigDecimal intransitInventory = BigDecimal.ZERO;//在途库存
+    private BigDecimal intransitInventory;//在途库存
 }

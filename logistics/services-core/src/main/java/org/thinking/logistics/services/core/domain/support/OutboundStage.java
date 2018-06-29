@@ -80,13 +80,13 @@ public enum OutboundStage {
             return "任务完成";
         }
     },
-    RECHECKING(61) {
+    REVIEWING(61) {
         @Override
         public String toString() {
             return "正在外复核";
         }
     },
-    RECHECK_COMPLETE(62) {
+    REVIEW_COMPLETE(62) {
         @Override
         public String toString() {
             return "外复核完成";

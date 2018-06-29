@@ -50,37 +50,37 @@ public class OutboundCommand extends Command {
     private boolean activated = false;//激活
 
     @Column(nullable = false, precision = 12, scale = 5)
-    private BigDecimal creationQuantity = BigDecimal.ZERO;//创建数量
+    private BigDecimal creationQuantity;//创建数量
 
     @Column(nullable = false, precision = 12, scale = 5)
     @Setter(value = AccessLevel.NONE)
-    private BigDecimal creationPieces = BigDecimal.ZERO;//创建件数
+    private BigDecimal creationPieces;//创建件数
 
     @Column(nullable = false, precision = 12, scale = 5)
     @Setter(value = AccessLevel.NONE)
-    private BigDecimal creationRemainder = BigDecimal.ZERO;//创建余数
+    private BigDecimal creationRemainder;//创建余数
 
     @Column(nullable = false, precision = 12, scale = 5)
-    private BigDecimal planQuantity = BigDecimal.ZERO;//计划数量
-
-    @Column(nullable = false, precision = 12, scale = 5)
-    @Setter(value = AccessLevel.NONE)
-    private BigDecimal planPieces = BigDecimal.ZERO;//计划件数
+    private BigDecimal planQuantity;//计划数量
 
     @Column(nullable = false, precision = 12, scale = 5)
     @Setter(value = AccessLevel.NONE)
-    private BigDecimal planRemainder = BigDecimal.ZERO;//计划余数
-
-    @Column(nullable = false, precision = 12, scale = 5)
-    private BigDecimal factQuantity = BigDecimal.ZERO;//实际数量
+    private BigDecimal planPieces;//计划件数
 
     @Column(nullable = false, precision = 12, scale = 5)
     @Setter(value = AccessLevel.NONE)
-    private BigDecimal factPieces = BigDecimal.ZERO;//实际件数
+    private BigDecimal planRemainder;//计划余数
+
+    @Column(nullable = false, precision = 12, scale = 5)
+    private BigDecimal factQuantity;//实际数量
 
     @Column(nullable = false, precision = 12, scale = 5)
     @Setter(value = AccessLevel.NONE)
-    private BigDecimal factRemainder = BigDecimal.ZERO;//实际余数
+    private BigDecimal factPieces;//实际件数
+
+    @Column(nullable = false, precision = 12, scale = 5)
+    @Setter(value = AccessLevel.NONE)
+    private BigDecimal factRemainder;//实际余数
 
     @ManyToOne(fetch = FetchType.LAZY)
     private Task task;//作业任务
@@ -100,7 +100,7 @@ public class OutboundCommand extends Command {
     @Column(nullable = false)
     private String pickingOrder = "0";//拣货顺序
 
-    private BigDecimal remainder = BigDecimal.ZERO;//余量
+    private BigDecimal remainder;//余量
 
     @ManyToMany
     @JoinTable(joinColumns = @JoinColumn(name = "command_id"), inverseJoinColumns = @JoinColumn(name = "rep_command_id"))

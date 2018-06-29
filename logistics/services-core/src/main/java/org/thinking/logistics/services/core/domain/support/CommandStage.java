@@ -62,31 +62,31 @@ public enum CommandStage {
             return "拣货确认";
         }
     },
-    INNER_RECHECK_OBTAIN(35) {
+    INNERREVIEW_OBTAIN(35) {
         @Override
         public String toString() {
             return "内复核任务索取";
         }
     },
-    INNER_RECHECK_ITEMOBTAIN(36) {
+    INNERREVIEW_ITEMOBTAIN(36) {
         @Override
         public String toString() {
             return "内复核商品索取";
         }
     },
-    INNER_RECHECK_CONFIRM(37) {
+    INNERREVIEW_CONFIRM(37) {
         @Override
         public String toString() {
             return "内复核确认";
         }
     },
-    OUTER_RECHECK_OBTAIN(41) {
+    OUTERREVIEW_OBTAIN(41) {
         @Override
         public String toString() {
             return "外复核索取";
         }
     },
-    OUTER_RECHECK_CONFIRM(42) {
+    OUTERREVIEW_CONFIRM(42) {
         @Override
         public String toString() {
             return "外复核确认";
@@ -104,13 +104,13 @@ public enum CommandStage {
             return "装车任务确认";
         }
     },
-    LOADING_RECHECK_OBTAIN(53) {
+    LOADINGREVIEW_OBTAIN(53) {
         @Override
         public String toString() {
             return "装车复核索取";
         }
     },
-    LOADING_RECHECK_CONFIRM(54) {
+    LOADINGREVIEW_CONFIRM(54) {
         @Override
         public String toString() {
             return "装车复核确认";

@@ -24,5 +24,5 @@ public class DeviceAuthority extends BaseDomainEntity {
     private boolean gathering = false;//集货
 
     @Column(nullable = false)
-    private boolean rechecking = false;//复核
+    private boolean reviewing = false;//复核
 }

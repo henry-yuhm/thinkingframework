@@ -23,7 +23,7 @@ public class PhysicalConfigurationService extends DomainService<QPhysicalConfigu
             .where(
                 this.getPath().warehouse.eq(header.getWarehouse()),
                 this.getPath().owner.eq(header.getOwner()),
-                this.getPath().itemCategory.eq(header.getCategory()))
+                this.getPath().itemClass.eq(header.getItemClass()))
             .fetchOne();
 
         if (verifiable) {

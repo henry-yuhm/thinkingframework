@@ -1,7 +1,7 @@
 package org.thinking.logistics.services.core.domain.support;
 
 //复核类型
-public enum RecheckType {
+public enum ReviewType {
     MECHANICAL(1) {
         @Override
         public String toString() {
@@ -27,6 +27,6 @@ public enum RecheckType {
         }
     };
 
-    RecheckType(int ordinal) {
+    ReviewType(int ordinal) {
     }
 }

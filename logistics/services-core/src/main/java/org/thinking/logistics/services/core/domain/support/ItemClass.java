@@ -1,7 +1,7 @@
 package org.thinking.logistics.services.core.domain.support;
 
-//商品类别
-public enum ItemCategory {
+//商品种类
+public enum ItemClass {
     WESTERN_MEDICINE(1) {
         @Override
         public String toString() {
@@ -39,6 +39,6 @@ public enum ItemCategory {
         }
     };
 
-    ItemCategory(int ordinal) {
+    ItemClass(int ordinal) {
     }
 }

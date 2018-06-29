@@ -1,4 +1,4 @@
-package org.thinking.logistics.order.inversion;
+package org.thinking.logistics.order.reversal;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;

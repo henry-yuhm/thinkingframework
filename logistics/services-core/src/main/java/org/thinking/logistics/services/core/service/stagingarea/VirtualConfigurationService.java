@@ -25,14 +25,14 @@ public class VirtualConfigurationService extends DomainService<QVirtualConfigura
                 this.getPath().warehouse.eq(header.getWarehouse()),
                 this.getPath().owner.isNull().or(this.getPath().owner.eq(header.getOwner())),
                 this.getPath().available.eq(true),
-                this.getPath().itemCategory.isNull().or(this.getPath().itemCategory.eq(header.getCategory())),
+                this.getPath().itemClass.isNull().or(this.getPath().itemClass.eq(header.getItemClass())),
                 this.getPath().pickupMode.isNull().or(this.getPath().pickupMode.eq(header.getPickupMode())),
                 this.getPath().saleType.isNull().or(this.getPath().saleType.eq(header.getSaleType())),
                 this.getPath().stagingareaCategory.isNull().or(this.getPath().stagingareaCategory.eq(stagingareaCategory)),
                 this.getPath().direction.isNull().or(this.getPath().direction.eq(direction)))
             .orderBy(
                 this.getPath().owner.when(header.getOwner()).then(0).otherwise(1).asc(),
-                this.getPath().itemCategory.desc(),
+                this.getPath().itemClass.desc(),
                 this.getPath().pickupMode.desc(),
                 this.getPath().direction.no.desc())
             .fetchFirst();

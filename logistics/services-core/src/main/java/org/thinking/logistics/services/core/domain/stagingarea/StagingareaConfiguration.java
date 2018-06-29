@@ -35,8 +35,8 @@ public class StagingareaConfiguration extends BaseDomainEntity {
     private StagingareaAllocateMode allocationMode;//分配方式
 
     @Column(nullable = false)
-    private BigDecimal smallQuantity = BigDecimal.ZERO;//小订单件数
+    private BigDecimal smallQuantity;//小订单件数
 
     @Column(nullable = false)
-    private BigDecimal largeQuantity = BigDecimal.ZERO;//大订单件数
+    private BigDecimal largeQuantity;//大订单件数
 }

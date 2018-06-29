@@ -33,7 +33,7 @@ public class SpecialOrderAllocator extends AbstractAllocator {
     public OutboundCommand acquireCommand(ShipmentOrderDetail detail, Inventory inventory, BigDecimal quantity) throws Exception {
         OutboundCommand command = super.acquireCommand(detail, inventory, quantity);
 
-        command.setStage(CommandStage.INNER_RECHECK_CONFIRM);
+        command.setStage(CommandStage.INNERREVIEW_CONFIRM);
         command.setWorkMode(WorkMode.PAPER);
         command.setActivated(true);
         if (command.getTask().getPicker() == null) {
@@ -52,9 +52,9 @@ public class SpecialOrderAllocator extends AbstractAllocator {
         this.getHeader().setDispatcherTime(Instant.now());
         this.getHeader().setReleaseTime(Instant.now());
         this.getHeader().setTaskCompleteTime(Instant.now());
-        this.getHeader().setReportbillPrintSign(PrintSign.CONFIRMATION);
-        this.getHeader().setReportbillPrintClerk(this.getOperator());
-        this.getHeader().setReportbillPrintTime(Instant.now());
+        this.getHeader().setReportListPrintSign(PrintSign.CONFIRMATION);
+        this.getHeader().setReportListPrintClerk(this.getOperator());
+        this.getHeader().setReportListPrintTime(Instant.now());
 
         this.getOrderService().getRepository().save(this.getHeader());
     }

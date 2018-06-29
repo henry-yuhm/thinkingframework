@@ -34,5 +34,5 @@ public class ReplenishmentCommand extends TransitionCommand {
     private Pallet pallet;//托盘
 
     @Column(nullable = false, precision = 12, scale = 5)
-    private BigDecimal availableQuantity = BigDecimal.ZERO;//可用数量
+    private BigDecimal availableQuantity;//可用数量
 }

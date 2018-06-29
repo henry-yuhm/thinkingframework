@@ -9,10 +9,7 @@ import org.hibernate.annotations.DynamicUpdate;
 import org.thinking.logistics.services.core.domain.employee.Employee;
 import org.thinking.logistics.services.core.domain.support.ReversionStage;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
 import java.math.BigDecimal;
 import java.time.Instant;
 
@@ -29,21 +26,18 @@ public class ReversionNoteDetail extends Detail {
     private ShipmentOrderDetail detail;//单据明细
 
     @Column(nullable = false, precision = 12, scale = 5)
-    private BigDecimal quantity = BigDecimal.ZERO;//数量
+    private BigDecimal quantity;//数量
 
     @Column(nullable = false, precision = 12, scale = 5)
     @Setter(value = AccessLevel.NONE)
-    private BigDecimal pieces = BigDecimal.ZERO;//件数
+    private BigDecimal pieces;//件数
 
     @Column(nullable = false, precision = 12, scale = 5)
     @Setter(value = AccessLevel.NONE)
-    private BigDecimal remainder = BigDecimal.ZERO;//余数
+    private BigDecimal remainder;//余数
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     private Employee operator;//操作员
-
-    @Column(nullable = false)
-    private Instant operationTime = Instant.now();//操作时间
 
     @Column(nullable = false)
     private ReversionStage stage;//冲红阶段
@@ -51,6 +45,7 @@ public class ReversionNoteDetail extends Detail {
     @ManyToOne(fetch = FetchType.LAZY)
     private Employee auditor;//审核员
 
+    @Temporal(TemporalType.DATE)
     private Instant auditTime;//审核时间
 
     private String reasons;//原因

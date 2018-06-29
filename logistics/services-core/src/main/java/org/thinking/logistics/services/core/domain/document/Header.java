@@ -8,10 +8,9 @@ import org.thinking.logistics.services.core.domain.core.Warehouse;
 import org.thinking.logistics.services.core.domain.employee.Employee;
 import org.thinking.logistics.services.core.domain.support.DataSource;
 import org.thinking.logistics.services.core.domain.support.DocumentType;
-import org.thinking.logistics.services.core.domain.support.ItemCategory;
+import org.thinking.logistics.services.core.domain.support.ItemClass;
 
 import javax.persistence.*;
-import java.time.Instant;
 import java.util.Set;
 
 @MappedSuperclass
@@ -29,10 +28,10 @@ public abstract class Header extends BaseDomainEntity {
     private String no;//单据编号
 
     @Column(nullable = false)
-    private DocumentType type;//单据类型
+    private DocumentType documentType;//单据类型
 
     @Column(nullable = false)
-    private ItemCategory category;//商品类别
+    private ItemClass itemClass;//商品种类
 
     @Column(nullable = false)
     private DataSource source;//数据来源
@@ -42,12 +41,6 @@ public abstract class Header extends BaseDomainEntity {
 
     @ManyToOne(fetch = FetchType.LAZY)
     private Employee businessman;//业务员
-
-    @Column(nullable = false)
-    private Instant creationTime = Instant.now();//创建时间
-
-    @Column(nullable = false)
-    private Instant modificationTime = Instant.now();//修改时间
 
     private String remarks;//备注
 
