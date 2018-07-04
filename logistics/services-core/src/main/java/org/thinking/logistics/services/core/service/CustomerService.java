@@ -3,9 +3,9 @@ package org.thinking.logistics.services.core.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.thinking.logistics.services.core.domain.CompositeException;
-import org.thinking.logistics.services.core.domain.core.Customer;
-import org.thinking.logistics.services.core.domain.core.Owner;
-import org.thinking.logistics.services.core.domain.core.QCustomer;
+import org.thinking.logistics.services.core.domain.common.Customer;
+import org.thinking.logistics.services.core.domain.common.Owner;
+import org.thinking.logistics.services.core.domain.common.QCustomer;
 import org.thinking.logistics.services.core.repository.DomainRepository;
 
 import javax.persistence.EntityManager;

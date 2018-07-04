@@ -6,8 +6,8 @@ import lombok.NoArgsConstructor;
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
 import org.thinking.logistics.services.core.domain.BaseDomainEntity;
-import org.thinking.logistics.services.core.domain.core.Owner;
-import org.thinking.logistics.services.core.domain.core.Warehouse;
+import org.thinking.logistics.services.core.domain.common.Owner;
+import org.thinking.logistics.services.core.domain.common.Warehouse;
 import org.thinking.logistics.services.core.domain.support.PickupMode;
 import org.thinking.logistics.services.core.domain.support.StagingareaAllocateMode;
 

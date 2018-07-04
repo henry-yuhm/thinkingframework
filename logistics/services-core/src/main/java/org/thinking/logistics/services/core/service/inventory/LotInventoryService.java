@@ -2,8 +2,8 @@ package org.thinking.logistics.services.core.service.inventory;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.thinking.logistics.services.core.domain.core.Item;
-import org.thinking.logistics.services.core.domain.core.Lot;
+import org.thinking.logistics.services.core.domain.common.Item;
+import org.thinking.logistics.services.core.domain.common.Lot;
 import org.thinking.logistics.services.core.domain.inventory.LotInventory;
 import org.thinking.logistics.services.core.domain.inventory.QLotInventory;
 import org.thinking.logistics.services.core.domain.support.ValidPeriodType;

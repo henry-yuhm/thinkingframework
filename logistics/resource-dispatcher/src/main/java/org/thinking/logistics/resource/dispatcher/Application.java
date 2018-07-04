@@ -15,7 +15,7 @@ import org.thinkingframework.boot.web.mvc.AppWebMvcConfigurer;
 @EnableDiscoveryClient
 @EnableFeignClients
 @EnableHystrix
-@EntityScan(basePackages = "org.thinking.logistics.services.core.domain")
+@EntityScan(basePackages = "org.thinking.logistics.services.common.domain")
 @EnableJpaRepositories(basePackages = "org.thinking.logistics.services.core.repository")
 @ComponentScan(basePackages = {"org.thinking.logistics.services.core.service", "org.thinking.logistics.resource.dispatcher"})
 @Slf4j

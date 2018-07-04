@@ -4,7 +4,7 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
-import org.thinking.logistics.services.core.domain.core.Customer;
+import org.thinking.logistics.services.core.domain.common.Customer;
 import org.thinking.logistics.services.core.domain.support.InboundType;
 
 import javax.persistence.*;

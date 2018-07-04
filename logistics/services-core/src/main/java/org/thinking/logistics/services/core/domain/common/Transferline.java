@@ -1,4 +1,4 @@
-package org.thinking.logistics.services.core.domain.core;
+package org.thinking.logistics.services.core.domain.common;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -14,10 +14,10 @@ import javax.persistence.Entity;
 @DynamicUpdate
 @Data
 @EqualsAndHashCode(callSuper = true)
-public class Direction extends BaseDomainEntity {
-    @Column(nullable = false, updatable = false, length = 50)
+public class Transferline extends BaseDomainEntity {
+    @Column(nullable = false)
     private String no;//编号
 
-    @Column(nullable = false, length = 100)
+    @Column(nullable = false)
     private String name;//名称
 }

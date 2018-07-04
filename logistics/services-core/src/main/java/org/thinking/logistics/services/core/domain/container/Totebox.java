@@ -4,7 +4,7 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
-import org.thinking.logistics.services.core.domain.core.Task;
+import org.thinking.logistics.services.core.domain.common.Task;
 
 import javax.persistence.Entity;
 import javax.persistence.FetchType;

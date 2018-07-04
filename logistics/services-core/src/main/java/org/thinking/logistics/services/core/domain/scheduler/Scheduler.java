@@ -3,7 +3,7 @@ package org.thinking.logistics.services.core.domain.scheduler;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import org.thinking.logistics.services.core.domain.BaseDomainEntity;
-import org.thinking.logistics.services.core.domain.core.Warehouse;
+import org.thinking.logistics.services.core.domain.common.Warehouse;
 import org.thinking.logistics.services.core.domain.support.SchedulerType;
 
 import javax.persistence.Column;

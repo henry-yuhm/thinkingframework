@@ -7,8 +7,8 @@ import lombok.Setter;
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
 import org.thinking.logistics.services.core.domain.BaseDomainEntity;
+import org.thinking.logistics.services.core.domain.common.*;
 import org.thinking.logistics.services.core.domain.container.Pallet;
-import org.thinking.logistics.services.core.domain.core.*;
 import org.thinking.logistics.services.core.domain.support.InventoryState;
 
 import javax.persistence.*;

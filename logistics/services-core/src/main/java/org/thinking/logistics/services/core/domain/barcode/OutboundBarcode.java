@@ -6,7 +6,7 @@ import lombok.NoArgsConstructor;
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
 import org.thinking.logistics.services.core.domain.command.OutboundCommand;
-import org.thinking.logistics.services.core.domain.core.Sorter;
+import org.thinking.logistics.services.core.domain.common.Sorter;
 import org.thinking.logistics.services.core.domain.support.GroupageType;
 
 import javax.persistence.*;

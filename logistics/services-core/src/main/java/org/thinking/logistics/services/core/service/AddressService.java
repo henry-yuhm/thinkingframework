@@ -4,9 +4,9 @@ import com.querydsl.jpa.impl.JPAQuery;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.thinking.logistics.services.core.domain.CompositeException;
-import org.thinking.logistics.services.core.domain.core.Address;
-import org.thinking.logistics.services.core.domain.core.Customer;
-import org.thinking.logistics.services.core.domain.core.QAddress;
+import org.thinking.logistics.services.core.domain.common.Address;
+import org.thinking.logistics.services.core.domain.common.Customer;
+import org.thinking.logistics.services.core.domain.common.QAddress;
 import org.thinking.logistics.services.core.repository.DomainRepository;
 
 import javax.persistence.EntityManager;

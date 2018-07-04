@@ -4,7 +4,7 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import org.thinking.logistics.services.core.domain.BusinessBase;
 import org.thinking.logistics.services.core.domain.CompositeException;
-import org.thinking.logistics.services.core.domain.core.Direction;
+import org.thinking.logistics.services.core.domain.common.Direction;
 import org.thinking.logistics.services.core.domain.document.ShipmentOrderDetail;
 import org.thinking.logistics.services.core.domain.document.ShipmentOrderHeader;
 import org.thinking.logistics.services.core.domain.stagingarea.Stagingarea;

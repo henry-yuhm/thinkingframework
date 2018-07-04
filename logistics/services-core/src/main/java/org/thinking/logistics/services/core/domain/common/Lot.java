@@ -1,4 +1,4 @@
-package org.thinking.logistics.services.core.domain.core;
+package org.thinking.logistics.services.core.domain.common;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;

@@ -6,8 +6,8 @@ import lombok.EqualsAndHashCode;
 import lombok.Setter;
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
+import org.thinking.logistics.services.core.domain.common.Lot;
 import org.thinking.logistics.services.core.domain.container.Pallet;
-import org.thinking.logistics.services.core.domain.core.Lot;
 import org.thinking.logistics.services.core.domain.document.InventoryDocumentDetail;
 import org.thinking.logistics.services.core.domain.document.InventoryDocumentHeader;
 

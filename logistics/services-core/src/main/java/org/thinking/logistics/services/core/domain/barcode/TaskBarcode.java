@@ -2,7 +2,7 @@ package org.thinking.logistics.services.core.domain.barcode;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import org.thinking.logistics.services.core.domain.core.Warehouse;
+import org.thinking.logistics.services.core.domain.common.Warehouse;
 import org.thinking.logistics.services.core.domain.support.BarcodeType;
 import org.thinking.logistics.services.core.domain.support.TransmissionType;
 

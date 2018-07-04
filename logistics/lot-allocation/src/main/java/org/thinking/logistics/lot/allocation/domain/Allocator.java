@@ -1,8 +1,8 @@
 package org.thinking.logistics.lot.allocation.domain;
 
 import org.thinking.logistics.services.core.domain.command.OutboundCommand;
-import org.thinking.logistics.services.core.domain.core.Item;
-import org.thinking.logistics.services.core.domain.core.Lot;
+import org.thinking.logistics.services.core.domain.common.Item;
+import org.thinking.logistics.services.core.domain.common.Lot;
 import org.thinking.logistics.services.core.domain.document.ShipmentOrderDetail;
 import org.thinking.logistics.services.core.domain.inventory.Inventory;
 

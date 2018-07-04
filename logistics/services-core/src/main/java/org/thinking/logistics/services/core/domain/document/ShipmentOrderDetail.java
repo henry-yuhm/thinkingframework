@@ -6,7 +6,7 @@ import lombok.EqualsAndHashCode;
 import lombok.Setter;
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
-import org.thinking.logistics.services.core.domain.core.Location;
+import org.thinking.logistics.services.core.domain.common.Location;
 import org.thinking.logistics.services.core.domain.support.InventoryState;
 import org.thinking.logistics.services.core.domain.support.LotRequest;
 

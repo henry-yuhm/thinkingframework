@@ -2,7 +2,7 @@ package org.thinking.logistics.services.core.domain.command;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import org.thinking.logistics.services.core.domain.core.Location;
+import org.thinking.logistics.services.core.domain.common.Location;
 import org.thinking.logistics.services.core.domain.support.InventoryState;
 
 import javax.persistence.*;

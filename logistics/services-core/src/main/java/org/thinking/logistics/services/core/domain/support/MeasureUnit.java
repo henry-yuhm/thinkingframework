@@ -8,16 +8,16 @@ public enum MeasureUnit {
             return "EA";
         }
     },
-    CASE(2) {
-        @Override
-        public String toString() {
-            return "箱";
-        }
-    },
-    INNERPACK(3) {
+    INNERPACK(2) {
         @Override
         public String toString() {
             return "内包装";
+        }
+    },
+    CASE(3) {
+        @Override
+        public String toString() {
+            return "箱";
         }
     },
     PALLET(4) {
@@ -29,7 +29,7 @@ public enum MeasureUnit {
     CUBE(5) {
         @Override
         public String toString() {
-            return "立方";
+            return "体积";
         }
     },
     GROSS_WEIGHT(6) {
@@ -47,7 +47,7 @@ public enum MeasureUnit {
     LAYER(8) {
         @Override
         public String toString() {
-            return "层";
+            return "层次";
         }
     },
     FEET(9) {
