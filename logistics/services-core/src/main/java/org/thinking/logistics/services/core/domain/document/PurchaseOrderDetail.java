@@ -22,10 +22,10 @@ public class PurchaseOrderDetail extends Detail {
     private boolean completed;//完成
 
     @Column(nullable = false, precision = 12, scale = 5)
-    private BigDecimal planQuantity;//计划数量
+    private BigDecimal expectedQuantity;//计划数量
 
     @Column(nullable = false, precision = 12, scale = 5)
-    private BigDecimal factQuantity;//实际数量
+    private BigDecimal actualQuantity;//实际数量
 
     @Column(nullable = false, precision = 12, scale = 5)
     private BigDecimal price;//单价

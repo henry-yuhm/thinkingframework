@@ -19,12 +19,12 @@ public class ReversionNoteService extends DomainService<QReversionNoteDetail, Re
         super(entityManager, repository, QReversionNoteDetail.reversionNoteDetail);
     }
 
-    public final ReversionNoteDetail acquire(Warehouse warehouse, ShipmentOrderDetail detail, ReversionStage stage) {
+    public final ReversionNoteDetail acquire(Warehouse warehouse, ShipmentOrderDetail detail, ReversionStage reversionStage) {
         return this.getFactory().selectFrom(this.getPath())
             .where(
                 this.getPath().warehouse.eq(warehouse),
                 this.getPath().detail.eq(detail),
-                this.getPath().stage.eq(stage)
+                this.getPath().reversionStage.eq(reversionStage)
             )
             .fetchOne();
     }

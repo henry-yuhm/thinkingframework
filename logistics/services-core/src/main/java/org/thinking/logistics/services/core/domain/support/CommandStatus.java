@@ -1,7 +1,7 @@
 package org.thinking.logistics.services.core.domain.support;
 
-//指令阶段
-public enum CommandStage {
+//指令状态
+public enum CommandStatus {
     CREATED(0) {
         @Override
         public String toString() {
@@ -14,25 +14,25 @@ public enum CommandStage {
             return "可以作业";
         }
     },
-    REPLENISHMENT_DOWNSHELF_OBTAIN(21) {
+    REPLENISHMENT_REMOVAL_OBTAINED(21) {
         @Override
         public String toString() {
             return "补货下架索取";
         }
     },
-    REPLENISHMENT_DOWNSHELF_CONFIRM(22) {
+    REPLENISHMENT_REMOVAL_CONFIRMED(22) {
         @Override
         public String toString() {
             return "补货下架确认";
         }
     },
-    REPLENISHMENT_UPSHELF_OBTAIN(23) {
+    REPLENISHMENT_PUTAWAY_OBTAINED(23) {
         @Override
         public String toString() {
             return "补货上架索取";
         }
     },
-    REPLENISHMENT_UPSHELF_CONFIRM(24) {
+    REPLENISHMENT_PUTAWAY_CONFIRMED(24) {
         @Override
         public String toString() {
             return "补货上架确认";
@@ -44,109 +44,109 @@ public enum CommandStage {
             return "生成分配单";
         }
     },
-    WHOLEBILL_OBTAIN(32) {
+    WHOLEBILL_OBTAINED(32) {
         @Override
         public String toString() {
             return "整单索取";
         }
     },
-    PICKING_OBTAIN(33) {
+    PICKING_OBTAINED(33) {
         @Override
         public String toString() {
             return "拣货索取";
         }
     },
-    PICKING_CONFIRM(34) {
+    PICKING_CONFIRMED(34) {
         @Override
         public String toString() {
             return "拣货确认";
         }
     },
-    INNERREVIEW_OBTAIN(35) {
+    INNERREVIEW_OBTAINED(35) {
         @Override
         public String toString() {
             return "内复核任务索取";
         }
     },
-    INNERREVIEW_ITEMOBTAIN(36) {
+    INNERREVIEW_ITEM_OBTAINED(36) {
         @Override
         public String toString() {
             return "内复核商品索取";
         }
     },
-    INNERREVIEW_CONFIRM(37) {
+    INNERREVIEW_CONFIRMED(37) {
         @Override
         public String toString() {
             return "内复核确认";
         }
     },
-    OUTERREVIEW_OBTAIN(41) {
+    OUTERREVIEW_OBTAINED(41) {
         @Override
         public String toString() {
             return "外复核索取";
         }
     },
-    OUTERREVIEW_CONFIRM(42) {
+    OUTERREVIEW_CONFIRMED(42) {
         @Override
         public String toString() {
             return "外复核确认";
         }
     },
-    LOADING_OBTAIN(51) {
+    LOADING_OBTAINED(51) {
         @Override
         public String toString() {
             return "装车任务索取";
         }
     },
-    LOADING_CONFIRM(52) {
+    LOADING_CONFIRMED(52) {
         @Override
         public String toString() {
             return "装车任务确认";
         }
     },
-    LOADINGREVIEW_OBTAIN(53) {
+    LOADINGREVIEW_OBTAINED(53) {
         @Override
         public String toString() {
             return "装车复核索取";
         }
     },
-    LOADINGREVIEW_CONFIRM(54) {
+    LOADINGREVIEW_CONFIRMED(54) {
         @Override
         public String toString() {
             return "装车复核确认";
         }
     },
-    LOADING_INFORMATION_CONFIRM(55) {
+    LOADING_INFORMATION_CONFIRMED(55) {
         @Override
         public String toString() {
             return "装车信息确认";
         }
     },
-    DISTRIBUTION_BACK_CONFIRM(56) {
+    DISTRIBUTION_BACK_CONFIRMED(56) {
         @Override
         public String toString() {
             return "配送返回确认";
         }
     },
-    PALLET_OBTAIN(61) {
+    PALLET_OBTAINED(61) {
         @Override
         public String toString() {
             return "入库托盘索取";
         }
     },
-    PALLET_CONFIRM(62) {
+    PALLET_CONFIRMED(62) {
         @Override
         public String toString() {
             return "入库托盘确认";
         }
     },
-    UPSHELF_OBTAIN(63) {
+    PUTAWAY_OBTAINED(63) {
         @Override
         public String toString() {
             return "入库上架索取";
         }
     },
-    UPSHELF_CONFIRM(64) {
+    PUTAWAY_CONFIRMED(64) {
         @Override
         public String toString() {
             return "入库上架确认";
@@ -159,6 +159,6 @@ public enum CommandStage {
         }
     };
 
-    CommandStage(int ordinal) {
+    CommandStatus(int ordinal) {
     }
 }

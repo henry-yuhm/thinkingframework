@@ -49,7 +49,7 @@ public class AppointedLocationAllocator extends AbstractAllocator {
 
                     this.generateCommands(unoriginalDetail, false);
 
-                    unoriginalDetail.setFactQuantity(unoriginalDetail.getFactQuantity().subtract(this.getAllocationQuantity()));
+                    unoriginalDetail.setActualQuantity(unoriginalDetail.getActualQuantity().subtract(this.getAllocationQuantity()));
                     unoriginalDetail.setWholepiecesQuantity(BigDecimal.ZERO);
                 }
 
@@ -64,13 +64,13 @@ public class AppointedLocationAllocator extends AbstractAllocator {
 
                     this.generateCommands(unoriginalDetail, false);
 
-                    unoriginalDetail.setFactQuantity(unoriginalDetail.getFactQuantity().subtract(this.getAllocationQuantity()));
+                    unoriginalDetail.setActualQuantity(unoriginalDetail.getActualQuantity().subtract(this.getAllocationQuantity()));
                     unoriginalDetail.setRemainderQuantity(BigDecimal.ZERO);
                 }
             }
 
             //region 更新原始行
-            originalDetail.setFactQuantity(Optional.ofNullable(this.getHeader().getDetails().stream().filter(d -> d.getParent() == originalDetail && !d.isOriginal()).map(ShipmentOrderDetail::getFactQuantity).reduce(BigDecimal.ZERO, BigDecimal::add)).orElse(BigDecimal.ZERO));
+            originalDetail.setActualQuantity(Optional.ofNullable(this.getHeader().getDetails().stream().filter(d -> d.getParent() == originalDetail && !d.isOriginal()).map(ShipmentOrderDetail::getActualQuantity).reduce(BigDecimal.ZERO, BigDecimal::add)).orElse(BigDecimal.ZERO));
             originalDetail.setWholepiecesQuantity(BigDecimal.ZERO);
             originalDetail.setRemainderQuantity(BigDecimal.ZERO);
             originalDetail.setLessnessQuantity(BigDecimal.ZERO);

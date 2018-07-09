@@ -16,13 +16,13 @@ import javax.persistence.ManyToOne;
 @DynamicUpdate
 @Data
 @EqualsAndHashCode(callSuper = true)
-public class InboundCommand extends Command {
+public class ReceivingCommand extends Command {
     @ManyToOne(fetch = FetchType.LAZY)
-    private InboundCommand parent;//父指令
+    private ReceivingCommand parent;//父指令
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
     private ReceivingNoteHeader header;//单据抬头
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
     private ReceivingNoteDetail detail;//单据明细
 }

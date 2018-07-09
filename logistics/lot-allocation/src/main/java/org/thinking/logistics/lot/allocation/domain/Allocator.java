@@ -1,6 +1,6 @@
 package org.thinking.logistics.lot.allocation.domain;
 
-import org.thinking.logistics.services.core.domain.command.OutboundCommand;
+import org.thinking.logistics.services.core.domain.command.ShipmentCommand;
 import org.thinking.logistics.services.core.domain.common.Item;
 import org.thinking.logistics.services.core.domain.common.Lot;
 import org.thinking.logistics.services.core.domain.document.ShipmentOrderDetail;
@@ -25,7 +25,7 @@ public interface Allocator {
 
     void addInventory(Inventory inventory, BigDecimal quantity) throws Exception;
 
-    OutboundCommand acquireCommand(ShipmentOrderDetail detail, Inventory inventory, BigDecimal quantity) throws Exception;
+    ShipmentCommand acquireCommand(ShipmentOrderDetail detail, Inventory inventory, BigDecimal quantity) throws Exception;
 
     void charge(Inventory inventory) throws Exception;
 

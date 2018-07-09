@@ -38,7 +38,7 @@ public enum DocumentType {
             return "紧急补货";
         }
     },
-    TRANSFERRING(31) {
+    MOVE(31) {
         @Override
         public String toString() {
             return "移库";

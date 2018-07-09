@@ -5,8 +5,8 @@ import lombok.EqualsAndHashCode;
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
 import org.thinking.logistics.services.core.domain.container.Pallet;
-import org.thinking.logistics.services.core.domain.document.TransferringDocumentDetail;
-import org.thinking.logistics.services.core.domain.document.TransferringDocumentHeader;
+import org.thinking.logistics.services.core.domain.document.MoveOrderDetail;
+import org.thinking.logistics.services.core.domain.document.MoveOrderHeader;
 
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -17,12 +17,12 @@ import javax.persistence.ManyToOne;
 @DynamicUpdate
 @Data
 @EqualsAndHashCode(callSuper = true)
-public class TransferringCommand extends TransitionCommand {
+public class MoveCommand extends TransitionCommand {
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    private TransferringDocumentHeader header;//单据抬头
+    private MoveOrderHeader header;//单据抬头
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    private TransferringDocumentDetail detail;//单据明细
+    private MoveOrderDetail detail;//单据明细
 
     @ManyToOne(fetch = FetchType.LAZY)
     private Pallet pallet;//托盘

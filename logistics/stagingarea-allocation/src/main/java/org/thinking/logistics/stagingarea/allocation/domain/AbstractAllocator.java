@@ -65,19 +65,19 @@ public abstract class AbstractAllocator extends BusinessBase implements Allocato
 
     @Override
     public void verify() throws Exception {
-        if (this.header.getStage().compareTo(OutboundStage.INITIALIZED) < 0) {
+        if (this.header.getShipmentStatus().compareTo(ShipmentStatus.INITIALIZED) < 0) {
             throw CompositeException.getException("单据未初始化，不能分配月台", this.header, this.header.getOwner());
         }
 
-        if (this.header.getStage().compareTo(OutboundStage.ARRANGED) < 0) {
+        if (this.header.getShipmentStatus().compareTo(ShipmentStatus.ARRANGED) < 0) {
             throw CompositeException.getException("单据未安排波次，不能分配月台", this.header, this.header.getOwner());
         }
 
-        if (!this.trial && this.header.getStage().compareTo(OutboundStage.RELEASED) < 0) {
+        if (!this.trial && this.header.getShipmentStatus().compareTo(ShipmentStatus.RELEASED) < 0) {
             throw CompositeException.getException("单据未下发，不能分配月台", this.header, this.header.getOwner());
         }
 
-        if (this.header.getStage().compareTo(OutboundStage.STAGINGAREA_ALLOCATED) >= 0) {
+        if (this.header.getShipmentStatus().compareTo(ShipmentStatus.STAGINGAREA_ALLOCATED) >= 0) {
             throw CompositeException.getException("月台已经分配", this.header, this.header.getOwner());
         }
 
@@ -127,7 +127,7 @@ public abstract class AbstractAllocator extends BusinessBase implements Allocato
         BigDecimal largeQuantity = this.getDecimalParameter(this.header.getWarehouse(), "大型月台暂存区件数");
 
         if (this.configuration.getAllocationMode() == StagingareaAllocateMode.VOLUMETRIC) {
-            BigDecimal volume = this.header.getDetails().stream().map(detail -> detail.getFactQuantity().multiply(detail.getItem().getSmallPackageVolume())).reduce(BigDecimal::multiply).get();
+            BigDecimal volume = this.header.getDetails().stream().map(detail -> detail.getActualQuantity().multiply(detail.getItem().getSmallPackageVolume())).reduce(BigDecimal::multiply).get();
 
             //中药单据体积不能过大
             if (this.header.getItemClass() == ItemClass.TRADITIONAL_CHINESE_MEDICINE) {
@@ -192,7 +192,7 @@ public abstract class AbstractAllocator extends BusinessBase implements Allocato
 
     @Override
     public void save() {
-        this.header.setStage(OutboundStage.STAGINGAREA_ALLOCATED);
+        this.header.setShipmentStatus(ShipmentStatus.STAGINGAREA_ALLOCATED);
         this.header.setSourceStagingarea(this.stagingareas.get(0));
         this.header.setTargetStagingarea(this.stagingareas.get(this.stagingareas.size() - 1));
         this.orderService.getRepository().save(this.header);

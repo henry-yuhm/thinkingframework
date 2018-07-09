@@ -5,12 +5,11 @@ import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
-import org.thinking.logistics.services.core.domain.command.OutboundCommand;
+import org.thinking.logistics.services.core.domain.command.ShipmentCommand;
 import org.thinking.logistics.services.core.domain.common.Sorter;
 import org.thinking.logistics.services.core.domain.support.GroupageType;
 
 import javax.persistence.*;
-import java.util.LinkedHashSet;
 import java.util.Set;
 
 @Entity
@@ -19,7 +18,7 @@ import java.util.Set;
 @Data
 @NoArgsConstructor
 @EqualsAndHashCode(callSuper = true)
-public class OutboundBarcode extends TaskBarcode {
+public class ShipmentBarcode extends WorkBarcode {
     @Column(nullable = false)
     private boolean available;//可用
 
@@ -37,5 +36,5 @@ public class OutboundBarcode extends TaskBarcode {
 
     @OneToMany
     @JoinTable(joinColumns = @JoinColumn(name = "barcode_id"), inverseJoinColumns = @JoinColumn(name = "command_id"))
-    private Set<OutboundCommand> commands = new LinkedHashSet<>();//指令
+    private Set<ShipmentCommand> commands;//指令
 }

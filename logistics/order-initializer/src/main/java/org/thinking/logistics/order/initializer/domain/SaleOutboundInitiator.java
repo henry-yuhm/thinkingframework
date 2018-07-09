@@ -24,34 +24,34 @@ public class SaleOutboundInitiator extends AbstractInitiator {
     public void save() throws Exception {
         //region 优先级、提货方式转换
         if (this.getHeader().getSaleType() == SaleType.FLITTING) {
-            this.getHeader().setPriority(OutboundPriority.FLITTING_OUTBOUND);
+            this.getHeader().setOutboundPriority(OutboundPriority.FLITTING_OUTBOUND);
         } else if (this.getHeader().getPickupMode() == PickupMode.GREEN_CHANNEL) {
-            this.getHeader().setPriority(OutboundPriority.GREEN_CHANNEL);
+            this.getHeader().setOutboundPriority(OutboundPriority.GREEN_CHANNEL);
         } else if (this.getHeader().getPickupMode() == PickupMode.SELF_SERVICE) {
             if (this.getHeader().getItemQuantity() <= this.getIntegerParameter(this.getHeader().getWarehouse(), "绿色通道品规数") && this.getHeader().getEquivalentPieces().compareTo(this.getDecimalParameter(this.getHeader().getWarehouse(), "绿色通道件数")) <= 0) {
-                this.getHeader().setPriority(OutboundPriority.GREEN_CHANNEL);
+                this.getHeader().setOutboundPriority(OutboundPriority.GREEN_CHANNEL);
                 this.getHeader().setPickupModeSwitch(PickupMode.GREEN_CHANNEL);
             } else if (this.getHeader().getItemQuantity() > this.getIntegerParameter(this.getHeader().getWarehouse(), "自提转配送品规数") || this.getHeader().getEquivalentPieces().compareTo(this.getDecimalParameter(this.getHeader().getWarehouse(), "自提转配送件数")) > 0) {
-                this.getHeader().setPriority(OutboundPriority.SELF_SERVICE_2_DISTRIBUTION);
+                this.getHeader().setOutboundPriority(OutboundPriority.SELF_SERVICE_2_DISTRIBUTION);
                 this.getHeader().setPickupModeSwitch(PickupMode.SELF_SERVICE_2_DISTRIBUTION);
             } else {
-                this.getHeader().setPriority(OutboundPriority.SELF_SERVICE);
+                this.getHeader().setOutboundPriority(OutboundPriority.SELF_SERVICE);
                 this.getHeader().setPickupModeSwitch(PickupMode.SELF_SERVICE);
             }
         } else if (this.getHeader().getPickupMode() == PickupMode.CONSIGNMENT) {
-            this.getHeader().setPriority(OutboundPriority.CONSIGNMENT);
+            this.getHeader().setOutboundPriority(OutboundPriority.CONSIGNMENT);
         } else if (this.getHeader().getPickupMode() == PickupMode.URBAN_DISTRIBUTION) {
-            this.getHeader().setPriority(OutboundPriority.URBAN_DISTRIBUTION);
+            this.getHeader().setOutboundPriority(OutboundPriority.URBAN_DISTRIBUTION);
         } else if (this.getHeader().getPickupMode() == PickupMode.SELF_SERVICE_STOCKUP) {
-            this.getHeader().setPriority(OutboundPriority.SELF_SERVICE_STOCKUP);
+            this.getHeader().setOutboundPriority(OutboundPriority.SELF_SERVICE_STOCKUP);
         } else if (this.getHeader().getPickupMode() == PickupMode.SUBURBAN_DISTRIBUTION) {
-            this.getHeader().setPriority(OutboundPriority.SUBURBAN_DISTRIBUTION);
+            this.getHeader().setOutboundPriority(OutboundPriority.SUBURBAN_DISTRIBUTION);
         } else if (this.getHeader().getPickupMode() == PickupMode.RETAIL_CHAINS) {
-            this.getHeader().setPriority(OutboundPriority.RETAIL_CHAINS);
+            this.getHeader().setOutboundPriority(OutboundPriority.RETAIL_CHAINS);
         } else if (this.getHeader().getPickupMode() == PickupMode.FLITTING) {
-            this.getHeader().setPriority(OutboundPriority.FLITTING_OUTBOUND);
+            this.getHeader().setOutboundPriority(OutboundPriority.FLITTING_OUTBOUND);
         } else {
-            this.getHeader().setPriority(OutboundPriority.URBAN_DISTRIBUTION);
+            this.getHeader().setOutboundPriority(OutboundPriority.URBAN_DISTRIBUTION);
             this.getHeader().setPickupModeSwitch(PickupMode.URBAN_DISTRIBUTION);
         }
         //endregion

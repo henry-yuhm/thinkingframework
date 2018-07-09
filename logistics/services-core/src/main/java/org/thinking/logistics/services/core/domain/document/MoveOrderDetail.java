@@ -9,7 +9,7 @@ import org.hibernate.annotations.DynamicUpdate;
 import org.thinking.logistics.services.core.domain.common.Location;
 import org.thinking.logistics.services.core.domain.container.Pallet;
 import org.thinking.logistics.services.core.domain.support.InventoryState;
-import org.thinking.logistics.services.core.domain.support.TransferringReason;
+import org.thinking.logistics.services.core.domain.support.MoveReason;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -22,9 +22,9 @@ import java.math.BigDecimal;
 @DynamicUpdate
 @Data
 @EqualsAndHashCode(callSuper = true)
-public class TransferringDocumentDetail extends Detail {
+public class MoveOrderDetail extends Detail {
 //    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-//    private TransferringDocumentHeader header;//抬头
+//    private MoveOrderHeader header;//抬头
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     private Location sourceLocation;//源货位
@@ -52,7 +52,7 @@ public class TransferringDocumentDetail extends Detail {
     @ManyToOne(fetch = FetchType.LAZY)
     private Pallet pallet;//托盘
 
-    private TransferringReason reason;//移库原因
+    private MoveReason reason;//移库原因
 
     public BigDecimal getPieces() {
         return this.getItem().getPieces(quantity);

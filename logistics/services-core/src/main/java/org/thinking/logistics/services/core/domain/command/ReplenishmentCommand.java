@@ -6,8 +6,8 @@ import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
 import org.thinking.logistics.services.core.domain.common.Lot;
 import org.thinking.logistics.services.core.domain.container.Pallet;
-import org.thinking.logistics.services.core.domain.document.ReplenishmentDocumentDetail;
-import org.thinking.logistics.services.core.domain.document.ReplenishmentDocumentHeader;
+import org.thinking.logistics.services.core.domain.document.ReplenishmentOrderDetail;
+import org.thinking.logistics.services.core.domain.document.ReplenishmentOrderHeader;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -22,10 +22,10 @@ import java.math.BigDecimal;
 @EqualsAndHashCode(callSuper = true)
 public class ReplenishmentCommand extends TransitionCommand {
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    private ReplenishmentDocumentHeader header;//单据抬头
+    private ReplenishmentOrderHeader header;//单据抬头
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    private ReplenishmentDocumentDetail detail;//单据明细
+    private ReplenishmentOrderDetail detail;//单据明细
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     private Lot lot;//批号

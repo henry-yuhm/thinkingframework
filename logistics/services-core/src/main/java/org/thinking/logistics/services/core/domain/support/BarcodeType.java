@@ -20,7 +20,7 @@ public enum BarcodeType {
             return "补货";
         }
     },
-    TRANSFERRING(4) {
+    MOVE(4) {
         @Override
         public String toString() {
             return "移库";

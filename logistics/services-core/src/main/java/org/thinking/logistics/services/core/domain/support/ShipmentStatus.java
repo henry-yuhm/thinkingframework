@@ -1,7 +1,7 @@
 package org.thinking.logistics.services.core.domain.support;
 
-//出库阶段
-public enum OutboundStage {
+//发运状态
+public enum ShipmentStatus {
     CREATED(0) {
         @Override
         public String toString() {
@@ -56,7 +56,7 @@ public enum OutboundStage {
             return "单据已打包";
         }
     },
-    SPLIT(36) {
+    SPLITED(36) {
         @Override
         public String toString() {
             return "单据已拆分";
@@ -99,6 +99,6 @@ public enum OutboundStage {
         }
     };
 
-    OutboundStage(int ordinal) {
+    ShipmentStatus(int ordinal) {
     }
 }

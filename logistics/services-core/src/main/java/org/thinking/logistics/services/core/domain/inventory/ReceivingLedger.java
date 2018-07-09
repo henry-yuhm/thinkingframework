@@ -5,7 +5,7 @@ import lombok.EqualsAndHashCode;
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
 import org.thinking.logistics.services.core.domain.document.Header;
-import org.thinking.logistics.services.core.domain.document.InventoryDocumentHeader;
+import org.thinking.logistics.services.core.domain.document.ReceivingNoteHeader;
 
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -16,12 +16,12 @@ import javax.persistence.ManyToOne;
 @DynamicUpdate
 @Data
 @EqualsAndHashCode(callSuper = true)
-public class InventoryDocumentLedger extends Ledger {
+public class ReceivingLedger extends Ledger {
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    private InventoryDocumentHeader header;
+    private ReceivingNoteHeader header;
 
     @Override
     public void setHeader(Header header) {
-        this.header = (InventoryDocumentHeader) header;
+        this.header = (ReceivingNoteHeader) header;
     }
 }

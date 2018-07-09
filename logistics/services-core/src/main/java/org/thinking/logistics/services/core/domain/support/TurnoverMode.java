@@ -23,7 +23,7 @@ public enum TurnoverMode {
     LOTTABLE(4) {
         @Override
         public String toString() {
-            return "老批号优先";
+            return "指定批次";
         }
     };
 

@@ -15,7 +15,7 @@ public class PurchaseReturnInitiator extends AbstractInitiator {
 
     @Override
     public void save() throws Exception {
-        this.getHeader().setPriority(OutboundPriority.PURCHASE_RETURN);
+        this.getHeader().setOutboundPriority(OutboundPriority.PURCHASE_RETURN);
         this.getHeader().setPickupMode(PickupMode.NONE);
         this.getHeader().setPickupModeSwitch(PickupMode.NONE);
 

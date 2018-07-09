@@ -5,7 +5,7 @@ import lombok.EqualsAndHashCode;
 import org.thinking.logistics.services.core.domain.CompositeException;
 import org.thinking.logistics.services.core.domain.document.ShipmentOrderHeader;
 import org.thinking.logistics.services.core.domain.employee.Employee;
-import org.thinking.logistics.services.core.domain.support.OutboundStage;
+import org.thinking.logistics.services.core.domain.support.ShipmentStatus;
 
 import java.util.List;
 
@@ -22,7 +22,7 @@ public class OutboundOrderDispatcher extends AbstractDispatcher {
 
     @Override
     public void releaseWave() throws Exception {
-        if (this.getHeaders().stream().anyMatch(header -> header.getStage().compareTo(OutboundStage.RELEASED) >= 0)) {
+        if (this.getHeaders().stream().anyMatch(header -> header.getShipmentStatus().compareTo(ShipmentStatus.RELEASED) >= 0)) {
             throw CompositeException.getException("波次已经下发");
         }
 

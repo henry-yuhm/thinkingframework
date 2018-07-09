@@ -6,7 +6,7 @@ import lombok.EqualsAndHashCode;
 import lombok.Setter;
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
-import org.thinking.logistics.services.core.domain.barcode.OutboundBarcode;
+import org.thinking.logistics.services.core.domain.barcode.ShipmentBarcode;
 import org.thinking.logistics.services.core.domain.common.Location;
 import org.thinking.logistics.services.core.domain.common.Lot;
 import org.thinking.logistics.services.core.domain.common.Platform;
@@ -19,7 +19,6 @@ import org.thinking.logistics.services.core.domain.support.InventoryState;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
-import java.util.LinkedHashSet;
 import java.util.Set;
 
 @Entity
@@ -27,9 +26,9 @@ import java.util.Set;
 @DynamicUpdate
 @Data
 @EqualsAndHashCode(callSuper = true)
-public class OutboundCommand extends Command {
+public class ShipmentCommand extends Command {
     @ManyToOne(fetch = FetchType.LAZY)
-    private OutboundCommand parent;//父指令
+    private ShipmentCommand parent;//父指令
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     private ShipmentOrderHeader header;//单据抬头
@@ -47,49 +46,49 @@ public class OutboundCommand extends Command {
     private InventoryState inventoryState;//库存状态
 
     @Column(nullable = false)
-    private boolean activated = false;//激活
+    private boolean activated;//激活
 
     @Column(nullable = false, precision = 12, scale = 5)
-    private BigDecimal creationQuantity;//创建数量
-
-    @Column(nullable = false, precision = 12, scale = 5)
-    @Setter(value = AccessLevel.NONE)
-    private BigDecimal creationPieces;//创建件数
+    private BigDecimal createdQuantity;//创建数量
 
     @Column(nullable = false, precision = 12, scale = 5)
     @Setter(value = AccessLevel.NONE)
-    private BigDecimal creationRemainder;//创建余数
-
-    @Column(nullable = false, precision = 12, scale = 5)
-    private BigDecimal planQuantity;//计划数量
+    private BigDecimal createdPieces;//创建件数
 
     @Column(nullable = false, precision = 12, scale = 5)
     @Setter(value = AccessLevel.NONE)
-    private BigDecimal planPieces;//计划件数
+    private BigDecimal createdRemainder;//创建余数
+
+    @Column(nullable = false, precision = 12, scale = 5)
+    private BigDecimal expectedQuantity;//计划数量
 
     @Column(nullable = false, precision = 12, scale = 5)
     @Setter(value = AccessLevel.NONE)
-    private BigDecimal planRemainder;//计划余数
-
-    @Column(nullable = false, precision = 12, scale = 5)
-    private BigDecimal factQuantity;//实际数量
+    private BigDecimal expectedPieces;//计划件数
 
     @Column(nullable = false, precision = 12, scale = 5)
     @Setter(value = AccessLevel.NONE)
-    private BigDecimal factPieces;//实际件数
+    private BigDecimal expectedRemainder;//计划余数
+
+    @Column(nullable = false, precision = 12, scale = 5)
+    private BigDecimal actualQuantity;//实际数量
 
     @Column(nullable = false, precision = 12, scale = 5)
     @Setter(value = AccessLevel.NONE)
-    private BigDecimal factRemainder;//实际余数
+    private BigDecimal actualPieces;//实际件数
+
+    @Column(nullable = false, precision = 12, scale = 5)
+    @Setter(value = AccessLevel.NONE)
+    private BigDecimal actualRemainder;//实际余数
 
     @ManyToOne(fetch = FetchType.LAZY)
     private Task task;//作业任务
 
     @ManyToOne(fetch = FetchType.LAZY)
-    private OutboundBarcode barcode;//作业条码
+    private ShipmentBarcode shipmentBarcode;//作业条码
 
     @Column(nullable = false)
-    private AppendantSign appendantSign = AppendantSign.ORIGINAL;//追加标识
+    private AppendantSign appendantSign;//追加标识
 
     @ManyToOne(fetch = FetchType.LAZY)
     private Pallet pallet;//托盘
@@ -98,35 +97,35 @@ public class OutboundCommand extends Command {
     private Platform platform;//站台
 
     @Column(nullable = false, length = 100)
-    private String pickingOrder = "0";//拣货顺序
+    private String pickingOrder;//拣货顺序
 
     private BigDecimal remainder;//余量
 
     @ManyToMany
     @JoinTable(joinColumns = @JoinColumn(name = "command_id"), inverseJoinColumns = @JoinColumn(name = "rep_command_id"))
-    private Set<ReplenishmentCommand> commands = new LinkedHashSet<>();//补货指令
+    private Set<ReplenishmentCommand> commands;//补货指令
 
-    public BigDecimal getCreationPieces() {
-        return this.getItem().getPieces(creationQuantity);
+    public BigDecimal getCreatedPieces() {
+        return this.getItem().getPieces(createdQuantity);
     }
 
-    public BigDecimal getCreationRemainder() {
-        return this.getItem().getRemainder(creationQuantity);
+    public BigDecimal getCreatedRemainder() {
+        return this.getItem().getRemainder(createdQuantity);
     }
 
-    public BigDecimal getPlanPieces() {
-        return this.getItem().getPieces(planQuantity);
+    public BigDecimal getExpectedPieces() {
+        return this.getItem().getPieces(expectedQuantity);
     }
 
-    public BigDecimal getPlanRemainder() {
-        return this.getItem().getRemainder(planQuantity);
+    public BigDecimal getExpectedRemainder() {
+        return this.getItem().getRemainder(expectedQuantity);
     }
 
-    public BigDecimal getFactPieces() {
-        return this.getItem().getPieces(factQuantity);
+    public BigDecimal getActualPieces() {
+        return this.getItem().getPieces(actualQuantity);
     }
 
-    public BigDecimal getFactRemainder() {
-        return this.getItem().getRemainder(factQuantity);
+    public BigDecimal getActualRemainder() {
+        return this.getItem().getRemainder(actualQuantity);
     }
 }

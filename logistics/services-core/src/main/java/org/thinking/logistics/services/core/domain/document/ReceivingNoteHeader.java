@@ -4,13 +4,13 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
+import org.thinking.logistics.services.core.domain.employee.Employee;
 import org.thinking.logistics.services.core.domain.support.ArrivalMode;
 import org.thinking.logistics.services.core.domain.support.ArrivalVoucher;
-import org.thinking.logistics.services.core.domain.support.InboundStage;
+import org.thinking.logistics.services.core.domain.support.ReceivingStatus;
 
 import javax.persistence.*;
 import java.time.Instant;
-import java.util.LinkedHashSet;
 import java.util.Set;
 
 @Entity
@@ -23,14 +23,16 @@ public class ReceivingNoteHeader extends Header {
     private PurchaseOrderHeader order;//订单
 
     @Column(nullable = false)
-    private InboundStage stage = InboundStage.CREATED;//入库阶段
+    private ReceivingStatus receivingStatus;//收货状态
 
-    @Column(nullable = false)
-    private String receivingClerk;//收货员
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    private Employee receivingClerk;//收货员
 
-    private String auditor;//审核员
+    @ManyToOne(fetch = FetchType.LAZY)
+    private Employee auditor;//审核员
 
-    private String inspector;//质检员
+    @ManyToOne(fetch = FetchType.LAZY)
+    private Employee inspector;//质检员
 
     @Column(nullable = false)
     private boolean passback;//回传
@@ -47,7 +49,7 @@ public class ReceivingNoteHeader extends Header {
     private ArrivalMode arrivalMode;//到货方式
 
     @Column(nullable = false)
-    private ArrivalVoucher arrivalVoucher = ArrivalVoucher.HOLD;//到货凭证
+    private ArrivalVoucher arrivalVoucher;//到货凭证
 
     private String arrivalNo;//到货单号
 
@@ -57,9 +59,9 @@ public class ReceivingNoteHeader extends Header {
     private String saleOrderNo;//销售订单号
 
     @Column(nullable = false)
-    private boolean printed = false;//打印
+    private boolean printed;//打印
 
     @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH})
     @JoinTable(joinColumns = @JoinColumn(name = "header_id"), inverseJoinColumns = @JoinColumn(name = "detail_id"))
-    private Set<ReceivingNoteDetail> details = new LinkedHashSet<>();//单据明细
+    private Set<ReceivingNoteDetail> details;//单据明细
 }

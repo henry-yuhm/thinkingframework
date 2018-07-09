@@ -5,7 +5,7 @@ import lombok.EqualsAndHashCode;
 import org.thinking.logistics.services.core.domain.CompositeException;
 import org.thinking.logistics.services.core.domain.document.ShipmentOrderHeader;
 import org.thinking.logistics.services.core.domain.employee.Employee;
-import org.thinking.logistics.services.core.domain.support.OutboundStage;
+import org.thinking.logistics.services.core.domain.support.ShipmentStatus;
 
 @Data
 @EqualsAndHashCode(callSuper = true)
@@ -16,7 +16,7 @@ public class InsertedOrderDispatcher extends AbstractDispatcher {
 
     @Override
     public void releaseOrder() throws Exception {
-        if (this.getHeader().getStage().compareTo(OutboundStage.RELEASED) > 0) {
+        if (this.getHeader().getShipmentStatus().compareTo(ShipmentStatus.RELEASED) > 0) {
             throw CompositeException.getException("单据已经下发", this.getOperator(), this.getHeader(), this.getHeader().getOwner());
         }
 

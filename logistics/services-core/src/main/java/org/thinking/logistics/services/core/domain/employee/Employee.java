@@ -10,7 +10,6 @@ import org.thinking.logistics.services.core.domain.dictionary.EmployeePost;
 import org.thinking.logistics.services.core.domain.dictionary.EmployeeRole;
 
 import javax.persistence.*;
-import java.util.LinkedHashSet;
 import java.util.Set;
 
 @Entity
@@ -36,20 +35,20 @@ public class Employee extends BaseDomainEntity {
 
     @ManyToMany
     @JoinTable(joinColumns = @JoinColumn(name = "employee_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
-    private Set<EmployeeRole> roles = new LinkedHashSet<>();//角色
+    private Set<EmployeeRole> roles;//角色
 
     @ManyToMany
     @JoinTable(joinColumns = @JoinColumn(name = "employee_id"), inverseJoinColumns = @JoinColumn(name = "post_id"))
-    private Set<EmployeePost> posts = new LinkedHashSet<>();//岗位
+    private Set<EmployeePost> posts;//岗位
 
     @OneToOne(fetch = FetchType.LAZY)
     private DeviceAuthority authority;//设备权限
 
     @OneToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH})
     @JoinTable(joinColumns = @JoinColumn(name = "employee_id"), inverseJoinColumns = @JoinColumn(name = "authentication_id"))
-    private Set<DeviceAuthentication> authentications = new LinkedHashSet<>();//设备认证
+    private Set<DeviceAuthentication> authentications;//设备认证
 
     @OneToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH})
     @JoinTable(joinColumns = @JoinColumn(name = "employee_id"), inverseJoinColumns = @JoinColumn(name = "owner_id"))
-    private Set<Owner> owners = new LinkedHashSet<>();//业主
+    private Set<Owner> owners;//业主
 }

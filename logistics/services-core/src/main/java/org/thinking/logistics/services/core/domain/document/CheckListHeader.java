@@ -6,7 +6,6 @@ import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
 
 import javax.persistence.*;
-import java.util.LinkedHashSet;
 import java.util.Set;
 
 @Entity
@@ -14,11 +13,11 @@ import java.util.Set;
 @DynamicUpdate
 @Data
 @EqualsAndHashCode(callSuper = true)
-public class ReplenishmentDocumentHeader extends Header {
+public class CheckListHeader extends Header {
     @Column(nullable = false)
-    private boolean completed;//完成
+    private boolean executed = false;//执行
 
     @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH})
     @JoinTable(joinColumns = @JoinColumn(name = "header_id"), inverseJoinColumns = @JoinColumn(name = "detail_id"))
-    private Set<ReplenishmentDocumentDetail> details = new LinkedHashSet<>();//单据明细
+    private Set<CheckListDetail> details;//单据明细
 }

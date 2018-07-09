@@ -9,7 +9,6 @@ import org.thinking.logistics.services.core.domain.support.InboundType;
 
 import javax.persistence.*;
 import java.time.Instant;
-import java.util.LinkedHashSet;
 import java.util.Set;
 
 @Entity
@@ -52,5 +51,5 @@ public class PurchaseOrderHeader extends Header {
 
     @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH})
     @JoinTable(joinColumns = @JoinColumn(name = "header_id"), inverseJoinColumns = @JoinColumn(name = "detail_id"))
-    private Set<PurchaseOrderDetail> details = new LinkedHashSet<>();//单据明细
+    private Set<PurchaseOrderDetail> details;//单据明细
 }

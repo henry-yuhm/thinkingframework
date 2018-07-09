@@ -40,7 +40,7 @@ public class ReversionNoteDetail extends Detail {
     private Employee operator;//操作员
 
     @Column(nullable = false)
-    private ReversionStage stage;//冲红阶段
+    private ReversionStage reversionStage;//冲红阶段
 
     @ManyToOne(fetch = FetchType.LAZY)
     private Employee auditor;//审核员

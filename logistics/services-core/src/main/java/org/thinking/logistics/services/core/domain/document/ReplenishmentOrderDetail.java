@@ -8,8 +8,6 @@ import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
 import org.thinking.logistics.services.core.domain.common.Location;
 import org.thinking.logistics.services.core.domain.container.Pallet;
-import org.thinking.logistics.services.core.domain.support.InventoryState;
-import org.thinking.logistics.services.core.domain.support.TransferringReason;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -22,36 +20,37 @@ import java.math.BigDecimal;
 @DynamicUpdate
 @Data
 @EqualsAndHashCode(callSuper = true)
-public class InventoryDocumentDetail extends Detail {
+public class ReplenishmentOrderDetail extends Detail {
+//    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+//    private ReplenishmentOrderHeader header;//抬头
+
     @ManyToOne(fetch = FetchType.LAZY)
     private Location location;//货位
 
-    @Column(nullable = false)
-    private InventoryState inventoryState;//库存状态
+    private String storeCategory;//库别
+
+    @Column(nullable = false, precision = 12, scale = 5)
+    private BigDecimal expectedQuantity;//计划数量
+
+    @Column(nullable = false, precision = 12, scale = 5)
+    @Setter(value = AccessLevel.NONE)
+    private BigDecimal expectedPieces;//计划件数
+
+    @Column(nullable = false, precision = 12, scale = 5)
+    private BigDecimal actualQuantity;//实际数量
+
+    @Column(nullable = false, precision = 12, scale = 5)
+    @Setter(value = AccessLevel.NONE)
+    private BigDecimal actualPieces;//实际件数
 
     @ManyToOne(fetch = FetchType.LAZY)
     private Pallet pallet;//托盘
 
-    @Column(nullable = false, precision = 12, scale = 5)
-    private BigDecimal quantity;//数量
-
-    @Column(nullable = false, precision = 12, scale = 5)
-    @Setter(value = AccessLevel.NONE)
-    private BigDecimal pieces;//件数
-
-    @Column(nullable = false, precision = 12, scale = 5)
-    @Setter(value = AccessLevel.NONE)
-    private BigDecimal remainder;//余数
-
-    private String approver;//审核员
-
-    private TransferringReason reason;//移库原因
-
-    public BigDecimal getPieces() {
-        return this.getItem().getPieces(quantity);
+    public BigDecimal getExpectedPieces() {
+        return this.getItem().getPieces(expectedQuantity);
     }
 
-    public BigDecimal getRemainder() {
-        return this.getItem().getRemainder(quantity);
+    public BigDecimal getActualPieces() {
+        return this.getItem().getPieces(actualQuantity);
     }
 }

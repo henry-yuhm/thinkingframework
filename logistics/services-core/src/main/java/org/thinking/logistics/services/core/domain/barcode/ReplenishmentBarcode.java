@@ -10,7 +10,6 @@ import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
-import java.util.LinkedHashSet;
 import java.util.Set;
 
 @Entity
@@ -18,8 +17,8 @@ import java.util.Set;
 @DynamicUpdate
 @Data
 @EqualsAndHashCode(callSuper = true)
-public class ReplenishmentBarcode extends TaskBarcode {
+public class ReplenishmentBarcode extends WorkBarcode {
     @ManyToMany
     @JoinTable(joinColumns = @JoinColumn(name = "barcode_id"), inverseJoinColumns = @JoinColumn(name = "command_id"))
-    private Set<ReplenishmentCommand> commands = new LinkedHashSet<>();//指令
+    private Set<ReplenishmentCommand> commands;//指令
 }

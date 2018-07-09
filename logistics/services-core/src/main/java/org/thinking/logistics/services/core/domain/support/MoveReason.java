@@ -1,9 +1,9 @@
 package org.thinking.logistics.services.core.domain.support;
 
 //移库原因
-public enum TransferringReason {
+public enum MoveReason {
     ;
 
-    TransferringReason(String name, int ordinal) {
+    MoveReason(String name, int ordinal) {
     }
 }

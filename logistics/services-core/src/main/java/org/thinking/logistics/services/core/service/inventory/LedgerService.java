@@ -46,8 +46,8 @@ public class LedgerService<L extends Ledger, H extends Header> extends DomainSer
         ledger.setOutboundQuantity(inventory.getOutboundQuantity());
         ledger.setReplenishedFromQuantity(inventory.getReplenishedFromQuantity());
         ledger.setReplenishedToQuantity(inventory.getReplenishedToQuantity());
-        ledger.setTransferredFromQuantity(inventory.getTransferredFromQuantity());
-        ledger.setTransferredToQuantity(inventory.getTransferredToQuantity());
+        ledger.setMovingFromQuantity(inventory.getMovingFromQuantity());
+        ledger.setMovingToQuantity(inventory.getMovingToQuantity());
         ledger.setTransitionalQuantity(inventory.getTransitionalQuantity());
         ledger.setLockingQuantity(inventory.getLockingQuantity());
         ledger.setBalance(inventory.getQuantity());

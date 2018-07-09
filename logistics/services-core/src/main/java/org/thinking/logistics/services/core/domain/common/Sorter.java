@@ -32,7 +32,7 @@ public class Sorter extends BaseDomainEntity {
     @Column(nullable = false)
     private int workload = 0;//工作量
 
-    private LinkedHashMap<Integer, CommandCategory> taskCategories = new LinkedHashMap<>(16);//任务类别
+    private LinkedHashMap<Integer, CommandCategory> taskCategories;//任务类别
 
-    private LinkedHashMap<Integer, ItemClass> billCategories = new LinkedHashMap<>(16);//单据类别
+    private LinkedHashMap<Integer, ItemClass> billCategories;//单据类别
 }

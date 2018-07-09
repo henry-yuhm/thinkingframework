@@ -3,12 +3,12 @@ package org.thinking.logistics.lot.allocation.domain;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import org.thinking.logistics.services.core.domain.CompositeException;
-import org.thinking.logistics.services.core.domain.command.OutboundCommand;
+import org.thinking.logistics.services.core.domain.command.ShipmentCommand;
 import org.thinking.logistics.services.core.domain.document.ShipmentOrderDetail;
 import org.thinking.logistics.services.core.domain.document.ShipmentOrderHeader;
 import org.thinking.logistics.services.core.domain.inventory.Inventory;
 import org.thinking.logistics.services.core.domain.support.AppendantSign;
-import org.thinking.logistics.services.core.domain.support.CommandStage;
+import org.thinking.logistics.services.core.domain.support.CommandStatus;
 import org.thinking.logistics.services.core.domain.support.PackageType;
 import org.thinking.logistics.services.core.domain.support.StorageClassification;
 
@@ -17,23 +17,23 @@ import java.math.BigDecimal;
 @Data
 @EqualsAndHashCode(callSuper = true)
 public class AppendantCommandAllocator extends AbstractAllocator {
-    private OutboundCommand command;
+    private ShipmentCommand command;
 
-    public AppendantCommandAllocator(ShipmentOrderHeader header, OutboundCommand command) throws Exception {
+    public AppendantCommandAllocator(ShipmentOrderHeader header, ShipmentCommand command) throws Exception {
         super(header);
         this.command = command;
     }
 
     @Override
     public void initialize(ShipmentOrderDetail detail) throws Exception {
-        detail.setFactQuantity(this.command.getPlanQuantity().subtract(this.command.getFactQuantity()));
+        detail.setActualQuantity(this.command.getExpectedQuantity().subtract(this.command.getActualQuantity()));
 
         super.initialize(detail);
     }
 
     @Override
-    public OutboundCommand acquireCommand(ShipmentOrderDetail detail, Inventory inventory, BigDecimal quantity) throws Exception {
-        OutboundCommand command = super.acquireCommand(detail, inventory, quantity);
+    public ShipmentCommand acquireCommand(ShipmentOrderDetail detail, Inventory inventory, BigDecimal quantity) throws Exception {
+        ShipmentCommand command = super.acquireCommand(detail, inventory, quantity);
 
         command.setParent(this.command);
         command.setAppendantSign(AppendantSign.APPEND);
@@ -44,11 +44,11 @@ public class AppendantCommandAllocator extends AbstractAllocator {
     @Override
     public void save() {
         //region 追加拣货按作业分组汇总打包任务
-//        ListExpression<OutboundCommand,QOutboundCommand> commands = this.getCommandService().getPath()
+//        ListExpression<ShipmentCommand,QOutboundCommand> commands = this.getCommandService().getPath()
         this.getCommandService().getFactory().selectFrom(this.getCommandService().getPath())
             .where(
                 this.getCommandService().getPath().packageType.eq(PackageType.REMAINDER),
-                this.getCommandService().getPath().stage.eq(CommandStage.CREATED),
+                this.getCommandService().getPath().commandStatus.eq(CommandStatus.CREATED),
                 this.getCommandService().getPath().parent.eq(this.command),
                 this.getCommandService().getPath().header.eq(this.getHeader()),
                 this.getCommandService().getPath().appendantSign.eq(AppendantSign.APPEND)
@@ -71,7 +71,7 @@ public class AppendantCommandAllocator extends AbstractAllocator {
             throw CompositeException.getException("追加拣货标识不满足追加处理的要求", this.getHeader(), this.getHeader().getOwner());
         }
 
-        if (this.command.getPlanQuantity().compareTo(this.command.getFactQuantity()) == 0) {
+        if (this.command.getExpectedQuantity().compareTo(this.command.getActualQuantity()) == 0) {
             return;
         }
 

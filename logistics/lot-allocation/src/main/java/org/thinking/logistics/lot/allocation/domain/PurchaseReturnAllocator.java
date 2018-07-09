@@ -27,7 +27,7 @@ public class PurchaseReturnAllocator extends AbstractAllocator {
         if (detail.getWholepiecesQuantity().compareTo(BigDecimal.ZERO) > 0) {
             if (detail.getLocation() != null && detail.getLocation().getPackageType() == PackageType.REMAINDER) {
                 detail.setWholepiecesQuantity(BigDecimal.ZERO);
-                detail.setRemainderQuantity(detail.getFactQuantity());
+                detail.setRemainderQuantity(detail.getActualQuantity());
             }
         }
     }
@@ -60,7 +60,7 @@ public class PurchaseReturnAllocator extends AbstractAllocator {
 
                     this.generateCommands(unoriginalDetail, true);
 
-                    unoriginalDetail.setFactQuantity(unoriginalDetail.getFactQuantity().subtract(this.getAllocationQuantity()));
+                    unoriginalDetail.setActualQuantity(unoriginalDetail.getActualQuantity().subtract(this.getAllocationQuantity()));
                     unoriginalDetail.setWholepiecesQuantity(BigDecimal.ZERO);
                 }
 
@@ -75,13 +75,13 @@ public class PurchaseReturnAllocator extends AbstractAllocator {
 
                     this.generateCommands(unoriginalDetail, true);
 
-                    unoriginalDetail.setFactQuantity(unoriginalDetail.getFactQuantity().subtract(this.getAllocationQuantity()));
+                    unoriginalDetail.setActualQuantity(unoriginalDetail.getActualQuantity().subtract(this.getAllocationQuantity()));
                     unoriginalDetail.setRemainderQuantity(BigDecimal.ZERO);
                 }
             }
 
             //region 更新原始行
-            originalDetail.setFactQuantity(Optional.ofNullable(this.getHeader().getDetails().stream().filter(d -> d.getParent() == originalDetail && !d.isOriginal()).map(ShipmentOrderDetail::getPlanQuantity).reduce(BigDecimal.ZERO, BigDecimal::add)).orElse(BigDecimal.ZERO));
+            originalDetail.setActualQuantity(Optional.ofNullable(this.getHeader().getDetails().stream().filter(d -> d.getParent() == originalDetail && !d.isOriginal()).map(ShipmentOrderDetail::getExpectedQuantity).reduce(BigDecimal.ZERO, BigDecimal::add)).orElse(BigDecimal.ZERO));
             originalDetail.setWholepiecesQuantity(BigDecimal.ZERO);
             originalDetail.setRemainderQuantity(BigDecimal.ZERO);
             originalDetail.setLessnessQuantity(BigDecimal.ZERO);

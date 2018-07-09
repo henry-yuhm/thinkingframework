@@ -5,8 +5,8 @@ import lombok.EqualsAndHashCode;
 import org.thinking.logistics.services.core.domain.document.ShipmentOrderDetail;
 import org.thinking.logistics.services.core.domain.document.ShipmentOrderHeader;
 import org.thinking.logistics.services.core.domain.employee.Employee;
-import org.thinking.logistics.services.core.domain.support.OutboundStage;
 import org.thinking.logistics.services.core.domain.support.ReversionStage;
+import org.thinking.logistics.services.core.domain.support.ShipmentStatus;
 
 import java.time.Instant;
 import java.util.List;
@@ -15,15 +15,15 @@ import java.util.stream.Collectors;
 @Data
 @EqualsAndHashCode(callSuper = true)
 public class PurchaseReturnReversor extends AbstractReversor {
-    public PurchaseReturnReversor(Employee operator, ShipmentOrderHeader header, ReversionStage stage) {
-        super(operator, header, stage);
+    public PurchaseReturnReversor(Employee operator, ShipmentOrderHeader header, ReversionStage reversionStage) {
+        super(operator, header, reversionStage);
     }
 
     @Override
     public void revert() {
         List<ShipmentOrderDetail> details = this.getHeader().getDetails()
             .stream()
-            .filter(detail -> detail.getPlanQuantity().compareTo(detail.getFactQuantity()) != 0)
+            .filter(detail -> detail.getExpectedQuantity().compareTo(detail.getActualQuantity()) != 0)
             .collect(Collectors.toList());
 
         if (details == null || details.size() == 0) {
@@ -34,7 +34,7 @@ public class PurchaseReturnReversor extends AbstractReversor {
 
         //整单冲红处理
         if (this.getOrderService().isReversed(this.getHeader())) {
-            this.getHeader().setStage(OutboundStage.TASK_COMPLETED);
+            this.getHeader().setShipmentStatus(ShipmentStatus.TASK_COMPLETED);
             this.getHeader().setReversed(true);
             this.getHeader().setTaskCompleteTime(Instant.now());
         }

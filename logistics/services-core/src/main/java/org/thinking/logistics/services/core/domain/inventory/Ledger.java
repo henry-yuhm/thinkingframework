@@ -65,10 +65,10 @@ public abstract class Ledger extends BaseDomainEntity {
     private BigDecimal replenishedToQuantity;//补入数量
 
     @Column(nullable = false, precision = 12, scale = 5)
-    private BigDecimal transferredFromQuantity;//移出数量
+    private BigDecimal movingFromQuantity;//移出数量
 
     @Column(nullable = false, precision = 12, scale = 5)
-    private BigDecimal transferredToQuantity;//移入数量
+    private BigDecimal movingToQuantity;//移入数量
 
     @Column(nullable = false, precision = 12, scale = 5)
     private BigDecimal transitionalQuantity;//在途数量

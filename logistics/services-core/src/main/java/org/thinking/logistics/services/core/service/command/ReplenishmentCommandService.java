@@ -7,7 +7,7 @@ import org.thinking.logistics.services.core.domain.common.Item;
 import org.thinking.logistics.services.core.domain.common.Location;
 import org.thinking.logistics.services.core.domain.common.Lot;
 import org.thinking.logistics.services.core.domain.common.Warehouse;
-import org.thinking.logistics.services.core.domain.support.CommandStage;
+import org.thinking.logistics.services.core.domain.support.CommandStatus;
 import org.thinking.logistics.services.core.domain.support.CommandType;
 import org.thinking.logistics.services.core.repository.DomainRepository;
 import org.thinking.logistics.services.core.service.DomainService;
@@ -30,7 +30,7 @@ public class ReplenishmentCommandService extends DomainService<QReplenishmentCom
                 this.getPath().lot.eq(lot),
                 this.getPath().targetLocation.eq(location),
                 this.getPath().commandType.eq(CommandType.REPLENISHMENT),
-                this.getPath().stage.lt(CommandStage.TERMINATED),
+                this.getPath().commandStatus.lt(CommandStatus.TERMINATED),
                 this.getPath().availableQuantity.gt(0))
             .orderBy(
                 this.getPath().commandCategory.asc(),

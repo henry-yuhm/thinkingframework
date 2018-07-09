@@ -8,8 +8,8 @@ import org.thinking.logistics.services.core.domain.document.ReversionNoteDetail;
 import org.thinking.logistics.services.core.domain.document.ShipmentOrderDetail;
 import org.thinking.logistics.services.core.domain.document.ShipmentOrderHeader;
 import org.thinking.logistics.services.core.domain.employee.Employee;
-import org.thinking.logistics.services.core.domain.support.OutboundStage;
 import org.thinking.logistics.services.core.domain.support.ReversionStage;
+import org.thinking.logistics.services.core.domain.support.ShipmentStatus;
 import org.thinking.logistics.services.core.service.document.ReversionNoteService;
 import org.thinking.logistics.services.core.service.document.ShipmentOrderService;
 import org.thinking.logistics.services.core.service.stagingarea.StagingareaService;
@@ -24,7 +24,7 @@ import java.util.List;
 public abstract class AbstractReversor extends BusinessBase implements Reversor {
     private ShipmentOrderHeader header;
 
-    private ReversionStage stage;
+    private ReversionStage reversionStage;
 
     @Resource
     private ShipmentOrderService orderService;
@@ -35,15 +35,15 @@ public abstract class AbstractReversor extends BusinessBase implements Reversor 
     @Resource
     private StagingareaService stagingareaService;
 
-    public AbstractReversor(Employee operator, ShipmentOrderHeader header, ReversionStage stage) {
+    public AbstractReversor(Employee operator, ShipmentOrderHeader header, ReversionStage reversionStage) {
         super(operator);
         this.header = header;
-        this.stage = stage;
+        this.reversionStage = reversionStage;
     }
 
     @Override
     public void revert(ShipmentOrderDetail detail) {
-        ReversionNoteDetail reversionNoteDetail = this.reversionNoteService.acquire(detail.getWarehouse(), detail, this.stage);
+        ReversionNoteDetail reversionNoteDetail = this.reversionNoteService.acquire(detail.getWarehouse(), detail, this.reversionStage);
 
         if (reversionNoteDetail == null) {
             reversionNoteDetail = new ReversionNoteDetail();
@@ -59,7 +59,7 @@ public abstract class AbstractReversor extends BusinessBase implements Reversor 
             reversionNoteDetail.setHeader(this.header);
             reversionNoteDetail.setDetail(detail);
             reversionNoteDetail.setOperator(this.getOperator());
-            reversionNoteDetail.setStage(this.stage);
+            reversionNoteDetail.setReversionStage(this.reversionStage);
         } else {
             this.calculateQuantity(detail, reversionNoteDetail);
         }
@@ -69,9 +69,9 @@ public abstract class AbstractReversor extends BusinessBase implements Reversor 
 
     @Override
     public void calculateQuantity(ShipmentOrderDetail detail, ReversionNoteDetail reversionNoteDetail) {
-        if (this.stage == ReversionStage.DISPATCHING || this.stage == ReversionStage.EXECUTING) {
-            reversionNoteDetail.setQuantity(detail.getPlanQuantity().subtract(detail.getFactQuantity()));
-        } else if (this.stage == ReversionStage.SUSPENDING) {
+        if (this.reversionStage == ReversionStage.DISPATCHING || this.reversionStage == ReversionStage.EXECUTING) {
+            reversionNoteDetail.setQuantity(detail.getExpectedQuantity().subtract(detail.getActualQuantity()));
+        } else if (this.reversionStage == ReversionStage.SUSPENDING) {
             reversionNoteDetail.setQuantity(detail.getLessnessQuantity());
         }
     }
@@ -82,12 +82,12 @@ public abstract class AbstractReversor extends BusinessBase implements Reversor 
             throw CompositeException.getException("单据已冲红审核，不能重复审核", this.getOperator(), this.header, this.header.getOwner());
         }
 
-        if (this.header.getStage().compareTo(OutboundStage.TASK_COMPLETED) < 0) {
+        if (this.header.getShipmentStatus().compareTo(ShipmentStatus.TASK_COMPLETED) < 0) {
             throw CompositeException.getException("单据未内复核完成，不能审核", this.getOperator(), this.header, this.header.getOwner());
         }
 
         if (this.header.isReversed()) {
-            this.header.setStage(OutboundStage.REVIEW_COMPLETED);
+            this.header.setShipmentStatus(ShipmentStatus.REVIEW_COMPLETED);
 
             //整单冲红且分配月台的，自动清理月台
             this.stagingareaService.cleanup(this.header);

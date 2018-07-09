@@ -8,8 +8,8 @@ import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
 import org.thinking.logistics.services.core.domain.common.Lot;
 import org.thinking.logistics.services.core.domain.container.Pallet;
-import org.thinking.logistics.services.core.domain.document.InventoryDocumentDetail;
-import org.thinking.logistics.services.core.domain.document.InventoryDocumentHeader;
+import org.thinking.logistics.services.core.domain.document.CheckListDetail;
+import org.thinking.logistics.services.core.domain.document.CheckListHeader;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -24,10 +24,10 @@ import java.math.BigDecimal;
 @EqualsAndHashCode(callSuper = true)
 public class InventoryCommand extends TransitionCommand {
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    private InventoryDocumentHeader header;//单据抬头
+    private CheckListHeader header;//单据抬头
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    private InventoryDocumentDetail detail;//单据明细
+    private CheckListDetail detail;//单据明细
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     private Lot sourceLot;//源批号
@@ -53,15 +53,15 @@ public class InventoryCommand extends TransitionCommand {
     private BigDecimal inventoryRemainder;//库存余数
 
     @Column(nullable = false, precision = 12, scale = 5)
-    private BigDecimal factQuantity;//实际数量
+    private BigDecimal actualQuantity;//实际数量
 
     @Column(nullable = false, precision = 12, scale = 5)
     @Setter(value = AccessLevel.NONE)
-    private BigDecimal factPieces;//实际件数
+    private BigDecimal actualPieces;//实际件数
 
     @Column(nullable = false, precision = 12, scale = 5)
     @Setter(value = AccessLevel.NONE)
-    private BigDecimal factRemainder;//实际余数
+    private BigDecimal actualRemainder;//实际余数
 
     public BigDecimal getInventoryPieces() {
         return this.getItem().getPieces(inventoryQuantity);
@@ -71,11 +71,11 @@ public class InventoryCommand extends TransitionCommand {
         return this.getItem().getRemainder(inventoryQuantity);
     }
 
-    public BigDecimal getFactPieces() {
-        return this.getItem().getPieces(factQuantity);
+    public BigDecimal getActualPieces() {
+        return this.getItem().getPieces(actualQuantity);
     }
 
-    public BigDecimal getFactRemainder() {
-        return this.getItem().getRemainder(factQuantity);
+    public BigDecimal getActualRemainder() {
+        return this.getItem().getRemainder(actualQuantity);
     }
 }

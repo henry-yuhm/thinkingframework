@@ -34,26 +34,26 @@ public class ReceivingNoteDetail extends Detail {
     private PurchaseOrderDetail order;//订单
 
     @Column(nullable = false, precision = 12, scale = 5)
-    private BigDecimal planQuantity;//计划数量
+    private BigDecimal expectedQuantity;//计划数量
 
     @Column(nullable = false, precision = 12, scale = 5)
     @Setter(value = AccessLevel.NONE)
-    private BigDecimal planPieces;//计划件数
+    private BigDecimal expectedPieces;//计划件数
 
     @Column(nullable = false, precision = 12, scale = 5)
     @Setter(value = AccessLevel.NONE)
-    private BigDecimal planRemainder;//计划余数
+    private BigDecimal expectedRemainder;//计划余数
 
     @Column(nullable = false, precision = 12, scale = 5)
-    private BigDecimal factQuantity;//实际数量
-
-    @Column(nullable = false, precision = 12, scale = 5)
-    @Setter(value = AccessLevel.NONE)
-    private BigDecimal factPieces;//实际件数
+    private BigDecimal actualQuantity;//实际数量
 
     @Column(nullable = false, precision = 12, scale = 5)
     @Setter(value = AccessLevel.NONE)
-    private BigDecimal factRemainder;//实际余数
+    private BigDecimal actualPieces;//实际件数
+
+    @Column(nullable = false, precision = 12, scale = 5)
+    @Setter(value = AccessLevel.NONE)
+    private BigDecimal actualRemainder;//实际余数
 
     @ManyToOne(fetch = FetchType.LAZY)
     private Pallet pallet;//托盘
@@ -86,19 +86,19 @@ public class ReceivingNoteDetail extends Detail {
 
     private String scanningNo;//扫描单号
 
-    public BigDecimal getPlanPieces() {
-        return this.getItem().getPieces(planQuantity);
+    public BigDecimal getExpectedPieces() {
+        return this.getItem().getPieces(expectedQuantity);
     }
 
-    public BigDecimal getPlanRemainder() {
-        return this.getItem().getRemainder(planQuantity);
+    public BigDecimal getExpectedRemainder() {
+        return this.getItem().getRemainder(expectedQuantity);
     }
 
-    public BigDecimal getFactPieces() {
-        return this.getItem().getPieces(factQuantity);
+    public BigDecimal getActualPieces() {
+        return this.getItem().getPieces(actualQuantity);
     }
 
-    public BigDecimal getFactRemainder() {
-        return this.getItem().getRemainder(factQuantity);
+    public BigDecimal getActualRemainder() {
+        return this.getItem().getRemainder(actualQuantity);
     }
 }

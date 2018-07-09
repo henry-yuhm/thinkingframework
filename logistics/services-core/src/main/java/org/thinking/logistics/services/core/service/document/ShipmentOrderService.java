@@ -83,7 +83,7 @@ public class ShipmentOrderService extends DomainService<QShipmentOrderHeader, Sh
                 this.getPath().eq(header),
                 detail.original.isTrue()
             )
-            .select(detail.planQuantity.sum())
+            .select(detail.expectedQuantity.sum())
             .fetchOne()
         ).orElse(BigDecimal.ZERO);
 

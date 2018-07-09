@@ -1,7 +1,7 @@
 package org.thinking.logistics.services.core.domain.support;
 
-//入库阶段
-public enum InboundStage {
+//收货状态
+public enum ReceivingStatus {
     CREATED(0) {
         @Override
         public String toString() {
@@ -21,6 +21,6 @@ public enum InboundStage {
         }
     };
 
-    InboundStage(int ordinal) {
+    ReceivingStatus(int ordinal) {
     }
 }

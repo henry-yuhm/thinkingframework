@@ -30,7 +30,8 @@ public abstract class Command extends BaseDomainEntity {
     private CommandCategory commandCategory;//指令类别
 
     @Column(nullable = false)
-    private CommandStage stage = CommandStage.CREATED;//指令阶段
+    private CommandStatus commandStatus;//指令状态
 
+    @Column(insertable = false)
     private WorkMode workMode;//作业方式
 }

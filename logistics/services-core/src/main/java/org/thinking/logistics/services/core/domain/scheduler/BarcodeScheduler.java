@@ -4,8 +4,8 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
-import org.thinking.logistics.services.core.domain.barcode.OutboundBarcode;
 import org.thinking.logistics.services.core.domain.barcode.ReplenishmentBarcode;
+import org.thinking.logistics.services.core.domain.barcode.ShipmentBarcode;
 
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -18,7 +18,7 @@ import javax.persistence.OneToOne;
 @EqualsAndHashCode(callSuper = true)
 public class BarcodeScheduler extends Scheduler {
     @OneToOne(fetch = FetchType.LAZY)
-    private OutboundBarcode outboundBarcode;//出库条码
+    private ShipmentBarcode shipmentBarcode;//出库条码
 
     @OneToOne(fetch = FetchType.LAZY)
     private ReplenishmentBarcode replenishmentBarcode;//补货条码

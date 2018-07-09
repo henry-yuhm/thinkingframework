@@ -7,7 +7,7 @@ import org.thinking.logistics.services.core.domain.CompositeException;
 import org.thinking.logistics.services.core.domain.document.ShipmentOrderDetail;
 import org.thinking.logistics.services.core.domain.document.ShipmentOrderHeader;
 import org.thinking.logistics.services.core.domain.support.NotExistsEntityException;
-import org.thinking.logistics.services.core.domain.support.OutboundStage;
+import org.thinking.logistics.services.core.domain.support.ShipmentStatus;
 import org.thinking.logistics.services.core.service.document.ShipmentOrderService;
 
 import javax.annotation.Resource;
@@ -29,7 +29,7 @@ public abstract class AbstractInitiator extends BusinessBase implements Initiato
     public void verify() throws Exception {
         StringBuilder message = new StringBuilder();
 
-        if (this.header.getStage().compareTo(OutboundStage.INITIALIZED) >= 0) {
+        if (this.header.getShipmentStatus().compareTo(ShipmentStatus.INITIALIZED) >= 0) {
             throw CompositeException.getException("单据已经初始化", this.header, this.header.getOwner());
         }
 
@@ -45,9 +45,9 @@ public abstract class AbstractInitiator extends BusinessBase implements Initiato
             if (detail.getItem() == null) {
                 throw CompositeException.getException(NotExistsEntityException.ITEM.name(), this.header, this.header.getOwner());
             } else {
-                if (detail.getFactQuantity().compareTo(BigDecimal.ZERO) > 0) {
-                    detail.setWholepiecesQuantity(detail.getFactQuantity().subtract(detail.getFactRemainder()));
-                    detail.setRemainderQuantity(detail.getFactRemainder());
+                if (detail.getActualQuantity().compareTo(BigDecimal.ZERO) > 0) {
+                    detail.setWholepiecesQuantity(detail.getActualQuantity().subtract(detail.getActualRemainder()));
+                    detail.setRemainderQuantity(detail.getActualRemainder());
                 } else {
                     message.append("商品【").append(detail.getItem().getNo()).append("】【").append(detail.getItem().getName()).append("】数量为0");
                 }
@@ -62,7 +62,7 @@ public abstract class AbstractInitiator extends BusinessBase implements Initiato
 
     @Override
     public void save() throws Exception {
-        this.header.setStage(OutboundStage.INITIALIZED);
+        this.header.setShipmentStatus(ShipmentStatus.INITIALIZED);
         this.orderService.getRepository().save(this.header);
     }
 

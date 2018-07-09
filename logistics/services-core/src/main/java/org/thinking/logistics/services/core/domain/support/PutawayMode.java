@@ -1,7 +1,7 @@
 package org.thinking.logistics.services.core.domain.support;
 
 //上架方式
-public enum UpshelfMode {
+public enum PutawayMode {
     TASK(1) {
         @Override
         public String toString() {
@@ -15,6 +15,6 @@ public enum UpshelfMode {
         }
     };
 
-    UpshelfMode(int ordinal) {
+    PutawayMode(int ordinal) {
     }
 }

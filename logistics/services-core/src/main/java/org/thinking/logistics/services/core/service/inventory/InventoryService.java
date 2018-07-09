@@ -205,17 +205,17 @@ public class InventoryService extends DomainService<QInventory, Inventory, Long>
                 case OUTBOUND:
                     inventory.setOutboundQuantity(inventory.getOutboundQuantity().add(quantity));
                     break;
-                case REPLENISHED_FROM:
+                case REPLENISHING_FROM:
                     inventory.setReplenishedFromQuantity(inventory.getReplenishedFromQuantity().add(quantity));
                     break;
-                case REPLENISHED_TO:
+                case REPLENISHING_TO:
                     inventory.setReplenishedToQuantity(inventory.getReplenishedToQuantity().add(quantity));
                     break;
-                case TRANSFERRED_FROM:
-                    inventory.setTransferredFromQuantity(inventory.getTransferredFromQuantity().add(quantity));
+                case MOVING_FROM:
+                    inventory.setMovingFromQuantity(inventory.getMovingFromQuantity().add(quantity));
                     break;
-                case TRANSFERRED_TO:
-                    inventory.setTransferredToQuantity(inventory.getTransferredToQuantity().add(quantity));
+                case MOVING_TO:
+                    inventory.setMovingToQuantity(inventory.getMovingToQuantity().add(quantity));
                     break;
             }
         }
@@ -232,7 +232,7 @@ public class InventoryService extends DomainService<QInventory, Inventory, Long>
             switch (category) {
                 case LOCKING:
                     inventory.setLocking(true);
-                    inventory.setLockingQuantity(inventory.getQuantity().subtract(inventory.getOutboundQuantity()).subtract(inventory.getReplenishedFromQuantity()).add(inventory.getReplenishedToQuantity()).subtract(inventory.getTransferredFromQuantity()).add(inventory.getTransferredToQuantity()));
+                    inventory.setLockingQuantity(inventory.getQuantity().subtract(inventory.getOutboundQuantity()).subtract(inventory.getReplenishedFromQuantity()).add(inventory.getReplenishedToQuantity()).subtract(inventory.getMovingFromQuantity()).add(inventory.getMovingToQuantity()));
                     break;
                 case UNLOCKING:
                     inventory.setLocking(false);
@@ -248,7 +248,7 @@ public class InventoryService extends DomainService<QInventory, Inventory, Long>
             .select(((this.getPath().quantity
                     .add(this.getPath().inboundQuantity)
                     .add(this.getPath().replenishedToQuantity)
-                    .add(this.getPath().transferredToQuantity)
+                .add(this.getPath().movingToQuantity)
                 )
                 .multiply(this.getPath().item.smallPackageVolume)
                 .multiply(this.getPath().item.volumeRatio)
@@ -282,17 +282,17 @@ public class InventoryService extends DomainService<QInventory, Inventory, Long>
                 case OUTBOUND:
                     update = update.set(this.getPath().outboundQuantity, inventory.getOutboundQuantity());
                     break;
-                case REPLENISHED_FROM:
+                case REPLENISHING_FROM:
                     update = update.set(this.getPath().replenishedFromQuantity, inventory.getReplenishedFromQuantity());
                     break;
-                case REPLENISHED_TO:
+                case REPLENISHING_TO:
                     update = update.set(this.getPath().replenishedToQuantity, inventory.getReplenishedToQuantity());
                     break;
-                case TRANSFERRED_FROM:
-                    update = update.set(this.getPath().transferredFromQuantity, inventory.getTransferredFromQuantity());
+                case MOVING_FROM:
+                    update = update.set(this.getPath().movingFromQuantity, inventory.getMovingFromQuantity());
                     break;
-                case TRANSFERRED_TO:
-                    update = update.set(this.getPath().transferredToQuantity, inventory.getTransferredToQuantity());
+                case MOVING_TO:
+                    update = update.set(this.getPath().movingToQuantity, inventory.getMovingToQuantity());
                     break;
             }
         }
@@ -342,8 +342,8 @@ public class InventoryService extends DomainService<QInventory, Inventory, Long>
                 this.getPath().outboundQuantity.eq(BigDecimal.ZERO),
                 this.getPath().replenishedFromQuantity.eq(BigDecimal.ZERO),
                 this.getPath().replenishedToQuantity.eq(BigDecimal.ZERO),
-                this.getPath().transferredFromQuantity.eq(BigDecimal.ZERO),
-                this.getPath().transferredToQuantity.eq(BigDecimal.ZERO),
+                this.getPath().movingFromQuantity.eq(BigDecimal.ZERO),
+                this.getPath().movingToQuantity.eq(BigDecimal.ZERO),
                 this.getPath().transitionalQuantity.eq(BigDecimal.ZERO),
                 this.getPath().lockingQuantity.eq(BigDecimal.ZERO)
             )

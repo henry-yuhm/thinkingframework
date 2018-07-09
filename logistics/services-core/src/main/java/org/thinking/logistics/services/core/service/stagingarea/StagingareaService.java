@@ -7,7 +7,7 @@ import org.thinking.logistics.services.core.domain.CompositeException;
 import org.thinking.logistics.services.core.domain.document.ShipmentOrderHeader;
 import org.thinking.logistics.services.core.domain.stagingarea.QStagingarea;
 import org.thinking.logistics.services.core.domain.stagingarea.Stagingarea;
-import org.thinking.logistics.services.core.domain.support.OutboundStage;
+import org.thinking.logistics.services.core.domain.support.ShipmentStatus;
 import org.thinking.logistics.services.core.repository.DomainRepository;
 import org.thinking.logistics.services.core.service.DomainService;
 
@@ -59,7 +59,7 @@ public class StagingareaService extends DomainService<QStagingarea, Stagingarea,
 
     @Transactional(rollbackFor = Exception.class)
     public void cleanup(final ShipmentOrderHeader header) throws Exception {
-        if (header.getStage().compareTo(OutboundStage.REVIEW_COMPLETED) < 0 && !header.isReversed()) {
+        if (header.getShipmentStatus().compareTo(ShipmentStatus.REVIEW_COMPLETED) < 0 && !header.isReversed()) {
             throw CompositeException.getException("单据任务未完成，不能清空月台", header, header.getOwner());
         }
 

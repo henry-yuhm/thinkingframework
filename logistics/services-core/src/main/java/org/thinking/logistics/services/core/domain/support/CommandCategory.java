@@ -44,13 +44,13 @@ public enum CommandCategory {
             return "主动补货";
         }
     },
-    UPSHELF(9) {
+    PUTAWAY(9) {
         @Override
         public String toString() {
             return "入库上架";
         }
     },
-    TRANSFERRING(10) {
+    MOVE(10) {
         @Override
         public String toString() {
             return "移库";

@@ -38,9 +38,9 @@ public class Warehouse extends BaseDomainEntity {
     @Column(nullable = false)
     private boolean tablet;//使用平板电脑
 
-    private LinkedHashMap<Integer, TransferlineType> transferlineTypes = new LinkedHashMap<>(16);//输送线类型
+    private LinkedHashMap<Integer, TransferlineType> transferlineTypes;//输送线类型
 
-    private LinkedHashMap<Integer, TWFType> twfTypes = new LinkedHashMap<>(16);//立体库类型
+    private LinkedHashMap<Integer, TWFType> twfTypes;//立体库类型
 
     @Column(length = 200)
     private String address;//地址

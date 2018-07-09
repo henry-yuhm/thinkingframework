@@ -6,8 +6,8 @@ import org.thinking.logistics.services.core.domain.document.ReversionNoteDetail;
 import org.thinking.logistics.services.core.domain.document.ShipmentOrderDetail;
 import org.thinking.logistics.services.core.domain.document.ShipmentOrderHeader;
 import org.thinking.logistics.services.core.domain.employee.Employee;
-import org.thinking.logistics.services.core.domain.support.OutboundStage;
 import org.thinking.logistics.services.core.domain.support.ReversionStage;
+import org.thinking.logistics.services.core.domain.support.ShipmentStatus;
 
 import java.math.BigDecimal;
 import java.time.Instant;
@@ -17,15 +17,15 @@ import java.util.stream.Collectors;
 @Data
 @EqualsAndHashCode(callSuper = true)
 public class SaleOutboundReversor extends AbstractReversor {
-    public SaleOutboundReversor(Employee operator, ShipmentOrderHeader header, ReversionStage stage) {
-        super(operator, header, stage);
+    public SaleOutboundReversor(Employee operator, ShipmentOrderHeader header, ReversionStage reversionStage) {
+        super(operator, header, reversionStage);
     }
 
     @Override
     public void revert() {
         List<ShipmentOrderDetail> details = this.getHeader().getDetails()
             .stream()
-            .filter(detail -> detail.isOriginal() && ((this.getStage() == ReversionStage.DISPATCHING && detail.getPlanQuantity().compareTo(detail.getFactQuantity()) != 0) || (this.getStage() == ReversionStage.SUSPENDING && detail.getLessnessQuantity().compareTo(BigDecimal.ZERO) > 0)))
+            .filter(detail -> detail.isOriginal() && ((this.getReversionStage() == ReversionStage.DISPATCHING && detail.getExpectedQuantity().compareTo(detail.getActualQuantity()) != 0) || (this.getReversionStage() == ReversionStage.SUSPENDING && detail.getLessnessQuantity().compareTo(BigDecimal.ZERO) > 0)))
             .collect(Collectors.toList());
 
         if (details == null || details.size() == 0) {
@@ -36,12 +36,12 @@ public class SaleOutboundReversor extends AbstractReversor {
 
         //整单冲红处理
         if (this.getOrderService().isReversed(this.getHeader())) {
-            this.getHeader().setStage(OutboundStage.TASK_COMPLETED);
+            this.getHeader().setShipmentStatus(ShipmentStatus.TASK_COMPLETED);
             this.getHeader().setReversed(true);
             this.getHeader().setTaskCompleteTime(Instant.now());
         }
 
-        if (this.getStage() == ReversionStage.SUSPENDING) {
+        if (this.getReversionStage() == ReversionStage.SUSPENDING) {
             this.getHeader().getDetails().forEach(detail -> detail.setLessnessQuantity(BigDecimal.ZERO));
         }
 

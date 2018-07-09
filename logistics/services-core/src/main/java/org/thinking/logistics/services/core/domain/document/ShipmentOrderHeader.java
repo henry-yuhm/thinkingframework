@@ -14,7 +14,6 @@ import org.thinking.logistics.services.core.domain.support.*;
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.time.Instant;
-import java.util.LinkedHashSet;
 import java.util.Set;
 
 @Entity
@@ -30,10 +29,10 @@ public class ShipmentOrderHeader extends Header {
     private Customer customer;//客户
 
     @Column(nullable = false)
-    private OutboundStage stage = OutboundStage.CREATED;//出库阶段
+    private ShipmentStatus shipmentStatus;//发运状态
 
     @Column(nullable = false)
-    private OutboundPriority priority;//出库优先级
+    private OutboundPriority outboundPriority;//出库优先级
 
     @Column(nullable = false)
     private PickupMode pickupMode;//提货方式
@@ -53,7 +52,7 @@ public class ShipmentOrderHeader extends Header {
     @ManyToOne(fetch = FetchType.LAZY)
     private Employee buyer;//采购员
 
-    private String settlementType = "无";//结算类型
+    private String settlementType;//结算类型
 
     @Temporal(TemporalType.DATE)
     private Instant settlementTime;//结算时间
@@ -63,12 +62,12 @@ public class ShipmentOrderHeader extends Header {
     private String taxName;//税票名称
 
     @Column(nullable = false)
-    private boolean printContract = false;//打印合同
+    private boolean printContract;//打印合同
 
     private String wave;//波次
 
     @Column(nullable = false)
-    private DispatcherType dispatcherType = DispatcherType.AUTOMATIC;//调度类型
+    private DispatcherType dispatcherType;//调度类型
 
     @ManyToOne(fetch = FetchType.LAZY)
     private Employee dispatchers;//调度员
@@ -113,7 +112,7 @@ public class ShipmentOrderHeader extends Header {
     private Instant reviewCompleteTime;//复核结束时间
 
     @Column(nullable = false)
-    private PrintSign reviewListPrintSign = PrintSign.NONE;//复核单打印标识
+    private PrintSign reviewListPrintSign;//复核单打印标识
 
     @ManyToOne(fetch = FetchType.LAZY)
     private Employee reviewListPrintClerk;//复核单打印员
@@ -122,7 +121,7 @@ public class ShipmentOrderHeader extends Header {
     private Instant reviewListPrintTime;//复核单打印时间
 
     @Column(nullable = false)
-    private PrintSign reportListPrintSign = PrintSign.NONE;//报告单打印标识
+    private PrintSign reportListPrintSign;//报告单打印标识
 
     @ManyToOne(fetch = FetchType.LAZY)
     private Employee reportListPrintClerk;//报告单打印员
@@ -134,7 +133,7 @@ public class ShipmentOrderHeader extends Header {
     private int printTimes = 0;//打印次数
 
     @Column(nullable = false)
-    private boolean stagingareaEmpty = false;//清空月台
+    private boolean stagingareaEmpty;//清空月台
 
     @Column(nullable = false)
     private int itemQuantity = 0;//品规数
@@ -144,10 +143,10 @@ public class ShipmentOrderHeader extends Header {
 
     @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH})
     @JoinTable(joinColumns = @JoinColumn(name = "header_id"), inverseJoinColumns = @JoinColumn(name = "detail_id"))
-    private Set<ShipmentOrderDetail> details = new LinkedHashSet<>();//单据明细
+    private Set<ShipmentOrderDetail> details;//单据明细
 
     public void isResended() throws Exception {
-        if (this.stage.compareTo(OutboundStage.RESEND) >= 0 && this.getNo().isEmpty()) {
+        if (this.shipmentStatus.compareTo(ShipmentStatus.RESEND) >= 0 && this.getNo().isEmpty()) {
             throw CompositeException.getException("单据已经补发", this, this.getOwner());
         }
     }

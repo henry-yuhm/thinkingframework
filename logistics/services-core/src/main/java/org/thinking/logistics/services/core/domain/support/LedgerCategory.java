@@ -14,25 +14,25 @@ public enum LedgerCategory {
             return "出库";
         }
     },
-    REPLENISHED_FROM(3) {
+    REPLENISHING_FROM(3) {
         @Override
         public String toString() {
             return "补出";
         }
     },
-    REPLENISHED_TO(4) {
+    REPLENISHING_TO(4) {
         @Override
         public String toString() {
             return "补入";
         }
     },
-    TRANSFERRED_FROM(5) {
+    MOVING_FROM(5) {
         @Override
         public String toString() {
             return "移出";
         }
     },
-    TRANSFERRED_TO(6) {
+    MOVING_TO(6) {
         @Override
         public String toString() {
             return "移入";

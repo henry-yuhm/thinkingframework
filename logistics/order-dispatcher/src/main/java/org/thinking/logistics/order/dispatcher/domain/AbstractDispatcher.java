@@ -6,7 +6,7 @@ import org.thinking.logistics.services.core.domain.BusinessBase;
 import org.thinking.logistics.services.core.domain.CompositeException;
 import org.thinking.logistics.services.core.domain.document.ShipmentOrderHeader;
 import org.thinking.logistics.services.core.domain.employee.Employee;
-import org.thinking.logistics.services.core.domain.support.OutboundStage;
+import org.thinking.logistics.services.core.domain.support.ShipmentStatus;
 import org.thinking.logistics.services.core.service.document.ShipmentOrderService;
 
 import javax.annotation.Resource;
@@ -43,12 +43,12 @@ public abstract class AbstractDispatcher extends BusinessBase implements Dispatc
         }
         //endregion
 
-        if (this.headers.stream().filter(header -> header.getStage().compareTo(OutboundStage.ARRANGED) >= 0).findAny() != null) {
+        if (this.headers.stream().filter(header -> header.getShipmentStatus().compareTo(ShipmentStatus.ARRANGED) >= 0).findAny() != null) {
             throw CompositeException.getException("有单据已经安排波次，不能重复安排波次");
         }
 
         this.headers.forEach(header -> {
-            header.setStage(OutboundStage.ARRANGED);
+            header.setShipmentStatus(ShipmentStatus.ARRANGED);
             header.setDispatchers(this.getOperator());
             header.setDispatcherTime(Instant.now());
         });
@@ -58,12 +58,12 @@ public abstract class AbstractDispatcher extends BusinessBase implements Dispatc
 
     @Override
     public void cancelWave() throws Exception {
-        if (this.headers.stream().filter(header -> header.getStage().compareTo(OutboundStage.RELEASED) >= 0).findAny() != null) {
+        if (this.headers.stream().filter(header -> header.getShipmentStatus().compareTo(ShipmentStatus.RELEASED) >= 0).findAny() != null) {
             throw CompositeException.getException("波次已有单据下发，不能取消");
         }
 
         this.headers.forEach(header -> {
-            header.setStage(OutboundStage.INITIALIZED);
+            header.setShipmentStatus(ShipmentStatus.INITIALIZED);
             header.setWave(null);
             header.setDispatchers(null);
             header.setDispatcherTime(null);
@@ -74,11 +74,11 @@ public abstract class AbstractDispatcher extends BusinessBase implements Dispatc
 
     @Override
     public void modifyWave() throws Exception {
-        if (this.header.getStage().compareTo(OutboundStage.RELEASED) >= 0) {
+        if (this.header.getShipmentStatus().compareTo(ShipmentStatus.RELEASED) >= 0) {
             throw CompositeException.getException("单据已经下发，不能修改");
         }
 
-        this.header.setStage(OutboundStage.INITIALIZED);
+        this.header.setShipmentStatus(ShipmentStatus.INITIALIZED);
         this.header.setWave(null);
         this.header.setDispatchers(null);
         this.header.setDispatcherTime(null);
@@ -89,7 +89,7 @@ public abstract class AbstractDispatcher extends BusinessBase implements Dispatc
     @Override
     public void releaseWave() throws Exception {
         this.headers.forEach(header -> {
-            header.setStage(OutboundStage.RELEASED);
+            header.setShipmentStatus(ShipmentStatus.RELEASED);
             header.setReleaseTime(Instant.now());
         });
 
@@ -98,7 +98,7 @@ public abstract class AbstractDispatcher extends BusinessBase implements Dispatc
 
     @Override
     public void releaseOrder() throws Exception {
-        this.header.setStage(this.header.getStage() == OutboundStage.SUSPENDED ? OutboundStage.RESEND : OutboundStage.RELEASED);
+        this.header.setShipmentStatus(this.header.getShipmentStatus() == ShipmentStatus.SUSPENDED ? ShipmentStatus.RESEND : ShipmentStatus.RELEASED);
         this.header.setDispatchers(this.getOperator());
         this.header.setDispatcherTime(Instant.now());
         this.header.setReleaseTime(Instant.now());

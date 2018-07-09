@@ -7,8 +7,8 @@ import org.hibernate.annotations.DynamicUpdate;
 import org.thinking.logistics.services.core.domain.BaseDomainEntity;
 import org.thinking.logistics.services.core.domain.support.OperationDevice;
 import org.thinking.logistics.services.core.domain.support.PackageType;
+import org.thinking.logistics.services.core.domain.support.PutawayMode;
 import org.thinking.logistics.services.core.domain.support.ReviewType;
-import org.thinking.logistics.services.core.domain.support.UpshelfMode;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -44,7 +44,7 @@ public class Area extends BaseDomainEntity {
     @Column(nullable = false)
     private OperationDevice operationDevice;//拣货设备
 
-    private UpshelfMode upshelfMode;//上架方式
+    private PutawayMode putawayMode;//上架方式
 
     @Column(nullable = false)
     private boolean prepicking;//提前拣货

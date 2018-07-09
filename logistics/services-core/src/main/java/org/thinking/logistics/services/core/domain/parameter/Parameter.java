@@ -8,7 +8,6 @@ import org.hibernate.annotations.DynamicUpdate;
 import org.thinking.logistics.services.core.domain.BaseDomainEntity;
 
 import javax.persistence.*;
-import java.util.LinkedHashSet;
 import java.util.Set;
 
 @Entity
@@ -29,7 +28,7 @@ public class Parameter extends BaseDomainEntity {
 
     @OneToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH})
     @JoinTable(joinColumns = @JoinColumn(name = "parameter_id"), inverseJoinColumns = @JoinColumn(name = "range_id"))
-    private Set<ParameterRange> ranges = new LinkedHashSet<>();//值域
+    private Set<ParameterRange> ranges;//值域
 
     private String remarks;//备注
 }

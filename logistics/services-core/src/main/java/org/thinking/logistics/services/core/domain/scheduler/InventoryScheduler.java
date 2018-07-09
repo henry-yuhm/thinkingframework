@@ -5,13 +5,12 @@ import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
-import org.thinking.logistics.services.core.domain.command.OutboundCommand;
+import org.thinking.logistics.services.core.domain.command.ShipmentCommand;
 
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.OneToMany;
-import java.util.LinkedHashSet;
 import java.util.Set;
 
 @Entity
@@ -23,5 +22,5 @@ import java.util.Set;
 public class InventoryScheduler extends Scheduler {
     @OneToMany
     @JoinTable(joinColumns = @JoinColumn(name = "scheduler_id"), inverseJoinColumns = @JoinColumn(name = "command_id"))
-    private Set<OutboundCommand> commands = new LinkedHashSet<>();//指令
+    private Set<ShipmentCommand> commands;//指令
 }

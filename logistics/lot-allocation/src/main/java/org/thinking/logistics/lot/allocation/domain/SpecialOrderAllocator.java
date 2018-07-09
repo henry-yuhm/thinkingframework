@@ -3,7 +3,7 @@ package org.thinking.logistics.lot.allocation.domain;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import org.thinking.logistics.order.inversion.domain.SaleOutboundReversor;
-import org.thinking.logistics.services.core.domain.command.OutboundCommand;
+import org.thinking.logistics.services.core.domain.command.ShipmentCommand;
 import org.thinking.logistics.services.core.domain.document.ShipmentOrderDetail;
 import org.thinking.logistics.services.core.domain.document.ShipmentOrderHeader;
 import org.thinking.logistics.services.core.domain.inventory.Inventory;
@@ -30,10 +30,10 @@ public class SpecialOrderAllocator extends AbstractAllocator {
     }
 
     @Override
-    public OutboundCommand acquireCommand(ShipmentOrderDetail detail, Inventory inventory, BigDecimal quantity) throws Exception {
-        OutboundCommand command = super.acquireCommand(detail, inventory, quantity);
+    public ShipmentCommand acquireCommand(ShipmentOrderDetail detail, Inventory inventory, BigDecimal quantity) throws Exception {
+        ShipmentCommand command = super.acquireCommand(detail, inventory, quantity);
 
-        command.setStage(CommandStage.INNERREVIEW_CONFIRM);
+        command.setCommandStatus(CommandStatus.INNERREVIEW_CONFIRMED);
         command.setWorkMode(WorkMode.PAPER);
         command.setActivated(true);
         if (command.getTask().getPicker() == null) {
@@ -47,7 +47,7 @@ public class SpecialOrderAllocator extends AbstractAllocator {
 
     @Override
     public void save() {
-        this.getHeader().setStage(OutboundStage.TASK_COMPLETED);
+        this.getHeader().setShipmentStatus(ShipmentStatus.TASK_COMPLETED);
         this.getHeader().setDispatchers(this.getOperator());
         this.getHeader().setDispatcherTime(Instant.now());
         this.getHeader().setReleaseTime(Instant.now());
@@ -91,7 +91,7 @@ public class SpecialOrderAllocator extends AbstractAllocator {
 
                     this.generateCommands(unoriginalDetail, true);
 
-                    unoriginalDetail.setFactQuantity(unoriginalDetail.getFactQuantity().subtract(this.getAllocationQuantity()));
+                    unoriginalDetail.setActualQuantity(unoriginalDetail.getActualQuantity().subtract(this.getAllocationQuantity()));
                 }
 
                 if (unoriginalDetail.getRemainderQuantity().compareTo(BigDecimal.ZERO) > 0) {
@@ -105,12 +105,12 @@ public class SpecialOrderAllocator extends AbstractAllocator {
 
                     this.generateCommands(unoriginalDetail, true);
 
-                    unoriginalDetail.setFactQuantity(unoriginalDetail.getFactQuantity().subtract(this.getAllocationQuantity()));
+                    unoriginalDetail.setActualQuantity(unoriginalDetail.getActualQuantity().subtract(this.getAllocationQuantity()));
                 }
             }
 
             //region 更新原始行
-            originalDetail.setFactQuantity(Optional.ofNullable(this.getHeader().getDetails().stream().filter(d -> d.getParent() == originalDetail && !d.isOriginal()).map(ShipmentOrderDetail::getFactQuantity).reduce(BigDecimal.ZERO, BigDecimal::add)).orElse(originalDetail.getFactQuantity()));
+            originalDetail.setActualQuantity(Optional.ofNullable(this.getHeader().getDetails().stream().filter(d -> d.getParent() == originalDetail && !d.isOriginal()).map(ShipmentOrderDetail::getActualQuantity).reduce(BigDecimal.ZERO, BigDecimal::add)).orElse(originalDetail.getActualQuantity()));
             originalDetail.setWholepiecesQuantity(BigDecimal.ZERO);
             originalDetail.setRemainderQuantity(BigDecimal.ZERO);
             originalDetail.setLessnessQuantity(BigDecimal.ZERO);
