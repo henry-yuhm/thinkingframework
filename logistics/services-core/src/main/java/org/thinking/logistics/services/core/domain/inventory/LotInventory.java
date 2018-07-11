@@ -31,18 +31,18 @@ public class LotInventory extends BaseDomainEntity {
     @Column(nullable = false)
     private ValidPeriodType mixedType;//效期类型
 
-    @Column(nullable = false, precision = 12, scale = 5)
+    @Column(nullable = false, precision = 22, scale = 5)
     private BigDecimal availableInventory;//可用库存
 
-    @Column(nullable = false, precision = 12, scale = 5)
+    @Column(nullable = false, precision = 22, scale = 5)
     private BigDecimal palletInventory;//托盘库存
 
-    @Column(nullable = false, precision = 12, scale = 5)
-    private BigDecimal wholepiecesInventory;//整件库存
+    @Column(nullable = false, precision = 22, scale = 5)
+    private BigDecimal caseInventory;//整件库存
 
-    @Column(nullable = false, precision = 12, scale = 5)
+    @Column(nullable = false, precision = 22, scale = 5)
     private BigDecimal remainderInventory;//零散库存
 
-    @Column(nullable = false, precision = 12, scale = 5)
+    @Column(nullable = false, precision = 22, scale = 5)
     private BigDecimal intransitInventory;//在途库存
 }

@@ -29,7 +29,7 @@ public class OutboundConfigurationService extends DomainService<QOutboundConfigu
                 this.getPath().itemClass.eq(header.getItemClass()),
                 this.getPath().saleType.eq(header.getSaleType()))
             .orderBy(
-                this.getPath().threshold.loe(packageType == PackageType.WHOLEPIECES ? detail.getItem().getPieces(detail.getWholepiecesQuantity()) : detail.getItem().getRemainder(detail.getRemainderQuantity())).when(true).then(this.getPath().lowerOrder).otherwise(this.getPath().upperOrder).asc())
+                this.getPath().threshold.loe(packageType == PackageType.WHOLEPIECES ? detail.getItem().getCases(detail.getCasesQuantity()) : detail.getItem().getRemainder(detail.getRemainderQuantity())).when(true).then(this.getPath().lowerOrder).otherwise(this.getPath().upperOrder).asc())
             .fetch();
     }
 }

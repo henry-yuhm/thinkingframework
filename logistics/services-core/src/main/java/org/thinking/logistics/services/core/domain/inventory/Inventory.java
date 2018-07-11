@@ -38,42 +38,42 @@ public class Inventory extends BaseDomainEntity {
     @Column(nullable = false)
     private InventoryState inventoryState;//库存状态
 
-    @Column(nullable = false, precision = 12, scale = 5)
+    @Column(nullable = false, precision = 22, scale = 5)
     private BigDecimal quantity;//数量
 
-    @Column(nullable = false, precision = 12, scale = 5)
+    @Column(nullable = false, precision = 22, scale = 5)
     @Setter(value = AccessLevel.NONE)
-    private BigDecimal pieces;//件数
+    private BigDecimal cases;//件数
 
-    @Column(nullable = false, precision = 12, scale = 5)
+    @Column(nullable = false, precision = 22, scale = 5)
     @Setter(value = AccessLevel.NONE)
     private BigDecimal remainder;//余数
 
-    @Column(nullable = false, precision = 12, scale = 5)
+    @Column(nullable = false, precision = 22, scale = 5)
     private BigDecimal inboundQuantity;//入库数量
 
-    @Column(nullable = false, precision = 12, scale = 5)
+    @Column(nullable = false, precision = 22, scale = 5)
     private BigDecimal outboundQuantity;//出库数量
 
-    @Column(nullable = false, precision = 12, scale = 5)
+    @Column(nullable = false, precision = 22, scale = 5)
     private BigDecimal replenishedFromQuantity;//补出数量
 
-    @Column(nullable = false, precision = 12, scale = 5)
+    @Column(nullable = false, precision = 22, scale = 5)
     private BigDecimal replenishedToQuantity;//补入数量
 
-    @Column(nullable = false, precision = 12, scale = 5)
+    @Column(nullable = false, precision = 22, scale = 5)
     private BigDecimal movingFromQuantity;//移出数量
 
-    @Column(nullable = false, precision = 12, scale = 5)
+    @Column(nullable = false, precision = 22, scale = 5)
     private BigDecimal movingToQuantity;//移入数量
 
-    @Column(nullable = false, precision = 12, scale = 5)
+    @Column(nullable = false, precision = 22, scale = 5)
     private BigDecimal transitionalQuantity;//在途数量
 
     @Column(nullable = false)
     private boolean locking;//锁定
 
-    @Column(nullable = false, precision = 12, scale = 5)
+    @Column(nullable = false, precision = 22, scale = 5)
     private BigDecimal lockingQuantity;//锁定数量
 
     @ManyToOne(fetch = FetchType.LAZY)
@@ -97,8 +97,8 @@ public class Inventory extends BaseDomainEntity {
     @Transient
     private BigDecimal availableReplenishmentQuantity;//可用补货数量
 
-    public BigDecimal getPieces() {
-        return item.getPieces(quantity);
+    public BigDecimal getCases() {
+        return item.getCases(quantity);
     }
 
     public BigDecimal getRemainder() {

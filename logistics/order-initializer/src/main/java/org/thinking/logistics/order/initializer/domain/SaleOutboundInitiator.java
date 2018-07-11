@@ -28,10 +28,10 @@ public class SaleOutboundInitiator extends AbstractInitiator {
         } else if (this.getHeader().getPickupMode() == PickupMode.GREEN_CHANNEL) {
             this.getHeader().setOutboundPriority(OutboundPriority.GREEN_CHANNEL);
         } else if (this.getHeader().getPickupMode() == PickupMode.SELF_SERVICE) {
-            if (this.getHeader().getItemQuantity() <= this.getIntegerParameter(this.getHeader().getWarehouse(), "绿色通道品规数") && this.getHeader().getEquivalentPieces().compareTo(this.getDecimalParameter(this.getHeader().getWarehouse(), "绿色通道件数")) <= 0) {
+            if (this.getHeader().getItemQuantity() <= this.getIntegerParameter(this.getHeader().getWarehouse(), "绿色通道品规数") && this.getHeader().getEquivalentCases().compareTo(this.getDecimalParameter(this.getHeader().getWarehouse(), "绿色通道件数")) <= 0) {
                 this.getHeader().setOutboundPriority(OutboundPriority.GREEN_CHANNEL);
                 this.getHeader().setPickupModeSwitch(PickupMode.GREEN_CHANNEL);
-            } else if (this.getHeader().getItemQuantity() > this.getIntegerParameter(this.getHeader().getWarehouse(), "自提转配送品规数") || this.getHeader().getEquivalentPieces().compareTo(this.getDecimalParameter(this.getHeader().getWarehouse(), "自提转配送件数")) > 0) {
+            } else if (this.getHeader().getItemQuantity() > this.getIntegerParameter(this.getHeader().getWarehouse(), "自提转配送品规数") || this.getHeader().getEquivalentCases().compareTo(this.getDecimalParameter(this.getHeader().getWarehouse(), "自提转配送件数")) > 0) {
                 this.getHeader().setOutboundPriority(OutboundPriority.SELF_SERVICE_2_DISTRIBUTION);
                 this.getHeader().setPickupModeSwitch(PickupMode.SELF_SERVICE_2_DISTRIBUTION);
             } else {

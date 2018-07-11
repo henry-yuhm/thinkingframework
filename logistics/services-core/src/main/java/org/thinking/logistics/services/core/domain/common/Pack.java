@@ -6,8 +6,8 @@ import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
 import org.thinking.logistics.services.core.domain.BaseDomainEntity;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
+import javax.persistence.*;
+import java.util.Set;
 
 @Entity
 @DynamicInsert
@@ -18,8 +18,10 @@ public class Pack extends BaseDomainEntity {
     @Column(unique = true, nullable = false, length = 50)
     private String no;//编号
 
-    @Column(unique = true, nullable = false, length = 100)
-    private String name;//名称
+    @Column(length = 200)
+    private String description;//描述
 
-    private String mnemonicCode;//助记码
+    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH})
+    @JoinTable(joinColumns = @JoinColumn(name = "pack_id"), inverseJoinColumns = @JoinColumn(name = "component_id"))
+    private Set<PackComponent> components;//包装成分
 }

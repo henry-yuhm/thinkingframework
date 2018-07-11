@@ -25,14 +25,14 @@ public class ReversionNoteDetail extends Detail {
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     private ShipmentOrderDetail detail;//单据明细
 
-    @Column(nullable = false, precision = 12, scale = 5)
+    @Column(nullable = false, precision = 22, scale = 5)
     private BigDecimal quantity;//数量
 
-    @Column(nullable = false, precision = 12, scale = 5)
+    @Column(nullable = false, precision = 22, scale = 5)
     @Setter(value = AccessLevel.NONE)
-    private BigDecimal pieces;//件数
+    private BigDecimal cases;//件数
 
-    @Column(nullable = false, precision = 12, scale = 5)
+    @Column(nullable = false, precision = 22, scale = 5)
     @Setter(value = AccessLevel.NONE)
     private BigDecimal remainder;//余数
 
@@ -50,8 +50,8 @@ public class ReversionNoteDetail extends Detail {
 
     private String reasons;//原因
 
-    public BigDecimal getPieces() {
-        return this.getItem().getPieces(quantity);
+    public BigDecimal getCases() {
+        return this.getItem().getCases(quantity);
     }
 
     public BigDecimal getRemainder() {

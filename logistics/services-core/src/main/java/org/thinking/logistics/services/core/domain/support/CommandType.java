@@ -38,7 +38,7 @@ public enum CommandType {
             return "演示作业";
         }
     },
-    MOVE(7) {
+    TRANSFER(7) {
         @Override
         public String toString() {
             return "移库";

@@ -33,25 +33,25 @@ public class ReceivingNoteDetail extends Detail {
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     private PurchaseOrderDetail order;//订单
 
-    @Column(nullable = false, precision = 12, scale = 5)
+    @Column(nullable = false, precision = 22, scale = 5)
     private BigDecimal expectedQuantity;//计划数量
 
-    @Column(nullable = false, precision = 12, scale = 5)
+    @Column(nullable = false, precision = 22, scale = 5)
     @Setter(value = AccessLevel.NONE)
-    private BigDecimal expectedPieces;//计划件数
+    private BigDecimal expectedCases;//计划件数
 
-    @Column(nullable = false, precision = 12, scale = 5)
+    @Column(nullable = false, precision = 22, scale = 5)
     @Setter(value = AccessLevel.NONE)
     private BigDecimal expectedRemainder;//计划余数
 
-    @Column(nullable = false, precision = 12, scale = 5)
+    @Column(nullable = false, precision = 22, scale = 5)
     private BigDecimal actualQuantity;//实际数量
 
-    @Column(nullable = false, precision = 12, scale = 5)
+    @Column(nullable = false, precision = 22, scale = 5)
     @Setter(value = AccessLevel.NONE)
-    private BigDecimal actualPieces;//实际件数
+    private BigDecimal actualCases;//实际件数
 
-    @Column(nullable = false, precision = 12, scale = 5)
+    @Column(nullable = false, precision = 22, scale = 5)
     @Setter(value = AccessLevel.NONE)
     private BigDecimal actualRemainder;//实际余数
 
@@ -69,10 +69,10 @@ public class ReceivingNoteDetail extends Detail {
 
     private String rejections;//拒收原因
 
-    @Column(nullable = false, precision = 12, scale = 5)
+    @Column(nullable = false, precision = 22, scale = 5)
     private BigDecimal price;//单价
 
-    @Column(nullable = false, precision = 12, scale = 5)
+    @Column(nullable = false, precision = 22, scale = 5)
     private BigDecimal amount;//金额
 
     @Column(nullable = false)
@@ -86,16 +86,16 @@ public class ReceivingNoteDetail extends Detail {
 
     private String scanningNo;//扫描单号
 
-    public BigDecimal getExpectedPieces() {
-        return this.getItem().getPieces(expectedQuantity);
+    public BigDecimal getExpectedCases() {
+        return this.getItem().getCases(expectedQuantity);
     }
 
     public BigDecimal getExpectedRemainder() {
         return this.getItem().getRemainder(expectedQuantity);
     }
 
-    public BigDecimal getActualPieces() {
-        return this.getItem().getPieces(actualQuantity);
+    public BigDecimal getActualCases() {
+        return this.getItem().getCases(actualQuantity);
     }
 
     public BigDecimal getActualRemainder() {

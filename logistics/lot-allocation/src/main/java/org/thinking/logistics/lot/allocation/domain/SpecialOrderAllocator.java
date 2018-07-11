@@ -80,12 +80,12 @@ public class SpecialOrderAllocator extends AbstractAllocator {
 
             //分配批号
             for (ShipmentOrderDetail unoriginalDetail : unoriginalDetails) {
-                if (unoriginalDetail.getWholepiecesQuantity().compareTo(BigDecimal.ZERO) > 0) {
+                if (unoriginalDetail.getCasesQuantity().compareTo(BigDecimal.ZERO) > 0) {
                     this.getInventories().clear();
                     this.getCommands().clear();
 
                     this.setPackageType(PackageType.WHOLEPIECES);
-                    this.setAllocationQuantity(unoriginalDetail.getWholepiecesQuantity());
+                    this.setAllocationQuantity(unoriginalDetail.getCasesQuantity());
 
                     this.appointLocation(unoriginalDetail);
 
@@ -111,7 +111,7 @@ public class SpecialOrderAllocator extends AbstractAllocator {
 
             //region 更新原始行
             originalDetail.setActualQuantity(Optional.ofNullable(this.getHeader().getDetails().stream().filter(d -> d.getParent() == originalDetail && !d.isOriginal()).map(ShipmentOrderDetail::getActualQuantity).reduce(BigDecimal.ZERO, BigDecimal::add)).orElse(originalDetail.getActualQuantity()));
-            originalDetail.setWholepiecesQuantity(BigDecimal.ZERO);
+            originalDetail.setCasesQuantity(BigDecimal.ZERO);
             originalDetail.setRemainderQuantity(BigDecimal.ZERO);
             originalDetail.setLessnessQuantity(BigDecimal.ZERO);
             //endregion

@@ -47,13 +47,13 @@ public class Item extends BaseDomainEntity {
     @Column(nullable = false, length = 200)
     private String producingArea;//产地
 
-    @Column(nullable = false, precision = 12, scale = 5)
+    @Column(nullable = false, precision = 22, scale = 5)
     private BigDecimal largePackageQuantity;//大包装数量
 
-    @Column(nullable = false, precision = 12, scale = 5)
+    @Column(nullable = false, precision = 22, scale = 5)
     private BigDecimal mediumPackageQuantity;//中包装数量
 
-    @Column(nullable = false, precision = 12, scale = 5)
+    @Column(nullable = false, precision = 22, scale = 5)
     private BigDecimal smallPackageQuantity;//小包装数量
 
     @Column(nullable = false, length = 10)
@@ -83,33 +83,33 @@ public class Item extends BaseDomainEntity {
     private String smallPackageBarcode;//小包装条码
 
     @Column(nullable = false)
-    private SaleClassification wholepiecesClassification;//整件分类
+    private SaleClassification casesClassification;//整件分类
 
     @Column(nullable = false)
     private SaleClassification remainderClassification;//零货分类
 
-    @Column(nullable = false, precision = 9, scale = 2)
+    @Column(nullable = false, precision = 22, scale = 2)
     private BigDecimal length;//长
 
-    @Column(nullable = false, precision = 9, scale = 2)
+    @Column(nullable = false, precision = 22, scale = 2)
     private BigDecimal width;//宽
 
-    @Column(nullable = false, precision = 9, scale = 2)
+    @Column(nullable = false, precision = 22, scale = 2)
     private BigDecimal height;//高
 
-    @Column(nullable = false, precision = 9, scale = 2)
+    @Column(nullable = false, precision = 22, scale = 2)
     private BigDecimal largePackageVolume;//大包装体积
 
-    @Column(nullable = false, precision = 9, scale = 2)
+    @Column(nullable = false, precision = 22, scale = 2)
     private BigDecimal mediumPackageVolume;//中包装体积
 
-    @Column(nullable = false, precision = 9, scale = 2)
+    @Column(nullable = false, precision = 22, scale = 2)
     private BigDecimal smallPackageVolume;//小包装体积
 
-    @Column(nullable = false, precision = 9, scale = 2)
+    @Column(nullable = false, precision = 22, scale = 2)
     private BigDecimal itemWeight;//商品重量
 
-    @Column(nullable = false, precision = 9, scale = 2)
+    @Column(nullable = false, precision = 22, scale = 2)
     private BigDecimal packageWeight;//包装重量
 
     @Column(nullable = false)
@@ -121,13 +121,13 @@ public class Item extends BaseDomainEntity {
     @Column(nullable = false)
     private String storageRequest;//存储要求
 
-    @Column(precision = 12, scale = 5)
+    @Column(precision = 22, scale = 5)
     private BigDecimal tcmOutboundQuantity;//中药大件数量
 
-    @Column(nullable = false, precision = 9, scale = 2)
-    private BigDecimal volumeRatio = BigDecimal.valueOf(2L, 2);//体积系数
+    @Column(nullable = false, precision = 22, scale = 2)
+    private BigDecimal volumeRatio;//体积系数
 
-    public final BigDecimal getPieces(BigDecimal quantity) {
+    public final BigDecimal getCases(BigDecimal quantity) {
         if (Optional.of(this.largePackageQuantity).orElse(BigDecimal.ZERO) == BigDecimal.ZERO) {
             return BigDecimal.ZERO;
         } else {

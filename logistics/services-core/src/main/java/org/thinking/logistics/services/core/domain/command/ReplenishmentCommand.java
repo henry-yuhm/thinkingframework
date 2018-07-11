@@ -33,6 +33,6 @@ public class ReplenishmentCommand extends TransitionCommand {
     @ManyToOne(fetch = FetchType.LAZY)
     private Pallet pallet;//托盘
 
-    @Column(nullable = false, precision = 12, scale = 5)
+    @Column(nullable = false, precision = 22, scale = 5)
     private BigDecimal availableQuantity;//可用数量
 }

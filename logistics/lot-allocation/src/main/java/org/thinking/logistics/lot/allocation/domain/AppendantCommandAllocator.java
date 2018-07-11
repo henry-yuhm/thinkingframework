@@ -79,14 +79,14 @@ public class AppendantCommandAllocator extends AbstractAllocator {
 
         this.initialize(this.command.getDetail());
 
-        if (this.command.getDetail().getWholepiecesQuantity().compareTo(BigDecimal.ZERO) > 0) {
+        if (this.command.getDetail().getCasesQuantity().compareTo(BigDecimal.ZERO) > 0) {
             this.getLots().clear();
             this.getLotInventories().clear();
             this.getInventories().clear();
             this.getCommands().clear();
 
             this.setPackageType(PackageType.WHOLEPIECES);
-            this.setAllocationQuantity(this.command.getDetail().getWholepiecesQuantity());
+            this.setAllocationQuantity(this.command.getDetail().getCasesQuantity());
 
             this.acquireLotInventory(this.command.getDetail());
             this.acquireLot(false);

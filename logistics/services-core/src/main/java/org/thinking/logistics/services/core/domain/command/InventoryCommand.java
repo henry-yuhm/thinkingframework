@@ -41,38 +41,38 @@ public class InventoryCommand extends TransitionCommand {
     @ManyToOne(fetch = FetchType.LAZY)
     private Pallet targetPallet;//目标托盘
 
-    @Column(nullable = false, precision = 12, scale = 5)
+    @Column(nullable = false, precision = 22, scale = 5)
     private BigDecimal inventoryQuantity;//库存数量
 
-    @Column(nullable = false, precision = 12, scale = 5)
+    @Column(nullable = false, precision = 22, scale = 5)
     @Setter(value = AccessLevel.NONE)
-    private BigDecimal inventoryPieces;//库存件数
+    private BigDecimal inventoryCases;//库存件数
 
-    @Column(nullable = false, precision = 12, scale = 5)
+    @Column(nullable = false, precision = 22, scale = 5)
     @Setter(value = AccessLevel.NONE)
     private BigDecimal inventoryRemainder;//库存余数
 
-    @Column(nullable = false, precision = 12, scale = 5)
+    @Column(nullable = false, precision = 22, scale = 5)
     private BigDecimal actualQuantity;//实际数量
 
-    @Column(nullable = false, precision = 12, scale = 5)
+    @Column(nullable = false, precision = 22, scale = 5)
     @Setter(value = AccessLevel.NONE)
-    private BigDecimal actualPieces;//实际件数
+    private BigDecimal actualCases;//实际件数
 
-    @Column(nullable = false, precision = 12, scale = 5)
+    @Column(nullable = false, precision = 22, scale = 5)
     @Setter(value = AccessLevel.NONE)
     private BigDecimal actualRemainder;//实际余数
 
-    public BigDecimal getInventoryPieces() {
-        return this.getItem().getPieces(inventoryQuantity);
+    public BigDecimal getInventoryCases() {
+        return this.getItem().getCases(inventoryQuantity);
     }
 
     public BigDecimal getInventoryRemainder() {
         return this.getItem().getRemainder(inventoryQuantity);
     }
 
-    public BigDecimal getActualPieces() {
-        return this.getItem().getPieces(actualQuantity);
+    public BigDecimal getActualCases() {
+        return this.getItem().getCases(actualQuantity);
     }
 
     public BigDecimal getActualRemainder() {

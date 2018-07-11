@@ -35,14 +35,14 @@ public class SaleOutboundAllocator extends AbstractAllocator {
         for (ShipmentOrderDetail detail : details) {
             this.initialize(detail);
 
-            if (detail.getWholepiecesQuantity().compareTo(BigDecimal.ZERO) > 0) {
+            if (detail.getCasesQuantity().compareTo(BigDecimal.ZERO) > 0) {
                 this.getLots().clear();
                 this.getLotInventories().clear();
                 this.getInventories().clear();
                 this.getCommands().clear();
 
                 this.setPackageType(PackageType.WHOLEPIECES);
-                this.setAllocationQuantity(detail.getWholepiecesQuantity());
+                this.setAllocationQuantity(detail.getCasesQuantity());
 
                 this.acquireLotInventory(detail);
                 this.acquireLot(false);
@@ -51,7 +51,7 @@ public class SaleOutboundAllocator extends AbstractAllocator {
 
                 this.generateCommands(detail, false);
 
-                detail.setWholepiecesQuantity(this.getAllocationQuantity());
+                detail.setCasesQuantity(this.getAllocationQuantity());
             }
 
             if (detail.getRemainderQuantity().compareTo(BigDecimal.ZERO) > 0) {
@@ -78,8 +78,8 @@ public class SaleOutboundAllocator extends AbstractAllocator {
                 detail.setRemainderQuantity(this.getAllocationQuantity());
             }
 
-            detail.setLessnessQuantity(detail.getWholepiecesQuantity().add(detail.getRemainderQuantity()));
-            detail.setWholepiecesQuantity(BigDecimal.ZERO);
+            detail.setLessnessQuantity(detail.getCasesQuantity().add(detail.getRemainderQuantity()));
+            detail.setCasesQuantity(BigDecimal.ZERO);
             detail.setRemainderQuantity(BigDecimal.ZERO);
         }
 

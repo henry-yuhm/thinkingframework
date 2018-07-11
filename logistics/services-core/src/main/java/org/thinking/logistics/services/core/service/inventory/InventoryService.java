@@ -78,7 +78,7 @@ public class InventoryService extends DomainService<QInventory, Inventory, Long>
             .then(this.getPath().availableOutboundQuantity)
             .otherwise(BigDecimal.ZERO);
 
-        NumberExpression<BigDecimal> wholepiecesInventory = this.getPath()
+        NumberExpression<BigDecimal> casesInventory = this.getPath()
             .when(JPAExpressions.selectFrom(this.getPath())
                 .where(
                     this.getPath().location.packageType.eq(PackageType.WHOLEPIECES),
@@ -114,7 +114,7 @@ public class InventoryService extends DomainService<QInventory, Inventory, Long>
                 type,
                 availableInventory.sum(),
                 palletInventory.sum(),
-                wholepiecesInventory.sum(),
+                casesInventory.sum(),
                 remainderInventory.sum(),
                 intransitInventory.sum()
             )
@@ -141,7 +141,7 @@ public class InventoryService extends DomainService<QInventory, Inventory, Long>
                 map.put("type", tuple.get(type));
                 map.put("availableInventory", tuple.get(availableInventory.sum()));
                 map.put("palletInventory", tuple.get(palletInventory.sum()));
-                map.put("wholepiecesInventory", tuple.get(wholepiecesInventory.sum()));
+                map.put("casesInventory", tuple.get(casesInventory.sum()));
                 map.put("remainderInventory", tuple.get(remainderInventory.sum()));
                 map.put("intransitInventory", tuple.get(intransitInventory.sum()));
                 return map;
@@ -300,7 +300,7 @@ public class InventoryService extends DomainService<QInventory, Inventory, Long>
         if (type == LedgerType.CHARGING) {
             update = update
                 .set(this.getPath().quantity, inventory.getQuantity())
-                .set(this.getPath().pieces, inventory.getPieces())
+                .set(this.getPath().cases, inventory.getCases())
                 .set(this.getPath().remainder, inventory.getRemainder());
         }
 

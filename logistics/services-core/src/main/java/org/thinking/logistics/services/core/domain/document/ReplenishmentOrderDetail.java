@@ -29,28 +29,28 @@ public class ReplenishmentOrderDetail extends Detail {
 
     private String storeCategory;//库别
 
-    @Column(nullable = false, precision = 12, scale = 5)
+    @Column(nullable = false, precision = 22, scale = 5)
     private BigDecimal expectedQuantity;//计划数量
 
-    @Column(nullable = false, precision = 12, scale = 5)
+    @Column(nullable = false, precision = 22, scale = 5)
     @Setter(value = AccessLevel.NONE)
-    private BigDecimal expectedPieces;//计划件数
+    private BigDecimal expectedCases;//计划件数
 
-    @Column(nullable = false, precision = 12, scale = 5)
+    @Column(nullable = false, precision = 22, scale = 5)
     private BigDecimal actualQuantity;//实际数量
 
-    @Column(nullable = false, precision = 12, scale = 5)
+    @Column(nullable = false, precision = 22, scale = 5)
     @Setter(value = AccessLevel.NONE)
-    private BigDecimal actualPieces;//实际件数
+    private BigDecimal actualCases;//实际件数
 
     @ManyToOne(fetch = FetchType.LAZY)
     private Pallet pallet;//托盘
 
-    public BigDecimal getExpectedPieces() {
-        return this.getItem().getPieces(expectedQuantity);
+    public BigDecimal getExpectedCases() {
+        return this.getItem().getCases(expectedQuantity);
     }
 
-    public BigDecimal getActualPieces() {
-        return this.getItem().getPieces(actualQuantity);
+    public BigDecimal getActualCases() {
+        return this.getItem().getCases(actualQuantity);
     }
 }

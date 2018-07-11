@@ -24,9 +24,9 @@ public class PurchaseReturnAllocator extends AbstractAllocator {
     @Override
     public void initialize(ShipmentOrderDetail detail) throws Exception {
         //零货出整件处理
-        if (detail.getWholepiecesQuantity().compareTo(BigDecimal.ZERO) > 0) {
+        if (detail.getCasesQuantity().compareTo(BigDecimal.ZERO) > 0) {
             if (detail.getLocation() != null && detail.getLocation().getPackageType() == PackageType.REMAINDER) {
-                detail.setWholepiecesQuantity(BigDecimal.ZERO);
+                detail.setCasesQuantity(BigDecimal.ZERO);
                 detail.setRemainderQuantity(detail.getActualQuantity());
             }
         }
@@ -49,19 +49,19 @@ public class PurchaseReturnAllocator extends AbstractAllocator {
             for (ShipmentOrderDetail unoriginalDetail : unoriginalDetails) {
                 this.initialize(unoriginalDetail);
 
-                if (unoriginalDetail.getWholepiecesQuantity().compareTo(BigDecimal.ZERO) > 0) {
+                if (unoriginalDetail.getCasesQuantity().compareTo(BigDecimal.ZERO) > 0) {
                     this.getInventories().clear();
                     this.getCommands().clear();
 
                     this.setPackageType(PackageType.WHOLEPIECES);
-                    this.setAllocationQuantity(unoriginalDetail.getWholepiecesQuantity());
+                    this.setAllocationQuantity(unoriginalDetail.getCasesQuantity());
 
                     this.appointLocation(unoriginalDetail);
 
                     this.generateCommands(unoriginalDetail, true);
 
                     unoriginalDetail.setActualQuantity(unoriginalDetail.getActualQuantity().subtract(this.getAllocationQuantity()));
-                    unoriginalDetail.setWholepiecesQuantity(BigDecimal.ZERO);
+                    unoriginalDetail.setCasesQuantity(BigDecimal.ZERO);
                 }
 
                 if (unoriginalDetail.getRemainderQuantity().compareTo(BigDecimal.ZERO) > 0) {
@@ -82,7 +82,7 @@ public class PurchaseReturnAllocator extends AbstractAllocator {
 
             //region 更新原始行
             originalDetail.setActualQuantity(Optional.ofNullable(this.getHeader().getDetails().stream().filter(d -> d.getParent() == originalDetail && !d.isOriginal()).map(ShipmentOrderDetail::getExpectedQuantity).reduce(BigDecimal.ZERO, BigDecimal::add)).orElse(BigDecimal.ZERO));
-            originalDetail.setWholepiecesQuantity(BigDecimal.ZERO);
+            originalDetail.setCasesQuantity(BigDecimal.ZERO);
             originalDetail.setRemainderQuantity(BigDecimal.ZERO);
             originalDetail.setLessnessQuantity(BigDecimal.ZERO);
             //endregion

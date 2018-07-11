@@ -26,7 +26,7 @@ public class Owner extends BaseDomainEntity {
     @Column(length = 100)
     private String mnemonicCode;//助记码
 
-    @Column(nullable = false, precision = 12, scale = 5)
+    @Column(nullable = false, precision = 22, scale = 5)
     @ColumnDefault("0.00000")
     private BigDecimal inventoryUpper;//库存上限
 

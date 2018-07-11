@@ -139,7 +139,7 @@ public class ShipmentOrderHeader extends Header {
     private int itemQuantity = 0;//品规数
 
     @Column(nullable = false)
-    private BigDecimal equivalentPieces;//折合件数
+    private BigDecimal equivalentCases;//折合件数
 
     @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH})
     @JoinTable(joinColumns = @JoinColumn(name = "header_id"), inverseJoinColumns = @JoinColumn(name = "detail_id"))

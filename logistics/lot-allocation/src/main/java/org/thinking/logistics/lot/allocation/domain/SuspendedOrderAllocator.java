@@ -37,14 +37,14 @@ public class SuspendedOrderAllocator extends AbstractAllocator {
 
             //分配批号
             for (ShipmentOrderDetail unoriginalDetail : unoriginalDetails) {
-                if (unoriginalDetail.getWholepiecesQuantity().compareTo(BigDecimal.ZERO) > 0) {
+                if (unoriginalDetail.getCasesQuantity().compareTo(BigDecimal.ZERO) > 0) {
                     this.getLots().clear();
                     this.getLotInventories().clear();
                     this.getInventories().clear();
                     this.getCommands().clear();
 
                     this.setPackageType(PackageType.WHOLEPIECES);
-                    this.setAllocationQuantity(unoriginalDetail.getWholepiecesQuantity());
+                    this.setAllocationQuantity(unoriginalDetail.getCasesQuantity());
 
                     this.acquireLotInventory(unoriginalDetail);
                     this.acquireLot(false);
@@ -53,7 +53,7 @@ public class SuspendedOrderAllocator extends AbstractAllocator {
 
                     this.generateCommands(unoriginalDetail, false);
 
-                    unoriginalDetail.setWholepiecesQuantity(this.getAllocationQuantity());
+                    unoriginalDetail.setCasesQuantity(this.getAllocationQuantity());
                 }
 
                 if (unoriginalDetail.getRemainderQuantity().compareTo(BigDecimal.ZERO) > 0) {
@@ -83,7 +83,7 @@ public class SuspendedOrderAllocator extends AbstractAllocator {
 
             //region 更新原始行
             originalDetail.setActualQuantity(Optional.ofNullable(this.getHeader().getDetails().stream().filter(d -> d.getParent() == originalDetail && !d.isOriginal()).map(ShipmentOrderDetail::getActualQuantity).reduce(BigDecimal.ZERO, BigDecimal::add)).orElse(BigDecimal.ZERO));
-            originalDetail.setWholepiecesQuantity(BigDecimal.ZERO);
+            originalDetail.setCasesQuantity(BigDecimal.ZERO);
             originalDetail.setRemainderQuantity(BigDecimal.ZERO);
             originalDetail.setLessnessQuantity(BigDecimal.ZERO);
             //endregion

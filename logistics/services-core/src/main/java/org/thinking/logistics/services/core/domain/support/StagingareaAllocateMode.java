@@ -2,16 +2,16 @@ package org.thinking.logistics.services.core.domain.support;
 
 //月台分配方式
 public enum StagingareaAllocateMode {
-    VOLUMETRIC(1) {
+    BY_CAPACITY(1) {
         @Override
         public String toString() {
-            return "按体积";
+            return "按容量";
         }
     },
-    PIECEMEAL(2) {
+    BY_QUANTITY(2) {
         @Override
         public String toString() {
-            return "按件数";
+            return "按数量";
         }
     };
 

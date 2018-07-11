@@ -50,7 +50,7 @@ public enum CommandCategory {
             return "入库上架";
         }
     },
-    MOVE(10) {
+    TRANSFER(10) {
         @Override
         public String toString() {
             return "移库";

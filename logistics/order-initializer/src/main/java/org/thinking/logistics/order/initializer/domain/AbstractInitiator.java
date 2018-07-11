@@ -46,7 +46,7 @@ public abstract class AbstractInitiator extends BusinessBase implements Initiato
                 throw CompositeException.getException(NotExistsEntityException.ITEM.name(), this.header, this.header.getOwner());
             } else {
                 if (detail.getActualQuantity().compareTo(BigDecimal.ZERO) > 0) {
-                    detail.setWholepiecesQuantity(detail.getActualQuantity().subtract(detail.getActualRemainder()));
+                    detail.setCasesQuantity(detail.getActualQuantity().subtract(detail.getActualRemainder()));
                     detail.setRemainderQuantity(detail.getActualRemainder());
                 } else {
                     message.append("商品【").append(detail.getItem().getNo()).append("】【").append(detail.getItem().getName()).append("】数量为0");

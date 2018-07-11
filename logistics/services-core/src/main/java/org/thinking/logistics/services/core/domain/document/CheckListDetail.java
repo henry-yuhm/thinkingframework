@@ -9,7 +9,7 @@ import org.hibernate.annotations.DynamicUpdate;
 import org.thinking.logistics.services.core.domain.common.Location;
 import org.thinking.logistics.services.core.domain.container.Pallet;
 import org.thinking.logistics.services.core.domain.support.InventoryState;
-import org.thinking.logistics.services.core.domain.support.MoveReason;
+import org.thinking.logistics.services.core.domain.support.TransferReason;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -32,23 +32,23 @@ public class CheckListDetail extends Detail {
     @ManyToOne(fetch = FetchType.LAZY)
     private Pallet pallet;//托盘
 
-    @Column(nullable = false, precision = 12, scale = 5)
+    @Column(nullable = false, precision = 22, scale = 5)
     private BigDecimal quantity;//数量
 
-    @Column(nullable = false, precision = 12, scale = 5)
+    @Column(nullable = false, precision = 22, scale = 5)
     @Setter(value = AccessLevel.NONE)
-    private BigDecimal pieces;//件数
+    private BigDecimal cases;//件数
 
-    @Column(nullable = false, precision = 12, scale = 5)
+    @Column(nullable = false, precision = 22, scale = 5)
     @Setter(value = AccessLevel.NONE)
     private BigDecimal remainder;//余数
 
     private String approver;//审核员
 
-    private MoveReason moveReason;//移库原因
+    private TransferReason transferReason;//移库原因
 
-    public BigDecimal getPieces() {
-        return this.getItem().getPieces(quantity);
+    public BigDecimal getCases() {
+        return this.getItem().getCases(quantity);
     }
 
     public BigDecimal getRemainder() {

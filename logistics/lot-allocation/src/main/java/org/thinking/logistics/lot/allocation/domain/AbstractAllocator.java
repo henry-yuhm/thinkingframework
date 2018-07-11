@@ -35,7 +35,7 @@ import java.util.*;
 public abstract class AbstractAllocator extends BusinessBase implements Allocator {
     private final ShipmentOrderHeader header;
 
-    private final boolean remainder2Wholepieces;
+    private final boolean remainder2Cases;
 
     private final boolean newLot;
 
@@ -81,7 +81,7 @@ public abstract class AbstractAllocator extends BusinessBase implements Allocato
 
     public AbstractAllocator(ShipmentOrderHeader header) throws Exception {
         this.header = header;
-        this.remainder2Wholepieces = this.isEnable(this.header.getWarehouse(), "整件不足出零货");
+        this.remainder2Cases = this.isEnable(this.header.getWarehouse(), "整件不足出零货");
         this.newLot = this.isEnable(this.header.getWarehouse(), this.packageType == PackageType.WHOLEPIECES ? "整件无要求出新批号" : "零货无要求出新批号");
     }
 
@@ -98,13 +98,13 @@ public abstract class AbstractAllocator extends BusinessBase implements Allocato
 
     @Override
     public void initialize(ShipmentOrderDetail detail) throws Exception {
-        detail.setWholepiecesQuantity(detail.getActualQuantity().subtract(detail.getActualRemainder()));
+        detail.setCasesQuantity(detail.getActualQuantity().subtract(detail.getActualRemainder()));
         detail.setRemainderQuantity(detail.getActualRemainder());
 
         //零货出整件处理
-        if (detail.getWholepiecesQuantity().compareTo(BigDecimal.ZERO) > 0) {
-            if (this.remainder2Wholepieces && detail.getLocation() != null && detail.getLocation().getPackageType() == PackageType.REMAINDER) {
-                detail.setWholepiecesQuantity(BigDecimal.ZERO);
+        if (detail.getCasesQuantity().compareTo(BigDecimal.ZERO) > 0) {
+            if (this.remainder2Cases && detail.getLocation() != null && detail.getLocation().getPackageType() == PackageType.REMAINDER) {
+                detail.setCasesQuantity(BigDecimal.ZERO);
                 detail.setRemainderQuantity(detail.getActualQuantity());
             }
         }
@@ -179,7 +179,7 @@ public abstract class AbstractAllocator extends BusinessBase implements Allocato
             if (replenishing) {
                 firstLotInventory = first.getAvailableInventory();
             } else {
-                firstLotInventory = this.packageType == PackageType.WHOLEPIECES ? first.getPalletInventory().add(first.getWholepiecesInventory()) : first.getRemainderInventory();
+                firstLotInventory = this.packageType == PackageType.WHOLEPIECES ? first.getPalletInventory().add(first.getCaseInventory()) : first.getRemainderInventory();
             }
 
             if (firstLotInventory.compareTo(BigDecimal.ZERO) <= 0) {
@@ -262,7 +262,7 @@ public abstract class AbstractAllocator extends BusinessBase implements Allocato
                         if (replenishing) {
                             secondLotInventory = second.getAvailableInventory();
                         } else {
-                            secondLotInventory = this.packageType == PackageType.WHOLEPIECES ? second.getPalletInventory().add(second.getWholepiecesInventory()) : second.getRemainderInventory();
+                            secondLotInventory = this.packageType == PackageType.WHOLEPIECES ? second.getPalletInventory().add(second.getCaseInventory()) : second.getRemainderInventory();
                         }
 
                         if (firstLotInventory.add(secondLotInventory).compareTo(this.allocationQuantity) >= 0) {
@@ -389,7 +389,7 @@ public abstract class AbstractAllocator extends BusinessBase implements Allocato
                 for (Inventory inventory : inventories) {
                     if (inventory.getAvailableOutboundQuantity().compareTo(BigDecimal.ZERO) > 0) {
                         if (this.packageType == PackageType.WHOLEPIECES) {
-                            if (detail.getItem().getPieces(inventory.getAvailableOutboundQuantity()).compareTo(BigDecimal.ZERO) == 0) {
+                            if (detail.getItem().getCases(inventory.getAvailableOutboundQuantity()).compareTo(BigDecimal.ZERO) == 0) {
                                 continue;
                             }
                         }

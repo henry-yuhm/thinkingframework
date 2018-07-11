@@ -48,36 +48,36 @@ public class ShipmentCommand extends Command {
     @Column(nullable = false)
     private boolean activated;//激活
 
-    @Column(nullable = false, precision = 12, scale = 5)
+    @Column(nullable = false, precision = 22, scale = 5)
     private BigDecimal createdQuantity;//创建数量
 
-    @Column(nullable = false, precision = 12, scale = 5)
+    @Column(nullable = false, precision = 22, scale = 5)
     @Setter(value = AccessLevel.NONE)
-    private BigDecimal createdPieces;//创建件数
+    private BigDecimal createdCases;//创建件数
 
-    @Column(nullable = false, precision = 12, scale = 5)
+    @Column(nullable = false, precision = 22, scale = 5)
     @Setter(value = AccessLevel.NONE)
     private BigDecimal createdRemainder;//创建余数
 
-    @Column(nullable = false, precision = 12, scale = 5)
+    @Column(nullable = false, precision = 22, scale = 5)
     private BigDecimal expectedQuantity;//计划数量
 
-    @Column(nullable = false, precision = 12, scale = 5)
+    @Column(nullable = false, precision = 22, scale = 5)
     @Setter(value = AccessLevel.NONE)
-    private BigDecimal expectedPieces;//计划件数
+    private BigDecimal expectedCases;//计划件数
 
-    @Column(nullable = false, precision = 12, scale = 5)
+    @Column(nullable = false, precision = 22, scale = 5)
     @Setter(value = AccessLevel.NONE)
     private BigDecimal expectedRemainder;//计划余数
 
-    @Column(nullable = false, precision = 12, scale = 5)
+    @Column(nullable = false, precision = 22, scale = 5)
     private BigDecimal actualQuantity;//实际数量
 
-    @Column(nullable = false, precision = 12, scale = 5)
+    @Column(nullable = false, precision = 22, scale = 5)
     @Setter(value = AccessLevel.NONE)
-    private BigDecimal actualPieces;//实际件数
+    private BigDecimal actualCases;//实际件数
 
-    @Column(nullable = false, precision = 12, scale = 5)
+    @Column(nullable = false, precision = 22, scale = 5)
     @Setter(value = AccessLevel.NONE)
     private BigDecimal actualRemainder;//实际余数
 
@@ -105,24 +105,24 @@ public class ShipmentCommand extends Command {
     @JoinTable(joinColumns = @JoinColumn(name = "command_id"), inverseJoinColumns = @JoinColumn(name = "rep_command_id"))
     private Set<ReplenishmentCommand> commands;//补货指令
 
-    public BigDecimal getCreatedPieces() {
-        return this.getItem().getPieces(createdQuantity);
+    public BigDecimal getCreatedCases() {
+        return this.getItem().getCases(createdQuantity);
     }
 
     public BigDecimal getCreatedRemainder() {
         return this.getItem().getRemainder(createdQuantity);
     }
 
-    public BigDecimal getExpectedPieces() {
-        return this.getItem().getPieces(expectedQuantity);
+    public BigDecimal getExpectedCases() {
+        return this.getItem().getCases(expectedQuantity);
     }
 
     public BigDecimal getExpectedRemainder() {
         return this.getItem().getRemainder(expectedQuantity);
     }
 
-    public BigDecimal getActualPieces() {
-        return this.getItem().getPieces(actualQuantity);
+    public BigDecimal getActualCases() {
+        return this.getItem().getCases(actualQuantity);
     }
 
     public BigDecimal getActualRemainder() {

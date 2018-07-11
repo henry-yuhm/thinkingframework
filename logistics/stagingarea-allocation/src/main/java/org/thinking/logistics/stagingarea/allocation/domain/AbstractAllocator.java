@@ -126,7 +126,7 @@ public abstract class AbstractAllocator extends BusinessBase implements Allocato
         BigDecimal mediumQuantity = this.getDecimalParameter(this.header.getWarehouse(), "中型月台暂存区件数");
         BigDecimal largeQuantity = this.getDecimalParameter(this.header.getWarehouse(), "大型月台暂存区件数");
 
-        if (this.configuration.getAllocationMode() == StagingareaAllocateMode.VOLUMETRIC) {
+        if (this.configuration.getAllocationMode() == StagingareaAllocateMode.BY_CAPACITY) {
             BigDecimal volume = this.header.getDetails().stream().map(detail -> detail.getActualQuantity().multiply(detail.getItem().getSmallPackageVolume())).reduce(BigDecimal::multiply).get();
 
             //中药单据体积不能过大
@@ -146,16 +146,16 @@ public abstract class AbstractAllocator extends BusinessBase implements Allocato
             }
         }
 
-        if (this.configuration.getAllocationMode() == StagingareaAllocateMode.PIECEMEAL) {
-            if (this.header.getEquivalentPieces().compareTo(smallQuantity) <= 0) {
+        if (this.configuration.getAllocationMode() == StagingareaAllocateMode.BY_QUANTITY) {
+            if (this.header.getEquivalentCases().compareTo(smallQuantity) <= 0) {
                 this.stagingarea.setCategory(StagingareaCategory.MINIATURE);
-                this.quantity = this.header.getEquivalentPieces().divide(smallQuantity, RoundingMode.CEILING).intValue();
-            } else if (this.header.getEquivalentPieces().compareTo(largeQuantity) > 0) {
+                this.quantity = this.header.getEquivalentCases().divide(smallQuantity, RoundingMode.CEILING).intValue();
+            } else if (this.header.getEquivalentCases().compareTo(largeQuantity) > 0) {
                 this.stagingarea.setCategory(StagingareaCategory.HEAVY);
-                this.quantity = this.header.getEquivalentPieces().divide(largeQuantity, RoundingMode.CEILING).intValue();
+                this.quantity = this.header.getEquivalentCases().divide(largeQuantity, RoundingMode.CEILING).intValue();
             } else {
                 this.stagingarea.setCategory(StagingareaCategory.MEDIUM);
-                this.quantity = this.header.getEquivalentPieces().divide(mediumQuantity, RoundingMode.CEILING).intValue();
+                this.quantity = this.header.getEquivalentCases().divide(mediumQuantity, RoundingMode.CEILING).intValue();
             }
         }
     }

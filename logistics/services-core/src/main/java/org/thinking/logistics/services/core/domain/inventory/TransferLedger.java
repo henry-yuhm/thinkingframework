@@ -5,7 +5,7 @@ import lombok.EqualsAndHashCode;
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
 import org.thinking.logistics.services.core.domain.document.Header;
-import org.thinking.logistics.services.core.domain.document.MoveOrderHeader;
+import org.thinking.logistics.services.core.domain.document.TransferOrderHeader;
 
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -16,12 +16,12 @@ import javax.persistence.ManyToOne;
 @DynamicUpdate
 @Data
 @EqualsAndHashCode(callSuper = true)
-public class MoveLedger extends Ledger {
+public class TransferLedger extends Ledger {
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    private MoveOrderHeader header;
+    private TransferOrderHeader header;
 
     @Override
     public void setHeader(Header header) {
-        this.header = (MoveOrderHeader) header;
+        this.header = (TransferOrderHeader) header;
     }
 }

@@ -27,7 +27,7 @@ public class SaleOutboundReceiver extends AbstractReceiver {
 
     @Override
     public void save() throws Exception {
-        this.header.setEquivalentPieces(this.header.getDetails().stream().map(detail -> detail.getActualQuantity().divide(detail.getItem().getLargePackageQuantity(), RoundingMode.HALF_UP)).reduce(BigDecimal::add).get());
+        this.header.setEquivalentCases(this.header.getDetails().stream().map(detail -> detail.getActualQuantity().divide(detail.getItem().getLargePackageQuantity(), RoundingMode.HALF_UP)).reduce(BigDecimal::add).get());
 
         this.orderService.getRepository().save(this.header);
     }
