@@ -8,16 +8,16 @@ public enum ReceivingStatus {
             return "刚生成";
         }
     },
-    WORKING(1) {
+    IN_RECEIVING(1) {
         @Override
         public String toString() {
-            return "正在作业";
+            return "正在收货";
         }
     },
-    COMPLETED(2) {
+    RECEIVED_COMPLETE(2) {
         @Override
         public String toString() {
-            return "作业完成";
+            return "收货完成";
         }
     };
 

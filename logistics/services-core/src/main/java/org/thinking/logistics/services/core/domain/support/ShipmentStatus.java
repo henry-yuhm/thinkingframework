@@ -50,16 +50,16 @@ public enum ShipmentStatus {
             return "批号已分配";
         }
     },
-    BUNDLED(35) {
+    PACK_COMPLETE(35) {
         @Override
         public String toString() {
-            return "单据已打包";
+            return "打包完成";
         }
     },
-    SPLITED(36) {
+    SPLIT_COMPLETE(36) {
         @Override
         public String toString() {
-            return "单据已拆分";
+            return "拆分完成";
         }
     },
     TASK_READY(41) {
@@ -68,25 +68,25 @@ public enum ShipmentStatus {
             return "任务准备";
         }
     },
-    WORKING(42) {
+    IN_WORKING(42) {
         @Override
         public String toString() {
             return "正在作业";
         }
     },
-    TASK_COMPLETED(51) {
+    TASK_COMPLETE(51) {
         @Override
         public String toString() {
             return "任务完成";
         }
     },
-    REVIEWING(61) {
+    IN_REVIEWING(61) {
         @Override
         public String toString() {
             return "正在外复核";
         }
     },
-    REVIEW_COMPLETED(62) {
+    REVIEWED_COMPLETE(62) {
         @Override
         public String toString() {
             return "外复核完成";

@@ -59,7 +59,7 @@ public class StagingareaService extends DomainService<QStagingarea, Stagingarea,
 
     @Transactional(rollbackFor = Exception.class)
     public void cleanup(final ShipmentOrderHeader header) throws Exception {
-        if (header.getShipmentStatus().compareTo(ShipmentStatus.REVIEW_COMPLETED) < 0 && !header.isReversed()) {
+        if (header.getShipmentStatus().compareTo(ShipmentStatus.REVIEWED_COMPLETE) < 0 && !header.isReversed()) {
             throw CompositeException.getException("单据任务未完成，不能清空月台", header, header.getOwner());
         }
 
