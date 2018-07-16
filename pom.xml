@@ -5,7 +5,7 @@
 
     <groupId>org.thinkingframework</groupId>
     <artifactId>thinking-dependencies</artifactId>
-    <version>2.0.0</version>
+    <version>Aries.M1</version>
     <packaging>pom</packaging>
 
     <properties>
@@ -26,9 +26,9 @@
         <springfox.swagger.version>2.8.0</springfox.swagger.version>
         <apt.maven.plugin.version>1.1.3</apt.maven.plugin.version>
         <lombok.version>1.18.0</lombok.version>
-        <thinking.boot.dependencies.version>2.0.0</thinking.boot.dependencies.version>
-        <thinking.cloud.dependencies.version>2.0.0</thinking.cloud.dependencies.version>
-        <logistics.dependencies.version>2.0.0</logistics.dependencies.version>
+        <thinking.boot.dependencies.version>Aries.M1</thinking.boot.dependencies.version>
+        <thinking.cloud.dependencies.version>Aries.M1</thinking.cloud.dependencies.version>
+        <logistics.dependencies.version>Aries.M1</logistics.dependencies.version>
     </properties>
 
     <dependencyManagement>
@@ -156,34 +156,6 @@
             </dependency>
             <!--thinkingBoot-->
 
-            <!--thinkingCloud-->
-            <dependency>
-                <groupId>org.thinkingframework.cloud</groupId>
-                <artifactId>thinking-cloud-starter-api-gateway</artifactId>
-                <version>${thinking.cloud.dependencies.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.thinkingframework.cloud</groupId>
-                <artifactId>thinking-cloud-starter-eureka-server</artifactId>
-                <version>${thinking.cloud.dependencies.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.thinkingframework.cloud</groupId>
-                <artifactId>thinking-cloud-starter-hystrix-dashboard</artifactId>
-                <version>${thinking.cloud.dependencies.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.thinkingframework.cloud</groupId>
-                <artifactId>thinking-cloud-starter-hystrix-turbine</artifactId>
-                <version>${thinking.cloud.dependencies.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.thinkingframework.cloud</groupId>
-                <artifactId>thinking-cloud-starter-stream</artifactId>
-                <version>${thinking.cloud.dependencies.version}</version>
-            </dependency>
-            <!--thinkingCloud-->
-
             <!--logistics-->
             <dependency>
                 <groupId>org.thinking.logistics</groupId>
@@ -192,7 +164,7 @@
             </dependency>
             <dependency>
                 <groupId>org.thinking.logistics</groupId>
-                <artifactId>order-inversion</artifactId>
+                <artifactId>order-reversal</artifactId>
                 <version>${logistics.dependencies.version}</version>
             </dependency>
             <!--logistics-->

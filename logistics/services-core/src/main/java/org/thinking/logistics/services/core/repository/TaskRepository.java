@@ -1,8 +1,8 @@
 package org.thinking.logistics.services.core.repository;
 
 import org.springframework.stereotype.Repository;
-import org.thinking.logistics.services.core.domain.common.Task;
+import org.thinking.logistics.services.core.domain.document.PickingList;
 
 @Repository
-public interface TaskRepository extends DomainRepository<Task, Long> {
+public interface TaskRepository extends DomainRepository<PickingList, Long> {
 }

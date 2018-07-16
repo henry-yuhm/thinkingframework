@@ -27,9 +27,6 @@ public class ReceivingNoteDetail extends Detail {
     @ManyToOne(fetch = FetchType.LAZY)
     private ReceivingNoteDetail parent;//父明细
 
-//    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-//    private ReceivingNoteHeader header;//抬头
-
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     private PurchaseOrderDetail order;//订单
 

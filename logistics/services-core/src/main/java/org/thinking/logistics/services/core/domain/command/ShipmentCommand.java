@@ -10,8 +10,8 @@ import org.thinking.logistics.services.core.domain.barcode.ShipmentBarcode;
 import org.thinking.logistics.services.core.domain.common.Location;
 import org.thinking.logistics.services.core.domain.common.Lot;
 import org.thinking.logistics.services.core.domain.common.Platform;
-import org.thinking.logistics.services.core.domain.common.Task;
 import org.thinking.logistics.services.core.domain.container.Pallet;
+import org.thinking.logistics.services.core.domain.document.PickingList;
 import org.thinking.logistics.services.core.domain.document.ShipmentOrderDetail;
 import org.thinking.logistics.services.core.domain.document.ShipmentOrderHeader;
 import org.thinking.logistics.services.core.domain.support.AppendantSign;
@@ -82,7 +82,7 @@ public class ShipmentCommand extends Command {
     private BigDecimal actualRemainder;//实际余数
 
     @ManyToOne(fetch = FetchType.LAZY)
-    private Task task;//作业任务
+    private PickingList pickingList;//作业任务
 
     @ManyToOne(fetch = FetchType.LAZY)
     private ShipmentBarcode shipmentBarcode;//作业条码

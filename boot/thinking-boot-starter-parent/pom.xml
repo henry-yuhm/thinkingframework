@@ -6,7 +6,7 @@
     <parent>
         <groupId>org.thinkingframework</groupId>
         <artifactId>thinking-dependencies</artifactId>
-        <version>2.0.0</version>
+        <version>Aries.M1</version>
     </parent>
 
     <groupId>org.thinkingframework.boot</groupId>

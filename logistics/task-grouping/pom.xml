@@ -6,7 +6,7 @@
     <parent>
         <groupId>org.thinking.logistics</groupId>
         <artifactId>services-parent</artifactId>
-        <version>2.0.0</version>
+        <version>Aries.M1</version>
         <relativePath>../services-parent</relativePath>
     </parent>
 

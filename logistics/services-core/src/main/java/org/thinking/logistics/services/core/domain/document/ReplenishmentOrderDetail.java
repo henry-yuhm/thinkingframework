@@ -21,9 +21,6 @@ import java.math.BigDecimal;
 @Data
 @EqualsAndHashCode(callSuper = true)
 public class ReplenishmentOrderDetail extends Detail {
-//    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-//    private ReplenishmentOrderHeader header;//抬头
-
     @ManyToOne(fetch = FetchType.LAZY)
     private Location location;//货位
 

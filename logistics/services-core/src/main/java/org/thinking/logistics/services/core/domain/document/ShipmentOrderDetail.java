@@ -26,16 +26,13 @@ public class ShipmentOrderDetail extends Detail {
     private ShipmentOrderDetail parent;//父明细
 
     @Column(nullable = false)
-    private boolean original = true;//是否原始明细
-
-//    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-//    private ShipmentOrderHeader header;//抬头
+    private boolean original;//是否原始明细
 
     @ManyToOne(fetch = FetchType.LAZY)
     private Location location;//货位
 
     @Column(nullable = false)
-    private InventoryState inventoryState = InventoryState.QUALIFICATION;//库存状态
+    private InventoryState inventoryState;//库存状态
 
     private LotRequest request;//批号要求
 

@@ -10,7 +10,7 @@
         <relativePath>../services-parent</relativePath>
     </parent>
 
-    <artifactId>order-activation</artifactId>
+    <artifactId>inventory-allocation</artifactId>
     <packaging>jar</packaging>
 
     <dependencies>
@@ -101,6 +101,10 @@
         <dependency>
             <groupId>org.thinking.logistics</groupId>
             <artifactId>services-core</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.thinking.logistics</groupId>
+            <artifactId>order-reversal</artifactId>
         </dependency>
     </dependencies>
 

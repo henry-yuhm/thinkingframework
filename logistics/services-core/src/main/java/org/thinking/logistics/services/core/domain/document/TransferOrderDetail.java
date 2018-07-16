@@ -23,9 +23,6 @@ import java.math.BigDecimal;
 @Data
 @EqualsAndHashCode(callSuper = true)
 public class TransferOrderDetail extends Detail {
-//    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-//    private TransferOrderHeader header;//抬头
-
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     private Location sourceLocation;//源货位
 

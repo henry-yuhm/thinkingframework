@@ -7,7 +7,7 @@
     <parent>
         <groupId>org.thinkingframework</groupId>
         <artifactId>thinking-dependencies</artifactId>
-        <version>2.0.0</version>
+        <version>Aries.M1</version>
     </parent>
 
     <groupId>org.thinking.logistics</groupId>
@@ -15,10 +15,9 @@
     <packaging>pom</packaging>
 
     <modules>
-        <module>../data-exchange</module>
         <module>../data-servo</module>
         <module>../inventory-dispatcher</module>
-        <module>../lot-allocation</module>
+        <module>../inventory-allocation</module>
         <module>../operation-audit</module>
         <module>../order-activation</module>
         <module>../order-dispatcher</module>

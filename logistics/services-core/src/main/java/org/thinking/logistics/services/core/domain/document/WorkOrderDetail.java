@@ -14,7 +14,7 @@ import java.math.BigDecimal;
 @DynamicUpdate
 @Data
 @EqualsAndHashCode(callSuper = true)
-public class PurchaseOrderDetail extends Detail {
+public class WorkOrderDetail extends Detail {
     @Column(nullable = false)
     private boolean completed;//完成
 

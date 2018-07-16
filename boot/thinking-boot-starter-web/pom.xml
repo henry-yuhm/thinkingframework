@@ -6,7 +6,7 @@
     <parent>
         <groupId>org.thinkingframework.boot</groupId>
         <artifactId>thinking-boot-starter-parent</artifactId>
-        <version>2.0.0</version>
+        <version>Aries.M1</version>
         <relativePath>../thinking-boot-starter-parent</relativePath>
     </parent>
 
