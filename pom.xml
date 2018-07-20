@@ -28,7 +28,7 @@
         <lombok.version>1.18.0</lombok.version>
         <thinking.boot.dependencies.version>Aries.M1</thinking.boot.dependencies.version>
         <thinking.cloud.dependencies.version>Aries.M1</thinking.cloud.dependencies.version>
-        <logistics.dependencies.version>Aries.M1</logistics.dependencies.version>
+        <sce.dependencies.version>Aries.M1</sce.dependencies.version>
     </properties>
 
     <dependencyManagement>
@@ -156,18 +156,18 @@
             </dependency>
             <!--thinkingBoot-->
 
-            <!--logistics-->
+            <!--sce-->
             <dependency>
-                <groupId>org.thinking.logistics</groupId>
-                <artifactId>services-core</artifactId>
-                <version>${logistics.dependencies.version}</version>
+                <groupId>org.thinking.sce</groupId>
+                <artifactId>service-core</artifactId>
+                <version>${sce.dependencies.version}</version>
             </dependency>
             <dependency>
-                <groupId>org.thinking.logistics</groupId>
-                <artifactId>order-reversal</artifactId>
-                <version>${logistics.dependencies.version}</version>
+                <groupId>org.thinking.sce</groupId>
+                <artifactId>order-reversor</artifactId>
+                <version>${sce.dependencies.version}</version>
             </dependency>
-            <!--logistics-->
+            <!--sce-->
         </dependencies>
     </dependencyManagement>
 
@@ -204,7 +204,7 @@
                                 <processor>com.querydsl.apt.jpa.JPAAnnotationProcessor</processor>
                                 <!--<options>-->
                                 <!--<querydsl.packageSuffix>.dsl</querydsl.packageSuffix>-->
-                                <!--<querydsl.includedPackages>org.thinking.logistics.services.common.*</querydsl.includedPackages>-->
+                                <!--<querydsl.includedPackages>org.thinking.sceces.common.*</querydsl.includedPackages>-->
                                 <!--</options>-->
                             </configuration>
                         </execution>
@@ -222,7 +222,7 @@
                 <!--<goal>jpa-export</goal>-->
                 <!--</goals>-->
                 <!--<configuration>-->
-                <!--&lt;!&ndash;<packageName>org.thinking.logistics.services.common.domain</packageName>&ndash;&gt;-->
+                <!--&lt;!&ndash;<packageName>org.thinking.sceces.common.domain</packageName>&ndash;&gt;-->
                 <!--<targetFolder>target/generated-sources</targetFolder>-->
                 <!--</configuration>-->
                 <!--</execution>-->

@@ -17,5 +17,5 @@ eureka:
     healthcheck:
       enabled: true
 turbine:
-  app-config: logistics-service-common,logistics-service-inventory
+  app-config: sce-service-common,sce-service-inventory
   cluster-name-expression: "'default'"
