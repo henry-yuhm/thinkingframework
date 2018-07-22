@@ -5,12 +5,14 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.thinking.sce.service.core.domain.CompositeException;
 import org.thinking.sce.service.core.domain.document.ShipmentOrderHeader;
+import org.thinking.sce.service.core.domain.stagingarea.QStagingarea;
 import org.thinking.sce.service.core.domain.stagingarea.Stagingarea;
 import org.thinking.sce.service.core.domain.support.ShipmentStatus;
 import org.thinking.sce.service.core.repository.DomainRepository;
 import org.thinking.sce.service.core.service.DomainService;
 
-import javax.persistence.*;
+import javax.persistence.EntityManager;
+import javax.persistence.LockModeType;
 import java.util.List;
 
 @Service

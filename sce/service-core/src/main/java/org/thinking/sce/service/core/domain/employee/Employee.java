@@ -1,15 +1,15 @@
 package org.thinking.sce.service.core.domain.employee;
 
-import lombok.*;
-import org.hibernate.annotations.*;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import org.hibernate.annotations.DynamicInsert;
+import org.hibernate.annotations.DynamicUpdate;
 import org.thinking.sce.service.core.domain.BaseDomainEntity;
 import org.thinking.sce.service.core.domain.common.Owner;
-import org.thinking.sce.service.core.domain.dictionary.*;
+import org.thinking.sce.service.core.domain.dictionary.EmployeePost;
+import org.thinking.sce.service.core.domain.dictionary.EmployeeRole;
 
-import javax.persistence.CascadeType;
 import javax.persistence.*;
-import javax.persistence.Entity;
-import javax.persistence.Table;
 import java.util.Set;
 
 @Entity

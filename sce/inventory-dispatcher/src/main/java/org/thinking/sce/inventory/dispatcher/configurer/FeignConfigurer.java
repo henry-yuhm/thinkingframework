@@ -1,7 +1,8 @@
 package org.thinking.sce.inventory.dispatcher.configurer;
 
 import feign.Logger;
-import org.springframework.context.annotation.*;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 
 @Configuration
 public class FeignConfigurer {

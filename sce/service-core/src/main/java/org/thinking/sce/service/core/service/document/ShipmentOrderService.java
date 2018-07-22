@@ -3,14 +3,19 @@ package org.thinking.sce.service.core.service.document;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.thinking.sce.service.core.domain.CompositeException;
-import org.thinking.sce.service.core.domain.common.*;
+import org.thinking.sce.service.core.domain.common.Owner;
+import org.thinking.sce.service.core.domain.common.Warehouse;
+import org.thinking.sce.service.core.domain.document.QReversionNoteDetail;
+import org.thinking.sce.service.core.domain.document.QShipmentOrderDetail;
+import org.thinking.sce.service.core.domain.document.QShipmentOrderHeader;
 import org.thinking.sce.service.core.domain.document.ShipmentOrderHeader;
 import org.thinking.sce.service.core.repository.DomainRepository;
 import org.thinking.sce.service.core.service.DomainService;
 
 import javax.persistence.EntityManager;
 import java.math.BigDecimal;
-import java.util.*;
+import java.util.List;
+import java.util.Optional;
 
 @Service
 public class ShipmentOrderService extends DomainService<QShipmentOrderHeader, ShipmentOrderHeader, Long> {

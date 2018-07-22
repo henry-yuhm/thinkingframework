@@ -1,15 +1,23 @@
 package org.thinking.sce.service.core.domain.command;
 
-import lombok.*;
-import org.hibernate.annotations.*;
+import lombok.AccessLevel;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.Setter;
+import org.hibernate.annotations.DynamicInsert;
+import org.hibernate.annotations.DynamicUpdate;
 import org.thinking.sce.service.core.domain.barcode.ShipmentBarcode;
-import org.thinking.sce.service.core.domain.common.*;
+import org.thinking.sce.service.core.domain.common.Location;
+import org.thinking.sce.service.core.domain.common.Lot;
+import org.thinking.sce.service.core.domain.common.Platform;
 import org.thinking.sce.service.core.domain.container.Pallet;
-import org.thinking.sce.service.core.domain.document.*;
-import org.thinking.sce.service.core.domain.support.*;
+import org.thinking.sce.service.core.domain.document.PickingList;
+import org.thinking.sce.service.core.domain.document.ShipmentOrderDetail;
+import org.thinking.sce.service.core.domain.document.ShipmentOrderHeader;
+import org.thinking.sce.service.core.domain.support.AppendantSign;
+import org.thinking.sce.service.core.domain.support.InventoryState;
 
 import javax.persistence.*;
-import javax.persistence.Entity;
 import java.math.BigDecimal;
 import java.util.Set;
 

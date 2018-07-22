@@ -5,10 +5,13 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.thinking.sce.service.core.domain.CompositeException;
 import org.thinking.sce.service.core.domain.common.Owner;
+import org.thinking.sce.service.core.domain.common.QOwner;
 import org.thinking.sce.service.core.repository.DomainRepository;
 
 import javax.persistence.EntityManager;
-import java.util.*;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Optional;
 
 @Service
 public class OwnerService extends DomainService<QOwner, Owner, Long> {

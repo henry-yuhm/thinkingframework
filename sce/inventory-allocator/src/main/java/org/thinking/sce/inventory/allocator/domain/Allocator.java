@@ -1,7 +1,8 @@
 package org.thinking.sce.inventory.allocator.domain;
 
 import org.thinking.sce.service.core.domain.command.ShipmentCommand;
-import org.thinking.sce.service.core.domain.common.*;
+import org.thinking.sce.service.core.domain.common.Item;
+import org.thinking.sce.service.core.domain.common.Lot;
 import org.thinking.sce.service.core.domain.document.ShipmentOrderDetail;
 import org.thinking.sce.service.core.domain.inventory.Inventory;
 

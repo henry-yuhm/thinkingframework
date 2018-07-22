@@ -1,11 +1,15 @@
 package org.thinking.sce.service.core.domain.inventory;
 
-import lombok.*;
-import org.hibernate.annotations.*;
-import org.thinking.sce.service.core.domain.document.*;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import org.hibernate.annotations.DynamicInsert;
+import org.hibernate.annotations.DynamicUpdate;
+import org.thinking.sce.service.core.domain.document.Header;
+import org.thinking.sce.service.core.domain.document.ReplenishmentOrderHeader;
 
 import javax.persistence.Entity;
-import javax.persistence.*;
+import javax.persistence.FetchType;
+import javax.persistence.ManyToOne;
 
 @Entity
 @DynamicInsert

@@ -1,13 +1,18 @@
 package org.thinking.sce.service.core.domain.command;
 
-import lombok.*;
-import org.hibernate.annotations.*;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import org.hibernate.annotations.DynamicInsert;
+import org.hibernate.annotations.DynamicUpdate;
 import org.thinking.sce.service.core.domain.common.Lot;
 import org.thinking.sce.service.core.domain.container.Pallet;
-import org.thinking.sce.service.core.domain.document.*;
+import org.thinking.sce.service.core.domain.document.ReplenishmentOrderDetail;
+import org.thinking.sce.service.core.domain.document.ReplenishmentOrderHeader;
 
-import javax.persistence.*;
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.ManyToOne;
 import java.math.BigDecimal;
 
 @Entity

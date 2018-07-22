@@ -1,8 +1,11 @@
 package org.thinking.sce.service.core.domain.document;
 
-import lombok.*;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
 import org.thinking.sce.service.core.domain.BaseDomainEntity;
-import org.thinking.sce.service.core.domain.common.*;
+import org.thinking.sce.service.core.domain.common.Item;
+import org.thinking.sce.service.core.domain.common.Lot;
+import org.thinking.sce.service.core.domain.common.Warehouse;
 
 import javax.persistence.*;
 

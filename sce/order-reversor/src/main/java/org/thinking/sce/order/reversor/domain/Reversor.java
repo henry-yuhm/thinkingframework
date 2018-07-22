@@ -1,6 +1,7 @@
 package org.thinking.sce.order.reversor.domain;
 
-import org.thinking.sce.service.core.domain.document.*;
+import org.thinking.sce.service.core.domain.document.ReversionNoteDetail;
+import org.thinking.sce.service.core.domain.document.ShipmentOrderDetail;
 
 import java.util.List;
 

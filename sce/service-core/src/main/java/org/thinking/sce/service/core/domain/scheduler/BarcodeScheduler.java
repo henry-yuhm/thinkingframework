@@ -1,11 +1,15 @@
 package org.thinking.sce.service.core.domain.scheduler;
 
-import lombok.*;
-import org.hibernate.annotations.*;
-import org.thinking.sce.service.core.domain.barcode.*;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import org.hibernate.annotations.DynamicInsert;
+import org.hibernate.annotations.DynamicUpdate;
+import org.thinking.sce.service.core.domain.barcode.ReplenishmentBarcode;
+import org.thinking.sce.service.core.domain.barcode.ShipmentBarcode;
 
 import javax.persistence.Entity;
-import javax.persistence.*;
+import javax.persistence.FetchType;
+import javax.persistence.OneToOne;
 
 @Entity
 @DynamicInsert

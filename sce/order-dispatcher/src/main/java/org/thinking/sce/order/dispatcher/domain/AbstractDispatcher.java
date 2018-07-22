@@ -1,7 +1,9 @@
 package org.thinking.sce.order.dispatcher.domain;
 
-import lombok.*;
-import org.thinking.sce.service.core.domain.*;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import org.thinking.sce.service.core.domain.BusinessBase;
+import org.thinking.sce.service.core.domain.CompositeException;
 import org.thinking.sce.service.core.domain.document.ShipmentOrderHeader;
 import org.thinking.sce.service.core.domain.employee.Employee;
 import org.thinking.sce.service.core.domain.support.ShipmentStatus;

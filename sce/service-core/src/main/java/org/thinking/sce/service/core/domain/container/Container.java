@@ -1,6 +1,7 @@
 package org.thinking.sce.service.core.domain.container;
 
-import lombok.*;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
 import org.thinking.sce.service.core.domain.BaseDomainEntity;
 import org.thinking.sce.service.core.domain.common.Warehouse;
 

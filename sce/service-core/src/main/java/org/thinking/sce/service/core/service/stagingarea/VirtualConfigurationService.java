@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.thinking.sce.service.core.domain.common.Direction;
 import org.thinking.sce.service.core.domain.document.ShipmentOrderHeader;
+import org.thinking.sce.service.core.domain.stagingarea.QVirtualConfiguration;
 import org.thinking.sce.service.core.domain.stagingarea.VirtualConfiguration;
 import org.thinking.sce.service.core.domain.support.StagingareaCategory;
 import org.thinking.sce.service.core.repository.DomainRepository;

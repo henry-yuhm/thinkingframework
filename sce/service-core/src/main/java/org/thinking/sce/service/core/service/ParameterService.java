@@ -5,10 +5,13 @@ import org.springframework.stereotype.Service;
 import org.thinking.sce.service.core.domain.CompositeException;
 import org.thinking.sce.service.core.domain.common.Warehouse;
 import org.thinking.sce.service.core.domain.parameter.Parameter;
+import org.thinking.sce.service.core.domain.parameter.QParameter;
 import org.thinking.sce.service.core.repository.DomainRepository;
 
 import javax.persistence.EntityManager;
-import java.util.*;
+import java.util.LinkedHashMap;
+import java.util.Map;
+import java.util.Optional;
 
 @Service
 public class ParameterService extends DomainService<QParameter, Parameter, Long> {

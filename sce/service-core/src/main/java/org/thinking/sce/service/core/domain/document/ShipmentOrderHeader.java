@@ -1,16 +1,17 @@
 package org.thinking.sce.service.core.domain.document;
 
-import lombok.*;
-import org.hibernate.annotations.*;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import org.hibernate.annotations.DynamicInsert;
+import org.hibernate.annotations.DynamicUpdate;
 import org.thinking.sce.service.core.domain.CompositeException;
-import org.thinking.sce.service.core.domain.common.*;
+import org.thinking.sce.service.core.domain.common.Address;
+import org.thinking.sce.service.core.domain.common.Customer;
 import org.thinking.sce.service.core.domain.employee.Employee;
 import org.thinking.sce.service.core.domain.stagingarea.Stagingarea;
 import org.thinking.sce.service.core.domain.support.*;
 
-import javax.persistence.CascadeType;
 import javax.persistence.*;
-import javax.persistence.Entity;
 import java.math.BigDecimal;
 import java.time.Instant;
 import java.util.Set;

@@ -1,15 +1,20 @@
 package org.thinking.sce.inventory.allocator.domain;
 
-import lombok.*;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
 import org.thinking.sce.order.reversor.domain.SaleOutboundReversor;
 import org.thinking.sce.service.core.domain.command.ShipmentCommand;
-import org.thinking.sce.service.core.domain.document.*;
+import org.thinking.sce.service.core.domain.document.ShipmentOrderDetail;
+import org.thinking.sce.service.core.domain.document.ShipmentOrderHeader;
 import org.thinking.sce.service.core.domain.inventory.Inventory;
 import org.thinking.sce.service.core.domain.support.*;
 
 import java.math.BigDecimal;
 import java.time.Instant;
-import java.util.*;
+import java.util.Comparator;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Data

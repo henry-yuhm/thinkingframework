@@ -1,14 +1,18 @@
 package org.thinking.sce.service.core.domain.inventory;
 
-import lombok.*;
-import org.hibernate.annotations.*;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
+import org.hibernate.annotations.DynamicInsert;
+import org.hibernate.annotations.DynamicUpdate;
 import org.thinking.sce.service.core.domain.BaseDomainEntity;
-import org.thinking.sce.service.core.domain.common.*;
-import org.thinking.sce.service.core.domain.support.*;
+import org.thinking.sce.service.core.domain.common.Owner;
+import org.thinking.sce.service.core.domain.common.Warehouse;
+import org.thinking.sce.service.core.domain.support.ItemClass;
+import org.thinking.sce.service.core.domain.support.PackageType;
+import org.thinking.sce.service.core.domain.support.SaleType;
 
 import javax.persistence.*;
-import javax.persistence.Entity;
-import javax.persistence.Table;
 import java.math.BigDecimal;
 
 @Entity

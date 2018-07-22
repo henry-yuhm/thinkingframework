@@ -1,11 +1,15 @@
 package org.thinking.sce.service.core.domain.inventory;
 
-import lombok.*;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
 import org.thinking.sce.service.core.domain.BaseDomainEntity;
 import org.thinking.sce.service.core.domain.common.*;
 import org.thinking.sce.service.core.domain.container.Pallet;
 import org.thinking.sce.service.core.domain.document.Header;
-import org.thinking.sce.service.core.domain.support.*;
+import org.thinking.sce.service.core.domain.support.InventoryState;
+import org.thinking.sce.service.core.domain.support.LedgerCategory;
+import org.thinking.sce.service.core.domain.support.LedgerSummary;
+import org.thinking.sce.service.core.domain.support.LedgerType;
 
 import javax.persistence.*;
 import java.math.BigDecimal;

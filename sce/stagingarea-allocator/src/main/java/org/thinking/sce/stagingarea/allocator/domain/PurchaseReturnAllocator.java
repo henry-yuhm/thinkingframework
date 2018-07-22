@@ -1,6 +1,7 @@
 package org.thinking.sce.stagingarea.allocator.domain;
 
-import lombok.*;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
 import org.thinking.sce.service.core.domain.CompositeException;
 import org.thinking.sce.service.core.domain.document.ShipmentOrderHeader;
 

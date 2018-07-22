@@ -1,6 +1,7 @@
 package org.thinking.sce.service.core.service.command;
 
 import org.springframework.stereotype.Service;
+import org.thinking.sce.service.core.domain.command.QShipmentCommand;
 import org.thinking.sce.service.core.domain.command.ShipmentCommand;
 import org.thinking.sce.service.core.repository.DomainRepository;
 import org.thinking.sce.service.core.service.DomainService;

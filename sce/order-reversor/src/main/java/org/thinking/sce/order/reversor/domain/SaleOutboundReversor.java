@@ -1,9 +1,13 @@
 package org.thinking.sce.order.reversor.domain;
 
-import lombok.*;
-import org.thinking.sce.service.core.domain.document.*;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import org.thinking.sce.service.core.domain.document.ReversionNoteDetail;
+import org.thinking.sce.service.core.domain.document.ShipmentOrderDetail;
+import org.thinking.sce.service.core.domain.document.ShipmentOrderHeader;
 import org.thinking.sce.service.core.domain.employee.Employee;
-import org.thinking.sce.service.core.domain.support.*;
+import org.thinking.sce.service.core.domain.support.ReversionStage;
+import org.thinking.sce.service.core.domain.support.ShipmentStatus;
 
 import java.math.BigDecimal;
 import java.time.Instant;

@@ -1,6 +1,7 @@
 package org.thinking.sce.data.servo.domain;
 
-import lombok.*;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
 import org.thinking.sce.service.core.domain.BusinessBase;
 
 @Data

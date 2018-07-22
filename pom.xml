@@ -202,32 +202,10 @@
                             <configuration>
                                 <outputDirectory>target/generated-sources/java</outputDirectory>
                                 <processor>com.querydsl.apt.jpa.JPAAnnotationProcessor</processor>
-                                <!--<options>-->
-                                <!--<querydsl.packageSuffix>.dsl</querydsl.packageSuffix>-->
-                                <!--<querydsl.includedPackages>org.thinking.sceces.common.*</querydsl.includedPackages>-->
-                                <!--</options>-->
                             </configuration>
                         </execution>
                     </executions>
                 </plugin>
-
-                <!--<plugin>-->
-                <!--<groupId>com.querydsl</groupId>-->
-                <!--<artifactId>querydsl-maven-plugin</artifactId>-->
-                <!--<version>${querydsl.version}</version>-->
-                <!--<executions>-->
-                <!--<execution>-->
-                <!--<phase>generate-sources</phase>-->
-                <!--<goals>-->
-                <!--<goal>jpa-export</goal>-->
-                <!--</goals>-->
-                <!--<configuration>-->
-                <!--&lt;!&ndash;<packageName>org.thinking.sceces.common.domain</packageName>&ndash;&gt;-->
-                <!--<targetFolder>target/generated-sources</targetFolder>-->
-                <!--</configuration>-->
-                <!--</execution>-->
-                <!--</executions>-->
-                <!--</plugin>-->
             </plugins>
         </pluginManagement>
     </build>

@@ -1,11 +1,17 @@
 package org.thinking.sce.order.reversor.domain;
 
-import lombok.*;
-import org.thinking.sce.service.core.domain.*;
-import org.thinking.sce.service.core.domain.document.*;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import org.thinking.sce.service.core.domain.BusinessBase;
+import org.thinking.sce.service.core.domain.CompositeException;
+import org.thinking.sce.service.core.domain.document.ReversionNoteDetail;
+import org.thinking.sce.service.core.domain.document.ShipmentOrderDetail;
+import org.thinking.sce.service.core.domain.document.ShipmentOrderHeader;
 import org.thinking.sce.service.core.domain.employee.Employee;
-import org.thinking.sce.service.core.domain.support.*;
-import org.thinking.sce.service.core.service.document.*;
+import org.thinking.sce.service.core.domain.support.ReversionStage;
+import org.thinking.sce.service.core.domain.support.ShipmentStatus;
+import org.thinking.sce.service.core.service.document.ReversionNoteService;
+import org.thinking.sce.service.core.service.document.ShipmentOrderService;
 import org.thinking.sce.service.core.service.stagingarea.StagingareaService;
 
 import javax.annotation.Resource;

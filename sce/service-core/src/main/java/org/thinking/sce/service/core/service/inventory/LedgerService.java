@@ -4,8 +4,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.thinking.sce.service.core.domain.document.Header;
-import org.thinking.sce.service.core.domain.inventory.*;
-import org.thinking.sce.service.core.domain.support.*;
+import org.thinking.sce.service.core.domain.inventory.Inventory;
+import org.thinking.sce.service.core.domain.inventory.Ledger;
+import org.thinking.sce.service.core.domain.inventory.QLedger;
+import org.thinking.sce.service.core.domain.support.LedgerCategory;
+import org.thinking.sce.service.core.domain.support.LedgerSummary;
+import org.thinking.sce.service.core.domain.support.LedgerType;
 import org.thinking.sce.service.core.repository.DomainRepository;
 import org.thinking.sce.service.core.service.DomainService;
 

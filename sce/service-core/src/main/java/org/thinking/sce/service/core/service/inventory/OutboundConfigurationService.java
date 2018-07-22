@@ -2,8 +2,10 @@ package org.thinking.sce.service.core.service.inventory;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.thinking.sce.service.core.domain.document.*;
+import org.thinking.sce.service.core.domain.document.ShipmentOrderDetail;
+import org.thinking.sce.service.core.domain.document.ShipmentOrderHeader;
 import org.thinking.sce.service.core.domain.inventory.OutboundConfiguration;
+import org.thinking.sce.service.core.domain.inventory.QOutboundConfiguration;
 import org.thinking.sce.service.core.domain.support.PackageType;
 import org.thinking.sce.service.core.repository.DomainRepository;
 import org.thinking.sce.service.core.service.DomainService;

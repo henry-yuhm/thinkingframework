@@ -1,19 +1,33 @@
 package org.thinking.sce.inventory.allocator.domain;
 
 import com.querydsl.core.Tuple;
-import lombok.*;
-import org.thinking.sce.service.core.domain.*;
-import org.thinking.sce.service.core.domain.command.*;
-import org.thinking.sce.service.core.domain.common.*;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import org.thinking.sce.service.core.domain.BusinessBase;
+import org.thinking.sce.service.core.domain.CompositeException;
+import org.thinking.sce.service.core.domain.command.QShipmentCommand;
+import org.thinking.sce.service.core.domain.command.ReplenishmentCommand;
+import org.thinking.sce.service.core.domain.command.ShipmentCommand;
+import org.thinking.sce.service.core.domain.common.Item;
+import org.thinking.sce.service.core.domain.common.Lot;
 import org.thinking.sce.service.core.domain.document.*;
-import org.thinking.sce.service.core.domain.inventory.*;
+import org.thinking.sce.service.core.domain.inventory.Inventory;
+import org.thinking.sce.service.core.domain.inventory.LotInventory;
+import org.thinking.sce.service.core.domain.inventory.OutboundConfiguration;
+import org.thinking.sce.service.core.domain.inventory.ShipmentLedger;
 import org.thinking.sce.service.core.domain.support.*;
-import org.thinking.sce.service.core.service.command.*;
-import org.thinking.sce.service.core.service.document.*;
-import org.thinking.sce.service.core.service.inventory.*;
+import org.thinking.sce.service.core.service.command.ReplenishmentCommandService;
+import org.thinking.sce.service.core.service.command.ShipmentCommandService;
+import org.thinking.sce.service.core.service.document.ReversionNoteService;
+import org.thinking.sce.service.core.service.document.ShipmentOrderService;
+import org.thinking.sce.service.core.service.inventory.InventoryService;
+import org.thinking.sce.service.core.service.inventory.LedgerService;
+import org.thinking.sce.service.core.service.inventory.LotInventoryService;
+import org.thinking.sce.service.core.service.inventory.OutboundConfigurationService;
 
 import javax.annotation.Resource;
-import java.math.*;
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.*;
 
 @Data

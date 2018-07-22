@@ -2,10 +2,14 @@ package org.thinking.sce.statemachine.dispatcher.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
-import org.springframework.statemachine.data.jpa.*;
+import org.springframework.statemachine.data.jpa.JpaRepositoryAction;
+import org.springframework.statemachine.data.jpa.JpaRepositoryGuard;
+import org.springframework.statemachine.data.jpa.JpaRepositoryState;
+import org.springframework.statemachine.data.jpa.JpaRepositoryTransition;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.thinking.sce.statemachine.dispatcher.domain.*;
+import org.thinking.sce.statemachine.dispatcher.domain.Node;
+import org.thinking.sce.statemachine.dispatcher.domain.Workflow;
 import org.thinking.sce.statemachine.dispatcher.repository.*;
 
 import java.util.*;

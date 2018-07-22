@@ -1,12 +1,21 @@
 package org.thinking.sce.service.core.domain.document;
 
-import lombok.*;
-import org.hibernate.annotations.*;
-import org.thinking.sce.service.core.domain.container.*;
-import org.thinking.sce.service.core.domain.support.*;
+import lombok.AccessLevel;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.Setter;
+import org.hibernate.annotations.DynamicInsert;
+import org.hibernate.annotations.DynamicUpdate;
+import org.thinking.sce.service.core.domain.container.Pallet;
+import org.thinking.sce.service.core.domain.container.Totebox;
+import org.thinking.sce.service.core.domain.support.Assessment;
+import org.thinking.sce.service.core.domain.support.Conveyance;
+import org.thinking.sce.service.core.domain.support.ReceiptConclusion;
 
-import javax.persistence.*;
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.ManyToOne;
 import java.math.BigDecimal;
 
 @Entity

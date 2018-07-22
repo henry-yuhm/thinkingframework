@@ -1,11 +1,16 @@
 package org.thinking.sce.inventory.allocator.domain;
 
-import lombok.*;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
 import org.thinking.sce.service.core.domain.CompositeException;
 import org.thinking.sce.service.core.domain.command.ShipmentCommand;
-import org.thinking.sce.service.core.domain.document.*;
+import org.thinking.sce.service.core.domain.document.ShipmentOrderDetail;
+import org.thinking.sce.service.core.domain.document.ShipmentOrderHeader;
 import org.thinking.sce.service.core.domain.inventory.Inventory;
-import org.thinking.sce.service.core.domain.support.*;
+import org.thinking.sce.service.core.domain.support.AppendantSign;
+import org.thinking.sce.service.core.domain.support.CommandStatus;
+import org.thinking.sce.service.core.domain.support.PackageType;
+import org.thinking.sce.service.core.domain.support.StorageClassification;
 
 import java.math.BigDecimal;
 

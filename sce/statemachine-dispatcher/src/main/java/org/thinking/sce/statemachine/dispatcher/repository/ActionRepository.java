@@ -1,6 +1,7 @@
 package org.thinking.sce.statemachine.dispatcher.repository;
 
-import org.springframework.statemachine.data.jpa.*;
+import org.springframework.statemachine.data.jpa.JpaActionRepository;
+import org.springframework.statemachine.data.jpa.JpaRepositoryAction;
 import org.springframework.stereotype.Repository;
 
 @Repository

@@ -3,7 +3,9 @@ package org.thinking.sce.service.core.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.thinking.sce.service.core.domain.CompositeException;
-import org.thinking.sce.service.core.domain.common.*;
+import org.thinking.sce.service.core.domain.common.Customer;
+import org.thinking.sce.service.core.domain.common.Owner;
+import org.thinking.sce.service.core.domain.common.QCustomer;
 import org.thinking.sce.service.core.repository.DomainRepository;
 
 import javax.persistence.EntityManager;

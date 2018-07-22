@@ -1,11 +1,13 @@
 package org.thinking.sce.data.servo.domain;
 
-import lombok.*;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
 import org.thinking.sce.service.core.domain.document.ShipmentOrderHeader;
 import org.thinking.sce.service.core.service.document.ShipmentOrderService;
 
 import javax.annotation.Resource;
-import java.math.*;
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 
 @Data
 @EqualsAndHashCode(callSuper = true)

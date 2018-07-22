@@ -1,8 +1,10 @@
 package org.thinking.sce.order.initializer.domain;
 
-import lombok.*;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
 import org.thinking.sce.service.core.domain.document.ShipmentOrderHeader;
-import org.thinking.sce.service.core.domain.support.*;
+import org.thinking.sce.service.core.domain.support.OutboundPriority;
+import org.thinking.sce.service.core.domain.support.PickupMode;
 
 @Data
 @EqualsAndHashCode(callSuper = true)

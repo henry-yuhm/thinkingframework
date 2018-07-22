@@ -1,6 +1,7 @@
 package org.thinking.sce.service.core.service.container;
 
 import org.springframework.stereotype.Service;
+import org.thinking.sce.service.core.domain.container.QTotebox;
 import org.thinking.sce.service.core.domain.container.Totebox;
 import org.thinking.sce.service.core.repository.DomainRepository;
 import org.thinking.sce.service.core.service.DomainService;

@@ -9,7 +9,8 @@ import org.springframework.http.converter.json.MappingJackson2HttpMessageConvert
 import org.springframework.web.servlet.HandlerExceptionResolver;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class AppWebMvcConfigurer implements WebMvcConfigurer {
     @Override

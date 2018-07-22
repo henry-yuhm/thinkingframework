@@ -1,14 +1,20 @@
 package org.thinking.sce.service.core.domain.stagingarea;
 
-import lombok.*;
-import org.hibernate.annotations.*;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
+import org.hibernate.annotations.DynamicInsert;
+import org.hibernate.annotations.DynamicUpdate;
 import org.thinking.sce.service.core.domain.BaseDomainEntity;
-import org.thinking.sce.service.core.domain.common.*;
-import org.thinking.sce.service.core.domain.support.*;
+import org.thinking.sce.service.core.domain.common.Direction;
+import org.thinking.sce.service.core.domain.common.Owner;
+import org.thinking.sce.service.core.domain.common.Warehouse;
+import org.thinking.sce.service.core.domain.support.ItemClass;
+import org.thinking.sce.service.core.domain.support.PickupMode;
+import org.thinking.sce.service.core.domain.support.SaleType;
+import org.thinking.sce.service.core.domain.support.StagingareaCategory;
 
 import javax.persistence.*;
-import javax.persistence.Entity;
-import javax.persistence.Table;
 
 @Entity
 @Table(uniqueConstraints = @UniqueConstraint(name = "uk_virtual_sga_cfg", columnNames = {"warehouse_id", "owner_id", "available", "itemClass", "pickupMode", "saleType", "stagingareaCategory", "direction_id"}))

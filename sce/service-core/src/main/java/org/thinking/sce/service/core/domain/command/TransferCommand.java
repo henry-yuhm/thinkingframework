@@ -1,12 +1,16 @@
 package org.thinking.sce.service.core.domain.command;
 
-import lombok.*;
-import org.hibernate.annotations.*;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import org.hibernate.annotations.DynamicInsert;
+import org.hibernate.annotations.DynamicUpdate;
 import org.thinking.sce.service.core.domain.container.Pallet;
-import org.thinking.sce.service.core.domain.document.*;
+import org.thinking.sce.service.core.domain.document.TransferOrderDetail;
+import org.thinking.sce.service.core.domain.document.TransferOrderHeader;
 
 import javax.persistence.Entity;
-import javax.persistence.*;
+import javax.persistence.FetchType;
+import javax.persistence.ManyToOne;
 
 @Entity
 @DynamicInsert

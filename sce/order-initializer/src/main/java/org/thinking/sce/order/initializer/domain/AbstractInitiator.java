@@ -1,9 +1,13 @@
 package org.thinking.sce.order.initializer.domain;
 
-import lombok.*;
-import org.thinking.sce.service.core.domain.*;
-import org.thinking.sce.service.core.domain.document.*;
-import org.thinking.sce.service.core.domain.support.*;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import org.thinking.sce.service.core.domain.BusinessBase;
+import org.thinking.sce.service.core.domain.CompositeException;
+import org.thinking.sce.service.core.domain.document.ShipmentOrderDetail;
+import org.thinking.sce.service.core.domain.document.ShipmentOrderHeader;
+import org.thinking.sce.service.core.domain.support.NotExistsEntityException;
+import org.thinking.sce.service.core.domain.support.ShipmentStatus;
 import org.thinking.sce.service.core.service.document.ShipmentOrderService;
 
 import javax.annotation.Resource;

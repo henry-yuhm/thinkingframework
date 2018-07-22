@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 import org.thinking.sce.service.core.domain.CompositeException;
 import org.thinking.sce.service.core.domain.document.ShipmentOrderHeader;
 import org.thinking.sce.service.core.domain.stagingarea.PhysicalConfiguration;
+import org.thinking.sce.service.core.domain.stagingarea.QPhysicalConfiguration;
 import org.thinking.sce.service.core.repository.DomainRepository;
 import org.thinking.sce.service.core.service.DomainService;
 

@@ -1,14 +1,17 @@
 package org.thinking.sce.service.core.domain.inventory;
 
-import lombok.*;
-import org.hibernate.annotations.*;
+import lombok.AccessLevel;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.Setter;
+import org.hibernate.annotations.DynamicInsert;
+import org.hibernate.annotations.DynamicUpdate;
 import org.thinking.sce.service.core.domain.BaseDomainEntity;
 import org.thinking.sce.service.core.domain.common.*;
 import org.thinking.sce.service.core.domain.container.Pallet;
 import org.thinking.sce.service.core.domain.support.InventoryState;
 
 import javax.persistence.*;
-import javax.persistence.Entity;
 import java.math.BigDecimal;
 
 @Entity

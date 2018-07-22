@@ -1,10 +1,14 @@
 package org.thinking.sce.service.core.domain.document;
 
-import lombok.*;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
 import org.thinking.sce.service.core.domain.BaseDomainEntity;
-import org.thinking.sce.service.core.domain.common.*;
+import org.thinking.sce.service.core.domain.common.Owner;
+import org.thinking.sce.service.core.domain.common.Warehouse;
 import org.thinking.sce.service.core.domain.employee.Employee;
-import org.thinking.sce.service.core.domain.support.*;
+import org.thinking.sce.service.core.domain.support.DataSource;
+import org.thinking.sce.service.core.domain.support.DocumentType;
+import org.thinking.sce.service.core.domain.support.ItemClass;
 
 import javax.persistence.*;
 import java.util.Set;

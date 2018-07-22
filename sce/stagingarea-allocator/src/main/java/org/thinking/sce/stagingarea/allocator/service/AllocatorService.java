@@ -6,7 +6,9 @@ import org.springframework.transaction.annotation.Transactional;
 import org.thinking.sce.service.core.domain.document.ShipmentOrderHeader;
 import org.thinking.sce.service.core.domain.support.SaleType;
 import org.thinking.sce.service.core.service.document.ShipmentOrderService;
-import org.thinking.sce.stagingarea.allocator.domain.*;
+import org.thinking.sce.stagingarea.allocator.domain.Allocator;
+import org.thinking.sce.stagingarea.allocator.domain.PurchaseReturnAllocator;
+import org.thinking.sce.stagingarea.allocator.domain.SaleOutboundAllocator;
 
 @Service
 public class AllocatorService {

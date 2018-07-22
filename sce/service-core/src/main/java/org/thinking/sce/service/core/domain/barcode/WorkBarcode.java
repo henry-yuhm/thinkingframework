@@ -1,8 +1,10 @@
 package org.thinking.sce.service.core.domain.barcode;
 
-import lombok.*;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
 import org.thinking.sce.service.core.domain.common.Warehouse;
-import org.thinking.sce.service.core.domain.support.*;
+import org.thinking.sce.service.core.domain.support.BarcodeType;
+import org.thinking.sce.service.core.domain.support.TransmissionType;
 
 import javax.persistence.*;
 

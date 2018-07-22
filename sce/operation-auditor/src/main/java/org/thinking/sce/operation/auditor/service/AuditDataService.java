@@ -5,7 +5,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.thinking.sce.operation.auditor.domain.AuditData;
-import org.thinking.sce.operation.auditor.repository.*;
+import org.thinking.sce.operation.auditor.repository.AuditDataRepository;
+import org.thinking.sce.operation.auditor.repository.AuditTypeRepository;
 
 import java.util.List;
 

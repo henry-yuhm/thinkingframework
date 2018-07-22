@@ -1,11 +1,12 @@
 package org.thinking.sce.statemachine.dispatcher.domain;
 
-import lombok.*;
-import org.hibernate.annotations.*;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import org.hibernate.annotations.DynamicInsert;
+import org.hibernate.annotations.DynamicUpdate;
 import org.springframework.statemachine.data.jpa.JpaRepositoryState;
 
 import javax.persistence.*;
-import javax.persistence.Entity;
 
 @Entity
 @DynamicInsert

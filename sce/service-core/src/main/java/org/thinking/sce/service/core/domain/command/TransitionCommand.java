@@ -1,6 +1,7 @@
 package org.thinking.sce.service.core.domain.command;
 
-import lombok.*;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
 import org.thinking.sce.service.core.domain.common.Location;
 import org.thinking.sce.service.core.domain.support.InventoryState;
 
