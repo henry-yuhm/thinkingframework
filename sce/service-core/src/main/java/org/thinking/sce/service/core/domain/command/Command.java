@@ -5,9 +5,18 @@ import lombok.EqualsAndHashCode;
 import org.thinking.sce.service.core.domain.BaseDomainEntity;
 import org.thinking.sce.service.core.domain.common.Item;
 import org.thinking.sce.service.core.domain.common.Warehouse;
-import org.thinking.sce.service.core.domain.support.*;
+import org.thinking.sce.service.core.domain.support.CommandCategory;
+import org.thinking.sce.service.core.domain.support.CommandStatus;
+import org.thinking.sce.service.core.domain.support.CommandType;
+import org.thinking.sce.service.core.domain.support.PackageType;
+import org.thinking.sce.service.core.domain.support.WorkMode;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.FetchType;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
+import javax.persistence.ManyToOne;
+import javax.persistence.MappedSuperclass;
 
 @MappedSuperclass
 @Inheritance(strategy = InheritanceType.JOINED)

@@ -5,7 +5,12 @@ import lombok.EqualsAndHashCode;
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
 import org.thinking.sce.service.core.domain.BaseDomainEntity;
-import org.thinking.sce.service.core.domain.support.*;
+import org.thinking.sce.service.core.domain.support.LocationType;
+import org.thinking.sce.service.core.domain.support.PackageType;
+import org.thinking.sce.service.core.domain.support.PileupType;
+import org.thinking.sce.service.core.domain.support.RackType;
+import org.thinking.sce.service.core.domain.support.StorageState;
+import org.thinking.sce.service.core.domain.support.StorageType;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;

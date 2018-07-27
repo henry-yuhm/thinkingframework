@@ -4,7 +4,11 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import org.thinking.sce.service.core.domain.CompositeException;
 import org.thinking.sce.service.core.domain.document.ShipmentOrderHeader;
-import org.thinking.sce.service.core.domain.support.*;
+import org.thinking.sce.service.core.domain.support.DispatcherType;
+import org.thinking.sce.service.core.domain.support.OutboundPriority;
+import org.thinking.sce.service.core.domain.support.PickupMode;
+import org.thinking.sce.service.core.domain.support.PrintSign;
+import org.thinking.sce.service.core.domain.support.SaleType;
 import org.thinking.sce.service.core.service.AddressService;
 
 import javax.annotation.Resource;

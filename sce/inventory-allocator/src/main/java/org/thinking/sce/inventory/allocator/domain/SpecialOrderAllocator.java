@@ -7,7 +7,12 @@ import org.thinking.sce.service.core.domain.command.ShipmentCommand;
 import org.thinking.sce.service.core.domain.document.ShipmentOrderDetail;
 import org.thinking.sce.service.core.domain.document.ShipmentOrderHeader;
 import org.thinking.sce.service.core.domain.inventory.Inventory;
-import org.thinking.sce.service.core.domain.support.*;
+import org.thinking.sce.service.core.domain.support.CommandStatus;
+import org.thinking.sce.service.core.domain.support.PackageType;
+import org.thinking.sce.service.core.domain.support.PrintSign;
+import org.thinking.sce.service.core.domain.support.ReversionStage;
+import org.thinking.sce.service.core.domain.support.ShipmentStatus;
+import org.thinking.sce.service.core.domain.support.WorkMode;
 
 import java.math.BigDecimal;
 import java.time.Instant;

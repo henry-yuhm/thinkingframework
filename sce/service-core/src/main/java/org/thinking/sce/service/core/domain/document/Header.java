@@ -10,7 +10,12 @@ import org.thinking.sce.service.core.domain.support.DataSource;
 import org.thinking.sce.service.core.domain.support.DocumentType;
 import org.thinking.sce.service.core.domain.support.ItemClass;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.FetchType;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
+import javax.persistence.ManyToOne;
+import javax.persistence.MappedSuperclass;
 import java.util.Set;
 
 @MappedSuperclass

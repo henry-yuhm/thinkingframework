@@ -10,12 +10,27 @@ import org.thinking.sce.service.core.domain.command.ReplenishmentCommand;
 import org.thinking.sce.service.core.domain.command.ShipmentCommand;
 import org.thinking.sce.service.core.domain.common.Item;
 import org.thinking.sce.service.core.domain.common.Lot;
-import org.thinking.sce.service.core.domain.document.*;
+import org.thinking.sce.service.core.domain.document.QReversionNoteDetail;
+import org.thinking.sce.service.core.domain.document.QShipmentOrderDetail;
+import org.thinking.sce.service.core.domain.document.QShipmentOrderHeader;
+import org.thinking.sce.service.core.domain.document.ShipmentOrderDetail;
+import org.thinking.sce.service.core.domain.document.ShipmentOrderHeader;
 import org.thinking.sce.service.core.domain.inventory.Inventory;
 import org.thinking.sce.service.core.domain.inventory.LotInventory;
 import org.thinking.sce.service.core.domain.inventory.OutboundConfiguration;
 import org.thinking.sce.service.core.domain.inventory.ShipmentLedger;
-import org.thinking.sce.service.core.domain.support.*;
+import org.thinking.sce.service.core.domain.support.CommandCategory;
+import org.thinking.sce.service.core.domain.support.CommandType;
+import org.thinking.sce.service.core.domain.support.ItemClass;
+import org.thinking.sce.service.core.domain.support.LedgerCategory;
+import org.thinking.sce.service.core.domain.support.LedgerSummary;
+import org.thinking.sce.service.core.domain.support.LedgerType;
+import org.thinking.sce.service.core.domain.support.PackageType;
+import org.thinking.sce.service.core.domain.support.PickupMode;
+import org.thinking.sce.service.core.domain.support.SaleType;
+import org.thinking.sce.service.core.domain.support.ShipmentStatus;
+import org.thinking.sce.service.core.domain.support.SplittingGranularity;
+import org.thinking.sce.service.core.domain.support.ValidPeriodType;
 import org.thinking.sce.service.core.service.command.ReplenishmentCommandService;
 import org.thinking.sce.service.core.service.command.ShipmentCommandService;
 import org.thinking.sce.service.core.service.document.ReversionNoteService;
@@ -28,7 +43,11 @@ import org.thinking.sce.service.core.service.inventory.OutboundConfigurationServ
 import javax.annotation.Resource;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
-import java.util.*;
+import java.util.LinkedHashMap;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
+import java.util.Optional;
 
 @Data
 @EqualsAndHashCode(callSuper = true)

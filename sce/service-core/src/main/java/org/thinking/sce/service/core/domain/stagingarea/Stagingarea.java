@@ -14,7 +14,13 @@ import org.thinking.sce.service.core.domain.support.PickupMode;
 import org.thinking.sce.service.core.domain.support.StagingareaCategory;
 import org.thinking.sce.service.core.domain.support.StagingareaType;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import java.util.LinkedHashSet;
 import java.util.Set;
 

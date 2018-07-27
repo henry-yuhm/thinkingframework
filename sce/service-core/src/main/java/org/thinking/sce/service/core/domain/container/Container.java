@@ -5,7 +5,12 @@ import lombok.EqualsAndHashCode;
 import org.thinking.sce.service.core.domain.BaseDomainEntity;
 import org.thinking.sce.service.core.domain.common.Warehouse;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.FetchType;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
+import javax.persistence.ManyToOne;
+import javax.persistence.MappedSuperclass;
 
 @MappedSuperclass
 @Inheritance(strategy = InheritanceType.JOINED)

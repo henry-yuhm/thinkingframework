@@ -6,7 +6,12 @@ import org.thinking.sce.service.core.domain.common.Warehouse;
 import org.thinking.sce.service.core.domain.support.BarcodeType;
 import org.thinking.sce.service.core.domain.support.TransmissionType;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.FetchType;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
+import javax.persistence.ManyToOne;
+import javax.persistence.MappedSuperclass;
 
 @MappedSuperclass
 @Inheritance(strategy = InheritanceType.JOINED)

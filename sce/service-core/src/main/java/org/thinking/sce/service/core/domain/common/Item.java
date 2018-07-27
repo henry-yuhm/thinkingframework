@@ -10,7 +10,12 @@ import org.thinking.sce.service.core.domain.support.SaleClassification;
 import org.thinking.sce.service.core.domain.support.SplittingGranularity;
 import org.thinking.sce.service.core.domain.support.StorageClassification;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.time.Instant;

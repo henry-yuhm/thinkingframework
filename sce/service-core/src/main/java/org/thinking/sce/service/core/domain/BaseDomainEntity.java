@@ -3,7 +3,13 @@ package org.thinking.sce.service.core.domain;
 import lombok.Data;
 import org.thinking.sce.service.core.domain.employee.Employee;
 
-import javax.persistence.*;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.persistence.MappedSuperclass;
+import javax.persistence.TableGenerator;
 import java.time.Instant;
 
 @MappedSuperclass

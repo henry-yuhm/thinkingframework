@@ -9,7 +9,14 @@ import org.thinking.sce.service.core.domain.support.ArrivalMode;
 import org.thinking.sce.service.core.domain.support.ArrivalVoucher;
 import org.thinking.sce.service.core.domain.support.ReceivingStatus;
 
-import javax.persistence.*;
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import java.time.Instant;
 import java.util.Set;
 

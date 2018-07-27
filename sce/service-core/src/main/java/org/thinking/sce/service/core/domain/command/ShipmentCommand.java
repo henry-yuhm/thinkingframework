@@ -17,7 +17,13 @@ import org.thinking.sce.service.core.domain.document.ShipmentOrderHeader;
 import org.thinking.sce.service.core.domain.support.AppendantSign;
 import org.thinking.sce.service.core.domain.support.InventoryState;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import java.math.BigDecimal;
 import java.util.Set;
 

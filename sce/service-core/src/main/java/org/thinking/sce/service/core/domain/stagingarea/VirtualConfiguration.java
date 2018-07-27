@@ -14,7 +14,12 @@ import org.thinking.sce.service.core.domain.support.PickupMode;
 import org.thinking.sce.service.core.domain.support.SaleType;
 import org.thinking.sce.service.core.domain.support.StagingareaCategory;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
 
 @Entity
 @Table(uniqueConstraints = @UniqueConstraint(name = "uk_virtual_sga_cfg", columnNames = {"warehouse_id", "owner_id", "available", "itemClass", "pickupMode", "saleType", "stagingareaCategory", "direction_id"}))

@@ -9,7 +9,13 @@ import org.thinking.sce.service.core.domain.command.ShipmentCommand;
 import org.thinking.sce.service.core.domain.common.Sorter;
 import org.thinking.sce.service.core.domain.support.GroupageType;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import java.util.Set;
 
 @Entity

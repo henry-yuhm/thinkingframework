@@ -3,7 +3,11 @@ package org.thinking.sce.service.core.domain.inventory;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import org.thinking.sce.service.core.domain.BaseDomainEntity;
-import org.thinking.sce.service.core.domain.common.*;
+import org.thinking.sce.service.core.domain.common.Item;
+import org.thinking.sce.service.core.domain.common.Location;
+import org.thinking.sce.service.core.domain.common.Lot;
+import org.thinking.sce.service.core.domain.common.Owner;
+import org.thinking.sce.service.core.domain.common.Warehouse;
 import org.thinking.sce.service.core.domain.container.Pallet;
 import org.thinking.sce.service.core.domain.document.Header;
 import org.thinking.sce.service.core.domain.support.InventoryState;
@@ -11,7 +15,12 @@ import org.thinking.sce.service.core.domain.support.LedgerCategory;
 import org.thinking.sce.service.core.domain.support.LedgerSummary;
 import org.thinking.sce.service.core.domain.support.LedgerType;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.FetchType;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
+import javax.persistence.ManyToOne;
+import javax.persistence.MappedSuperclass;
 import java.math.BigDecimal;
 
 @MappedSuperclass

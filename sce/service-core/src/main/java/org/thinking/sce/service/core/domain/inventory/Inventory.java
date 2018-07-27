@@ -7,11 +7,19 @@ import lombok.Setter;
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
 import org.thinking.sce.service.core.domain.BaseDomainEntity;
-import org.thinking.sce.service.core.domain.common.*;
+import org.thinking.sce.service.core.domain.common.Item;
+import org.thinking.sce.service.core.domain.common.Location;
+import org.thinking.sce.service.core.domain.common.Lot;
+import org.thinking.sce.service.core.domain.common.Owner;
+import org.thinking.sce.service.core.domain.common.Warehouse;
 import org.thinking.sce.service.core.domain.container.Pallet;
 import org.thinking.sce.service.core.domain.support.InventoryState;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.ManyToOne;
+import javax.persistence.Transient;
 import java.math.BigDecimal;
 
 @Entity

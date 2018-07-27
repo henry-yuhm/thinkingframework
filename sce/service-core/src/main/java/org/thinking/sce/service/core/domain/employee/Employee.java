@@ -9,7 +9,18 @@ import org.thinking.sce.service.core.domain.common.Owner;
 import org.thinking.sce.service.core.domain.dictionary.EmployeePost;
 import org.thinking.sce.service.core.domain.dictionary.EmployeeRole;
 
-import javax.persistence.*;
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
 import java.util.Set;
 
 @Entity

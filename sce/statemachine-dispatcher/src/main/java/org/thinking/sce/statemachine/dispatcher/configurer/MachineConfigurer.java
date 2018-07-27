@@ -18,7 +18,11 @@ import org.springframework.statemachine.config.StateMachineConfigurerAdapter;
 import org.springframework.statemachine.config.StateMachineFactory;
 import org.springframework.statemachine.config.builders.StateMachineConfigurationConfigurer;
 import org.springframework.statemachine.config.builders.StateMachineModelConfigurer;
-import org.springframework.statemachine.config.model.*;
+import org.springframework.statemachine.config.model.ConfigurationData;
+import org.springframework.statemachine.config.model.DefaultStateMachineModel;
+import org.springframework.statemachine.config.model.StateMachineModelFactory;
+import org.springframework.statemachine.config.model.StatesData;
+import org.springframework.statemachine.config.model.TransitionsData;
 import org.springframework.statemachine.data.RepositoryStateMachineModelFactory;
 import org.springframework.statemachine.data.jpa.JpaPersistingStateMachineInterceptor;
 import org.springframework.statemachine.data.jpa.JpaRepositoryAction;
@@ -39,9 +43,18 @@ import org.springframework.statemachine.support.StateMachineInterceptorAdapter;
 import org.springframework.statemachine.transition.Transition;
 import org.springframework.web.client.RestTemplate;
 import org.thinking.sce.statemachine.dispatcher.domain.Monitor;
-import org.thinking.sce.statemachine.dispatcher.repository.*;
+import org.thinking.sce.statemachine.dispatcher.repository.ActionRepository;
+import org.thinking.sce.statemachine.dispatcher.repository.GuardRepository;
+import org.thinking.sce.statemachine.dispatcher.repository.MachineRepository;
+import org.thinking.sce.statemachine.dispatcher.repository.MonitorRepository;
+import org.thinking.sce.statemachine.dispatcher.repository.StateRepository;
+import org.thinking.sce.statemachine.dispatcher.repository.TransitionRepository;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.LinkedHashMap;
+import java.util.Map;
+import java.util.Optional;
 
 @Configuration
 @EnableStateMachineFactory
